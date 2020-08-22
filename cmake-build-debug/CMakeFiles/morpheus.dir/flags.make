@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/. -I/opt/devkitpro/libgba/include 
+CXX_INCLUDES = 
 

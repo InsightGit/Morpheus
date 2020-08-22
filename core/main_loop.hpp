@@ -5,19 +5,21 @@
 #ifndef MORPHEUS_MAIN_LOOP_HPP
 #define MORPHEUS_MAIN_LOOP_HPP
 
-#include "node.hpp"
-#include "uncopyable.hpp"
+#include <core/node.hpp>
+#include <core/uncopyable.hpp>
 
 namespace morpheus {
     namespace core {
-        enum Error {
+        enum class Error {
             OK
         };
+
+        class Node;
 
         class MainLoop : Uncopyable {
         public:
             MainLoop() {
-                if(platform_init() != OK) {
+                if(platform_init() != Error::OK) {
                     //
                 }
             }

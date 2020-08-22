@@ -8,20 +8,18 @@
 #include <list>
 #include <memory>
 
+#include <core/main_loop.hpp>
+#include <core/input_event.hpp>
+
+
 namespace morpheus {
     namespace core {
         class Node {
         public:
-            Node() {}
+            Node() = default;
 
             void add_child(Node *child) {
                 m_children.push_back(std::unique_ptr<Node>(child));
-            }
-
-            void draw_children() {
-                for(std::unique_ptr<Node> &child : m_children) {
-                    child.get()->draw();
-                }
             }
 
             std::list<Node*> get_children() {
@@ -34,7 +32,19 @@ namespace morpheus {
                 return return_value;
             }
 
-            virtual void draw() = 0;
+            void received_input(InputEvent input_event) {
+                input();
+
+                for(std::unique_ptr<Node> &child : m_children) {
+                    child->input();
+                }
+            }
+
+            virtual void draw(void **obj_attr_buffer, int obj_attr_num = 0) = 0;
+        protected:
+            virtual void draw_children(void **obj_attr_buffer, int obj_attr_num) = 0;
+
+            virtual void input() = 0;
         private:
             std::list<std::unique_ptr<Node>> m_children;
         };

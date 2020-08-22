@@ -59,10 +59,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.78/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.78/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -79,7 +79,7 @@ CMAKE_BINARY_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.78/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -90,7 +90,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.78/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -197,32 +197,32 @@ gba/gfx/sprite.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.s
 .PHONY : gba/gfx/sprite.cpp.s
 
-main.o: main.cpp.o
+tests/gba_input_test.o: tests/gba_input_test.cpp.o
 
-.PHONY : main.o
+.PHONY : tests/gba_input_test.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/main.cpp.o
-.PHONY : main.cpp.o
+tests/gba_input_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o
+.PHONY : tests/gba_input_test.cpp.o
 
-main.i: main.cpp.i
+tests/gba_input_test.i: tests/gba_input_test.cpp.i
 
-.PHONY : main.i
+.PHONY : tests/gba_input_test.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/main.cpp.i
-.PHONY : main.cpp.i
+tests/gba_input_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.i
+.PHONY : tests/gba_input_test.cpp.i
 
-main.s: main.cpp.s
+tests/gba_input_test.s: tests/gba_input_test.cpp.s
 
-.PHONY : main.s
+.PHONY : tests/gba_input_test.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/main.cpp.s
-.PHONY : main.cpp.s
+tests/gba_input_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.s
+.PHONY : tests/gba_input_test.cpp.s
 
 # Help Target
 help:
@@ -239,9 +239,9 @@ help:
 	@echo "... gba/gfx/sprite.o"
 	@echo "... gba/gfx/sprite.i"
 	@echo "... gba/gfx/sprite.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... tests/gba_input_test.o"
+	@echo "... tests/gba_input_test.i"
+	@echo "... tests/gba_input_test.s"
 .PHONY : help
 
 

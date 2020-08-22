@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="morpheus"/>
+		<Option title="morpheus-test"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
@@ -44,6 +44,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -66,6 +68,8 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -82,9 +86,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/core.hpp">
-			<Option target="morpheus"/>
-		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/gfx/vector_2.hpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -100,9 +101,6 @@
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/uncopyable.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gba.hpp">
-			<Option target="morpheus"/>
-		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gba_main_loop.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -113,9 +111,6 @@
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gfx/sprite.hpp">
-			<Option target="morpheus"/>
-		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/CMakeLists.txt">

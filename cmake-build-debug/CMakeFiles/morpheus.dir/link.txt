@@ -1,1 +1,2 @@
-/usr/bin/c++  -g   CMakeFiles/morpheus.dir/main.cpp.o CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o CMakeFiles/morpheus.dir/gba/gba_main_loop.cpp.o  -o morpheus 
+/usr/bin/ar qc libmorpheus.a  CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o CMakeFiles/morpheus.dir/gba/gba_main_loop.cpp.o CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o
+/usr/bin/ranlib libmorpheus.a
