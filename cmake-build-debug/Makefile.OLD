@@ -59,10 +59,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -76,27 +76,27 @@ CMAKE_BINARY_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -142,6 +142,32 @@ morpheus: cmake_check_build_system
 morpheus/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
 .PHONY : morpheus/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-test.elf
+
+# Build rule for target.
+morpheus-gba-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-test.elf
+.PHONY : morpheus-gba-test.elf
+
+# fast build rule for target.
+morpheus-gba-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/build
+.PHONY : morpheus-gba-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-test.gba
+
+# Build rule for target.
+morpheus-gba-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-test.gba
+.PHONY : morpheus-gba-test.gba
+
+# fast build rule for target.
+morpheus-gba-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.gba.dir/build.make CMakeFiles/morpheus-gba-test.gba.dir/build
+.PHONY : morpheus-gba-test.gba/fast
 
 gba/gba_main_loop.o: gba/gba_main_loop.cpp.o
 
@@ -204,6 +230,7 @@ tests/gba_input_test.o: tests/gba_input_test.cpp.o
 # target to build an object file
 tests/gba_input_test.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o
 .PHONY : tests/gba_input_test.cpp.o
 
 tests/gba_input_test.i: tests/gba_input_test.cpp.i
@@ -213,6 +240,7 @@ tests/gba_input_test.i: tests/gba_input_test.cpp.i
 # target to preprocess a source file
 tests/gba_input_test.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i
 .PHONY : tests/gba_input_test.cpp.i
 
 tests/gba_input_test.s: tests/gba_input_test.cpp.s
@@ -222,7 +250,35 @@ tests/gba_input_test.s: tests/gba_input_test.cpp.s
 # target to generate assembly for a file
 tests/gba_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s
 .PHONY : tests/gba_input_test.cpp.s
+
+tests/test_image.o: tests/test_image.c.o
+
+.PHONY : tests/test_image.o
+
+# target to build an object file
+tests/test_image.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/test_image.c.o
+.PHONY : tests/test_image.c.o
+
+tests/test_image.i: tests/test_image.c.i
+
+.PHONY : tests/test_image.i
+
+# target to preprocess a source file
+tests/test_image.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/test_image.c.i
+.PHONY : tests/test_image.c.i
+
+tests/test_image.s: tests/test_image.c.s
+
+.PHONY : tests/test_image.s
+
+# target to generate assembly for a file
+tests/test_image.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/test_image.c.s
+.PHONY : tests/test_image.c.s
 
 # Help Target
 help:
@@ -232,7 +288,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... morpheus-gba-test.gba"
 	@echo "... morpheus"
+	@echo "... morpheus-gba-test.elf"
 	@echo "... gba/gba_main_loop.o"
 	@echo "... gba/gba_main_loop.i"
 	@echo "... gba/gba_main_loop.s"
@@ -242,6 +300,9 @@ help:
 	@echo "... tests/gba_input_test.o"
 	@echo "... tests/gba_input_test.i"
 	@echo "... tests/gba_input_test.s"
+	@echo "... tests/test_image.o"
+	@echo "... tests/test_image.i"
+	@echo "... tests/test_image.s"
 .PHONY : help
 
 

@@ -46,3 +46,30 @@ CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/ton
 CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/core.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/input_event.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/main_loop.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/node.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../core/uncopyable.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../gba/gba.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../gba/gba_main_loop.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../gba/gfx/sprite.hpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../tests/gba_input_test.cpp
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: ../tests/test_image.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_bios.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_core.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_input.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_irq.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_math.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_memdef.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_memmap.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_nocash.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_oam.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_surface.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_text.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_tte.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
+CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
+

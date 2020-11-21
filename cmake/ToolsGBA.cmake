@@ -24,7 +24,7 @@ if(NOT GBA)
     message(WARNING "Those tools can only be used if you are using the GBA toolchain file. Please erase this build directory or create another one, and then use -DCMAKE_TOOLCHAIN_FILE=DevkitArmGBA.cmake when calling cmake for the 1st time. For more information, see the Readme.md for more information.")
 endif()
 
-get_filename_component(__toolsgbadir ${CMAKE_CURRENT_LIST_FILE} PATH) # Used to locate files to be used with configure_file
+get_filename_component(__toolsgbadir ToolsGBA.cmake PATH) # Used to locate files to be used with configure_file
 
 message(STATUS "Looking for GBA tools...")
 
@@ -133,7 +133,7 @@ macro(add_binary_library libtarget)
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/binaries_asm/${libtarget}.s
                         COMMAND ${BIN2S} ${ARGN} > ${CMAKE_CURRENT_BINARY_DIR}/binaries_asm/${libtarget}.s
                         DEPENDS ${ARGN}
-                        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+                        WORKING_DIRECTORY .
     )
     add_library(${libtarget} ${CMAKE_CURRENT_BINARY_DIR}/binaries_asm/${libtarget}.s)
     target_include_directories(${libtarget} INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/${libtarget}_include)
@@ -163,11 +163,11 @@ macro(target_maxmod_file _target)
             COMMAND ${MMUTIL} ${ARGN} -o${BUILD_DIR}/soundbank.bin -h${BUILD_DIR}/soundbank.h
             COMMAND ${BIN2S} ${BUILD_DIR}/soundbank.bin | ${CMAKE_AS} -o ${BUILD_DIR}/soundbank.bin.o
             DEPENDS ${ARGN}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+            WORKING_DIRECTORY .
     )
     add_custom_target(mm_soundbank
             DEPENDS ${BUILD_DIR}/soundbank.bin.o
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+            WORKING_DIRECTORY .
     )
     set_target_properties(mm_soundbank PROPERTIES LINKER_LANGUAGE C)
 	include_directories(${BUILD_DIR})

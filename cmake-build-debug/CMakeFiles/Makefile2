@@ -55,10 +55,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6397.106/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -74,6 +74,8 @@ CMAKE_BINARY_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-
 
 # The main recursive "all" target.
 all: CMakeFiles/morpheus.dir/all
+all: CMakeFiles/morpheus-gba-test.elf.dir/all
+all: CMakeFiles/morpheus-gba-test.gba.dir/all
 
 .PHONY : all
 
@@ -84,6 +86,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/morpheus.dir/clean
+clean: CMakeFiles/morpheus-gba-test.elf.dir/clean
+clean: CMakeFiles/morpheus-gba-test.gba.dir/clean
 
 .PHONY : clean
 
@@ -113,6 +117,60 @@ morpheus: CMakeFiles/morpheus.dir/rule
 CMakeFiles/morpheus.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/clean
 .PHONY : CMakeFiles/morpheus.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-test.elf.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles --progress-num=5,6,7 "Built target morpheus-gba-test.elf"
+.PHONY : CMakeFiles/morpheus-gba-test.elf.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-test.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-test.elf.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-test.elf.dir/rule
+
+# Convenience name for target.
+morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/rule
+
+.PHONY : morpheus-gba-test.elf
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-test.elf.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-test.gba.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-test.gba.dir/all: CMakeFiles/morpheus-gba-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.gba.dir/build.make CMakeFiles/morpheus-gba-test.gba.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.gba.dir/build.make CMakeFiles/morpheus-gba-test.gba.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles --progress-num= "Built target morpheus-gba-test.gba"
+.PHONY : CMakeFiles/morpheus-gba-test.gba.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-test.gba.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-test.gba.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-test.gba.dir/rule
+
+# Convenience name for target.
+morpheus-gba-test.gba: CMakeFiles/morpheus-gba-test.gba.dir/rule
+
+.PHONY : morpheus-gba-test.gba
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-test.gba.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.gba.dir/build.make CMakeFiles/morpheus-gba-test.gba.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-test.gba.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

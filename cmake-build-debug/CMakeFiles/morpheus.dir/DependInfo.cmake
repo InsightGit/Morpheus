@@ -12,6 +12,12 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "../morpheus"
+  "../PRIVATE"
+  "../."
+  "/opt/devkitpro/libtonc/include"
+  "../morpheus-gba-test"
+  "/opt/devkitpro/devkitARM/arm-none-eabi/lib"
   )
 
 # Targets to which this target links.

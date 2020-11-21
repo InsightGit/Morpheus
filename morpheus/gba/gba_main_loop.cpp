@@ -6,6 +6,8 @@
 #include "gba_main_loop.hpp"
 
 [[noreturn]] morpheus::core::Error morpheus::gba::GbaMainLoop::game_loop() {
+    platform_init();
+
     while(true) {
         key_poll();
 
@@ -28,9 +30,9 @@
         }
 
         // oh god this is S K E T C H
-        m_root->draw(reinterpret_cast<void **>(m_obj_buffer), 0);
+        m_obj_buffer = reinterpret_cast<OBJ_ATTR **>(m_root->draw(reinterpret_cast<void **>(m_obj_buffer), 0));
 
-        oam_copy(oam_mem, m_obj_buffer, 128);
+        oam_copy(oam_mem, *m_obj_buffer, 128);
 
         VBlankIntrWait();
     }
@@ -38,12 +40,13 @@
 }
 
 morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
+    irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
     REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D;
     REG_IME = 1;
 
-    oam_init(m_obj_buffer, 128);
+    oam_init(*m_obj_buffer, 128);
 
     return morpheus::core::Error::OK;
 }

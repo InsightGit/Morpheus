@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o"
   "libmorpheus.a"
   "libmorpheus.pdb"
+  "morpheus-gba-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

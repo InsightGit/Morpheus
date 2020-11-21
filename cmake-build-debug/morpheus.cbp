@@ -5,7 +5,7 @@
 		<Option title="morpheus"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
@@ -44,6 +44,10 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -66,6 +70,10 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
 					<Add directory="/usr/include/c++/9"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 					<Add directory="/usr/include/c++/9/backward"/>
@@ -120,6 +128,9 @@
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake/ToolsGBA.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

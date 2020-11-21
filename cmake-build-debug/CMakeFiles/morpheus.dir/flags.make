@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/. -I/opt/devkitpro/libtonc/include -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus-gba-test -I/opt/devkitpro/devkitARM/arm-none-eabi/lib 
 

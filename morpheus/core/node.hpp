@@ -40,9 +40,9 @@ namespace morpheus {
                 }
             }
 
-            virtual void draw(void **obj_attr_buffer, int obj_attr_num = 0) = 0;
+            virtual void **draw(void *obj_attr_buffer[], int obj_attr_num = 0) = 0;
         protected:
-            virtual void draw_children(void **obj_attr_buffer, int obj_attr_num) = 0;
+            virtual void draw_children(void *obj_attr_buffer[], int obj_attr_num) = 0;
 
             virtual void input() = 0;
         private:

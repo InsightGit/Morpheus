@@ -18,17 +18,15 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
-            MainLoop() {
-                if(platform_init() != Error::OK) {
-                    //
-                }
+            void set_root(std::shared_ptr<Node> root) {
+                m_root = root;
             }
 
             virtual Error game_loop() = 0;
         protected:
             virtual Error platform_init() = 0;
 
-            std::unique_ptr<Node> m_root;
+            std::shared_ptr<Node> m_root;
         };
     }
 }
