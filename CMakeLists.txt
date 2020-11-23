@@ -37,7 +37,7 @@ add_library(morpheus core/main_loop.hpp core/uncopyable.hpp core/node.hpp gba/gf
         include_directories(morpheus-gba-test PRIVATE . ${MULTI})
         link_directories(. ${DEVKITPRO}/libgba/lib)
 
-        add_executable(morpheus-gba-test.elf tests/gba_input_test.cpp tests/test_image.cpp)
+        add_executable(morpheus-gba-test.elf tests/gba_input_test.cpp)
         add_gba_executable(morpheus-gba-test.elf)
 
         target_link_libraries(morpheus-gba-test.elf gba mm morpheus)

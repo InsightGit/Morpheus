@@ -10,12 +10,13 @@ PROJ    := gba_input_test
 TARGET  := $(PROJ)
 
 SRC_DIRS := .
-SRCS := $(shell find $(SRC_DIRS) -name '*.cpp')
+SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name *.s)
 OBJS := $(addsuffix .o, $(notdir $(SRCS)))
 
 # --- Build defines ---------------------------------------------------
 
 PREFIX  := arm-none-eabi-
+AS := $(PREFIX)as
 CC      := $(PREFIX)gcc
 CXX      := $(PREFIX)g++
 LD      := $(PREFIX)g++
@@ -44,6 +45,9 @@ $(TARGET).elf : $(OBJS)
 	$(LD) $^ $(LDFLAGS) -o $@
 
 # Compile (step 1)
+$(OBJS): %.s.o : %.s
+	$(AS) $(ASFLAGS) -c $< -o $@
+
 $(OBJS) : %.c.o : %.c
 	$(CC) -c $< $(CFLAGS) -o $@
 

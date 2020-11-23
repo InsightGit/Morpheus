@@ -30,9 +30,12 @@
         }
 
         // oh god this is S K E T C H
-        m_obj_buffer = reinterpret_cast<OBJ_ATTR **>(m_root->draw(reinterpret_cast<void **>(m_obj_buffer), 0));
+        m_root->draw(&m_obj_buffer, 0);
 
-        oam_copy(oam_mem, *m_obj_buffer, 128);
+        //OBJ_ATTR test_obj_buffer[128];
+        //obj_set_attr(&test_obj_buffer[0], ATTR0_SQUARE, ATTR1_SIZE_32, ATTR2_BUILD(0, 0, 0));
+
+        oam_copy(oam_mem, m_obj_buffer, 128);
 
         VBlankIntrWait();
     }
@@ -46,7 +49,7 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D;
     REG_IME = 1;
 
-    oam_init(*m_obj_buffer, 128);
+    oam_init(m_obj_buffer, 128);
 
     return morpheus::core::Error::OK;
 }

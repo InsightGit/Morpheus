@@ -8,9 +8,10 @@
 #include <list>
 #include <memory>
 
+#include <tonc.h>
+
 #include <core/main_loop.hpp>
 #include <core/input_event.hpp>
-
 
 namespace morpheus {
     namespace core {
@@ -40,9 +41,9 @@ namespace morpheus {
                 }
             }
 
-            virtual void **draw(void *obj_attr_buffer[], int obj_attr_num = 0) = 0;
+            virtual void draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num = 0) = 0;
         protected:
-            virtual void draw_children(void *obj_attr_buffer[], int obj_attr_num) = 0;
+            virtual void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) = 0;
 
             virtual void input() = 0;
         private:

@@ -26,7 +26,7 @@ namespace morpheus {
            static core::InputEvent to_input_event(u16 libgba_inputs, uint16_t keypad_bit,
                                                   core::InputState input_state);
 
-           OBJ_ATTR **m_obj_buffer = new OBJ_ATTR *[128];
+           OBJ_ATTR m_obj_buffer[128];
         };
     }
 }
