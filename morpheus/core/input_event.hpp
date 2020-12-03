@@ -8,6 +8,7 @@
 namespace morpheus {
     namespace core {
         enum class InputButton {
+            /* GBA/DS keys */
             NONE,
             DPADUP,
             DPADDOWN,
@@ -18,7 +19,12 @@ namespace morpheus {
             L,
             R,
             START,
-            SELECT
+            SELECT,
+            /* DS exclusive keys */
+            X,
+            Y,
+            TOUCH,
+            LID
         };
 
         enum class InputState {

@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/morpheus.dir/gba/gba_main_loop.cpp.o"
-  "CMakeFiles/morpheus.dir/gba/gfx/sprite.cpp.o"
-  "CMakeFiles/morpheus.dir/tests/gba_input_test.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
   "libmorpheus.a"
   "libmorpheus.pdb"
   "morpheus-gba-test.gba"

@@ -19,8 +19,7 @@ namespace morpheus {
                     Sprite() = default;
 
                     void load_from_array(unsigned short **tile_array, unsigned short tile_array_len,
-                                         unsigned short **pal, unsigned short pal_len,
-                                         unsigned short bit_depth, unsigned short width,
+                                         unsigned short **pal, unsigned short pal_len, unsigned short width,
                                          unsigned short height, unsigned short tile_id);
 
                     void draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num = 0)override;
@@ -39,7 +38,7 @@ namespace morpheus {
                 protected:
                     void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num)override;
 
-                    void input()override {}
+                    virtual void input(core::InputEvent input_event)override {}
                 private:
                     unsigned short m_attr0;
                     unsigned short m_attr1;

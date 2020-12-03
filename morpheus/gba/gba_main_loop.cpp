@@ -2,7 +2,6 @@
 // Created by bobby on 25/07/2020.
 //
 
-//#include <tonc_libgba.h>
 #include "gba_main_loop.hpp"
 
 [[noreturn]] morpheus::core::Error morpheus::gba::GbaMainLoop::game_loop() {
@@ -11,29 +10,28 @@
     while(true) {
         key_poll();
 
-        std::list<morpheus::core::InputEvent> down_events = to_input_events(key_hit(KEY_FULL),
-                                                                            morpheus::core::InputState::DOWN);
-        std::list<morpheus::core::InputEvent> held_events = to_input_events(key_is_down(KEY_FULL),
-                                                                            morpheus::core::InputState::HELD);
-        std::list<morpheus::core::InputEvent> up_events = to_input_events(key_released(KEY_FULL),
-                                                                          morpheus::core::InputState::UP);
+        std::vector<morpheus::core::InputEvent> down_events = to_input_events(key_hit(KEY_FULL),
+                                                                              GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
+                                                                              morpheus::core::InputState::DOWN);
+        std::vector<morpheus::core::InputEvent> held_events = to_input_events(key_is_down(KEY_FULL),
+                                                                              GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
+                                                                    morpheus::core::InputState::HELD);
+        std::vector<morpheus::core::InputEvent> up_events = to_input_events(key_released(KEY_FULL),
+                                                                            GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
+                                                                            morpheus::core::InputState::UP);
 
-        std::list<core::InputEvent> input_events;
+        std::vector<core::InputEvent> input_events;
 
 
-        input_events.splice(input_events.end(), down_events);
-        input_events.splice(input_events.end(), held_events);
-        input_events.splice(input_events.end(), up_events);
+        input_events.insert(input_events.end(), down_events.begin(), down_events.end());
+        input_events.insert(input_events.end(), held_events.begin(), held_events.end());
+        input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
         for(core::InputEvent input_event : input_events){
             m_root->received_input(input_event);
         }
 
-        // oh god this is S K E T C H
         m_root->draw(&m_obj_buffer, 0);
-
-        //OBJ_ATTR test_obj_buffer[128];
-        //obj_set_attr(&test_obj_buffer[0], ATTR0_SQUARE, ATTR1_SIZE_32, ATTR2_BUILD(0, 0, 0));
 
         oam_copy(oam_mem, m_obj_buffer, 128);
 
@@ -46,8 +44,10 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0;
     REG_IME = 1;
+
+    tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
 
     oam_init(m_obj_buffer, 128);
 
@@ -55,13 +55,13 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
 }
 
 morpheus::core::InputEvent
-    morpheus::gba::GbaMainLoop::to_input_event(uint16_t libgba_inputs,
-                                               uint16_t keypad_bit,
-                                               morpheus::core::InputState input_state) {
+morpheus::core::MainLoop::to_input_event(uint32_t inputs,
+                                         uint16_t keypad_bit,
+                                         morpheus::core::InputState input_state) {
     morpheus::core::InputButton input_button = morpheus::core::InputButton::NONE;
     morpheus::core::InputEvent input_event{};
 
-    if((libgba_inputs & keypad_bit) != 0) {
+    if((inputs & keypad_bit) != 0) {
         switch (keypad_bit) {
             case KEY_A:
                 input_button = morpheus::core::InputButton::A;
@@ -104,20 +104,3 @@ morpheus::core::InputEvent
 
     return input_event;
 }
-
-std::list<morpheus::core::InputEvent>
-    morpheus::gba::GbaMainLoop::to_input_events(u16 libgba_inputs,
-                                                morpheus::core::InputState input_state) {
-    std::list<morpheus::core::InputEvent> input_events;
-
-    for(uint16_t gba_keypad_bit : GBA_KEYPAD_BITS) {
-        morpheus::core::InputEvent input_event = to_input_event(libgba_inputs, gba_keypad_bit, input_state);
-
-        if(input_event.button != morpheus::core::InputButton::NONE) {
-            input_events.push_back(input_event);
-        }
-    }
-
-    return input_events;
-}
-

@@ -1,39 +1,21 @@
-/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.40/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
+/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
 CMake Warning at cmake/ToolsGBA.cmake:24 (message):
   Those tools can only be used if you are using the GBA toolchain file.
   Please erase this build directory or create another one, and then use
   -DCMAKE_TOOLCHAIN_FILE=DevkitArmGBA.cmake when calling cmake for the 1st
   time.  For more information, see the Readme.md for more information.
 Call Stack (most recent call first):
-  CMakeLists.txt:19 (include)
+  CMakeLists.txt:27 (include)
 
 
 -- Looking for GBA tools...
-CMake Warning at cmake/ToolsGBA.cmake:40 (message):
-  objcopy - not found
-Call Stack (most recent call first):
-  CMakeLists.txt:19 (include)
-
-
 CMake Warning at cmake/ToolsGBA.cmake:53 (message):
   strip - not found
 Call Stack (most recent call first):
-  CMakeLists.txt:19 (include)
+  CMakeLists.txt:27 (include)
 
 
 -- Compiling for the GBA...
 -- Configuring done
-CMake Error at CMakeLists.txt:29 (add_library):
-  Cannot find source file:
-
-    core/main_loop.hpp
-
-  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
-  .hpp .hxx .in .txx
-
-
-CMake Error at CMakeLists.txt:29 (add_library):
-  No SOURCES given to target: morpheus
-
-
-CMake Generate step failed.  Build files cannot be regenerated correctly.
+-- Generating done
+-- Build files have been written to: /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug

@@ -5,36 +5,26 @@
 		<Option title="morpheus"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\cmake\;"/>
+		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="morpheus">
@@ -48,19 +38,21 @@
 					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
 					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus-gba-test"/>
+					<Add directory="/opt/devkitpro/devkitARM/arm-none-eabi/lib"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="morpheus/fast">
@@ -74,63 +66,138 @@
 					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
 					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus-gba-test"/>
+					<Add directory="/opt/devkitpro/devkitARM/arm-none-eabi/lib"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-test.elf">
+				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/morpheus-gba-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus-gba-test"/>
+					<Add directory="/opt/devkitpro/devkitARM/arm-none-eabi/lib"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus-gba-test.elf"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-test.elf/fast">
+				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/morpheus-gba-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/."/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus-gba-test"/>
+					<Add directory="/opt/devkitpro/devkitARM/arm-none-eabi/lib"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus-gba-test.elf/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-test.gba">
+				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 morpheus-gba-test.gba"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/core.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/core.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/gfx/vector_2.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/gfx/vector_2.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/input_event.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/input_event.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/main_loop.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/node.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/node.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/core/uncopyable.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/uncopyable.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gba.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gba.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gba_main_loop.cpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gba_main_loop.cpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gba_main_loop.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gba_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gfx/sprite.cpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gfx/sprite.cpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/gba/gfx/sprite.hpp">
+		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gfx/sprite.hpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp">
-			<Option target="morpheus"/>
+			<Option target="morpheus-gba-test.elf"/>
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
-		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake/ToolsGBA.cmake">
-			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

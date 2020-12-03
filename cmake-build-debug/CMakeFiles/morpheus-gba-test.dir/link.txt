@@ -1,0 +1,1 @@
+/opt/devkitpro/devkitARM/bin/arm-none-eabi-ld

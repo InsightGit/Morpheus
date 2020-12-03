@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   -specs=gba.specs CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o CMakeFiles/morpheus-gba-test.elf.dir/tests/test_image.c.o  -o morpheus-gba-test.elf   -L/libgba/lib  -L/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/.  -Wl,-rpath,/libgba/lib:/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/. -lgba -lmm libmorpheus.a 
+/usr/bin/c++  -g   -specs=gba.specs CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o  -o morpheus-gba-test.elf   -L/libtonc/lib  -Wl,-rpath,/libtonc/lib -lgba -lmm libmorpheus.a 

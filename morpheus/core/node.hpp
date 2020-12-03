@@ -34,10 +34,10 @@ namespace morpheus {
             }
 
             void received_input(InputEvent input_event) {
-                input();
+                input(input_event);
 
                 for(std::unique_ptr<Node> &child : m_children) {
-                    child->input();
+                    child->input(input_event);
                 }
             }
 
@@ -45,7 +45,7 @@ namespace morpheus {
         protected:
             virtual void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) = 0;
 
-            virtual void input() = 0;
+            virtual void input(InputEvent input_event) = 0;
         private:
             std::list<std::unique_ptr<Node>> m_children;
         };

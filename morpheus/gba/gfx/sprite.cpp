@@ -6,7 +6,7 @@
 
 void morpheus::gba::gfx::Sprite::load_from_array(unsigned short **tile_array, unsigned short tile_array_len,
                                                  unsigned short **pal, unsigned short pal_len,
-                                                 unsigned short bit_depth, unsigned short width,
+                                                 unsigned short width,
                                                  unsigned short height, unsigned short tile_id) {
     m_attr0 = 0x0;
     m_attr1 = 0x0;
@@ -42,7 +42,8 @@ void morpheus::gba::gfx::Sprite::load_from_array(unsigned short **tile_array, un
 
     m_attr2 = ATTR2_BUILD(tile_id, 0, 0);
 
-    std::memcpy(&tile_mem[bit_depth][tile_id], tile_array, tile_array_len);
+    // For objects on the GBA, the bit depth is always 4
+    std::memcpy(&tile_mem[4][tile_id], tile_array, tile_array_len);
     std::memcpy(pal_obj_mem, pal, pal_len);
 }
 
@@ -51,10 +52,6 @@ void morpheus::gba::gfx::Sprite::draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_att
 
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
     obj_set_pos(obj, m_position.get_x(), m_position.get_y());
-
-    //draw_children(obj_attr_buffer, obj_attr_num);
-
-    //return obj_attr_buffer;
 }
 
 void morpheus::gba::gfx::Sprite::draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) {

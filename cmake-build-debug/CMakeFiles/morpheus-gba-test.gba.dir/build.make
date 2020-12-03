@@ -54,10 +54,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/202.6948.80/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -74,7 +74,7 @@ CMAKE_BINARY_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-
 include CMakeFiles/morpheus-gba-test.gba.dir/progress.make
 
 CMakeFiles/morpheus-gba-test.gba: morpheus-gba-test.elf
-	OBJCOPY-NOTFOUND -v -O binary morpheus-gba-test.elf morpheus-gba-test.gba
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy -v -O binary morpheus-gba-test.elf morpheus-gba-test.gba
 	/opt/devkitpro/tools/bin/gbafix morpheus-gba-test.gba
 
 morpheus-gba-test.gba: CMakeFiles/morpheus-gba-test.gba
