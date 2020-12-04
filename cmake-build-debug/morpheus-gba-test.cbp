@@ -5,7 +5,7 @@
 		<Option title="morpheus-gba-test"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\cmake\;"/>
+		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
@@ -28,7 +28,7 @@
 				</MakeCommands>
 			</Target>
 			<Target title="morpheus">
-				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/libmorpheus.a" prefix_auto="0" extension_auto="0"/>
+				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/libgba_morpheus.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
@@ -54,7 +54,7 @@
 				</MakeCommands>
 			</Target>
 			<Target title="morpheus/fast">
-				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/libmorpheus.a" prefix_auto="0" extension_auto="0"/>
+				<Option output="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/libgba_morpheus.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
@@ -190,9 +190,6 @@
 		</Unit>
 		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
-		</Unit>
-		<Unit filename="/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake/ToolsGBA.cmake">
-			<Option virtualFolder="CMake Files\cmake\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

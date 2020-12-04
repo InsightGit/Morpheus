@@ -4,6 +4,12 @@
 
 #include "gba_main_loop.hpp"
 
+morpheus::gba::GbaMainLoop::~GbaMainLoop() {
+    for(void *pointer : m_obj_buffer) {
+        delete static_cast<OBJ_ATTR *>(pointer);
+    }
+}
+
 [[noreturn]] morpheus::core::Error morpheus::gba::GbaMainLoop::game_loop() {
     platform_init();
 
@@ -31,9 +37,9 @@
             m_root->received_input(input_event);
         }
 
-        m_root->draw(&m_obj_buffer, 0);
+        m_root->draw(m_obj_buffer, 0);
 
-        oam_copy(oam_mem, m_obj_buffer, 128);
+        oam_copy(oam_mem, static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
         VBlankIntrWait();
     }
@@ -49,15 +55,19 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
 
     tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
 
-    oam_init(m_obj_buffer, 128);
+    for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
+        m_obj_buffer.push_back(new OBJ_ATTR());
+    }
+
+    oam_init(static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
     return morpheus::core::Error::OK;
 }
 
 morpheus::core::InputEvent
-morpheus::core::MainLoop::to_input_event(uint32_t inputs,
-                                         uint16_t keypad_bit,
-                                         morpheus::core::InputState input_state) {
+morpheus::gba::GbaMainLoop::to_input_event(uint32_t inputs,
+                                           uint16_t keypad_bit,
+                                           morpheus::core::InputState input_state) {
     morpheus::core::InputButton input_button = morpheus::core::InputButton::NONE;
     morpheus::core::InputEvent input_event{};
 

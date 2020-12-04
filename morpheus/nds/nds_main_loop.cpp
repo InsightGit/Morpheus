@@ -5,7 +5,7 @@
 #include "nds_main_loop.hpp"
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
-    platform_init()
+    platform_init();
 
     while(true) {
         scanKeys();
@@ -37,6 +37,8 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
     videoSetMode(MODE_0_2D);
     videoSetModeSub(MODE_0_2D | DISPLAY_SPR_1D_LAYOUT | DISPLAY_SPR_ACTIVE);
+
+    return morpheus::core::Error::OK;
 }
 
 morpheus::core::InputEvent

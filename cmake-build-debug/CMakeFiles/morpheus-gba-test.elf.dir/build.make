@@ -80,15 +80,15 @@ include CMakeFiles/morpheus-gba-test.elf.dir/flags.make
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o: CMakeFiles/morpheus-gba-test.elf.dir/flags.make
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o: ../tests/gba_input_test.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp
 
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp > CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp > CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i
 
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/tests/gba_input_test.cpp -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s
 
 # Object files for target morpheus-gba-test.elf
 morpheus__gba__test_elf_OBJECTS = \
@@ -99,7 +99,7 @@ morpheus__gba__test_elf_EXTERNAL_OBJECTS =
 
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/build.make
-morpheus-gba-test.elf: libmorpheus.a
+morpheus-gba-test.elf: libgba_morpheus.a
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable morpheus-gba-test.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/morpheus-gba-test.elf.dir/link.txt --verbose=$(VERBOSE)

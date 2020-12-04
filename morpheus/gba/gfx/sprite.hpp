@@ -8,6 +8,8 @@
 #include <cassert>
 #include <cstring>
 
+#include <tonc.h>
+
 #include <core/node.hpp>
 #include <core/gfx/vector_2.hpp>
 
@@ -22,7 +24,7 @@ namespace morpheus {
                                          unsigned short **pal, unsigned short pal_len, unsigned short width,
                                          unsigned short height, unsigned short tile_id);
 
-                    void draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num = 0)override;
+                    void draw(std::vector<void *>obj_attr_buffer, int obj_attr_num = 0)override;
 
                     core::gfx::Vector2 get_position() const {
                         return m_position;
@@ -36,7 +38,8 @@ namespace morpheus {
                         set_position(core::gfx::Vector2(x, y));
                     }
                 protected:
-                    void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num)override;
+                    void draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num)override;
+                    //void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num)override;
 
                     virtual void input(core::InputEvent input_event)override {}
                 private:

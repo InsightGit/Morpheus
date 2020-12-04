@@ -282,6 +282,12 @@ morpheus-gba-test_BINARY_DIR:STATIC=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morp
 morpheus-gba-test_SOURCE_DIR:STATIC=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
 
 //Value Computed by CMake
+morpheus-gba_BINARY_DIR:STATIC=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug
+
+//Value Computed by CMake
+morpheus-gba_SOURCE_DIR:STATIC=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
+
+//Value Computed by CMake
 morpheus_BINARY_DIR:STATIC=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug
 
 //Value Computed by CMake

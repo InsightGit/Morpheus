@@ -8,8 +8,6 @@
 #include <list>
 #include <memory>
 
-#include <tonc.h>
-
 #include <core/main_loop.hpp>
 #include <core/input_event.hpp>
 
@@ -41,9 +39,9 @@ namespace morpheus {
                 }
             }
 
-            virtual void draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num = 0) = 0;
+            virtual void draw(std::vector<void *>obj_attr_buffer, int obj_attr_num = 0) = 0;
         protected:
-            virtual void draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) = 0;
+            virtual void draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num) = 0;
 
             virtual void input(InputEvent input_event) = 0;
         private:

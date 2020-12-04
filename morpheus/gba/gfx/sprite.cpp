@@ -47,14 +47,14 @@ void morpheus::gba::gfx::Sprite::load_from_array(unsigned short **tile_array, un
     std::memcpy(pal_obj_mem, pal, pal_len);
 }
 
-void morpheus::gba::gfx::Sprite::draw(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) {
-    OBJ_ATTR *obj = &((*obj_attr_buffer)[obj_attr_num]);
+void morpheus::gba::gfx::Sprite::draw(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
+    OBJ_ATTR *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
 
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
     obj_set_pos(obj, m_position.get_x(), m_position.get_y());
 }
 
-void morpheus::gba::gfx::Sprite::draw_children(OBJ_ATTR (*obj_attr_buffer)[], int obj_attr_num) {
+void morpheus::gba::gfx::Sprite::draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
     /*if(obj_attr_num + get_children().size() >= 128) {
         // too many sprites!!
         assert(false);

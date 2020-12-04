@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgba_morpheus-gba.a  CMakeFiles/morpheus-gba.dir/morpheus/core/main_loop.cpp.o CMakeFiles/morpheus-gba.dir/morpheus/core/gfx/palette_manager.cpp.o CMakeFiles/morpheus-gba.dir/morpheus/gba/gba_main_loop.cpp.o CMakeFiles/morpheus-gba.dir/morpheus/gba/gfx/sprite.cpp.o
+/usr/bin/ranlib libgba_morpheus-gba.a

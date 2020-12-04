@@ -1,20 +1,5 @@
 /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
-CMake Warning at cmake/ToolsGBA.cmake:24 (message):
-  Those tools can only be used if you are using the GBA toolchain file.
-  Please erase this build directory or create another one, and then use
-  -DCMAKE_TOOLCHAIN_FILE=DevkitArmGBA.cmake when calling cmake for the 1st
-  time.  For more information, see the Readme.md for more information.
-Call Stack (most recent call first):
-  CMakeLists.txt:27 (include)
-
-
--- Looking for GBA tools...
-CMake Warning at cmake/ToolsGBA.cmake:53 (message):
-  strip - not found
-Call Stack (most recent call first):
-  CMakeLists.txt:27 (include)
-
-
+-- gba
 -- Compiling for the GBA...
 -- Configuring done
 -- Generating done

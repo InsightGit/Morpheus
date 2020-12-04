@@ -33,7 +33,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.17.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeSystem.cmake"
-  "../cmake/ToolsGBA.cmake"
   )
 
 # The corresponding makefile is:
