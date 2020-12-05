@@ -1,1 +1,0 @@
-/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  -g -Wall -O2 -mcpu=arm7tdmi -mtune=arm7tdmi -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions -g   -specs=gba.specs CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o  -o morpheus-gba-test.elf   -L/libtonc/lib  -Wl,-rpath,/libtonc/lib -lgba -lmm libgba_morpheus.a 

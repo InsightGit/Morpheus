@@ -74,7 +74,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-gba
 include CMakeFiles/morpheus-gba-test.gba.dir/progress.make
 
 CMakeFiles/morpheus-gba-test.gba: morpheus-gba-test.elf
-	OBJCOPY-NOTFOUND -v -O binary morpheus-gba-test.elf morpheus-gba-test.gba
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy -v -O binary morpheus-gba-test.elf morpheus-gba-test.gba
 	/opt/devkitpro/tools/bin/gbafix morpheus-gba-test.gba
 
 morpheus-gba-test.gba: CMakeFiles/morpheus-gba-test.gba

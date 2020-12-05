@@ -23,6 +23,9 @@ namespace morpheus {
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;
+
+            core::InputEvent to_input_event(uint32_t inputs, uint16_t keypad_bit,
+                                            morpheus::core::InputState input_state)override;
         };
     }
 }

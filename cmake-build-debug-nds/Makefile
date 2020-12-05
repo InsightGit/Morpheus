@@ -76,17 +76,6 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -97,6 +86,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -142,6 +142,32 @@ morpheus: cmake_check_build_system
 morpheus/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
 .PHONY : morpheus/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-test.nds
+
+# Build rule for target.
+morpheus-nds-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-test.nds
+.PHONY : morpheus-nds-test.nds
+
+# fast build rule for target.
+morpheus-nds-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.nds.dir/build.make CMakeFiles/morpheus-nds-test.nds.dir/build
+.PHONY : morpheus-nds-test.nds/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-test.elf
+
+# Build rule for target.
+morpheus-nds-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-test.elf
+.PHONY : morpheus-nds-test.elf
+
+# fast build rule for target.
+morpheus-nds-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/build
+.PHONY : morpheus-nds-test.elf/fast
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -251,6 +277,33 @@ morpheus/nds/nds_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s
 .PHONY : morpheus/nds/nds_main_loop.cpp.s
 
+tests/nds/nds_input_test.o: tests/nds/nds_input_test.cpp.o
+
+.PHONY : tests/nds/nds_input_test.o
+
+# target to build an object file
+tests/nds/nds_input_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o
+.PHONY : tests/nds/nds_input_test.cpp.o
+
+tests/nds/nds_input_test.i: tests/nds/nds_input_test.cpp.i
+
+.PHONY : tests/nds/nds_input_test.i
+
+# target to preprocess a source file
+tests/nds/nds_input_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.i
+.PHONY : tests/nds/nds_input_test.cpp.i
+
+tests/nds/nds_input_test.s: tests/nds/nds_input_test.cpp.s
+
+.PHONY : tests/nds/nds_input_test.s
+
+# target to generate assembly for a file
+tests/nds/nds_input_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.s
+.PHONY : tests/nds/nds_input_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -259,7 +312,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... morpheus-nds-test.nds"
 	@echo "... morpheus"
+	@echo "... morpheus-nds-test.elf"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
@@ -272,6 +327,9 @@ help:
 	@echo "... morpheus/nds/nds_main_loop.o"
 	@echo "... morpheus/nds/nds_main_loop.i"
 	@echo "... morpheus/nds/nds_main_loop.s"
+	@echo "... tests/nds/nds_input_test.o"
+	@echo "... tests/nds/nds_input_test.i"
+	@echo "... tests/nds/nds_input_test.s"
 .PHONY : help
 
 

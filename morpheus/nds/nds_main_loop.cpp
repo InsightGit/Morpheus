@@ -42,9 +42,9 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
 }
 
 morpheus::core::InputEvent
-morpheus::core::MainLoop::to_input_event(uint32_t inputs,
-                                         uint16_t keypad_bit,
-                                         morpheus::core::InputState input_state) {
+morpheus::nds::NdsMainLoop::to_input_event(uint32_t inputs,
+                                           uint16_t keypad_bit,
+                                           morpheus::core::InputState input_state) {
     morpheus::core::InputButton input_button = morpheus::core::InputButton::NONE;
     morpheus::core::InputEvent input_event{};
 

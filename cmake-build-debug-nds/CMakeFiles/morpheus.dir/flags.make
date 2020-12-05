@@ -6,5 +6,5 @@ CXX_FLAGS = -g -Wall -O2 -marm -mthumb-interwork -march=armv5te -mtune=arm946e-s
 
 CXX_DEFINES = -D_NDS
 
-CXX_INCLUDES = -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/PRIVATE -I/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/. -I/opt/devkitpro/libnds/include 
+CXX_INCLUDES = -I/home/bobby/morpheus/morpheus -I/home/bobby/morpheus/PRIVATE -I/home/bobby/morpheus/. -I/opt/devkitpro/libnds/include 
 

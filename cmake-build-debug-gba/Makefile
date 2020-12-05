@@ -277,32 +277,41 @@ morpheus/gba/gfx/sprite.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.s
 .PHONY : morpheus/gba/gfx/sprite.cpp.s
 
-tests/gba_input_test.o: tests/gba_input_test.cpp.o
+tests/gba/gba_input_test.o: tests/gba/gba_input_test.cpp.o
 
-.PHONY : tests/gba_input_test.o
+.PHONY : tests/gba/gba_input_test.o
 
 # target to build an object file
-tests/gba_input_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o
-.PHONY : tests/gba_input_test.cpp.o
+tests/gba/gba_input_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o
+.PHONY : tests/gba/gba_input_test.cpp.o
 
-tests/gba_input_test.i: tests/gba_input_test.cpp.i
+tests/gba/gba_input_test.i: tests/gba/gba_input_test.cpp.i
 
-.PHONY : tests/gba_input_test.i
+.PHONY : tests/gba/gba_input_test.i
 
 # target to preprocess a source file
-tests/gba_input_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.i
-.PHONY : tests/gba_input_test.cpp.i
+tests/gba/gba_input_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.i
+.PHONY : tests/gba/gba_input_test.cpp.i
 
-tests/gba_input_test.s: tests/gba_input_test.cpp.s
+tests/gba/gba_input_test.s: tests/gba/gba_input_test.cpp.s
 
-.PHONY : tests/gba_input_test.s
+.PHONY : tests/gba/gba_input_test.s
 
 # target to generate assembly for a file
-tests/gba_input_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.s
-.PHONY : tests/gba_input_test.cpp.s
+tests/gba/gba_input_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s
+.PHONY : tests/gba/gba_input_test.cpp.s
+
+tests/gba/testconfetti.o: tests/gba/testconfetti.s.o
+
+.PHONY : tests/gba/testconfetti.o
+
+# target to build an object file
+tests/gba/testconfetti.s.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o
+.PHONY : tests/gba/testconfetti.s.o
 
 # Help Target
 help:
@@ -327,9 +336,10 @@ help:
 	@echo "... morpheus/gba/gfx/sprite.o"
 	@echo "... morpheus/gba/gfx/sprite.i"
 	@echo "... morpheus/gba/gfx/sprite.s"
-	@echo "... tests/gba_input_test.o"
-	@echo "... tests/gba_input_test.i"
-	@echo "... tests/gba_input_test.s"
+	@echo "... tests/gba/gba_input_test.o"
+	@echo "... tests/gba/gba_input_test.i"
+	@echo "... tests/gba/gba_input_test.s"
+	@echo "... tests/gba/testconfetti.o"
 .PHONY : help
 
 

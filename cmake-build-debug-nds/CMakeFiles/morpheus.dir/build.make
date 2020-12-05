@@ -63,10 +63,10 @@ RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus
+CMAKE_SOURCE_DIR = /home/bobby/morpheus
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds
+CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 
 # Include any dependencies generated for this target.
 include CMakeFiles/morpheus.dir/depend.make
@@ -79,55 +79,55 @@ include CMakeFiles/morpheus.dir/flags.make
 
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/main_loop.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o -c /home/bobby/morpheus/morpheus/core/main_loop.cpp
 
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/main_loop.cpp > CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.i
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/main_loop.cpp > CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.i
 
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/main_loop.cpp -o CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/main_loop.cpp -o CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o: ../morpheus/core/gfx/palette_manager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/gfx/palette_manager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/gfx/palette_manager.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/gfx/palette_manager.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/nds/nds_main_loop.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o -c /home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.cpp > CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.i
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp > CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.i
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/nds/gfx/sprite.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o -c /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/gfx/sprite.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/gfx/sprite.cpp > CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.i
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp > CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.i
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/gfx/sprite.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s
 
 # Object files for target morpheus
 morpheus_OBJECTS = \
@@ -145,7 +145,7 @@ libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/build.make
 libnds_morpheus.a: CMakeFiles/morpheus.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libnds_morpheus.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libnds_morpheus.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/morpheus.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/morpheus.dir/link.txt --verbose=$(VERBOSE)
 
@@ -159,6 +159,6 @@ CMakeFiles/morpheus.dir/clean:
 .PHONY : CMakeFiles/morpheus.dir/clean
 
 CMakeFiles/morpheus.dir/depend:
-	cd /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds /mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/bobby/morpheus/cmake-build-debug-nds && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bobby/morpheus /home/bobby/morpheus /home/bobby/morpheus/cmake-build-debug-nds /home/bobby/morpheus/cmake-build-debug-nds /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/morpheus.dir/depend
 

@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   "libnds_morpheus.a"
   "libnds_morpheus.pdb"
+  "morpheus-nds-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/gfx/palette_manager.cpp" "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
-  "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/core/main_loop.cpp" "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
-  "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/gfx/sprite.cpp" "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
-  "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.cpp" "/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+  "/home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
+  "/home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

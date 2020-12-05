@@ -32,11 +32,39 @@ core/input_event.hpp
 
 ../morpheus/core/uncopyable.hpp
 
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gfx/sprite.cpp
-sprite.hpp
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gfx/sprite.hpp
+/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp
 
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/gba/gfx/sprite.hpp
+/home/bobby/morpheus/morpheus/core/main_loop.cpp
+main_loop.hpp
+/home/bobby/morpheus/morpheus/core/main_loop.hpp
+
+/home/bobby/morpheus/morpheus/core/main_loop.hpp
+vector
+-
+core/input_event.hpp
+-
+core/node.hpp
+-
+core/uncopyable.hpp
+-
+
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp
+gba_main_loop.hpp
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
+
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
+list
+-
+tonc.h
+-
+core/main_loop.hpp
+-
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
+sprite.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
 cassert
 -
 cstring

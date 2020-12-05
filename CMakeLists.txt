@@ -5,8 +5,6 @@ cmake_minimum_required(VERSION 3.16)
 
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
-message(STATUS ${platform_lower})
-
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
     morpheus/core/main_loop.hpp
@@ -25,7 +23,7 @@ if(platform_lower STREQUAL "gba")
     set(CMAKE_SYSTEM_VERSION DKA-GBA-52)
     set(CMAKE_SYSTEM_PROCESSOR armv4t)
 
-    set(ARCH_FLAGS "-mcpu=arm7tdmi -mtune=arm7tdmi")
+    set(ARCH_FLAGS "-mcpu=arm7tdmi -mtune=arm7tdmi -specs=gba.specs")
 
     add_compile_definitions(_GBA)
 
@@ -46,6 +44,7 @@ elseif(platform_lower STREQUAL "nds")
     set(CMAKE_SYSTEM_PROCESSOR armv5te)
 
     set(ARCH_FLAGS "-marm -mthumb-interwork -march=armv5te -mtune=arm946e-s -DARM9")
+    set(CMAKE_EXE_LINKER_FLAGS "-specs=ds_arm9.specs -g")
 
     add_compile_definitions(_NDS)
 
@@ -73,8 +72,7 @@ if("$ENV{BUILD_TESTS}")
         project(morpheus-gba-test)
 
         if(NOT GBAFIX)
-            # message(STATUS "Looking for gbafix...")
-            find_program(GBAFIX gbafix $ENV{DEVKITARM}/bin)
+            find_program(GBAFIX gbafix $ENV{DEVKITPRO}/tools/bin/)
             if(GBAFIX)
                 message(STATUS "gbafix: ${GBAFIX} - found")
             else()
@@ -83,12 +81,11 @@ if("$ENV{BUILD_TESTS}")
         endif()
 
         if(NOT OBJCOPY)
-            # message(STATUS "Looking for objcopy...")
-            find_program(OBJCOPY arm-none-eabi-objcopy ${DEVKITARM}/bin)
+            find_program(OBJCOPY arm-none-eabi-objcopy $ENV{DEVKITARM}/bin)
             if(OBJCOPY)
                 message(STATUS "objcopy: ${OBJCOPY} - found")
             else()
-                message(WARNING "objcopy - not found")
+                message(FATAL_ERROR "objcopy - not found")
             endif()
         endif()
 
@@ -107,14 +104,46 @@ if("$ENV{BUILD_TESTS}")
         #string(CONCAT MULTI "$ENV{DEVKITARM}" "/arm-none-eabi/lib/")
 
         #include_directories(morpheus-gba-test PRIVATE . ${MULTI})
-        #link_directories(. ${DEVKITPRO}/libgba/lib)
+        link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-test.elf tests/gba_input_test.cpp)
+        add_executable(morpheus-gba-test.elf tests/gba/gba_input_test.cpp tests/gba/testconfetti.s)
         add_gba_executable(morpheus-gba-test.elf)
 
-        target_link_libraries(morpheus-gba-test.elf gba mm morpheus)
+        target_link_libraries(morpheus-gba-test.elf morpheus tonc)
     elseif(platform_lower STREQUAL "nds")
-        #
+        project(morpheus-nds-test)
+
+        set(NDS_GAME_ICON  "tests/nds/ds_icon.bmp" CACHE STRING "NDS game icon location realitve to project location")
+        set(NDS_TITLE "Morpheus NDS Test" CACHE STRING "NDS game title")
+        set(NDS_SUBTITLE1 "hopefully this works" CACHE STRING "NDS game subtitle #1")
+        set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
+
+        if(NOT NDSTOOL)
+            find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
+            if(NDSTOOL)
+                message(STATUS "ndstool: ${NDSTOOL} - found")
+            else()
+                message(FATAL_ERROR "ndstool - not found")
+            endif()
+        endif()
+
+        function(add_nds_executable target)
+            get_filename_component(target_name ${target} NAME_WE)
+            add_custom_target(${target_name}.nds ALL SOURCES
+                    COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON} "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
+                    DEPENDS ${target}
+                    VERBATIM
+                    )
+            set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+            set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
+        endfunction()
+
+        link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
+        add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp)
+        add_nds_executable(morpheus-nds-test.nds)
+
+        target_link_libraries(morpheus-nds-test.elf morpheus tonc)
     endif()
 endif()
 
@@ -135,3 +164,5 @@ else()
     set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
 endif()
+
+enable_language(ASM)

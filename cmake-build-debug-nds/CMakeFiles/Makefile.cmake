@@ -7,6 +7,8 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeASMCompiler.cmake.in"
+  "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeASMInformation.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCCompiler.cmake.in"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCCompilerABI.c"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCInformation.cmake"
@@ -16,6 +18,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCommonLanguageInclude.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeCompilerIdDetection.cmake"
+  "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeDetermineASMCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeDetermineCCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeDetermineCXXCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeDetermineCompileFeatures.cmake"
@@ -34,6 +37,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeSystem.cmake.in"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeSystemSpecificInformation.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeSystemSpecificInitialize.cmake"
+  "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeTestASMCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeTestCCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeTestCXXCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/CMakeTestCompilerCommon.cmake"
@@ -54,6 +58,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/Embarcadero-DetermineCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/Fujitsu-DetermineCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GHS-DetermineCompiler.cmake"
+  "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-ASM.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-C-DetermineCompiler.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-C.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake"
@@ -96,6 +101,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/Platform/UnixPaths.cmake"
   "/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/share/cmake-3.17/Modules/ProcessorCount.cmake"
   "../CMakeLists.txt"
+  "CMakeFiles/3.17.3/CMakeASMCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeSystem.cmake"
@@ -114,10 +120,13 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.17.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.17.3/CMakeCXXCompiler.cmake"
+  "CMakeFiles/3.17.3/CMakeASMCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/morpheus.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-test.elf.dir/DependInfo.cmake"
   )

@@ -1,5 +1,0 @@
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles/morpheus.dir
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles/morpheus-gba-test.elf.dir
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles/morpheus-gba-test.gba.dir
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/cmake-build-debug/CMakeFiles/edit_cache.dir

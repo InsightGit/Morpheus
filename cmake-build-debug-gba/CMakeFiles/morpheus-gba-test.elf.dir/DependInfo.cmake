@@ -1,10 +1,28 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
+  "ASM"
   "CXX"
   )
 # The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_ASM
+  "/home/bobby/morpheus/tests/gba/testconfetti.s" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o"
+  )
+set(CMAKE_ASM_COMPILER_ID "GNU")
+
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_ASM
+  "_GBA"
+  )
+
+# The include file search paths:
+set(CMAKE_ASM_TARGET_INCLUDE_PATH
+  "../morpheus"
+  "../PRIVATE"
+  "../."
+  "/opt/devkitpro/libtonc/include"
+  )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/bobby/morpheus/tests/gba_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/tests/gba_input_test.cpp.o"
+  "/home/bobby/morpheus/tests/gba/gba_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
