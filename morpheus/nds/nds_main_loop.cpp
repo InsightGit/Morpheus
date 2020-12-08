@@ -31,6 +31,9 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
         }
 
         swiWaitForVBlank();
+
+        oamUpdate(&oamMain);
+        oamUpdate(&oamSub);
     }
 }
 

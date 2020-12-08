@@ -35,7 +35,7 @@ protected:
 };*/
 
 int main() {
-    std::shared_ptr<morpheus::nds::NdsMainLoop> gba_main_loop(new morpheus::nds::NdsMainLoop());
+    std::shared_ptr<morpheus::nds::NdsMainLoop> nds_main_loop(new morpheus::nds::NdsMainLoop());
 
     /*MoveableSprite test_sprite{};
 
@@ -47,5 +47,5 @@ int main() {
 
     gba_main_loop->set_root(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite));*/
 
-    gba_main_loop->game_loop();
+    nds_main_loop->game_loop();
 }
