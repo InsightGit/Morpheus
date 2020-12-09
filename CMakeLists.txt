@@ -67,6 +67,12 @@ set(CMAKE_CXX_FLAGS "-g -Wall -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing
 
 add_library(morpheus ${MORPHEUS_SOURCE_FILES})
 
+if(WIN32)
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+else()
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+endif()
+
 if("$ENV{BUILD_TESTS}")
     if(platform_lower STREQUAL "gba")
         project(morpheus-gba-test)
@@ -117,6 +123,7 @@ if("$ENV{BUILD_TESTS}")
         set(NDS_TITLE "Morpheus NDS Test" CACHE STRING "NDS game title")
         set(NDS_SUBTITLE1 "hopefully this works" CACHE STRING "NDS game subtitle #1")
         set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
+        set(NDS_PCX_FILES "tests/nds/test8.pcx")
 
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -127,11 +134,26 @@ if("$ENV{BUILD_TESTS}")
             endif()
         endif()
 
+        if(NOT BIN2S)
+            # message(STATUS "Looking for bin2s...")
+            find_program(BIN2S bin2s ${DEVKITARM}/bin)
+            if(BIN2S)
+                message(STATUS "bin2s: ${BIN2S} - found")
+            else()
+                message(FATAL_ERROR "bin2s - not found")
+            endif()
+        endif()
+
+        message(STATUS ${NDS_PCX_FILES})
+        message(STATUS ${NDS_PCX_OBJECTS})
+
         function(add_nds_executable target)
             get_filename_component(target_name ${target} NAME_WE)
             add_custom_target(${target_name}.nds ALL SOURCES
-                    COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON} "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
+                    COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON}
+                            "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
                     DEPENDS ${target}
+                    DEPENDS ${NDS_PCX_OBJECTS}
                     VERBATIM
                     )
             set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
@@ -140,10 +162,21 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp)
+        foreach(pcx_file IN LISTS NDS_PCX_FILES)
+            list(APPEND NDS_PCX_OBJECTS "${pcx_file}.o")
+
+            execute_process(COMMAND BIN2S "${pcx_file}"
+                            COMMAND ASSEMBLER_TO_USE "-o ${pcx_file}.o")
+            execute_process(COMMAND bash -c "echo extern const u8 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`"_end[];" > `(echo ${pcx_file} | tr . _)`.h")
+            execute_process(COMMAND bash -c "echo extern const u8 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`"[];" >> `(echo ${pcx_file} | tr . _)`.h")
+            execute_process(COMMAND bash -c ""echo extern const u32 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`_size";" >> `(echo ${pcx_file} | tr . _)`.h"")
+        endforeach()
+
+        add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS})
         add_nds_executable(morpheus-nds-test.nds)
 
         target_link_libraries(morpheus-nds-test.elf morpheus tonc)
+
     endif()
 endif()
 
@@ -152,7 +185,6 @@ if(WIN32)
     set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
     set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
     set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
-    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe" CACHE STRING "")
     set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
 else()
@@ -160,9 +192,10 @@ else()
     set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
     set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
     set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
-    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as" CACHE STRING "")
     set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
 endif()
+
+set(CMAKE_AS ASSEMBLER_TO_USE CACHE STRING "")
 
 enable_language(ASM)

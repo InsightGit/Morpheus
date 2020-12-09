@@ -4,8 +4,11 @@
 
 #include <nds/nds.hpp>
 
+#include "test8_pcx.h"
 
-/*class MoveableSprite : public morpheus::gba::gfx::Sprite {
+class MoveableSprite : public morpheus::nds::gfx::Sprite {
+public:
+    MoveableSprite(bool use_sub_display) : Sprite(use_sub_display) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         if(input_event.state == morpheus::core::InputState::HELD || \
@@ -32,20 +35,18 @@ protected:
             set_position(vector_2);
         }
     }
-};*/
+};
 
 int main() {
     std::shared_ptr<morpheus::nds::NdsMainLoop> nds_main_loop(new morpheus::nds::NdsMainLoop());
 
-    /*MoveableSprite test_sprite{};
+    MoveableSprite test_sprite(true);
 
-    test_sprite.load_from_array((unsigned short **) testconfettiTiles, testconfettiTilesLen,
-                                (unsigned short **) testconfettiPalLen,
-                                testconfettiPalLen, 32, 32, 0);
+    test_sprite.load_from_pcx(static_cast<uint8_t*>(test8_pcx), 0);
 
     test_sprite.set_position(64, 64);
 
-    gba_main_loop->set_root(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite));*/
+    nds_main_loop->set_root(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test_sprite));
 
     nds_main_loop->game_loop();
 }

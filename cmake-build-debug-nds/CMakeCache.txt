@@ -15,6 +15,9 @@
 ########################
 
 //Path to a program.
+BIN2S:FILEPATH=/opt/devkitpro/tools/bin/bin2s
+
+//Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
 //Path to a program.

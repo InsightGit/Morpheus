@@ -36,7 +36,7 @@ namespace morpheus {
 
                     void draw(std::vector<void *>obj_attr_buffer, int obj_attr_num)override;
                 protected:
-                    void draw_children();
+                    void draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num)override {};
 
                     void set_sprite_size(uint8_t width, uint8_t height);
 

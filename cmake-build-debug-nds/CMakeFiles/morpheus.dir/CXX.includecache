@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+../morpheus/core/core.hpp
+core/gfx/vector_2.hpp
+-
+core/input_event.hpp
+-
+core/main_loop.hpp
+-
+core/node.hpp
+-
+core/uncopyable.hpp
+-
+
+../morpheus/core/gfx/vector_2.hpp
+
 ../morpheus/core/input_event.hpp
 
 ../morpheus/core/main_loop.hpp
@@ -30,11 +44,37 @@ core/input_event.hpp
 
 ../morpheus/core/uncopyable.hpp
 
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.cpp
-nds_main_loop.hpp
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.hpp
+/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp
 
-/mnt/2D835F2A6AFEFA7F/BobbyNewNextCloud/morpheus/morpheus/nds/nds_main_loop.hpp
+/home/bobby/morpheus/morpheus/core/main_loop.cpp
+main_loop.hpp
+/home/bobby/morpheus/morpheus/core/main_loop.hpp
+
+/home/bobby/morpheus/morpheus/core/main_loop.hpp
+vector
+-
+core/input_event.hpp
+-
+core/node.hpp
+-
+core/uncopyable.hpp
+-
+
+/home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp
+sprite.hpp
+/home/bobby/morpheus/morpheus/nds/gfx/sprite.hpp
+
+/home/bobby/morpheus/morpheus/nds/gfx/sprite.hpp
+core/core.hpp
+-
+nds.h
+-
+
+/home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp
+nds_main_loop.hpp
+/home/bobby/morpheus/morpheus/nds/nds_main_loop.hpp
+
+/home/bobby/morpheus/morpheus/nds/nds_main_loop.hpp
 nds.h
 -
 core/main_loop.hpp
