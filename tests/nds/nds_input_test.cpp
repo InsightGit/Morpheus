@@ -42,7 +42,7 @@ int main() {
 
     MoveableSprite test_sprite(true);
 
-    test_sprite.load_from_pcx(static_cast<uint8_t*>(test8_pcx), 0);
+    test_sprite.load_from_pcx(test8_pcx, 0);
 
     test_sprite.set_position(64, 64);
 

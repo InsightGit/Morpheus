@@ -17,6 +17,8 @@ set(MORPHEUS_SOURCE_FILES
 
 project(morpheus)
 
+#set( CMAKE_VERBOSE_MAKEFILE on )
+
 if(platform_lower STREQUAL "gba")
     set(CMAKE_STATIC_LIBRARY_PREFIX "libgba_")
     set(CMAKE_SYSTEM_NAME Generic)
@@ -33,7 +35,7 @@ if(platform_lower STREQUAL "gba")
          morpheus/gba/gfx/sprite.hpp
          morpheus/gba/gfx/sprite.cpp)
 
-    message(STATUS "Compiling for the GBA...")
+    message(STATUS "Configuring for the Game Boy Advance...")
 
     include_directories(morpheus PRIVATE . /opt/devkitpro/libtonc/include)
     link_directories(${DEVKITPRO}/libtonc/lib)
@@ -54,7 +56,7 @@ elseif(platform_lower STREQUAL "nds")
          morpheus/nds/gfx/sprite.hpp
          morpheus/nds/gfx/sprite.cpp)
 
-    message(STATUS "Compiling for the NDS...")
+    message(STATUS "Configuring for the Nintendo DS...")
 
     include_directories(morpheus PRIVATE . /opt/devkitpro/libnds/include)
     link_directories(${DEVKITPRO}/libnds/lib)
@@ -123,7 +125,8 @@ if("$ENV{BUILD_TESTS}")
         set(NDS_TITLE "Morpheus NDS Test" CACHE STRING "NDS game title")
         set(NDS_SUBTITLE1 "hopefully this works" CACHE STRING "NDS game subtitle #1")
         set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
-        set(NDS_PCX_FILES "tests/nds/test8.pcx")
+        set(NDS_PCX_FILES "../tests/nds/test8.pcx" CACHE STRING
+                "PCX Files used by code (paths are relative to cmake build dir)")
 
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -144,8 +147,7 @@ if("$ENV{BUILD_TESTS}")
             endif()
         endif()
 
-        message(STATUS ${NDS_PCX_FILES})
-        message(STATUS ${NDS_PCX_OBJECTS})
+        #message(STATUS ${NDS_PCX_FILES})
 
         function(add_nds_executable target)
             get_filename_component(target_name ${target} NAME_WE)
@@ -153,7 +155,6 @@ if("$ENV{BUILD_TESTS}")
                     COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON}
                             "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
                     DEPENDS ${target}
-                    DEPENDS ${NDS_PCX_OBJECTS}
                     VERBATIM
                     )
             set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
@@ -163,17 +164,29 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         foreach(pcx_file IN LISTS NDS_PCX_FILES)
-            list(APPEND NDS_PCX_OBJECTS "${pcx_file}.o")
+            get_filename_component(pcx_file_underscores_no_path ${pcx_file} NAME)
+            string(REPLACE "." "_" pcx_file_underscores_no_path ${pcx_file_underscores_no_path})
 
-            execute_process(COMMAND BIN2S "${pcx_file}"
-                            COMMAND ASSEMBLER_TO_USE "-o ${pcx_file}.o")
-            execute_process(COMMAND bash -c "echo extern const u8 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`"_end[];" > `(echo ${pcx_file} | tr . _)`.h")
-            execute_process(COMMAND bash -c "echo extern const u8 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`"[];" >> `(echo ${pcx_file} | tr . _)`.h")
-            execute_process(COMMAND bash -c ""echo extern const u32 `(echo ${pcx_file} | sed -e 's/^\([0-9]\)/_\\1/' -e 's/[^A-Za-z0-9_]/_/g')`_size";" >> `(echo ${pcx_file} | tr . _)`.h"")
+            get_filename_component(pcx_dir ${pcx_file} DIRECTORY)
+            set(pcx_file_underscores ${pcx_dir}/${pcx_file_underscores_no_path})
+
+            string(REPLACE "../" "" pcx_file_underscores ${pcx_file_underscores})
+
+            file(WRITE ${pcx_file_underscores}.h
+                 "extern const uint8_t ${pcx_file_underscores_no_path}_end[];\n"
+                 "extern const uint8_t ${pcx_file_underscores_no_path}[];\n"
+                 "extern const uint32_t ${pcx_file_underscores_no_path}_size;")
+
+            add_custom_command(OUTPUT ${pcx_file}.o
+                               COMMAND ${BIN2S} ${pcx_file} > ${pcx_file}.s
+                               COMMAND ${ASSEMBLER_TO_USE} "${pcx_file}.s" -o${pcx_file}.o
+                               VERBATIM)
+
+            list(APPEND NDS_PCX_OBJECTS "${pcx_file}.o")
         endforeach()
 
         add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS})
-        add_nds_executable(morpheus-nds-test.nds)
+        add_nds_executable(morpheus-nds-test.elf)
 
         target_link_libraries(morpheus-nds-test.elf morpheus tonc)
 

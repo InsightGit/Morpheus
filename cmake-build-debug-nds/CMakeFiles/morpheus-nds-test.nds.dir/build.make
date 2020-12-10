@@ -73,8 +73,8 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 # Include the progress variables for this target.
 include CMakeFiles/morpheus-nds-test.nds.dir/progress.make
 
-CMakeFiles/morpheus-nds-test.nds: tests/nds/test8.pcx.o
-	/opt/devkitpro/tools/bin/ndstool -c morpheus-nds-test.nds -9 morpheus-nds-test.nds -b /home/bobby/morpheus/tests/nds/ds_icon.bmp "Morpheus NDS Test;hopefully this works;hopefully this works ii"
+CMakeFiles/morpheus-nds-test.nds: morpheus-nds-test.elf
+	/opt/devkitpro/tools/bin/ndstool -c morpheus-nds-test.nds -9 morpheus-nds-test.elf -b /home/bobby/morpheus/tests/nds/ds_icon.bmp "Morpheus NDS Test;hopefully this works;hopefully this works ii"
 
 morpheus-nds-test.nds: CMakeFiles/morpheus-nds-test.nds
 morpheus-nds-test.nds: CMakeFiles/morpheus-nds-test.nds.dir/build.make

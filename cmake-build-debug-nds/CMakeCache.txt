@@ -23,7 +23,7 @@ CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
 
-CMAKE_AS:STRING=/opt/devkitpro/devkitARM/bin/arm-none-eabi-as
+CMAKE_AS:STRING=ASSEMBLER_TO_USE
 
 //ASM compiler
 CMAKE_ASM_COMPILER:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc
@@ -256,6 +256,9 @@ NDSTOOL:FILEPATH=/opt/devkitpro/tools/bin/ndstool
 
 //NDS game icon location realitve to project location
 NDS_GAME_ICON:STRING=tests/nds/ds_icon.bmp
+
+//PCX Files used by code (paths are relative to cmake build dir)
+NDS_PCX_FILES:STRING=../tests/nds/test8.pcx
 
 //NDS game subtitle #1
 NDS_SUBTITLE1:STRING=hopefully this works

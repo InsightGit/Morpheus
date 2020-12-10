@@ -1,2 +1,3 @@
 # Hashes of file build rules.
-493af95573bae3d6cdd73a249cb945cc CMakeFiles/morpheus-nds-test.nds
+e6c52bfe877c2f4e9902817b5b35bb17 ../tests/nds/test8.pcx.o
+75d48750224611afd96aac59a704d240 CMakeFiles/morpheus-nds-test.nds

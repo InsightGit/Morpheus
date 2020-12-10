@@ -192,6 +192,12 @@
 		<Unit filename="/home/bobby/morpheus/tests/nds/nds_input_test.cpp">
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/tests/nds/test8.pcx.o">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/tests/nds/test8.pcx.o.rule">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
