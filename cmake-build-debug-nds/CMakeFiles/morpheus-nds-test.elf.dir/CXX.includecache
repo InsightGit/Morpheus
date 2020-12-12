@@ -45,6 +45,8 @@ core/input_event.hpp
 ../morpheus/core/uncopyable.hpp
 
 ../morpheus/nds/gfx/sprite.hpp
+stdio.h
+-
 core/core.hpp
 -
 nds.h
@@ -57,17 +59,19 @@ nds/nds_main_loop.hpp
 -
 
 ../morpheus/nds/nds_main_loop.hpp
+stdio.h
+-
 nds.h
 -
 core/main_loop.hpp
 -
 
-../test8_pcx.h
-
 /home/bobby/morpheus/tests/nds/nds_input_test.cpp
 nds/nds.hpp
 -
 test8_pcx.h
+/home/bobby/morpheus/tests/nds/test8_pcx.h
+
 /home/bobby/morpheus/tests/nds/test8_pcx.h
 
 /opt/devkitpro/libnds/include/nds.h

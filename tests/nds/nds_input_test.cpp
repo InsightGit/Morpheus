@@ -38,7 +38,9 @@ protected:
 };
 
 int main() {
-    std::shared_ptr<morpheus::nds::NdsMainLoop> nds_main_loop(new morpheus::nds::NdsMainLoop());
+    std::shared_ptr<morpheus::nds::NdsMainLoop> nds_main_loop(new morpheus::nds::NdsMainLoop(morpheus::nds::DebugConsoleMode::ON_MAIN));
+
+    defaultExceptionHandler();
 
     MoveableSprite test_sprite(true);
 

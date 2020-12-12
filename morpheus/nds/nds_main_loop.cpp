@@ -4,8 +4,43 @@
 
 #include "nds_main_loop.hpp"
 
+morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) {
+    #ifdef NDEBUG
+        bool debug = false;
+    #else
+        bool debug = true;
+    #endif
+
+    switch(debug_console_mode) {
+        case DebugConsoleMode::USE_DEFAULT_MAIN:
+            if(debug) {
+                setup_debug_console(true);
+            }
+            break;
+        case DebugConsoleMode::USE_DEFAULT_SUB:
+            if(debug) {
+                setup_debug_console(false);
+            }
+            break;
+        case DebugConsoleMode::ON_MAIN:
+            setup_debug_console(true);
+            break;
+        case DebugConsoleMode::ON_SUB:
+            setup_debug_console(false);
+            break;
+        case DebugConsoleMode::OFF:
+            break;
+        default:
+            assert(false);
+    }
+}
+
 morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     platform_init();
+
+    iprintf("      Morpheus Debug");
+
+    int iteration = 0;
 
     while(true) {
         scanKeys();
@@ -30,6 +65,13 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
             m_root->received_input(input_event);
         }
 
+        ++iteration;
+
+        iprintf("\x1b[10;0HIterations = %d", iteration);
+
+        // TODO(Bobby): Fix unneeded argument 1 problem
+        m_root->draw(std::vector<void *>(), 0);
+
         swiWaitForVBlank();
 
         oamUpdate(&oamMain);
@@ -38,10 +80,20 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 }
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
-    videoSetMode(MODE_0_2D);
-    videoSetModeSub(MODE_0_2D | DISPLAY_SPR_1D_LAYOUT | DISPLAY_SPR_ACTIVE);
+    videoSetMode(MODE_0_2D | DISPLAY_BG0_ACTIVE);
+    videoSetModeSub(MODE_0_2D | DISPLAY_SPR_1D_LAYOUT | DISPLAY_SPR_ACTIVE | DISPLAY_BG0_ACTIVE);
 
     return morpheus::core::Error::OK;
+}
+
+void morpheus::nds::NdsMainLoop::setup_debug_console(bool use_main_display) {
+    if(use_main_display) {
+        vramSetBankC(VRAM_C_MAIN_BG);
+    } else {
+        vramSetBankH(VRAM_H_SUB_BG);
+    }
+
+    consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);
 }
 
 morpheus::core::InputEvent

@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_NDS_SPRITE_HPP
 #define MORPHEUS_NDS_SPRITE_HPP
 
+#include <stdio.h>
+
 #include <core/core.hpp>
 
 #include <nds.h>

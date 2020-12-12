@@ -10,8 +10,8 @@ CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/gfx/sprite.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/nds.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/nds_main_loop.hpp
-CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../test8_pcx.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../tests/nds/nds_input_test.cpp
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../tests/nds/test8_pcx.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/aes.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/audio.h

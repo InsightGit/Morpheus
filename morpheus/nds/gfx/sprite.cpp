@@ -123,4 +123,5 @@ bool morpheus::nds::gfx::Sprite::load_from_pcx(const unsigned char *pcx_data, ui
 void morpheus::nds::gfx::Sprite::draw(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
     oamSet(m_current_oam, obj_attr_num, m_position.get_x(), m_position.get_y(), 0, m_palette_id, m_sprite_size,
            SpriteColorFormat_256Color, m_gfx_pointer, -1, false, false, false, false, false);
+    iprintf("set OAM");
 }

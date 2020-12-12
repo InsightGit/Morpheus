@@ -157,7 +157,7 @@ if("$ENV{BUILD_TESTS}")
                     DEPENDS ${target}
                     VERBATIM
                     )
-            set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+            #set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
             set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
         endfunction()
 
@@ -188,7 +188,7 @@ if("$ENV{BUILD_TESTS}")
         add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS})
         add_nds_executable(morpheus-nds-test.elf)
 
-        target_link_libraries(morpheus-nds-test.elf morpheus tonc)
+        target_link_libraries(morpheus-nds-test.elf morpheus nds9)
 
     endif()
 endif()

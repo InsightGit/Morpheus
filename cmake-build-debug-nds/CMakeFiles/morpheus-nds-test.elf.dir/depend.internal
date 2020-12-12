@@ -11,8 +11,8 @@ CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o
  ../morpheus/nds/gfx/sprite.hpp
  ../morpheus/nds/nds.hpp
  ../morpheus/nds/nds_main_loop.hpp
- ../test8_pcx.h
  /home/bobby/morpheus/tests/nds/nds_input_test.cpp
+ /home/bobby/morpheus/tests/nds/test8_pcx.h
  /opt/devkitpro/libnds/include/nds.h
  /opt/devkitpro/libnds/include/nds/arm7/aes.h
  /opt/devkitpro/libnds/include/nds/arm7/audio.h
