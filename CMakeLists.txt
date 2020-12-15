@@ -54,7 +54,8 @@ elseif(platform_lower STREQUAL "nds")
          morpheus/nds/nds_main_loop.hpp
          morpheus/nds/nds_main_loop.cpp
          morpheus/nds/gfx/sprite.hpp
-         morpheus/nds/gfx/sprite.cpp)
+         morpheus/nds/gfx/sprite.cpp
+         morpheus/nds/node.hpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 

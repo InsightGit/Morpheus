@@ -45,7 +45,7 @@ core/input_event.hpp
 ../morpheus/core/uncopyable.hpp
 
 ../morpheus/nds/gfx/sprite.hpp
-stdio.h
+iostream
 -
 core/core.hpp
 -

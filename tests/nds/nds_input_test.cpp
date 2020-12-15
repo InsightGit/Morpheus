@@ -46,7 +46,7 @@ int main() {
 
     test_sprite.load_from_pcx(test8_pcx, 0);
 
-    test_sprite.set_position(64, 64);
+    test_sprite.set_position(0, 0);
 
     nds_main_loop->set_root(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test_sprite));
 

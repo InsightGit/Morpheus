@@ -189,6 +189,9 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/nds/nds_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/nds/node.hpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/tests/nds/nds_input_test.cpp">
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>

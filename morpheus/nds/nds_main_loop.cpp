@@ -11,6 +11,9 @@ morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_co
         bool debug = true;
     #endif
 
+    videoSetMode(MODE_0_2D);
+    videoSetModeSub(MODE_0_2D);
+
     switch(debug_console_mode) {
         case DebugConsoleMode::USE_DEFAULT_MAIN:
             if(debug) {
@@ -80,17 +83,16 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 }
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
-    videoSetMode(MODE_0_2D | DISPLAY_BG0_ACTIVE);
-    videoSetModeSub(MODE_0_2D | DISPLAY_SPR_1D_LAYOUT | DISPLAY_SPR_ACTIVE | DISPLAY_BG0_ACTIVE);
-
     return morpheus::core::Error::OK;
 }
 
 void morpheus::nds::NdsMainLoop::setup_debug_console(bool use_main_display) {
     if(use_main_display) {
         vramSetBankC(VRAM_C_MAIN_BG);
+        videoSetMode(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     } else {
         vramSetBankH(VRAM_H_SUB_BG);
+        videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     }
 
     consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);

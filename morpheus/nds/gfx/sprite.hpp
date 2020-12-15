@@ -5,7 +5,7 @@
 #ifndef MORPHEUS_NDS_SPRITE_HPP
 #define MORPHEUS_NDS_SPRITE_HPP
 
-#include <stdio.h>
+#include <iostream>
 
 #include <core/core.hpp>
 
@@ -17,7 +17,9 @@ namespace morpheus {
             // TODO(Bobby): Make 16-color GBA-style sprite type for nds morpheus
             class Sprite : public core::Node {
                 public:
-                    Sprite(bool use_sub_display);
+                    explicit Sprite(bool use_sub_display);
+
+                    virtual ~Sprite();
 
                     core::gfx::Vector2 get_position() const {
                         return m_position;
