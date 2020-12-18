@@ -156,6 +156,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test4.o">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test4.o.rule">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test8.o">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test8.o.rule">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test8_pcx.o">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test8_pcx.o.rule">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -183,22 +201,25 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/nds/gfx/sprite.hpp">
 			<Option target="morpheus"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/nds/gfx/sprite_8_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/nds/gfx/sprite_8_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/nds/nds_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/home/bobby/morpheus/morpheus/nds/node.hpp">
-			<Option target="morpheus"/>
-		</Unit>
 		<Unit filename="/home/bobby/morpheus/tests/nds/nds_input_test.cpp">
-			<Option target="morpheus-nds-test.elf"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/tests/nds/test8.pcx.o">
-			<Option target="morpheus-nds-test.elf"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/tests/nds/test8.pcx.o.rule">
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/CMakeLists.txt">

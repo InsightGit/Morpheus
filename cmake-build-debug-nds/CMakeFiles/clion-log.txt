@@ -1,5 +1,10 @@
 /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.5981.166/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/bobby/morpheus
 -- Configuring for the Nintendo DS...
--- Configuring done
--- Generating done
--- Build files have been written to: /home/bobby/morpheus/cmake-build-debug-nds
+CMake Error at CMakeLists.txt:126 (message):
+  Invalid image size: ../TESTS/NDS/TESTT.PNG
+Call Stack (most recent call first):
+  CMakeLists.txt:257 (execute_grit)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/CMakeOutput.log".

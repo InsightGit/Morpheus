@@ -250,6 +250,60 @@ morpheus/nds/gfx/sprite.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s
 .PHONY : morpheus/nds/gfx/sprite.cpp.s
 
+morpheus/nds/gfx/sprite_4_bpp.o: morpheus/nds/gfx/sprite_4_bpp.cpp.o
+
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.o
+
+# target to build an object file
+morpheus/nds/gfx/sprite_4_bpp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.cpp.o
+
+morpheus/nds/gfx/sprite_4_bpp.i: morpheus/nds/gfx/sprite_4_bpp.cpp.i
+
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/sprite_4_bpp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.i
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.cpp.i
+
+morpheus/nds/gfx/sprite_4_bpp.s: morpheus/nds/gfx/sprite_4_bpp.cpp.s
+
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/sprite_4_bpp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.s
+.PHONY : morpheus/nds/gfx/sprite_4_bpp.cpp.s
+
+morpheus/nds/gfx/sprite_8_bpp.o: morpheus/nds/gfx/sprite_8_bpp.cpp.o
+
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.o
+
+# target to build an object file
+morpheus/nds/gfx/sprite_8_bpp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.cpp.o
+
+morpheus/nds/gfx/sprite_8_bpp.i: morpheus/nds/gfx/sprite_8_bpp.cpp.i
+
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/sprite_8_bpp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.i
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.cpp.i
+
+morpheus/nds/gfx/sprite_8_bpp.s: morpheus/nds/gfx/sprite_8_bpp.cpp.s
+
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/sprite_8_bpp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.s
+.PHONY : morpheus/nds/gfx/sprite_8_bpp.cpp.s
+
 morpheus/nds/nds_main_loop.o: morpheus/nds/nds_main_loop.cpp.o
 
 .PHONY : morpheus/nds/nds_main_loop.o
@@ -324,6 +378,12 @@ help:
 	@echo "... morpheus/nds/gfx/sprite.o"
 	@echo "... morpheus/nds/gfx/sprite.i"
 	@echo "... morpheus/nds/gfx/sprite.s"
+	@echo "... morpheus/nds/gfx/sprite_4_bpp.o"
+	@echo "... morpheus/nds/gfx/sprite_4_bpp.i"
+	@echo "... morpheus/nds/gfx/sprite_4_bpp.s"
+	@echo "... morpheus/nds/gfx/sprite_8_bpp.o"
+	@echo "... morpheus/nds/gfx/sprite_8_bpp.i"
+	@echo "... morpheus/nds/gfx/sprite_8_bpp.s"
 	@echo "... morpheus/nds/nds_main_loop.o"
 	@echo "... morpheus/nds/nds_main_loop.i"
 	@echo "... morpheus/nds/nds_main_loop.s"

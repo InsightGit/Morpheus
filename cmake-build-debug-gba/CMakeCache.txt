@@ -252,7 +252,13 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 GBAFIX:FILEPATH=/opt/devkitpro/tools/bin/gbafix
 
 //Path to a program.
+GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
+
+//Path to a program.
 OBJCOPY:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy
+
+//Image sizes of previously listed 4bpp PNG Files (widthXlength)
+PNG4_IMAGE_SIZES:STRING=32X32
 
 //Path to a program.
 ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc

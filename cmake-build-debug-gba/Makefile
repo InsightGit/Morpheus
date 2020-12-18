@@ -304,15 +304,6 @@ tests/gba/gba_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s
 .PHONY : tests/gba/gba_input_test.cpp.s
 
-tests/gba/testconfetti.o: tests/gba/testconfetti.s.o
-
-.PHONY : tests/gba/testconfetti.o
-
-# target to build an object file
-tests/gba/testconfetti.s.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o
-.PHONY : tests/gba/testconfetti.s.o
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -339,7 +330,6 @@ help:
 	@echo "... tests/gba/gba_input_test.o"
 	@echo "... tests/gba/gba_input_test.i"
 	@echo "... tests/gba/gba_input_test.s"
-	@echo "... tests/gba/testconfetti.o"
 .PHONY : help
 
 

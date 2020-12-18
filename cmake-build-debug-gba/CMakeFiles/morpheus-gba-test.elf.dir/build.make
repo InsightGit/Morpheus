@@ -77,9 +77,14 @@ include CMakeFiles/morpheus-gba-test.elf.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/morpheus-gba-test.elf.dir/flags.make
 
+test4.o:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating test4.o"
+	/opt/devkitpro/tools/bin/grit ../tests/nds/test4.png -gB8 -Mw 4 -Mh 4
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as test4.s -otest4.o
+
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: CMakeFiles/morpheus-gba-test.elf.dir/flags.make
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../tests/gba/gba_input_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o -c /home/bobby/morpheus/tests/gba/gba_input_test.cpp
 
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.i: cmake_force
@@ -90,21 +95,16 @@ CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/tests/gba/gba_input_test.cpp -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s
 
-CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o: CMakeFiles/morpheus-gba-test.elf.dir/flags.make
-CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o: ../tests/gba/testconfetti.s
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building ASM object CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o -c /home/bobby/morpheus/tests/gba/testconfetti.s
-
 # Object files for target morpheus-gba-test.elf
 morpheus__gba__test_elf_OBJECTS = \
-"CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o" \
-"CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o"
+"CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
 
 # External object files for target morpheus-gba-test.elf
-morpheus__gba__test_elf_EXTERNAL_OBJECTS =
+morpheus__gba__test_elf_EXTERNAL_OBJECTS = \
+"/home/bobby/morpheus/cmake-build-debug-gba/test4.o"
 
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o
-morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/testconfetti.s.o
+morpheus-gba-test.elf: test4.o
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/build.make
 morpheus-gba-test.elf: libgba_morpheus.a
 morpheus-gba-test.elf: CMakeFiles/morpheus-gba-test.elf.dir/link.txt
@@ -120,7 +120,7 @@ CMakeFiles/morpheus-gba-test.elf.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/morpheus-gba-test.elf.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/morpheus-gba-test.elf.dir/clean
 
-CMakeFiles/morpheus-gba-test.elf.dir/depend:
+CMakeFiles/morpheus-gba-test.elf.dir/depend: test4.o
 	cd /home/bobby/morpheus/cmake-build-debug-gba && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bobby/morpheus /home/bobby/morpheus /home/bobby/morpheus/cmake-build-debug-gba /home/bobby/morpheus/cmake-build-debug-gba /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/morpheus-gba-test.elf.dir/depend
 

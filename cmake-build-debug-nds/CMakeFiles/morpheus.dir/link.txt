@@ -1,2 +1,0 @@
-/usr/bin/ar qc libnds_morpheus.a  CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o
-/usr/bin/ranlib libnds_morpheus.a

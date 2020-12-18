@@ -156,6 +156,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o.rule">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -190,9 +196,6 @@
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/tests/gba/gba_input_test.cpp">
-			<Option target="morpheus-gba-test.elf"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/tests/gba/testconfetti.s">
 			<Option target="morpheus-gba-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/CMakeLists.txt">

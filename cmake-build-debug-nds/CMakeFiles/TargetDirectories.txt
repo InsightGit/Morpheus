@@ -1,5 +1,0 @@
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/rebuild_cache.dir
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-test.nds.dir
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-test.elf.dir
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/edit_cache.dir

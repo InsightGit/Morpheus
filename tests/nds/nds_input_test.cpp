@@ -6,9 +6,9 @@
 
 #include "test8_pcx.h"
 
-class MoveableSprite : public morpheus::nds::gfx::Sprite {
+class MoveableSprite : public morpheus::nds::gfx::Sprite8Bpp {
 public:
-    MoveableSprite(bool use_sub_display) : Sprite(use_sub_display) {}
+    MoveableSprite(bool use_sub_display) : Sprite8Bpp(use_sub_display) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         if(input_event.state == morpheus::core::InputState::HELD || \

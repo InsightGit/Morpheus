@@ -1,62 +1,98 @@
 //
-// Created by bobby on 27/11/2020.
+// Created by bobby on 16/12/2020.
 //
 
-#ifndef MORPHEUS_NDS_SPRITE_HPP
-#define MORPHEUS_NDS_SPRITE_HPP
-
-#include <iostream>
-
-#include <core/core.hpp>
+#ifndef MORPHEUS_GBA_TEST_SPRITE_HPP
+#define MORPHEUS_GBA_TEST_SPRITE_HPP
 
 #include <nds.h>
+
+#include <core/core.hpp>
 
 namespace morpheus {
     namespace nds {
         namespace gfx {
-            // TODO(Bobby): Make 16-color GBA-style sprite type for nds morpheus
+            enum class OamStatus {
+                DISABLED,
+                ENABLED,
+                ENABLED_EXTENDED,
+                ENABLED_BITMAP,
+                ENABLED_EXTENDED_BITMAP
+            };
+
+            static OamStatus OAM_STATUS = OamStatus::DISABLED;
+
             class Sprite : public core::Node {
-                public:
-                    explicit Sprite(bool use_sub_display);
+            public:
+                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping, bool extended_palette);
 
-                    virtual ~Sprite();
+                virtual ~Sprite();
 
-                    core::gfx::Vector2 get_position() const {
-                        return m_position;
+                core::gfx::Vector2 get_position() const {
+                    return m_position;
+                }
+
+                void set_position(const core::gfx::Vector2 position) {
+                    m_position = position;
+                }
+
+                void set_position(const int x, const int y) {
+                    set_position(core::gfx::Vector2(x, y));
+                }
+
+                // Single palette load functions
+                virtual bool load_from_array(uint8_t **tile_array, uint8_t width, uint8_t height) = 0;
+                virtual bool load_from_array(uint8_t **tile_array, uint16_t **palette,
+                                             uint8_t width, uint8_t height) = 0;
+
+                // Extended palette load functions
+                virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id, uint8_t width,
+                                             uint8_t height) = 0;
+                virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id,
+                                             uint16_t **palette, uint8_t width, uint8_t height) = 0;
+            protected:
+                void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0) {
+                    if(width > 0 && height > 0) {
+                        set_sprite_size(width, height);
                     }
 
-                    void set_position(const core::gfx::Vector2 position) {
-                        m_position = position;
+                    if(m_gfx_pointer != nullptr) {
+                        oamFreeGfx(m_current_oam, m_gfx_pointer);
                     }
 
-                    void set_position(const int x, const int y) {
-                        set_position(core::gfx::Vector2(x, y));
-                    }
+                    m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
+                }
 
-                    void load_from_array(uint8_t **tile_array, uint8_t tile_array_len,
-                                         uint8_t **pal, uint8_t pal_len, uint8_t width,
-                                         uint8_t height, uint8_t tile_id);
-                    bool load_from_pcx(const unsigned char *pcx_data, uint8_t palette_id, bool copy_palette = true);
+                OamState *get_current_oam() const {
+                    return m_current_oam;
+                }
 
-                    void draw(std::vector<void *>obj_attr_buffer, int obj_attr_num)override;
-                protected:
-                    void draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num)override {};
+                uint16_t *get_gfx_pointer() const {
+                    return m_gfx_pointer;
+                }
 
-                    void set_sprite_size(uint8_t width, uint8_t height);
+                SpriteSize get_sprite_size() const {
+                    return m_sprite_size;
+                }
 
-                    virtual void input(core::InputEvent input_event)override {}
-                private:
-                    core::gfx::Vector2 m_position;
+                bool is_in_extended_palette_mode() const {
+                    return m_use_extended_palette;
+                }
 
-                    uint16_t *m_gfx_pointer;
-                    uint8_t m_palette_id;
+                void set_sprite_size(uint8_t width, uint8_t height);
 
-                    OamState *m_current_oam;
-                    std::unique_ptr<sImage> m_sprite_image;
-                    SpriteSize m_sprite_size;
+                virtual void input(core::InputEvent input_event)override {}
+            private:
+                bool m_use_extended_palette;
+
+                core::gfx::Vector2 m_position;
+
+                OamState *m_current_oam;
+                uint16_t *m_gfx_pointer;
+                SpriteSize m_sprite_size;
             };
         }
     }
 }
 
-#endif //MORPHEUS_NDS_SPRITE_HPP*/
+#endif //MORPHEUS_GBA_TEST_SPRITE_HPP

@@ -1,2 +1,3 @@
 # Hashes of file build rules.
 fde0735be054fc7c4880cf87ad74a7d5 CMakeFiles/morpheus-gba-test.gba
+e56bcaf6204946307b012d58280ca88c test4.o

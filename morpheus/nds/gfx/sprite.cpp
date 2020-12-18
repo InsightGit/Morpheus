@@ -1,10 +1,11 @@
 //
-// Created by bobby on 27/11/2020.
+// Created by bobby on 17/12/2020.
 //
 
 #include "sprite.hpp"
 
-morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display) {
+morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, const SpriteMapping sprite_mapping,
+                                   const bool extended_palette) {
     if(use_sub_display) {
         m_current_oam = &oamSub;
 
@@ -16,14 +17,42 @@ morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display) {
         vramSetBankB(VRAM_B_MAIN_SPRITE);
     }
 
-    oamInit(m_current_oam, SpriteMapping_1D_32, true);
+    bool is_bitmap = sprite_mapping == SpriteMapping_Bmp_1D_128 ||
+                     sprite_mapping == SpriteMapping_1D_256 ||
+                     sprite_mapping == SpriteMapping_Bmp_2D_128 ||
+                     sprite_mapping == SpriteMapping_Bmp_2D_256;
+    OamStatus new_oam_status;
+
+    m_use_extended_palette = extended_palette;
+
+    if(m_use_extended_palette) {
+        if(is_bitmap) {
+            new_oam_status = OamStatus::ENABLED_EXTENDED_BITMAP;
+        } else {
+            new_oam_status = OamStatus::ENABLED_EXTENDED;
+        }
+    } else {
+        if(is_bitmap) {
+            new_oam_status = OamStatus::ENABLED_BITMAP;
+        } else {
+            new_oam_status = OamStatus::ENABLED;
+        }
+    }
+
+    if(OAM_STATUS != new_oam_status) {
+        OAM_STATUS = new_oam_status;
+
+        oamInit(m_current_oam, sprite_mapping, m_use_extended_palette);
+    }
 }
 
 morpheus::nds::gfx::Sprite::~Sprite() {
-    oamFreeGfx(m_current_oam, m_gfx_pointer);
+    if(m_gfx_pointer != nullptr) {
+        oamFreeGfx(m_current_oam, m_gfx_pointer);
+    }
 }
 
-void morpheus::nds::gfx::Sprite::set_sprite_size(uint8_t width, uint8_t height) {
+void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint8_t height) {
     if(width == height) {
         switch(width) {
             case 8:
@@ -80,75 +109,3 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(uint8_t width, uint8_t height) 
         assert(false);
     }
 }
-
-void morpheus::nds::gfx::Sprite::load_from_array(uint8_t **tile_array, uint8_t tile_array_len,
-                                                 uint8_t **pal, uint8_t pal_len, uint8_t width,
-                                                 uint8_t height, uint8_t tile_id) {
-    set_sprite_size(width, height);
-}
-
-bool morpheus::nds::gfx::Sprite::load_from_pcx(const unsigned char *pcx_data, uint8_t palette_id,
-                                               bool copy_palette) {
-    bool return_value = loadPCX(pcx_data, m_sprite_image.get()) == 1;
-
-    if(return_value) {
-        imageTileData(m_sprite_image.get());
-    } else {
-        return false;
-    }
-
-    set_sprite_size(m_sprite_image->width, m_sprite_image->height);
-
-    m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, SpriteColorFormat_256Color);
-
-    for(int i = 0; i < (m_sprite_image->width * m_sprite_image->height); ++i) {
-        m_gfx_pointer[i] = m_sprite_image->image.data16[i];
-    }
-
-    if(copy_palette) {
-        std::string oam_name;
-
-        if(m_current_oam == &oamSub) {
-            oam_name = "oamSub";
-
-            vramSetBankI(VRAM_I_LCD);
-        } else {
-            oam_name = "oamMain";
-
-            vramSetBankF(VRAM_F_LCD);
-        }
-
-        m_palette_id = palette_id;
-
-        for(int i = 0; i < 256; ++i) {
-            if(m_current_oam == &oamSub) {
-                VRAM_I_EXT_SPR_PALETTE[m_palette_id][i] = m_sprite_image->palette[i];
-                //SPRITE_PALETTE_SUB[i] = m_sprite_image->palette[i];
-            } else {
-                VRAM_F_EXT_SPR_PALETTE[m_palette_id][i] = m_sprite_image->palette[i];
-            }
-        }
-
-        std::cout << "loaded palette into " << oam_name << "\n" << "Palette #" << int(m_palette_id) << "\n";
-
-        if(m_current_oam == &oamSub) {
-            vramSetBankI(VRAM_I_SUB_SPRITE_EXT_PALETTE);
-        } else {
-            vramSetBankF(VRAM_F_SPRITE_EXT_PALETTE);
-        }
-    }
-
-    std::cout << "loaded pcx\n";
-
-    return true;
-}
-
-void morpheus::nds::gfx::Sprite::draw(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
-    if(obj_attr_num != 0) {
-        std::cout << "oh noes: " << obj_attr_num << "\n";
-    }
-
-    oamSet(m_current_oam, obj_attr_num, m_position.get_x(), m_position.get_y(), 0, m_palette_id, m_sprite_size,
-           SpriteColorFormat_256Color, m_gfx_pointer, -1, false, false, false, false, false);
-}
-

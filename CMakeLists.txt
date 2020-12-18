@@ -55,7 +55,10 @@ elseif(platform_lower STREQUAL "nds")
          morpheus/nds/nds_main_loop.cpp
          morpheus/nds/gfx/sprite.hpp
          morpheus/nds/gfx/sprite.cpp
-         morpheus/nds/node.hpp)
+         morpheus/nds/gfx/sprite_4_bpp.hpp
+         morpheus/nds/gfx/sprite_4_bpp.cpp
+         morpheus/nds/gfx/sprite_8_bpp.hpp
+         morpheus/nds/gfx/sprite_8_bpp.cpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 
@@ -77,6 +80,76 @@ else()
 endif()
 
 if("$ENV{BUILD_TESTS}")
+    set(PNG4_FILES "../tests/nds/test4.png") #CACHE STRING
+            #"4bpp PNG Files used by test code (paths are relative to cmake build dir)")
+    set(PNG4_IMAGE_SIZES "32X32" CACHE STRING "Image sizes of previously listed 4bpp PNG Files (widthXlength)")
+
+    if(NOT GRIT)
+        # message(STATUS "Looking for bin2s...")
+        find_program(GRIT grit ${DEVKITPRO}/tools)
+        if(BIN2S)
+            message(STATUS "grit: ${GRIT} - found")
+        else()
+            message(FATAL_ERROR "grit - not found")
+        endif()
+    endif()
+
+    function(execute_grit png_files png_image_sizes is_4bpp)
+        list(LENGTH png_files png_files_length)
+        list(LENGTH png_image_sizes png_image_sizes_length)
+
+        if(NOT png_files_length EQUAL png_image_sizes_length)
+            message(FATAL_ERROR "The length of the png_files list (${png_files_length}) does "
+                    "NOT equal the length of the PNG4_IMAGE_SIZES list (${png_image_sizes_length})."
+                    " Are you missing a size or image path argument for a 4bpp PNG?")
+        endif()
+
+        if(is_4bpp)
+            set(bpp_flag "4")
+        else()
+            set(bpp_flag "8")
+        endif()
+
+        math(EXPR png_files_length "${png_files_length} - 1")
+
+        foreach(iteration RANGE ${png_files_length})
+            list(GET png_files ${iteration} png_file)
+            list(GET png_image_sizes ${iteration} png_image_size)
+
+            string(TOUPPER ${png_image_size} png_image_size)
+
+            string(REPLACE "X" ";" png_image_size ${png_image_size})
+
+            list(LENGTH png_image_size png_image_size_len)
+
+            if(NOT png_image_size_len EQUAL 2)
+                message(FATAL_ERROR "Invalid image size: ${png_image_size}")
+            endif()
+
+            list(GET png_image_size 0 png_image_width)
+            list(GET png_image_size 1 png_image_length)
+
+            math(EXPR png_image_width_tiles "${png_image_width} / 8")
+            math(EXPR png_image_length_tiles "${png_image_length} / 8")
+
+            get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+            add_custom_command(OUTPUT ${png_file_name_path}.o
+                    COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -Mw ${png_image_width_tiles}
+                            -Mh ${png_image_length_tiles}
+                    COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+                    VERBATIM)
+        endforeach()
+    endfunction()
+
+    execute_grit(${PNG4_FILES} ${PNG4_IMAGE_SIZES} FALSE PNG4_OUTPUT_FILES)
+
+    foreach(png4_file ${PNG4_FILES})
+        get_filename_component(png4_file ${png4_file} NAME_WLE)
+
+        list(APPEND PNG4_OUTPUT_FILES ${png4_file}.o)
+    endforeach()
+
     if(platform_lower STREQUAL "gba")
         project(morpheus-gba-test)
 
@@ -110,12 +183,9 @@ if("$ENV{BUILD_TESTS}")
             set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.gba)
         endfunction()
 
-        #string(CONCAT MULTI "$ENV{DEVKITARM}" "/arm-none-eabi/lib/")
-
-        #include_directories(morpheus-gba-test PRIVATE . ${MULTI})
         link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-test.elf tests/gba/gba_input_test.cpp tests/gba/testconfetti.s)
+        add_executable(morpheus-gba-test.elf tests/gba/gba_input_test.cpp ${PNG4_OUTPUT_FILES})#tests/gba/testconfetti.s)
         add_gba_executable(morpheus-gba-test.elf)
 
         target_link_libraries(morpheus-gba-test.elf morpheus tonc)
@@ -127,7 +197,11 @@ if("$ENV{BUILD_TESTS}")
         set(NDS_SUBTITLE1 "hopefully this works" CACHE STRING "NDS game subtitle #1")
         set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
         set(NDS_PCX_FILES "../tests/nds/test8.pcx" CACHE STRING
-                "PCX Files used by code (paths are relative to cmake build dir)")
+                "PCX Files used by test code (paths are relative to cmake build dir)")
+        set(NDS_PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
+                "8bpp PNG Files used by NDS test code (paths are relative to cmake build dir)")
+        set(NDS_PNG8_IMAGE_SIZES "32X32" CACHE STRING "Image sizes of the previously
+                                                       listed 8bpp PNG files (widthXlength)")
 
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -148,8 +222,6 @@ if("$ENV{BUILD_TESTS}")
             endif()
         endif()
 
-        #message(STATUS ${NDS_PCX_FILES})
-
         function(add_nds_executable target)
             get_filename_component(target_name ${target} NAME_WE)
             add_custom_target(${target_name}.nds ALL SOURCES
@@ -168,25 +240,32 @@ if("$ENV{BUILD_TESTS}")
             get_filename_component(pcx_file_underscores_no_path ${pcx_file} NAME)
             string(REPLACE "." "_" pcx_file_underscores_no_path ${pcx_file_underscores_no_path})
 
-            get_filename_component(pcx_dir ${pcx_file} DIRECTORY)
-            set(pcx_file_underscores ${pcx_dir}/${pcx_file_underscores_no_path})
-
-            string(REPLACE "../" "" pcx_file_underscores ${pcx_file_underscores})
-
-            file(WRITE ${pcx_file_underscores}.h
+            file(WRITE ${pcx_file_underscores_no_path}.h
                  "extern const uint8_t ${pcx_file_underscores_no_path}_end[];\n"
                  "extern const uint8_t ${pcx_file_underscores_no_path}[];\n"
                  "extern const uint32_t ${pcx_file_underscores_no_path}_size;")
 
-            add_custom_command(OUTPUT ${pcx_file}.o
-                               COMMAND ${BIN2S} ${pcx_file} > ${pcx_file}.s
-                               COMMAND ${ASSEMBLER_TO_USE} "${pcx_file}.s" -o${pcx_file}.o
+            add_custom_command(OUTPUT ${pcx_file_underscores_no_path}.o
+                               COMMAND ${BIN2S} ${pcx_file} > ${pcx_file_underscores_no_path}.s
+                               COMMAND ${ASSEMBLER_TO_USE} ${pcx_file_underscores_no_path}.s
+                                       -o${pcx_file_underscores_no_path}.o
                                VERBATIM)
 
-            list(APPEND NDS_PCX_OBJECTS "${pcx_file}.o")
+            list(APPEND NDS_PCX_OBJECTS "${pcx_file_underscores_no_path}.o")
         endforeach()
 
-        add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS})
+        execute_grit(${NDS_PNG8_FILES} ${NDS_PNG8_IMAGE_SIZES} TRUE)
+
+        foreach(nds_png8_file ${NDS_PNG8_FILES})
+            get_filename_component(nds_png8_file ${nds_png8_file} NAME_WLE)
+
+            list(APPEND NDS_PNG8_OUTPUT_FILES ${nds_png8_file}.o)
+        endforeach()
+
+        message(STATUS "${NDS_PNG8_OUTPUT_FILES}")
+
+        add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS} ${PNG4_OUTPUT_FILES}
+                        ${NDS_PNG8_OUTPUT_FILES})
         add_nds_executable(morpheus-nds-test.elf)
 
         target_link_libraries(morpheus-nds-test.elf morpheus nds9)
