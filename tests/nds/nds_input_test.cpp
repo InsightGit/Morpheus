@@ -5,10 +5,12 @@
 #include <nds/nds.hpp>
 
 #include "test8_pcx.h"
+#include "test8.h"
 
 class MoveableSprite : public morpheus::nds::gfx::Sprite8Bpp {
 public:
-    MoveableSprite(bool use_sub_display) : Sprite8Bpp(use_sub_display) {}
+    MoveableSprite(bool use_sub_display, bool use_extended_palette) : Sprite8Bpp(use_sub_display,
+                                                                                 use_extended_palette) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         if(input_event.state == morpheus::core::InputState::HELD || \
@@ -42,11 +44,19 @@ int main() {
 
     defaultExceptionHandler();
 
-    MoveableSprite test_sprite(true);
+    MoveableSprite test_sprite(true, false);
+    MoveableSprite test2_sprite(true, false);
 
-    test_sprite.load_from_pcx(test8_pcx, 0);
+    if(!test_sprite.load_from_pcx(test8_pcx, 0)) {
+        std::cout << "Couldn't load PCX!\n";
+    }
+
+    test2_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test8Tiles[0])), 32, 32);
 
     test_sprite.set_position(0, 0);
+    test2_sprite.set_position(64, 64);
+
+    test_sprite.add_child(&test2_sprite);
 
     nds_main_loop->set_root(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test_sprite));
 

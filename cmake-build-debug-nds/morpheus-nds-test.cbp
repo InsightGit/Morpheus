@@ -38,6 +38,7 @@
 					<Add directory="/home/bobby/morpheus/morpheus"/>
 					<Add directory="/home/bobby/morpheus/PRIVATE"/>
 					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-nds"/>
 					<Add directory="/opt/devkitpro/libnds/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
@@ -65,6 +66,7 @@
 					<Add directory="/home/bobby/morpheus/morpheus"/>
 					<Add directory="/home/bobby/morpheus/PRIVATE"/>
 					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-nds"/>
 					<Add directory="/opt/devkitpro/libnds/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
@@ -102,6 +104,7 @@
 					<Add directory="/home/bobby/morpheus/morpheus"/>
 					<Add directory="/home/bobby/morpheus/PRIVATE"/>
 					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-nds"/>
 					<Add directory="/opt/devkitpro/libnds/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
@@ -129,6 +132,7 @@
 					<Add directory="/home/bobby/morpheus/morpheus"/>
 					<Add directory="/home/bobby/morpheus/PRIVATE"/>
 					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-nds"/>
 					<Add directory="/opt/devkitpro/libnds/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
@@ -172,6 +176,12 @@
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/test8_pcx.o.rule">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/testt.o">
+			<Option target="morpheus-nds-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-nds/testt.o.rule">
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">

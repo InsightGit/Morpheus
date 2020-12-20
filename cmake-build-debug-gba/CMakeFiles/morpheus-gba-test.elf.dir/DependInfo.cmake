@@ -18,6 +18,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../morpheus"
   "../PRIVATE"
   "../."
+  "."
   "/opt/devkitpro/libtonc/include"
   )
 

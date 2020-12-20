@@ -40,7 +40,7 @@ namespace morpheus {
                     set_position(core::gfx::Vector2(x, y));
                 }
 
-                // Single palette load functions
+                /*// Single palette load functions
                 virtual bool load_from_array(uint8_t **tile_array, uint8_t width, uint8_t height) = 0;
                 virtual bool load_from_array(uint8_t **tile_array, uint16_t **palette,
                                              uint8_t width, uint8_t height) = 0;
@@ -49,7 +49,7 @@ namespace morpheus {
                 virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id, uint8_t width,
                                              uint8_t height) = 0;
                 virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id,
-                                             uint16_t **palette, uint8_t width, uint8_t height) = 0;
+                                             uint16_t **palette, uint8_t width, uint8_t height) = 0;*/
             protected:
                 void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0) {
                     if(width > 0 && height > 0) {
@@ -57,6 +57,8 @@ namespace morpheus {
                     }
 
                     if(m_gfx_pointer != nullptr) {
+                        std::cout << "freeing gfx\n";
+
                         oamFreeGfx(m_current_oam, m_gfx_pointer);
                     }
 
@@ -88,7 +90,7 @@ namespace morpheus {
                 core::gfx::Vector2 m_position;
 
                 OamState *m_current_oam;
-                uint16_t *m_gfx_pointer;
+                uint16_t *m_gfx_pointer = nullptr;
                 SpriteSize m_sprite_size;
             };
         }

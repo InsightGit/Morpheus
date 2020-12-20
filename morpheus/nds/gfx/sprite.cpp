@@ -53,6 +53,8 @@ morpheus::nds::gfx::Sprite::~Sprite() {
 }
 
 void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint8_t height) {
+    std::cout << "width=" << (int)width << " height=" << (int)height << "\n";
+
     if(width == height) {
         switch(width) {
             case 8:
@@ -69,6 +71,7 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint
                 break;
             default:
                 // unknown tile size passed
+                std::cout << "assert fired\n";
                 assert(false);
                 break;
         }
@@ -85,6 +88,7 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint
                 break;
             default:
                 // unknown tile size passed
+                std::cout << "assert fired\n";
                 assert(false);
                 break;
         }
@@ -101,11 +105,13 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint
                 break;
             default:
                 // unknown tile size passed
+                std::cout << "assert fired\n";
                 assert(false);
                 break;
         }
     } else {
         // unknown tile size passed
+        std::cout << "assert fired\n";
         assert(false);
     }
 }

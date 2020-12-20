@@ -79,7 +79,7 @@ include CMakeFiles/morpheus-gba-test.elf.dir/flags.make
 
 test4.o:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating test4.o"
-	/opt/devkitpro/tools/bin/grit ../tests/nds/test4.png -gB8 -Mw 4 -Mh 4
+	/opt/devkitpro/tools/bin/grit ../tests/nds/test4.png -gB4 -Mw 4 -Mh 4
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as test4.s -otest4.o
 
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: CMakeFiles/morpheus-gba-test.elf.dir/flags.make

@@ -19,6 +19,8 @@ project(morpheus)
 
 #set( CMAKE_VERBOSE_MAKEFILE on )
 
+set(BASE_INCLUDE_DIRS . ${CMAKE_CURRENT_BINARY_DIR})
+
 if(platform_lower STREQUAL "gba")
     set(CMAKE_STATIC_LIBRARY_PREFIX "libgba_")
     set(CMAKE_SYSTEM_NAME Generic)
@@ -37,7 +39,7 @@ if(platform_lower STREQUAL "gba")
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
-    include_directories(morpheus PRIVATE . /opt/devkitpro/libtonc/include)
+    include_directories(morpheus PRIVATE ${BASE_INCLUDE_DIRS} /opt/devkitpro/libtonc/include)
     link_directories(${DEVKITPRO}/libtonc/lib)
 elseif(platform_lower STREQUAL "nds")
     set(CMAKE_STATIC_LIBRARY_PREFIX "libnds_")
@@ -62,7 +64,7 @@ elseif(platform_lower STREQUAL "nds")
 
     message(STATUS "Configuring for the Nintendo DS...")
 
-    include_directories(morpheus PRIVATE . /opt/devkitpro/libnds/include)
+    include_directories(morpheus PRIVATE ${BASE_INCLUDE_DIRS} /opt/devkitpro/libnds/include)
     link_directories(${DEVKITPRO}/libnds/lib)
 else()
     message(FATAL_ERROR "Unrecognized platform (" $ENV{PLATFORM} ") specified in PLATFORM environment variable!")
@@ -87,7 +89,7 @@ if("$ENV{BUILD_TESTS}")
     if(NOT GRIT)
         # message(STATUS "Looking for bin2s...")
         find_program(GRIT grit ${DEVKITPRO}/tools)
-        if(BIN2S)
+        if(GRIT)
             message(STATUS "grit: ${GRIT} - found")
         else()
             message(FATAL_ERROR "grit - not found")
@@ -95,6 +97,11 @@ if("$ENV{BUILD_TESTS}")
     endif()
 
     function(execute_grit png_files png_image_sizes is_4bpp)
+        set(png_files ${${png_files}})
+        set(png_image_sizes ${${png_image_sizes}})
+
+        message(STATUS "execute grit called with png_files: ${png_files}\n with png_image_sizes: ${png_image_sizes}\n and is_4bpp:${is_4bpp}")
+
         list(LENGTH png_files png_files_length)
         list(LENGTH png_image_sizes png_image_sizes_length)
 
@@ -132,6 +139,8 @@ if("$ENV{BUILD_TESTS}")
             math(EXPR png_image_width_tiles "${png_image_width} / 8")
             math(EXPR png_image_length_tiles "${png_image_length} / 8")
 
+            message(STATUS "${png_image_width_tiles}x${png_image_length_tiles}")
+
             get_filename_component(png_file_name_path ${png_file} NAME_WLE)
 
             add_custom_command(OUTPUT ${png_file_name_path}.o
@@ -142,7 +151,7 @@ if("$ENV{BUILD_TESTS}")
         endforeach()
     endfunction()
 
-    execute_grit(${PNG4_FILES} ${PNG4_IMAGE_SIZES} FALSE PNG4_OUTPUT_FILES)
+    execute_grit(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
 
     foreach(png4_file ${PNG4_FILES})
         get_filename_component(png4_file ${png4_file} NAME_WLE)
@@ -179,7 +188,7 @@ if("$ENV{BUILD_TESTS}")
                     DEPENDS ${target}
                     VERBATIM
                     )
-            set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -specs=gba.specs")
+            set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
             set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.gba)
         endfunction()
 
@@ -200,8 +209,8 @@ if("$ENV{BUILD_TESTS}")
                 "PCX Files used by test code (paths are relative to cmake build dir)")
         set(NDS_PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
                 "8bpp PNG Files used by NDS test code (paths are relative to cmake build dir)")
-        set(NDS_PNG8_IMAGE_SIZES "32X32" CACHE STRING "Image sizes of the previously
-                                                       listed 8bpp PNG files (widthXlength)")
+        set(NDS_PNG8_IMAGE_SIZES "32X32" "32X32" CACHE STRING
+                "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -240,7 +249,7 @@ if("$ENV{BUILD_TESTS}")
             get_filename_component(pcx_file_underscores_no_path ${pcx_file} NAME)
             string(REPLACE "." "_" pcx_file_underscores_no_path ${pcx_file_underscores_no_path})
 
-            file(WRITE ${pcx_file_underscores_no_path}.h
+            file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pcx_file_underscores_no_path}.h
                  "extern const uint8_t ${pcx_file_underscores_no_path}_end[];\n"
                  "extern const uint8_t ${pcx_file_underscores_no_path}[];\n"
                  "extern const uint32_t ${pcx_file_underscores_no_path}_size;")
@@ -254,7 +263,7 @@ if("$ENV{BUILD_TESTS}")
             list(APPEND NDS_PCX_OBJECTS "${pcx_file_underscores_no_path}.o")
         endforeach()
 
-        execute_grit(${NDS_PNG8_FILES} ${NDS_PNG8_IMAGE_SIZES} TRUE)
+        execute_grit(NDS_PNG8_FILES NDS_PNG8_IMAGE_SIZES FALSE)
 
         foreach(nds_png8_file ${NDS_PNG8_FILES})
             get_filename_component(nds_png8_file ${nds_png8_file} NAME_WLE)

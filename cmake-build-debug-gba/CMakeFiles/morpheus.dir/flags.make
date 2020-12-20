@@ -6,5 +6,5 @@ CXX_FLAGS = -g -Wall -O2 -mcpu=arm7tdmi -mtune=arm7tdmi -specs=gba.specs -ffast-
 
 CXX_DEFINES = -D_GBA
 
-CXX_INCLUDES = -I/home/bobby/morpheus/morpheus -I/home/bobby/morpheus/PRIVATE -I/home/bobby/morpheus/. -I/opt/devkitpro/libtonc/include 
+CXX_INCLUDES = -I/home/bobby/morpheus/morpheus -I/home/bobby/morpheus/PRIVATE -I/home/bobby/morpheus/. -I/home/bobby/morpheus/cmake-build-debug-gba -I/opt/devkitpro/libtonc/include 
 
