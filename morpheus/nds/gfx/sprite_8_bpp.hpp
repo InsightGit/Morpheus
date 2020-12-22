@@ -15,37 +15,35 @@
 namespace morpheus {
     namespace nds {
         namespace gfx {
-            // TODO(Bobby): Make 16-color GBA-style sprite type for nds morpheus
             class Sprite8Bpp : public nds::gfx::Sprite {
                 public:
                     explicit Sprite8Bpp(bool use_sub_display, bool use_extended_palette = true) :
-                        nds::gfx::Sprite(use_sub_display,SpriteMapping_1D_32, use_extended_palette) {}
+                        nds::gfx::Sprite(use_sub_display,SpriteMapping_1D_32,
+                                        use_extended_palette ? ExtendedPaletteStatus::NEEDED :
+                                                               ExtendedPaletteStatus::NEEDOFF) {}
 
 
                     // Single palette load functions
                     bool load_from_array(const unsigned short *tile_array, const unsigned int width,
-                                         const unsigned int height);//override;
+                                         const unsigned int height);
                     bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                         const unsigned int width, const unsigned int height);//override;
+                                         const unsigned int width, const unsigned int height);
 
                     // Extended palette load functions
                     bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                         const unsigned int width, const unsigned int height);//override;
+                                         const unsigned int width, const unsigned int height)override;
                     bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                          const unsigned short *palette, const unsigned int width,
-                                         const unsigned int height);//override;
+                                         const unsigned int height)override;
 
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
                                        bool copy_palette = true);
 
                 protected:
+                    bool copy_into_palette(const unsigned short *palette, const unsigned int palette_id)override;
                     void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override;
                 private:
-                    unsigned int m_palette_id;
-
                     std::unique_ptr<sImage> m_sprite_image;
-
-                    void copy_into_palette(const unsigned short *palette, const unsigned int palette_id);
             };
         }
     }

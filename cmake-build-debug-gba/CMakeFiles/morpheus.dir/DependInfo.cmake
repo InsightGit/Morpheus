@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/node.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
   )

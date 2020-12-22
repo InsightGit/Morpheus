@@ -8,6 +8,7 @@ CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/gfx/sprite.hpp
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/gfx/sprite_4_bpp.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/gfx/sprite_8_bpp.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/nds.hpp
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../morpheus/nds/nds_main_loop.hpp
@@ -62,6 +63,7 @@ CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkit
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds/system.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: test4.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: test8.h
 CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: test8_pcx.h
 

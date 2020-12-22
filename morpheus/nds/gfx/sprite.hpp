@@ -20,11 +20,18 @@ namespace morpheus {
                 ENABLED_EXTENDED_BITMAP
             };
 
+            enum class ExtendedPaletteStatus {
+                NEEDED,
+                NOTNEEDED,
+                NEEDOFF
+            };
+
             static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
             class Sprite : public core::Node {
             public:
-                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping, bool extended_palette);
+                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
+                                ExtendedPaletteStatus external_palette);
 
                 virtual ~Sprite();
 
@@ -40,30 +47,14 @@ namespace morpheus {
                     set_position(core::gfx::Vector2(x, y));
                 }
 
-                /*// Single palette load functions
-                virtual bool load_from_array(uint8_t **tile_array, uint8_t width, uint8_t height) = 0;
-                virtual bool load_from_array(uint8_t **tile_array, uint16_t **palette,
-                                             uint8_t width, uint8_t height) = 0;
-
                 // Extended palette load functions
-                virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id, uint8_t width,
-                                             uint8_t height) = 0;
-                virtual bool load_from_array(uint8_t **tile_array, uint8_t palette_id,
-                                             uint16_t **palette, uint8_t width, uint8_t height) = 0;*/
+                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
+                                             const unsigned int width, const unsigned int height) = 0;
+                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
+                                             const unsigned short *palette, const unsigned int width,
+                                             const unsigned int height) = 0;
             protected:
-                void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0) {
-                    if(width > 0 && height > 0) {
-                        set_sprite_size(width, height);
-                    }
-
-                    if(m_gfx_pointer != nullptr) {
-                        std::cout << "freeing gfx\n";
-
-                        oamFreeGfx(m_current_oam, m_gfx_pointer);
-                    }
-
-                    m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
-                }
+                void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0);
 
                 OamState *get_current_oam() const {
                     return m_current_oam;
@@ -77,15 +68,25 @@ namespace morpheus {
                     return m_sprite_size;
                 }
 
+                unsigned int get_palette_id() const {
+                    return m_palette_id;
+                }
+
+                void set_palette_id(const unsigned int palette_id) {
+                    m_palette_id = palette_id;
+                }
+
                 bool is_in_extended_palette_mode() const {
-                    return m_use_extended_palette;
+                    return m_extended_palette;
                 }
 
                 void set_sprite_size(uint8_t width, uint8_t height);
 
+                virtual bool copy_into_palette(const unsigned short *palette, const unsigned int palette_id) = 0;
                 virtual void input(core::InputEvent input_event)override {}
             private:
-                bool m_use_extended_palette;
+                bool m_extended_palette;
+                unsigned int m_palette_id;
 
                 core::gfx::Vector2 m_position;
 

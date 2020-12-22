@@ -199,6 +199,9 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/core/main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/node.cpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/node.hpp">
 			<Option target="morpheus"/>
 		</Unit>

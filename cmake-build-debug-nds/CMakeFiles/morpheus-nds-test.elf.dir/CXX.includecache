@@ -52,6 +52,12 @@ nds.h
 core/core.hpp
 -
 
+../morpheus/nds/gfx/sprite_4_bpp.hpp
+iostream
+-
+nds/gfx/sprite.hpp
+-
+
 ../morpheus/nds/gfx/sprite_8_bpp.hpp
 iostream
 -
@@ -64,6 +70,8 @@ nds/gfx/sprite.hpp
 
 ../morpheus/nds/nds.hpp
 nds/gfx/sprite_8_bpp.hpp
+-
+nds/gfx/sprite_4_bpp.hpp
 -
 nds/nds_main_loop.hpp
 -
@@ -83,6 +91,8 @@ test8_pcx.h
 /home/bobby/morpheus/tests/nds/test8_pcx.h
 test8.h
 /home/bobby/morpheus/tests/nds/test8.h
+test4.h
+/home/bobby/morpheus/tests/nds/test4.h
 
 /opt/devkitpro/libnds/include/nds.h
 nds/libversion.h
@@ -433,6 +443,8 @@ nds/ndstypes.h
 -
 
 /opt/devkitpro/libnds/include/nds/touch.h
+
+test4.h
 
 test8.h
 

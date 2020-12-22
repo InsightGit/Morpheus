@@ -5,12 +5,11 @@
 #include "sprite.hpp"
 
 morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, const SpriteMapping sprite_mapping,
-                                   const bool extended_palette) {
+                                   ExtendedPaletteStatus extended_palette) {
     if(use_sub_display) {
         m_current_oam = &oamSub;
 
         vramSetBankD(VRAM_D_SUB_SPRITE);
-
     } else {
         m_current_oam = &oamMain;
 
@@ -23,9 +22,21 @@ morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, const SpriteMappi
                      sprite_mapping == SpriteMapping_Bmp_2D_256;
     OamStatus new_oam_status;
 
-    m_use_extended_palette = extended_palette;
+    // TODO(Bobby): Investigate bitmap spritemapping preservation while non-bitmap sprite is loaded
+    switch(extended_palette) {
+        case ExtendedPaletteStatus::NOTNEEDED:
+            m_extended_palette = (OAM_STATUS == OamStatus::ENABLED_EXTENDED ||
+                                  OAM_STATUS == OamStatus::ENABLED_EXTENDED_BITMAP);
+            break;
+        case ExtendedPaletteStatus::NEEDED:
+            m_extended_palette = true;
+            break;
+        case ExtendedPaletteStatus::NEEDOFF:
+            m_extended_palette = false;
+            break;
+    }
 
-    if(m_use_extended_palette) {
+    if(m_extended_palette) {
         if(is_bitmap) {
             new_oam_status = OamStatus::ENABLED_EXTENDED_BITMAP;
         } else {
@@ -42,7 +53,7 @@ morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, const SpriteMappi
     if(OAM_STATUS != new_oam_status) {
         OAM_STATUS = new_oam_status;
 
-        oamInit(m_current_oam, sprite_mapping, m_use_extended_palette);
+        oamInit(m_current_oam, sprite_mapping, m_extended_palette);
     }
 }
 
@@ -52,9 +63,21 @@ morpheus::nds::gfx::Sprite::~Sprite() {
     }
 }
 
-void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint8_t height) {
-    std::cout << "width=" << (int)width << " height=" << (int)height << "\n";
+void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width, uint8_t height) {
+    if(width > 0 && height > 0) {
+        set_sprite_size(width, height);
+    }
 
+    if(m_gfx_pointer != nullptr) {
+        std::cout << "freeing gfx\n";
+
+        oamFreeGfx(m_current_oam, m_gfx_pointer);
+    }
+
+    m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
+}
+
+void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint8_t height) {
     if(width == height) {
         switch(width) {
             case 8:

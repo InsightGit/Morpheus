@@ -6,6 +6,7 @@
 #define MORPHEUS_GBA_TEST_NDS_HPP
 
 #include <nds/gfx/sprite_8_bpp.hpp>
+#include <nds/gfx/sprite_4_bpp.hpp>
 #include <nds/nds_main_loop.hpp>
 
 #endif //MORPHEUS_GBA_TEST_NDS_HPP

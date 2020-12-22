@@ -223,6 +223,33 @@ morpheus/core/main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
 .PHONY : morpheus/core/main_loop.cpp.s
 
+morpheus/core/node.o: morpheus/core/node.cpp.o
+
+.PHONY : morpheus/core/node.o
+
+# target to build an object file
+morpheus/core/node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
+.PHONY : morpheus/core/node.cpp.o
+
+morpheus/core/node.i: morpheus/core/node.cpp.i
+
+.PHONY : morpheus/core/node.i
+
+# target to preprocess a source file
+morpheus/core/node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.i
+.PHONY : morpheus/core/node.cpp.i
+
+morpheus/core/node.s: morpheus/core/node.cpp.s
+
+.PHONY : morpheus/core/node.s
+
+# target to generate assembly for a file
+morpheus/core/node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s
+.PHONY : morpheus/core/node.cpp.s
+
 morpheus/nds/gfx/sprite.o: morpheus/nds/gfx/sprite.cpp.o
 
 .PHONY : morpheus/nds/gfx/sprite.o
@@ -375,6 +402,9 @@ help:
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
+	@echo "... morpheus/core/node.o"
+	@echo "... morpheus/core/node.i"
+	@echo "... morpheus/core/node.s"
 	@echo "... morpheus/nds/gfx/sprite.o"
 	@echo "... morpheus/nds/gfx/sprite.i"
 	@echo "... morpheus/nds/gfx/sprite.s"

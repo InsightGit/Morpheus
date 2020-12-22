@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"

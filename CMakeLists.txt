@@ -10,6 +10,7 @@ set(MORPHEUS_SOURCE_FILES
     morpheus/core/main_loop.hpp
     morpheus/core/main_loop.cpp
     morpheus/core/node.hpp
+    morpheus/core/node.cpp
     morpheus/core/uncopyable.hpp
     morpheus/core/gfx/palette_manager.hpp
     morpheus/core/gfx/palette_manager.cpp

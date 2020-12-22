@@ -64,7 +64,7 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
         input_events.insert(input_events.end(), held_events.begin(), held_events.end());
         input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
-        for(core::InputEvent input_event : input_events){
+        for(core::InputEvent input_event : input_events) {
             m_root->received_input(input_event);
         }
 

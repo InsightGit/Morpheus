@@ -2,20 +2,66 @@
 // Created by bobby on 16/12/2020.
 //
 
-/*#include "sprite_4_bpp.hpp"
+#include "sprite_4_bpp.hpp"
 
-void morpheus::nds::gfx::Sprite4Bpp::load_from_array(uint8_t **tile_array, uint16_t **palette, uint8_t width,
-                                                     uint8_t height) {
-    //
-}
+bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
+                                                     const unsigned int width, const unsigned int height) {
 
-void morpheus::nds::gfx::Sprite4Bpp::draw(std::vector<void *> obj_attr_buffer, int obj_attr_num) {
-    core::gfx::Vector2 position = get_position();
+    set_sprite_size(width, height);
 
-    if(obj_attr_num != 0) {
-        std::cout << "oh noes: " << obj_attr_num << "\n";
+    allocate_gfx_pointer(SpriteColorFormat_16Color);
+
+    std::cout << "loading 4bpp tiled array to palette #" << palette_id << "\n";
+
+    for(unsigned int i = 0; i < (width * height) / 2u; ++i) {
+        get_gfx_pointer()[i] = *(tile_array + i);
     }
 
-    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_x(), 0, 0, get_sprite_size(),
-           SpriteColorFormat_16Color, get_gfx_pointer(), -1, false, false, false, false, false);
-}*/
+    set_palette_id(palette_id);
+
+    std::cout << "loaded tiled array to palette #" << palette_id << "\n";
+
+    return true;
+}
+
+bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
+                                                     const unsigned short *palette, const unsigned int width,
+                                                     const unsigned int height) {
+    if(!load_from_array(tile_array, palette_id, width, height)) {
+        return false;
+    }
+
+    copy_into_palette(palette, palette_id);
+
+    return true;
+}
+
+void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *> obj_attr_buffer, int obj_attr_num, int priority) {
+    core::gfx::Vector2 position = get_position();
+
+    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
+           static_cast<int>(get_palette_id()), get_sprite_size(),
+           SpriteColorFormat_16Color, get_gfx_pointer(), -1,
+           false, false, false, false, false);
+}
+
+bool morpheus::nds::gfx::Sprite4Bpp::copy_into_palette(const unsigned short *palette, const unsigned int palette_id) {
+    unsigned int palette_index;
+
+    if(palette_id > 15) {
+        std::cout << "ERROR: invalid palette number:" << palette_id << "\n";
+        return false;
+    } else if(palette_id == 0) {
+        palette_index = 0;
+    } else {
+        palette_index = palette_id * 16;
+    }
+
+    if(get_current_oam() == &oamSub) {
+        dmaCopy(&palette[palette_index], SPRITE_PALETTE_SUB, 32);
+    } else {
+        dmaCopy(&palette[palette_index], SPRITE_PALETTE, 32);
+    }
+
+    return true;
+}
