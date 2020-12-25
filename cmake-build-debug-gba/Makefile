@@ -277,6 +277,33 @@ morpheus/gba/gba_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.s
 .PHONY : morpheus/gba/gba_main_loop.cpp.s
 
+morpheus/gba/gfx/background.o: morpheus/gba/gfx/background.cpp.o
+
+.PHONY : morpheus/gba/gfx/background.o
+
+# target to build an object file
+morpheus/gba/gfx/background.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o
+.PHONY : morpheus/gba/gfx/background.cpp.o
+
+morpheus/gba/gfx/background.i: morpheus/gba/gfx/background.cpp.i
+
+.PHONY : morpheus/gba/gfx/background.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/background.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.i
+.PHONY : morpheus/gba/gfx/background.cpp.i
+
+morpheus/gba/gfx/background.s: morpheus/gba/gfx/background.cpp.s
+
+.PHONY : morpheus/gba/gfx/background.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/background.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.s
+.PHONY : morpheus/gba/gfx/background.cpp.s
+
 morpheus/gba/gfx/sprite.o: morpheus/gba/gfx/sprite.cpp.o
 
 .PHONY : morpheus/gba/gfx/sprite.o
@@ -303,6 +330,60 @@ morpheus/gba/gfx/sprite.s: morpheus/gba/gfx/sprite.cpp.s
 morpheus/gba/gfx/sprite.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.s
 .PHONY : morpheus/gba/gfx/sprite.cpp.s
+
+morpheus/gba/gfx/sprite_4_bpp.o: morpheus/gba/gfx/sprite_4_bpp.cpp.o
+
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.o
+
+# target to build an object file
+morpheus/gba/gfx/sprite_4_bpp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.cpp.o
+
+morpheus/gba/gfx/sprite_4_bpp.i: morpheus/gba/gfx/sprite_4_bpp.cpp.i
+
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/sprite_4_bpp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.i
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.cpp.i
+
+morpheus/gba/gfx/sprite_4_bpp.s: morpheus/gba/gfx/sprite_4_bpp.cpp.s
+
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/sprite_4_bpp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.s
+.PHONY : morpheus/gba/gfx/sprite_4_bpp.cpp.s
+
+morpheus/gba/gfx/sprite_8_bpp.o: morpheus/gba/gfx/sprite_8_bpp.cpp.o
+
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.o
+
+# target to build an object file
+morpheus/gba/gfx/sprite_8_bpp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.o
+
+morpheus/gba/gfx/sprite_8_bpp.i: morpheus/gba/gfx/sprite_8_bpp.cpp.i
+
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/sprite_8_bpp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.i
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.i
+
+morpheus/gba/gfx/sprite_8_bpp.s: morpheus/gba/gfx/sprite_8_bpp.cpp.s
+
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/sprite_8_bpp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s
+.PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.s
 
 tests/gba/gba_input_test.o: tests/gba/gba_input_test.cpp.o
 
@@ -354,9 +435,18 @@ help:
 	@echo "... morpheus/gba/gba_main_loop.o"
 	@echo "... morpheus/gba/gba_main_loop.i"
 	@echo "... morpheus/gba/gba_main_loop.s"
+	@echo "... morpheus/gba/gfx/background.o"
+	@echo "... morpheus/gba/gfx/background.i"
+	@echo "... morpheus/gba/gfx/background.s"
 	@echo "... morpheus/gba/gfx/sprite.o"
 	@echo "... morpheus/gba/gfx/sprite.i"
 	@echo "... morpheus/gba/gfx/sprite.s"
+	@echo "... morpheus/gba/gfx/sprite_4_bpp.o"
+	@echo "... morpheus/gba/gfx/sprite_4_bpp.i"
+	@echo "... morpheus/gba/gfx/sprite_4_bpp.s"
+	@echo "... morpheus/gba/gfx/sprite_8_bpp.o"
+	@echo "... morpheus/gba/gfx/sprite_8_bpp.i"
+	@echo "... morpheus/gba/gfx/sprite_8_bpp.s"
 	@echo "... tests/gba/gba_input_test.o"
 	@echo "... tests/gba/gba_input_test.i"
 	@echo "... tests/gba/gba_input_test.s"

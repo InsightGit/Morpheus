@@ -8,7 +8,10 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
   "/home/bobby/morpheus/morpheus/core/node.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/gfx/background.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

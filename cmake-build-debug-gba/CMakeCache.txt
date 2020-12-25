@@ -254,11 +254,25 @@ GBAFIX:FILEPATH=/opt/devkitpro/tools/bin/gbafix
 //Path to a program.
 GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
 
+//8bpp PNG Files used by NDS test code (paths are relative to cmake
+// build dir)
+NDS_PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
+
+//Image sizes of the previously listed 8bpp PNG files (widthXlength)
+NDS_PNG8_IMAGE_SIZES:STRING=32X32;32X32
+
 //Path to a program.
 OBJCOPY:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy
 
 //Image sizes of previously listed 4bpp PNG Files (widthXlength)
 PNG4_IMAGE_SIZES:STRING=32X32
+
+//8bpp PNG Files used by NDS test code (paths are relative to cmake
+// build dir)
+PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
+
+//Image sizes of the previously listed 8bpp PNG files (widthXlength)
+PNG8_IMAGE_SIZES:STRING=32X32;32X32
 
 //Path to a program.
 ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc

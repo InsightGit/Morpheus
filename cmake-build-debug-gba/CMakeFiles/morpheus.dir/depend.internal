@@ -10,6 +10,13 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
  ../morpheus/core/uncopyable.hpp
  /home/bobby/morpheus/morpheus/core/main_loop.cpp
  /home/bobby/morpheus/morpheus/core/main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
+ ../morpheus/core/input_event.hpp
+ ../morpheus/core/main_loop.hpp
+ ../morpheus/core/node.hpp
+ ../morpheus/core/uncopyable.hpp
+ /home/bobby/morpheus/morpheus/core/node.cpp
+ /home/bobby/morpheus/morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
@@ -40,6 +47,54 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o
  ../morpheus/core/uncopyable.hpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+ /opt/devkitpro/libtonc/include/tonc.h
+ /opt/devkitpro/libtonc/include/tonc_bios.h
+ /opt/devkitpro/libtonc/include/tonc_core.h
+ /opt/devkitpro/libtonc/include/tonc_input.h
+ /opt/devkitpro/libtonc/include/tonc_irq.h
+ /opt/devkitpro/libtonc/include/tonc_math.h
+ /opt/devkitpro/libtonc/include/tonc_memdef.h
+ /opt/devkitpro/libtonc/include/tonc_memmap.h
+ /opt/devkitpro/libtonc/include/tonc_nocash.h
+ /opt/devkitpro/libtonc/include/tonc_oam.h
+ /opt/devkitpro/libtonc/include/tonc_surface.h
+ /opt/devkitpro/libtonc/include/tonc_text.h
+ /opt/devkitpro/libtonc/include/tonc_tte.h
+ /opt/devkitpro/libtonc/include/tonc_types.h
+ /opt/devkitpro/libtonc/include/tonc_video.h
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
+ ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/input_event.hpp
+ ../morpheus/core/main_loop.hpp
+ ../morpheus/core/node.hpp
+ ../morpheus/core/uncopyable.hpp
+ ../morpheus/gba/gfx/sprite.hpp
+ /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
+ /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
+ /opt/devkitpro/libtonc/include/tonc.h
+ /opt/devkitpro/libtonc/include/tonc_bios.h
+ /opt/devkitpro/libtonc/include/tonc_core.h
+ /opt/devkitpro/libtonc/include/tonc_input.h
+ /opt/devkitpro/libtonc/include/tonc_irq.h
+ /opt/devkitpro/libtonc/include/tonc_math.h
+ /opt/devkitpro/libtonc/include/tonc_memdef.h
+ /opt/devkitpro/libtonc/include/tonc_memmap.h
+ /opt/devkitpro/libtonc/include/tonc_nocash.h
+ /opt/devkitpro/libtonc/include/tonc_oam.h
+ /opt/devkitpro/libtonc/include/tonc_surface.h
+ /opt/devkitpro/libtonc/include/tonc_text.h
+ /opt/devkitpro/libtonc/include/tonc_tte.h
+ /opt/devkitpro/libtonc/include/tonc_types.h
+ /opt/devkitpro/libtonc/include/tonc_video.h
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
+ ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/input_event.hpp
+ ../morpheus/core/main_loop.hpp
+ ../morpheus/core/node.hpp
+ ../morpheus/core/uncopyable.hpp
+ ../morpheus/gba/gfx/sprite.hpp
+ /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp
+ /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp
  /opt/devkitpro/libtonc/include/tonc.h
  /opt/devkitpro/libtonc/include/tonc_bios.h
  /opt/devkitpro/libtonc/include/tonc_core.h

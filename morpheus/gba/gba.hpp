@@ -6,6 +6,8 @@
 #define MORPHEUS_GBA_TEST_GBA_HPP
 
 #include <gba/gba_main_loop.hpp>
-#include <gba/gfx/sprite.hpp>
+
+#include <gba/gfx/sprite_4_bpp.hpp>
+#include <gba/gfx/sprite_8_bpp.hpp>
 
 #endif //MORPHEUS_GBA_TEST_GBA_HPP

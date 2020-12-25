@@ -4,13 +4,26 @@
 
 #include "sprite.hpp"
 
-void morpheus::gba::gfx::Sprite::load_from_array(unsigned short **tile_array, unsigned short tile_array_len,
-                                                 unsigned short **pal, unsigned short pal_len,
-                                                 unsigned short width,
-                                                 unsigned short height, unsigned short tile_id) {
-    m_attr0 = 0x0;
-    m_attr1 = 0x0;
+void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) {
+    auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
 
+    if(priority < 3 && priority >= 0) {
+        m_attr2 |= ATTR2_PRIO(priority);
+    } else {
+        m_attr2 |= ATTR2_PRIO(3);
+    }
+
+    if(m_is_4bpp) {
+        m_attr0 |= ATTR0_4BPP;
+    } else {
+        m_attr0 |= ATTR0_8BPP;
+    }
+
+    obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
+    obj_set_pos(obj, m_position.get_x(), m_position.get_y());
+}
+
+void morpheus::gba::gfx::Sprite::setup_size_attr(const unsigned short width, const unsigned short height) {
     if(width == height && (width == 8 || width == 16 || width == 32 || width == 64)) {
         m_attr0 = ATTR0_SQUARE;
     } else if(width == (height * 2) && (width == 16 || width == 32 || width == 64)) {
@@ -39,26 +52,27 @@ void morpheus::gba::gfx::Sprite::load_from_array(unsigned short **tile_array, un
             // unknown tile size passed
             assert(false);
     }
-
-    m_attr2 = ATTR2_BUILD(tile_id, 0, 0);
-
-    // For objects on the GBA, the bit depth is always 4
-    std::memcpy(&tile_mem[4][tile_id], tile_array, tile_array_len);
-    std::memcpy(pal_obj_mem, pal, pal_len);
 }
 
-void morpheus::gba::gfx::Sprite::draw(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
-    OBJ_ATTR *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
+void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                                 const unsigned short width, const unsigned short height,
+                                                 const unsigned short tile_id) {
+    m_attr0 = 0x0;
+    m_attr1 = 0x0;
+    m_attr2 = 0x0;
 
-    obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
-    obj_set_pos(obj, m_position.get_x(), m_position.get_y());
+    setup_size_attr(width, height);
+
+    array_load(tile_array, palette, width, height, tile_id);
 }
 
-void morpheus::gba::gfx::Sprite::draw_children(std::vector<void *>obj_attr_buffer, int obj_attr_num) {
-    /*if(obj_attr_num + get_children().size() >= 128) {
-        // too many sprites!!
-        assert(false);
-    } else {
-        .
-    }*/
+void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned short width,
+                                                 const unsigned short height, const unsigned short tile_id) {
+    m_attr0 = 0x0;
+    m_attr1 = 0x0;
+    m_attr2 = 0x0;
+
+    setup_size_attr(width, height);
+
+    array_load(tile_array, width, height, tile_id);
 }

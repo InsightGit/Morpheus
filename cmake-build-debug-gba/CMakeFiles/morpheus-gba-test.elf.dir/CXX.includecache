@@ -33,6 +33,8 @@ core/uncopyable.hpp
 -
 
 ../morpheus/core/node.hpp
+iostream
+-
 list
 -
 memory
@@ -47,11 +49,19 @@ core/input_event.hpp
 ../morpheus/gba/gba.hpp
 gba/gba_main_loop.hpp
 -
-gba/gfx/sprite.hpp
+gba/gfx/sprite_4_bpp.hpp
+-
+gba/gfx/sprite_8_bpp.hpp
 -
 
 ../morpheus/gba/gba_main_loop.hpp
+iostream
+-
 list
+-
+sstream
+-
+string
 -
 tonc.h
 -
@@ -70,15 +80,23 @@ core/node.hpp
 core/gfx/vector_2.hpp
 -
 
+../morpheus/gba/gfx/sprite_4_bpp.hpp
+gba/gfx/sprite.hpp
+-
+
+../morpheus/gba/gfx/sprite_8_bpp.hpp
+gba/gfx/sprite.hpp
+-
+
 /home/bobby/morpheus/tests/gba/gba_input_test.cpp
 core/core.hpp
 -
 gba/gba.hpp
 -
-testconfetti.h
-/home/bobby/morpheus/tests/gba/testconfetti.h
-
-/home/bobby/morpheus/tests/gba/testconfetti.h
+test4.h
+/home/bobby/morpheus/tests/gba/test4.h
+test8.h
+/home/bobby/morpheus/tests/gba/test8.h
 
 /opt/devkitpro/libtonc/include/tonc.h
 tonc_types.h
@@ -187,4 +205,8 @@ tonc_memdef.h
 /opt/devkitpro/libtonc/include/tonc_memdef.h
 tonc_core.h
 /opt/devkitpro/libtonc/include/tonc_core.h
+
+test4.h
+
+test8.h
 

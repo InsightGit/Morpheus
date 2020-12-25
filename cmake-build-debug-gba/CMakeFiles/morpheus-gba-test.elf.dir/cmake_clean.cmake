@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "morpheus-gba-test.elf.pdb"
   "morpheus-gba-test.gba"
   "test4.o"
+  "test8.o"
+  "testt.o"
 )
 
 # Per-language clean rules from dependency scanning.

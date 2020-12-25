@@ -142,13 +142,55 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.s
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o -c /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp > CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.s
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gfx/sprite_8_bpp.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o -c /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp > CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o: ../morpheus/gba/gfx/background.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o -c /home/bobby/morpheus/morpheus/gba/gfx/background.cpp
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/gba/gfx/background.cpp > CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/gba/gfx/background.cpp -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.s
+
 # Object files for target morpheus
 morpheus_OBJECTS = \
 "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o" \
-"CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
+"CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o"
 
 # External object files for target morpheus
 morpheus_EXTERNAL_OBJECTS =
@@ -158,9 +200,12 @@ libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
 libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o
 libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o
 libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o
+libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
+libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
+libgba_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o
 libgba_morpheus.a: CMakeFiles/morpheus.dir/build.make
 libgba_morpheus.a: CMakeFiles/morpheus.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libgba_morpheus.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libgba_morpheus.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/morpheus.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/morpheus.dir/link.txt --verbose=$(VERBOSE)
 

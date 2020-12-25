@@ -166,6 +166,18 @@
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o.rule">
 			<Option target="morpheus-gba-test.elf"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o.rule">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o.rule">
+			<Option target="morpheus-gba-test.elf"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -196,10 +208,28 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.hpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/tests/gba/gba_input_test.cpp">

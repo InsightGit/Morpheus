@@ -36,7 +36,13 @@ if(platform_lower STREQUAL "gba")
          morpheus/gba/gba_main_loop.hpp
          morpheus/gba/gba_main_loop.cpp
          morpheus/gba/gfx/sprite.hpp
-         morpheus/gba/gfx/sprite.cpp)
+         morpheus/gba/gfx/sprite.cpp
+         morpheus/gba/gfx/sprite_4_bpp.hpp
+         morpheus/gba/gfx/sprite_4_bpp.cpp
+         morpheus/gba/gfx/sprite_8_bpp.hpp
+         morpheus/gba/gfx/sprite_8_bpp.cpp
+         morpheus/gba/gfx/background.hpp
+         morpheus/gba/gfx/background.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -83,9 +89,23 @@ else()
 endif()
 
 if("$ENV{BUILD_TESTS}")
-    set(PNG4_FILES "../tests/nds/test4.png") #CACHE STRING
-            #"4bpp PNG Files used by test code (paths are relative to cmake build dir)")
+    if(platform_lower STREQUAL "gba")
+        set(PNG4_FILES "../tests/gba/test4.png")
+    elseif(platform_lower STREQUAL "nds")
+        set(PNG4_FILES "../tests/nds/test4.png")
+    endif()
+
+    if(platform_lower STREQUAL "gba")
+        set(PNG8_FILES "../tests/gba/test8.png" CACHE STRING
+                "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+    elseif(platform_lower STREQUAL "nds")
+        set(PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
+                "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+    endif()
+
     set(PNG4_IMAGE_SIZES "32X32" CACHE STRING "Image sizes of previously listed 4bpp PNG Files (widthXlength)")
+    set(PNG8_IMAGE_SIZES "32X32" "32X32" CACHE STRING
+            "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
     if(NOT GRIT)
         # message(STATUS "Looking for bin2s...")
@@ -153,12 +173,21 @@ if("$ENV{BUILD_TESTS}")
     endfunction()
 
     execute_grit(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
+    execute_grit(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
 
     foreach(png4_file ${PNG4_FILES})
         get_filename_component(png4_file ${png4_file} NAME_WLE)
 
         list(APPEND PNG4_OUTPUT_FILES ${png4_file}.o)
     endforeach()
+
+    foreach(png8_file ${PNG8_FILES})
+        get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+        list(APPEND PNG8_OUTPUT_FILES ${png8_file}.o)
+    endforeach()
+
+    message(STATUS "${PNG8_OUTPUT_FILES}")
 
     if(platform_lower STREQUAL "gba")
         project(morpheus-gba-test)
@@ -195,7 +224,7 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-test.elf tests/gba/gba_input_test.cpp ${PNG4_OUTPUT_FILES})#tests/gba/testconfetti.s)
+        add_executable(morpheus-gba-test.elf tests/gba/gba_input_test.cpp ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
         add_gba_executable(morpheus-gba-test.elf)
 
         target_link_libraries(morpheus-gba-test.elf morpheus tonc)
@@ -208,10 +237,6 @@ if("$ENV{BUILD_TESTS}")
         set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
         set(NDS_PCX_FILES "../tests/nds/test8.pcx" CACHE STRING
                 "PCX Files used by test code (paths are relative to cmake build dir)")
-        set(NDS_PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
-                "8bpp PNG Files used by NDS test code (paths are relative to cmake build dir)")
-        set(NDS_PNG8_IMAGE_SIZES "32X32" "32X32" CACHE STRING
-                "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -264,18 +289,8 @@ if("$ENV{BUILD_TESTS}")
             list(APPEND NDS_PCX_OBJECTS "${pcx_file_underscores_no_path}.o")
         endforeach()
 
-        execute_grit(NDS_PNG8_FILES NDS_PNG8_IMAGE_SIZES FALSE)
-
-        foreach(nds_png8_file ${NDS_PNG8_FILES})
-            get_filename_component(nds_png8_file ${nds_png8_file} NAME_WLE)
-
-            list(APPEND NDS_PNG8_OUTPUT_FILES ${nds_png8_file}.o)
-        endforeach()
-
-        message(STATUS "${NDS_PNG8_OUTPUT_FILES}")
-
         add_executable(morpheus-nds-test.elf tests/nds/nds_input_test.cpp ${NDS_PCX_OBJECTS} ${PNG4_OUTPUT_FILES}
-                        ${NDS_PNG8_OUTPUT_FILES})
+                        ${PNG8_OUTPUT_FILES})
         add_nds_executable(morpheus-nds-test.elf)
 
         target_link_libraries(morpheus-nds-test.elf morpheus nds9)

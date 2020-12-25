@@ -4,6 +4,28 @@
 
 #include "gba_main_loop.hpp"
 
+morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode) {
+    #ifdef NDEBUG
+        bool debug = false;
+    #else
+        bool debug = true;
+    #endif
+
+    switch (debug_console_mode) {
+        case DebugConsoleMode::ON:
+            setup_debug_console();
+            break;
+        case DebugConsoleMode::USE_DEFAULT:
+            if(debug) {
+                setup_debug_console();
+            }
+            break;
+        case DebugConsoleMode::OFF:
+            break;
+    }
+}
+
+
 morpheus::gba::GbaMainLoop::~GbaMainLoop() {
     for(void *pointer : m_obj_buffer) {
         delete static_cast<OBJ_ATTR *>(pointer);
@@ -41,6 +63,10 @@ morpheus::gba::GbaMainLoop::~GbaMainLoop() {
 
         oam_copy(oam_mem, static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
+        if(m_debug_stream.get() != nullptr) {
+            m_debug_stream.get()->refresh_and_print();
+        }
+
         VBlankIntrWait();
     }
     //return morpheus::core::OK;
@@ -64,10 +90,9 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     return morpheus::core::Error::OK;
 }
 
-morpheus::core::InputEvent
-morpheus::gba::GbaMainLoop::to_input_event(uint32_t inputs,
-                                           uint16_t keypad_bit,
-                                           morpheus::core::InputState input_state) {
+morpheus::core::InputEvent morpheus::gba::GbaMainLoop::to_input_event(uint32_t inputs,
+                                                                      uint16_t keypad_bit,
+                                                                      morpheus::core::InputState input_state) {
     morpheus::core::InputButton input_button = morpheus::core::InputButton::NONE;
     morpheus::core::InputEvent input_event{};
 
@@ -113,4 +138,23 @@ morpheus::gba::GbaMainLoop::to_input_event(uint32_t inputs,
     input_event.state = input_state;
 
     return input_event;
+}
+
+void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
+    if(!str().empty()) {
+        tte_write(str().c_str());
+
+        str("");
+        clear();
+    }
+}
+
+void morpheus::gba::GbaMainLoop::setup_debug_console() {
+    tte_init_se(0, BG_CBB(0) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
+
+    m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream());
+
+    std::cout.rdbuf(m_debug_stream.get()->rdbuf_string_stream());
+
+    std::cout << "morpheus debug\n";
 }

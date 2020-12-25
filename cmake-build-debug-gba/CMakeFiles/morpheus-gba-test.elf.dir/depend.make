@@ -10,8 +10,9 @@ CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus/gba/gba.hpp
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus/gba/gba_main_loop.hpp
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus/gba/gfx/sprite.hpp
+CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.hpp
+CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../morpheus/gba/gfx/sprite_8_bpp.hpp
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../tests/gba/gba_input_test.cpp
-CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: ../tests/gba/testconfetti.h
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc.h
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_bios.h
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_core.h
@@ -27,4 +28,6 @@ CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkit
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_tte.h
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
+CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: test4.h
+CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o: test8.h
 
