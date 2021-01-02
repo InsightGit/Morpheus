@@ -23,3 +23,9 @@ morpheus::gba::gfx::Background::Background(unsigned int background_num) {
             break;
     }
 }
+
+
+void morpheus::gba::gfx::Background::load_from_array(const unsigned short *tiles, const unsigned short *palette,
+                                                     const unsigned short *tile_map) {
+
+}
