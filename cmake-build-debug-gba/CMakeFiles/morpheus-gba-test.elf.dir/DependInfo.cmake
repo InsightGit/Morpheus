@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/bobby/morpheus/tests/gba/gba_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
+  "/home/bobby/morpheus/tests/gba/input_test/gba_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

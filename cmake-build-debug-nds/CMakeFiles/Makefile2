@@ -74,8 +74,8 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 
 # The main recursive "all" target.
 all: CMakeFiles/morpheus.dir/all
-all: CMakeFiles/morpheus-nds-test.nds.dir/all
-all: CMakeFiles/morpheus-nds-test.elf.dir/all
+all: CMakeFiles/morpheus-nds-input-test.elf.dir/all
+all: CMakeFiles/morpheus-nds-input-test.nds.dir/all
 
 .PHONY : all
 
@@ -86,8 +86,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/morpheus.dir/clean
-clean: CMakeFiles/morpheus-nds-test.nds.dir/clean
-clean: CMakeFiles/morpheus-nds-test.elf.dir/clean
+clean: CMakeFiles/morpheus-nds-input-test.elf.dir/clean
+clean: CMakeFiles/morpheus-nds-input-test.nds.dir/clean
 
 .PHONY : clean
 
@@ -119,58 +119,58 @@ CMakeFiles/morpheus.dir/clean:
 .PHONY : CMakeFiles/morpheus.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/morpheus-nds-test.nds.dir
+# Target rules for target CMakeFiles/morpheus-nds-input-test.elf.dir
 
 # All Build rule for target.
-CMakeFiles/morpheus-nds-test.nds.dir/all: CMakeFiles/morpheus-nds-test.elf.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.nds.dir/build.make CMakeFiles/morpheus-nds-test.nds.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.nds.dir/build.make CMakeFiles/morpheus-nds-test.nds.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num= "Built target morpheus-nds-test.nds"
-.PHONY : CMakeFiles/morpheus-nds-test.nds.dir/all
+CMakeFiles/morpheus-nds-input-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=9,10,11,12,13,14 "Built target morpheus-nds-input-test.elf"
+.PHONY : CMakeFiles/morpheus-nds-input-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/morpheus-nds-test.nds.dir/rule: cmake_check_build_system
+CMakeFiles/morpheus-nds-input-test.elf.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 14
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-test.nds.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-input-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-nds-test.nds.dir/rule
+.PHONY : CMakeFiles/morpheus-nds-input-test.elf.dir/rule
 
 # Convenience name for target.
-morpheus-nds-test.nds: CMakeFiles/morpheus-nds-test.nds.dir/rule
+morpheus-nds-input-test.elf: CMakeFiles/morpheus-nds-input-test.elf.dir/rule
 
-.PHONY : morpheus-nds-test.nds
+.PHONY : morpheus-nds-input-test.elf
 
 # clean rule for target.
-CMakeFiles/morpheus-nds-test.nds.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.nds.dir/build.make CMakeFiles/morpheus-nds-test.nds.dir/clean
-.PHONY : CMakeFiles/morpheus-nds-test.nds.dir/clean
+CMakeFiles/morpheus-nds-input-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-nds-input-test.elf.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/morpheus-nds-test.elf.dir
+# Target rules for target CMakeFiles/morpheus-nds-input-test.nds.dir
 
 # All Build rule for target.
-CMakeFiles/morpheus-nds-test.elf.dir/all: CMakeFiles/morpheus.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=9,10,11,12,13,14 "Built target morpheus-nds-test.elf"
-.PHONY : CMakeFiles/morpheus-nds-test.elf.dir/all
+CMakeFiles/morpheus-nds-input-test.nds.dir/all: CMakeFiles/morpheus-nds-input-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.nds.dir/build.make CMakeFiles/morpheus-nds-input-test.nds.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.nds.dir/build.make CMakeFiles/morpheus-nds-input-test.nds.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num= "Built target morpheus-nds-input-test.nds"
+.PHONY : CMakeFiles/morpheus-nds-input-test.nds.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/morpheus-nds-test.elf.dir/rule: cmake_check_build_system
+CMakeFiles/morpheus-nds-input-test.nds.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 14
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-input-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-nds-test.elf.dir/rule
+.PHONY : CMakeFiles/morpheus-nds-input-test.nds.dir/rule
 
 # Convenience name for target.
-morpheus-nds-test.elf: CMakeFiles/morpheus-nds-test.elf.dir/rule
+morpheus-nds-input-test.nds: CMakeFiles/morpheus-nds-input-test.nds.dir/rule
 
-.PHONY : morpheus-nds-test.elf
+.PHONY : morpheus-nds-input-test.nds
 
 # clean rule for target.
-CMakeFiles/morpheus-nds-test.elf.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/clean
-.PHONY : CMakeFiles/morpheus-nds-test.elf.dir/clean
+CMakeFiles/morpheus-nds-input-test.nds.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.nds.dir/build.make CMakeFiles/morpheus-nds-input-test.nds.dir/clean
+.PHONY : CMakeFiles/morpheus-nds-input-test.nds.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

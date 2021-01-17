@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o"
+  "CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.o"
   "morpheus-gba-test.elf"
   "morpheus-gba-test.elf.pdb"
   "morpheus-gba-test.gba"

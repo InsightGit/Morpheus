@@ -144,30 +144,56 @@ morpheus/fast:
 .PHONY : morpheus/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-gba-test.elf
+# Target rules for targets named morpheus-gba-input-test.elf
 
 # Build rule for target.
-morpheus-gba-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-test.elf
-.PHONY : morpheus-gba-test.elf
+morpheus-gba-input-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-input-test.elf
+.PHONY : morpheus-gba-input-test.elf
 
 # fast build rule for target.
-morpheus-gba-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/build
-.PHONY : morpheus-gba-test.elf/fast
+morpheus-gba-input-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
+.PHONY : morpheus-gba-input-test.elf/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-gba-test.gba
+# Target rules for targets named morpheus-gba-tileset-test.gba
 
 # Build rule for target.
-morpheus-gba-test.gba: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-test.gba
-.PHONY : morpheus-gba-test.gba
+morpheus-gba-tileset-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-tileset-test.gba
+.PHONY : morpheus-gba-tileset-test.gba
 
 # fast build rule for target.
-morpheus-gba-test.gba/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.gba.dir/build.make CMakeFiles/morpheus-gba-test.gba.dir/build
-.PHONY : morpheus-gba-test.gba/fast
+morpheus-gba-tileset-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.gba.dir/build.make CMakeFiles/morpheus-gba-tileset-test.gba.dir/build
+.PHONY : morpheus-gba-tileset-test.gba/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-input-test.gba
+
+# Build rule for target.
+morpheus-gba-input-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-input-test.gba
+.PHONY : morpheus-gba-input-test.gba
+
+# fast build rule for target.
+morpheus-gba-input-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.gba.dir/build.make CMakeFiles/morpheus-gba-input-test.gba.dir/build
+.PHONY : morpheus-gba-input-test.gba/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-tileset-test.elf
+
+# Build rule for target.
+morpheus-gba-tileset-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-tileset-test.elf
+.PHONY : morpheus-gba-tileset-test.elf
+
+# fast build rule for target.
+morpheus-gba-tileset-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/build
+.PHONY : morpheus-gba-tileset-test.elf/fast
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -385,32 +411,86 @@ morpheus/gba/gfx/sprite_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s
 .PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.s
 
-tests/gba/gba_input_test.o: tests/gba/gba_input_test.cpp.o
+region_map.o: region_map.c.o
 
-.PHONY : tests/gba/gba_input_test.o
+.PHONY : region_map.o
 
 # target to build an object file
-tests/gba/gba_input_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.o
-.PHONY : tests/gba/gba_input_test.cpp.o
+region_map.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o
+.PHONY : region_map.c.o
 
-tests/gba/gba_input_test.i: tests/gba/gba_input_test.cpp.i
+region_map.i: region_map.c.i
 
-.PHONY : tests/gba/gba_input_test.i
+.PHONY : region_map.i
 
 # target to preprocess a source file
-tests/gba/gba_input_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.i
-.PHONY : tests/gba/gba_input_test.cpp.i
+region_map.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.i
+.PHONY : region_map.c.i
 
-tests/gba/gba_input_test.s: tests/gba/gba_input_test.cpp.s
+region_map.s: region_map.c.s
 
-.PHONY : tests/gba/gba_input_test.s
+.PHONY : region_map.s
 
 # target to generate assembly for a file
-tests/gba/gba_input_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-test.elf.dir/build.make CMakeFiles/morpheus-gba-test.elf.dir/tests/gba/gba_input_test.cpp.s
-.PHONY : tests/gba/gba_input_test.cpp.s
+region_map.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.s
+.PHONY : region_map.c.s
+
+tests/gba/input_test/gba_input_test.o: tests/gba/input_test/gba_input_test.cpp.o
+
+.PHONY : tests/gba/input_test/gba_input_test.o
+
+# target to build an object file
+tests/gba/input_test/gba_input_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.o
+.PHONY : tests/gba/input_test/gba_input_test.cpp.o
+
+tests/gba/input_test/gba_input_test.i: tests/gba/input_test/gba_input_test.cpp.i
+
+.PHONY : tests/gba/input_test/gba_input_test.i
+
+# target to preprocess a source file
+tests/gba/input_test/gba_input_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.i
+.PHONY : tests/gba/input_test/gba_input_test.cpp.i
+
+tests/gba/input_test/gba_input_test.s: tests/gba/input_test/gba_input_test.cpp.s
+
+.PHONY : tests/gba/input_test/gba_input_test.s
+
+# target to generate assembly for a file
+tests/gba/input_test/gba_input_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.s
+.PHONY : tests/gba/input_test/gba_input_test.cpp.s
+
+tests/tileset_test/tileset_test.o: tests/tileset_test/tileset_test.cpp.o
+
+.PHONY : tests/tileset_test/tileset_test.o
+
+# target to build an object file
+tests/tileset_test/tileset_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o
+.PHONY : tests/tileset_test/tileset_test.cpp.o
+
+tests/tileset_test/tileset_test.i: tests/tileset_test/tileset_test.cpp.i
+
+.PHONY : tests/tileset_test/tileset_test.i
+
+# target to preprocess a source file
+tests/tileset_test/tileset_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.i
+.PHONY : tests/tileset_test/tileset_test.cpp.i
+
+tests/tileset_test/tileset_test.s: tests/tileset_test/tileset_test.cpp.s
+
+.PHONY : tests/tileset_test/tileset_test.s
+
+# target to generate assembly for a file
+tests/tileset_test/tileset_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.s
+.PHONY : tests/tileset_test/tileset_test.cpp.s
 
 # Help Target
 help:
@@ -420,9 +500,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... morpheus-gba-test.gba"
+	@echo "... morpheus-gba-input-test.gba"
+	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
-	@echo "... morpheus-gba-test.elf"
+	@echo "... morpheus-gba-input-test.elf"
+	@echo "... morpheus-gba-tileset-test.elf"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
@@ -447,9 +529,15 @@ help:
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.o"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.i"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.s"
-	@echo "... tests/gba/gba_input_test.o"
-	@echo "... tests/gba/gba_input_test.i"
-	@echo "... tests/gba/gba_input_test.s"
+	@echo "... region_map.o"
+	@echo "... region_map.i"
+	@echo "... region_map.s"
+	@echo "... tests/gba/input_test/gba_input_test.o"
+	@echo "... tests/gba/input_test/gba_input_test.i"
+	@echo "... tests/gba/input_test/gba_input_test.s"
+	@echo "... tests/tileset_test/tileset_test.o"
+	@echo "... tests/tileset_test/tileset_test.i"
+	@echo "... tests/tileset_test/tileset_test.s"
 .PHONY : help
 
 

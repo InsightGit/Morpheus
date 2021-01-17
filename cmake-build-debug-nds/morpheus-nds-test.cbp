@@ -232,7 +232,7 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/nds/nds_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/home/bobby/morpheus/tests/nds/nds_input_test.cpp">
+		<Unit filename="/home/bobby/morpheus/tests/nds/input_test/nds_input_test.cpp">
 			<Option target="morpheus-nds-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/CMakeLists.txt">

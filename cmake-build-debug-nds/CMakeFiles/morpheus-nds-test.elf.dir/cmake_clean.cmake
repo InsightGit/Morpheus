@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o"
+  "CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
   "morpheus-nds-test.elf"
   "morpheus-nds-test.elf.pdb"
   "morpheus-nds-test.nds"

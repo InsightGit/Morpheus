@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="morpheus-nds-tileset-test"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/libgba_morpheus.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus/fast">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/libgba_morpheus.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-input-test.elf">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/morpheus-gba-input-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-input-test.elf"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-input-test.elf/fast">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/morpheus-gba-input-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-input-test.elf/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-tileset-test.gba">
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-tileset-test.gba"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-input-test.gba">
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-input-test.gba"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-tileset-test.elf">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/morpheus-gba-tileset-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-tileset-test.elf"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="morpheus-gba-tileset-test.elf/fast">
+				<Option output="/home/bobby/morpheus/cmake-build-debug-gba/morpheus-gba-tileset-test.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/bobby/morpheus/cmake-build-debug-gba"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GBA"/>
+					<Add directory="/home/bobby/morpheus/morpheus"/>
+					<Add directory="/home/bobby/morpheus/PRIVATE"/>
+					<Add directory="/home/bobby/morpheus/."/>
+					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
+					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 morpheus-gba-tileset-test.elf/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/bobby/morpheus/cmake-build-debug-gba/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o.rule">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o.rule">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o.rule">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/vector_2.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/main_loop.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/main_loop.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/node.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/node.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/uncopyable.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/tile_map.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/tile_map.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/tests/gba/input_test/gba_input_test.cpp">
+			<Option target="morpheus-gba-input-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/tests/tileset_test/tileset_test.cpp">
+			<Option target="morpheus-gba-tileset-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake/morpheus_build_utils.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

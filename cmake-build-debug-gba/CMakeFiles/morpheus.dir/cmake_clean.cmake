@@ -9,7 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
   "libgba_morpheus.a"
   "libgba_morpheus.pdb"
-  "morpheus-gba-test.gba"
+  "morpheus-gba-tileset-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

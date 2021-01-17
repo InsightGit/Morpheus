@@ -144,30 +144,30 @@ morpheus/fast:
 .PHONY : morpheus/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-test.nds
+# Target rules for targets named morpheus-nds-input-test.elf
 
 # Build rule for target.
-morpheus-nds-test.nds: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-test.nds
-.PHONY : morpheus-nds-test.nds
+morpheus-nds-input-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-input-test.elf
+.PHONY : morpheus-nds-input-test.elf
 
 # fast build rule for target.
-morpheus-nds-test.nds/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.nds.dir/build.make CMakeFiles/morpheus-nds-test.nds.dir/build
-.PHONY : morpheus-nds-test.nds/fast
+morpheus-nds-input-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/build
+.PHONY : morpheus-nds-input-test.elf/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-test.elf
+# Target rules for targets named morpheus-nds-input-test.nds
 
 # Build rule for target.
-morpheus-nds-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-test.elf
-.PHONY : morpheus-nds-test.elf
+morpheus-nds-input-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-input-test.nds
+.PHONY : morpheus-nds-input-test.nds
 
 # fast build rule for target.
-morpheus-nds-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/build
-.PHONY : morpheus-nds-test.elf/fast
+morpheus-nds-input-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.nds.dir/build.make CMakeFiles/morpheus-nds-input-test.nds.dir/build
+.PHONY : morpheus-nds-input-test.nds/fast
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -358,32 +358,32 @@ morpheus/nds/nds_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s
 .PHONY : morpheus/nds/nds_main_loop.cpp.s
 
-tests/nds/nds_input_test.o: tests/nds/nds_input_test.cpp.o
+tests/nds/input_test/nds_input_test.o: tests/nds/input_test/nds_input_test.cpp.o
 
-.PHONY : tests/nds/nds_input_test.o
+.PHONY : tests/nds/input_test/nds_input_test.o
 
 # target to build an object file
-tests/nds/nds_input_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o
-.PHONY : tests/nds/nds_input_test.cpp.o
+tests/nds/input_test/nds_input_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o
+.PHONY : tests/nds/input_test/nds_input_test.cpp.o
 
-tests/nds/nds_input_test.i: tests/nds/nds_input_test.cpp.i
+tests/nds/input_test/nds_input_test.i: tests/nds/input_test/nds_input_test.cpp.i
 
-.PHONY : tests/nds/nds_input_test.i
+.PHONY : tests/nds/input_test/nds_input_test.i
 
 # target to preprocess a source file
-tests/nds/nds_input_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.i
-.PHONY : tests/nds/nds_input_test.cpp.i
+tests/nds/input_test/nds_input_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.i
+.PHONY : tests/nds/input_test/nds_input_test.cpp.i
 
-tests/nds/nds_input_test.s: tests/nds/nds_input_test.cpp.s
+tests/nds/input_test/nds_input_test.s: tests/nds/input_test/nds_input_test.cpp.s
 
-.PHONY : tests/nds/nds_input_test.s
+.PHONY : tests/nds/input_test/nds_input_test.s
 
 # target to generate assembly for a file
-tests/nds/nds_input_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-test.elf.dir/build.make CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.s
-.PHONY : tests/nds/nds_input_test.cpp.s
+tests/nds/input_test/nds_input_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s
+.PHONY : tests/nds/input_test/nds_input_test.cpp.s
 
 # Help Target
 help:
@@ -393,9 +393,9 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... morpheus-nds-test.nds"
+	@echo "... morpheus-nds-input-test.nds"
 	@echo "... morpheus"
-	@echo "... morpheus-nds-test.elf"
+	@echo "... morpheus-nds-input-test.elf"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
@@ -417,9 +417,9 @@ help:
 	@echo "... morpheus/nds/nds_main_loop.o"
 	@echo "... morpheus/nds/nds_main_loop.i"
 	@echo "... morpheus/nds/nds_main_loop.s"
-	@echo "... tests/nds/nds_input_test.o"
-	@echo "... tests/nds/nds_input_test.i"
-	@echo "... tests/nds/nds_input_test.s"
+	@echo "... tests/nds/input_test/nds_input_test.o"
+	@echo "... tests/nds/input_test/nds_input_test.i"
+	@echo "... tests/nds/input_test/nds_input_test.s"
 .PHONY : help
 
 

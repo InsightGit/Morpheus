@@ -7,7 +7,6 @@
 
 #include <vector>
 
-//#include <core/pa>
 #include <core/input_event.hpp>
 #include <core/node.hpp>
 #include <core/uncopyable.hpp>
@@ -22,6 +21,18 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
+            /*static MainLoop* construct_appropriate_main_loop() {
+                #ifdef _GBA
+                    #include <gba/gba.hpp>
+                    return new gba::MainLoop();
+                #elif _NDS
+                    #include <nds/nds.hpp>
+                    return new nds::MainLoop();
+                #else
+                    #error Unsupported Platform!
+                #endif
+            }*/
+
             void set_root(std::shared_ptr<Node> root) {
                 m_root = root;
             }

@@ -16,10 +16,10 @@ namespace morpheus {
             public:
                 explicit Background(unsigned int background_num);
 
-                void load_from_array(const unsigned short *tiles, const unsigned short *palette,
+                void load_from_array(const unsigned int *tiles, const int tiles_len,
+                                     const unsigned short *palette, const unsigned short *tile_map);
+                void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *tile_map);
-
-                void draw();
             private:
                 int m_background_num;
                 unsigned short m_bg_control_register;

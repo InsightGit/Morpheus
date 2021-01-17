@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/bobby/morpheus/tests/nds/nds_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o"
+  "/home/bobby/morpheus/tests/nds/input_test/nds_input_test.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -84,7 +84,7 @@ test8_pcx.o:
 
 test4.o:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating test4.o"
-	/opt/devkitpro/tools/bin/grit ../tests/nds/test4.png -gB4 -Mw 4 -Mh 4
+	/opt/devkitpro/tools/bin/grit ../tests/nds/input_test/test4.png -gB4 -Mw 4 -Mh 4
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as test4.s -otest4.o
 
 test8.o:
@@ -97,22 +97,22 @@ testt.o:
 	/opt/devkitpro/tools/bin/grit ../tests/nds/testt.png -gB8 -Mw 4 -Mh 4
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as testt.s -otestt.o
 
-CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: CMakeFiles/morpheus-nds-test.elf.dir/flags.make
-CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o: ../tests/nds/nds_input_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o -c /home/bobby/morpheus/tests/nds/nds_input_test.cpp
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: CMakeFiles/morpheus-nds-test.elf.dir/flags.make
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../tests/nds/input_test/nds_input_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o -c /home/bobby/morpheus/tests/nds/input_test/nds_input_test.cpp
 
-CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/tests/nds/nds_input_test.cpp > CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.i
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/tests/nds/input_test/nds_input_test.cpp > CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.i
 
-CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/tests/nds/nds_input_test.cpp -o CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.s
+CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/tests/nds/input_test/nds_input_test.cpp -o CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s
 
 # Object files for target morpheus-nds-test.elf
 morpheus__nds__test_elf_OBJECTS = \
-"CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o"
+"CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
 
 # External object files for target morpheus-nds-test.elf
 morpheus__nds__test_elf_EXTERNAL_OBJECTS = \
@@ -121,7 +121,7 @@ morpheus__nds__test_elf_EXTERNAL_OBJECTS = \
 "/home/bobby/morpheus/cmake-build-debug-nds/test8.o" \
 "/home/bobby/morpheus/cmake-build-debug-nds/testt.o"
 
-morpheus-nds-test.elf: CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/nds_input_test.cpp.o
+morpheus-nds-test.elf: CMakeFiles/morpheus-nds-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o
 morpheus-nds-test.elf: test8_pcx.o
 morpheus-nds-test.elf: test4.o
 morpheus-nds-test.elf: test8.o
