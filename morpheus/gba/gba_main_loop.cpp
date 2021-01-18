@@ -32,6 +32,27 @@ morpheus::gba::GbaMainLoop::~GbaMainLoop() {
     }
 }
 
+void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) {
+    switch (background_num) {
+        case 0:
+            m_backgrounds_to_enable |= DCNT_BG0;
+            break;
+        case 1:
+            m_backgrounds_to_enable |= DCNT_BG1;
+            break;
+        case 2:
+            m_backgrounds_to_enable |= DCNT_BG2;
+            break;
+        case 3:
+            m_backgrounds_to_enable |= DCNT_BG3;
+            break;
+    }
+
+    if(m_platform_inited) {
+        REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable;
+    }
+}
+
 [[noreturn]] morpheus::core::Error morpheus::gba::GbaMainLoop::game_loop() {
     platform_init();
 
@@ -76,16 +97,18 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable;
     REG_IME = 1;
 
-    tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
+    //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
 
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
         m_obj_buffer.push_back(new OBJ_ATTR());
     }
 
     oam_init(static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
+
+    m_platform_inited = true;
 
     return morpheus::core::Error::OK;
 }

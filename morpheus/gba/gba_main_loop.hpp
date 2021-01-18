@@ -33,6 +33,7 @@ namespace morpheus {
 
             virtual ~GbaMainLoop();
 
+            void enable_background(unsigned int background_num);
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;
@@ -50,6 +51,9 @@ namespace morpheus {
 
             std::unique_ptr<DebugStream> m_debug_stream;
             std::vector<void *> m_obj_buffer;
+
+            unsigned int m_backgrounds_to_enable = 0x0;
+            bool m_platform_inited = false;
 
             void setup_debug_console();
         };

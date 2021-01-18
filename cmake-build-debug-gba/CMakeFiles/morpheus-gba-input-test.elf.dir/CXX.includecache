@@ -77,7 +77,11 @@ core/main_loop.hpp
 ../morpheus/gba/gfx/background.hpp
 algorithm
 -
+memory
+-
 tonc.h
+-
+gba/gba_main_loop.hpp
 -
 
 ../morpheus/gba/gfx/sprite.hpp

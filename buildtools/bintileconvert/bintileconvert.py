@@ -104,12 +104,21 @@ def _open_and_convert(file_path: str, build_dir: str, palette_bank: int = 0, ima
     file_name = file_name.replace(".", "_")
 
     if len(image_file) > 0:
-        if is_4bpp:
-            grit_arguments = "-MRtpf -gB4"
-        else:
-            grit_arguments = "-MRtf -gB8"
+        grit_subprocess = ["grit", image_file]
 
-        os.system("grit " + image_file + " " + grit_arguments + " -ftc")
+        if is_4bpp:
+            grit_subprocess.append("-gB4")
+            grit_subprocess.append("-MRtpf")
+        else:
+            grit_subprocess.append("-gB8")
+            grit_subprocess.append("-MRtf")
+
+        grit_subprocess.append("-ftc")
+
+        print(subprocess.run(["which", "grit"], capture_output=True))
+        print(subprocess.run(grit_subprocess, capture_output=True))
+
+        raise NotImplementedError
 
     variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0)
 
