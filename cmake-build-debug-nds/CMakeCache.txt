@@ -17,11 +17,6 @@
 //Path to a program.
 BIN2S:FILEPATH=/opt/devkitpro/tools/bin/bin2s
 
-//Tilemap studio-like tilemap BIN files
-BIN_TILEMAP_FILES:STRING=
-
-BIN_TILE_FILES:STRING=
-
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -263,20 +258,11 @@ GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
 NDSTOOL:FILEPATH=/opt/devkitpro/tools/bin/ndstool
 
 //NDS game icon location realitve to project location
-NDS_GAME_ICON:STRING=tests/nds/ds_icon.bmp
+NDS_GAME_ICON:STRING=tests/nds/input_test/ds_icon.bmp
 
 //PCX Files used by test code (paths are relative to cmake build
 // dir)
-NDS_PCX_FILES:STRING=../tests/nds/test8.pcx
-
-//8bpp PNG Files used by NDS test code (paths are relative to cmake
-// build dir)
-NDS_PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
-
-//Image sizes of the previously
-//\n                                                       listed
-// 8bpp PNG files (widthXlength)
-NDS_PNG8_IMAGE_SIZES:STRING=32X32;32X32
+NDS_PCX_FILES:STRING=../tests/nds/input_test/test8.pcx
 
 //NDS game subtitle #1
 NDS_SUBTITLE1:STRING=hopefully this works
@@ -290,9 +276,9 @@ NDS_TITLE:STRING=Morpheus NDS Test
 //Image sizes of previously listed 4bpp PNG Files (widthXlength)
 PNG4_IMAGE_SIZES:STRING=32X32
 
-//8bpp PNG Files used by NDS test code (paths are relative to cmake
+//8bpp PNG Files used by test code (paths are relative to cmake
 // build dir)
-PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
+PNG8_FILES:STRING=../tests/nds/input_test/test8.png;../tests/nds/input_test/testt.png
 
 //Image sizes of the previously listed 8bpp PNG files (widthXlength)
 PNG8_IMAGE_SIZES:STRING=32X32;32X32
@@ -304,40 +290,10 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
 
 //Value Computed by CMake
-morpheus-gba-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-gba-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-nds-_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-nds-_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
 morpheus-nds-input-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
 
 //Value Computed by CMake
 morpheus-nds-input-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-nds-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-nds-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-nds-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-nds-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds

@@ -22,7 +22,7 @@ function(add_nds_executable target)
     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
 endfunction()
 
-function(execute_grit png_files png_image_sizes is_4bpp)
+function(execute_grit_sprites png_files png_image_sizes is_4bpp)
     set(png_files ${${png_files}})
     set(png_image_sizes ${${png_image_sizes}})
 
@@ -77,6 +77,42 @@ function(execute_grit png_files png_image_sizes is_4bpp)
     endforeach()
 endfunction()
 
+function(execute_grit_tilemaps png_files is_4bpp)
+    if(is_4bpp)
+        set(bpp_flag "4")
+        set(tile_map_flag "tpf")
+    else()
+        set(bpp_flag "8")
+        set(tile_map_flag "tf")
+    endif()
+
+    foreach(png_file IN ${${png_files}})
+        get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+        add_custom_command(OUTPUT ${png_file_name_path}.o
+                COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -mR${tile_map_flag}
+                COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+                VERBATIM)
+    endforeach()
+endfunction()
+
+function(execute_grit_tilemap png_file is_4bpp)
+    if(is_4bpp)
+        set(bpp_flag "4")
+        set(tile_map_flag "tpf")
+    else()
+        set(bpp_flag "8")
+        set(tile_map_flag "tf")
+    endif()
+
+    get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+    add_custom_command(OUTPUT ${png_file_name_path}.o
+            COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -mR${tile_map_flag}
+            COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+            VERBATIM)
+endfunction()
+
 # TODO(Bobby): Update this function to match the working function below this function (convert_tilemap_bin_png_file)
 function(convert_tilemap_bin_files build_dir palette_bank_num bin_files target_name_var)
     if(WIN32)
@@ -112,6 +148,7 @@ function(convert_tilemap_bin_image_file build_dir palette_bank_num bin_file imag
     string(REPLACE ".bin" "" bin_file_path_name ${bin_file_path_name})
 
     message(STATUS ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py)
+    message(STATUS ${bin_file_path_name})
 
     add_custom_command(OUTPUT ${build_dir}/${bin_file_path_name}.c ${build_dir}/${bin_file_path_name}.h
             COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py

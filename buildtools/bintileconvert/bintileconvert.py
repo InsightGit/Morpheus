@@ -21,13 +21,13 @@ def _generate_header_file(build_dir: str, file_name: str, with_image_file: bool)
     header_guard_name = file_name.upper().split()[0]
 
     try:
-        variable_name = header_guard_name.lower() + "TileMap"
+        variable_name = header_guard_name.lower() + "Map"
 
         if with_image_file:
             with open(os.path.join(build_dir, file_name) + ".h", 'r+') as file_obj:
                 lines = file_obj.readlines()
 
-                tile_map_string = "#define " + header_guard_name.lower() + "TileMapLen 1024\n"
+                tile_map_string = "#define " + header_guard_name.lower() + "MapLen 2048\n"
                 tile_map_string += "extern const unsigned short " + variable_name + "[1024];\n\n"
 
                 for i in range(len(lines)):
@@ -108,17 +108,15 @@ def _open_and_convert(file_path: str, build_dir: str, palette_bank: int = 0, ima
 
         if is_4bpp:
             grit_subprocess.append("-gB4")
-            grit_subprocess.append("-MRtpf")
+            #grit_subprocess.append("-MRtpf")
         else:
             grit_subprocess.append("-gB8")
-            grit_subprocess.append("-MRtf")
+            #grit_subprocess.append("-MRtf")
 
         grit_subprocess.append("-ftc")
 
         print(subprocess.run(["which", "grit"], capture_output=True))
         print(subprocess.run(grit_subprocess, capture_output=True))
-
-        raise NotImplementedError
 
     variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0)
 

@@ -96,17 +96,17 @@ if("$ENV{BUILD_TESTS}")
         set(PNG4_FILES "../tests/nds/input_test/test4.png")
     endif()
 
+    set(PNG4_IMAGE_SIZES "32X32")
+
     if(platform_lower STREQUAL "gba")
         set(PNG8_FILES "../tests/gba/input_test/test8.png" CACHE STRING
                 "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+        set(PNG8_IMAGE_SIZES "32X32")
     elseif(platform_lower STREQUAL "nds")
         set(PNG8_FILES "../tests/nds/input_test/test8.png" "../tests/nds/input_test/testt.png" CACHE STRING
                 "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+        set(PNG8_IMAGE_SIZES "32X32" "32X32")
     endif()
-
-    set(PNG4_IMAGE_SIZES "32X32" CACHE STRING "Image sizes of previously listed 4bpp PNG Files (widthXlength)")
-    set(PNG8_IMAGE_SIZES "32X32" "32X32" CACHE STRING
-            "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
     if(NOT GRIT)
         # message(STATUS "Looking for bin2s...")
@@ -118,8 +118,9 @@ if("$ENV{BUILD_TESTS}")
         endif()
     endif()
 
-    execute_grit(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
-    execute_grit(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
+    execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
+    execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
+    execute_grit_tilemap("../tests/tileset_test/region_map2.png" FALSE)
 
     foreach(png4_file ${PNG4_FILES})
         get_filename_component(png4_file ${png4_file} NAME_WLE)
@@ -171,7 +172,9 @@ if("$ENV{BUILD_TESTS}")
                                        "tests/tileset_test/region_map.png" 8)
 
         add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
-                        "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h")
+                        "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
+                        "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
+                        "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_gba_executable(morpheus-gba-tileset-test.elf)
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)

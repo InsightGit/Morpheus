@@ -97,7 +97,7 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable;
     REG_IME = 1;
 
     //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
@@ -173,7 +173,7 @@ void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
 }
 
 void morpheus::gba::GbaMainLoop::setup_debug_console() {
-    tte_init_se(0, BG_CBB(0) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
+    tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
 
     m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream());
 

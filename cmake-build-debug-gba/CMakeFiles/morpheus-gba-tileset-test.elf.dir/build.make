@@ -84,9 +84,14 @@ region_map.c:
 region_map.h: region_map.c
 	@$(CMAKE_COMMAND) -E touch_nocreate region_map.h
 
+region_map2.o:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating region_map2.o"
+	/opt/devkitpro/tools/bin/grit ../tests/tileset_test/region_map2.png -gB8 -mRtf
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as region_map2.s -oregion_map2.o
+
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: CMakeFiles/morpheus-gba-tileset-test.elf.dir/flags.make
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../tests/tileset_test/tileset_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o -c /home/bobby/morpheus/tests/tileset_test/tileset_test.cpp
 
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.i: cmake_force
@@ -99,7 +104,7 @@ CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp
 
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o: CMakeFiles/morpheus-gba-tileset-test.elf.dir/flags.make
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o: region_map.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o   -c /home/bobby/morpheus/cmake-build-debug-gba/region_map.c
 
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.i: cmake_force
@@ -110,20 +115,37 @@ CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bobby/morpheus/cmake-build-debug-gba/region_map.c -o CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.s
 
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o: CMakeFiles/morpheus-gba-tileset-test.elf.dir/flags.make
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o: brin.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o   -c /home/bobby/morpheus/cmake-build-debug-gba/brin.c
+
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bobby/morpheus/cmake-build-debug-gba/brin.c > CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.i
+
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bobby/morpheus/cmake-build-debug-gba/brin.c -o CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.s
+
 # Object files for target morpheus-gba-tileset-test.elf
 morpheus__gba__tileset__test_elf_OBJECTS = \
 "CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o" \
-"CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
+"CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o" \
+"CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o"
 
 # External object files for target morpheus-gba-tileset-test.elf
-morpheus__gba__tileset__test_elf_EXTERNAL_OBJECTS =
+morpheus__gba__tileset__test_elf_EXTERNAL_OBJECTS = \
+"/home/bobby/morpheus/cmake-build-debug-gba/region_map2.o"
 
 morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o
 morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o
+morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o
+morpheus-gba-tileset-test.elf: region_map2.o
 morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make
 morpheus-gba-tileset-test.elf: libgba_morpheus.a
 morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable morpheus-gba-tileset-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable morpheus-gba-tileset-test.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/morpheus-gba-tileset-test.elf.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -137,6 +159,7 @@ CMakeFiles/morpheus-gba-tileset-test.elf.dir/clean:
 
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/depend: region_map.c
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/depend: region_map.h
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/depend: region_map2.o
 	cd /home/bobby/morpheus/cmake-build-debug-gba && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bobby/morpheus /home/bobby/morpheus /home/bobby/morpheus/cmake-build-debug-gba /home/bobby/morpheus/cmake-build-debug-gba /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.elf.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.elf.dir/depend
 

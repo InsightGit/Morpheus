@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o"
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o"
   "morpheus-gba-tileset-test.elf"
@@ -6,6 +7,7 @@ file(REMOVE_RECURSE
   "morpheus-gba-tileset-test.gba"
   "region_map.c"
   "region_map.h"
+  "region_map2.o"
 )
 
 # Per-language clean rules from dependency scanning.

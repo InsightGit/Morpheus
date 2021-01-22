@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/bobby/morpheus/cmake-build-debug-gba/brin.c" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o"
   "/home/bobby/morpheus/cmake-build-debug-gba/region_map.c" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

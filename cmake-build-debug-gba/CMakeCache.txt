@@ -14,11 +14,6 @@
 # EXTERNAL cache entries
 ########################
 
-//Tilemap studio-like tilemap BIN files
-BIN_TILEMAP_FILES:STRING=
-
-BIN_TILE_FILES:STRING=
-
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -259,22 +254,15 @@ GBAFIX:FILEPATH=/opt/devkitpro/tools/bin/gbafix
 //Path to a program.
 GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
 
-//8bpp PNG Files used by NDS test code (paths are relative to cmake
-// build dir)
-NDS_PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
-
-//Image sizes of the previously listed 8bpp PNG files (widthXlength)
-NDS_PNG8_IMAGE_SIZES:STRING=32X32;32X32
-
 //Path to a program.
 OBJCOPY:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy
 
 //Image sizes of previously listed 4bpp PNG Files (widthXlength)
 PNG4_IMAGE_SIZES:STRING=32X32
 
-//8bpp PNG Files used by NDS test code (paths are relative to cmake
+//8bpp PNG Files used by test code (paths are relative to cmake
 // build dir)
-PNG8_FILES:STRING=../tests/nds/test8.png;../tests/nds/testt.png
+PNG8_FILES:STRING=../tests/gba/input_test/test8.png
 
 //Image sizes of the previously listed 8bpp PNG files (widthXlength)
 PNG8_IMAGE_SIZES:STRING=32X32;32X32
@@ -295,34 +283,10 @@ morpheus-gba-input-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug
 morpheus-gba-input-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
-morpheus-gba-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
-
-//Value Computed by CMake
-morpheus-gba-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
 morpheus-gba-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
 
 //Value Computed by CMake
 morpheus-gba-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-nds-input-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
-
-//Value Computed by CMake
-morpheus-nds-input-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-nds-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
-
-//Value Computed by CMake
-morpheus-nds-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
-
-//Value Computed by CMake
-morpheus-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
-
-//Value Computed by CMake
-morpheus-tileset-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba

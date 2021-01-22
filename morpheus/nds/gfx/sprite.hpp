@@ -26,7 +26,7 @@ namespace morpheus {
                 NEEDOFF
             };
 
-            static OamStatus OAM_STATUS = OamStatus::DISABLED;
+            //static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
             class Sprite : public core::Node {
             public:

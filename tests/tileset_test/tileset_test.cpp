@@ -4,7 +4,9 @@
 
 #include <core/core.hpp>
 
+#include "region_map2.h"
 #include "region_map.h"
+#include "brin.h"
 
 /*#ifdef _NDS
     #include <nds/nds.hpp>
@@ -28,16 +30,16 @@ public:
            input_event.state == morpheus::core::InputState::HELD) {
             switch(input_event.button) {
                 case morpheus::core::InputButton::DPADUP:
-                    m_y -= 20;
+                    m_y -= 10;
                     break;
                 case morpheus::core::InputButton::DPADLEFT:
-                    m_x -= 20;
+                    m_x -= 10;
                     break;
                 case morpheus::core::InputButton::DPADRIGHT:
-                    m_x += 20;
+                    m_x += 10;
                     break;
                 case morpheus::core::InputButton::DPADDOWN:
-                    m_y += 20;
+                    m_y += 10;
                     break;
                 default:
                     break;
@@ -54,24 +56,23 @@ private:
 
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(new morpheus::gba::GbaMainLoop(
-                                                        morpheus::gba::DebugConsoleMode::ON)/*morpheus::core::MainLoop::construct_appropriate_main_loop()*/);
+                                                        morpheus::gba::DebugConsoleMode::OFF)/*morpheus::core::MainLoop::construct_appropriate_main_loop()*/);
     std::shared_ptr<Controls> controls(new Controls());
 
     if(on_ds) {
         //defaultExceptionHandler();
     } else {
         morpheus::gba::gfx::Background background(1,
-                                                  std::static_pointer_cast<morpheus::gba::GbaMainLoop>(main_loop));
+                                                  std::static_pointer_cast<morpheus::gba::GbaMainLoop>(main_loop),
+                                                  true,1, 0);
 
-        tte_write("loading from array\n");
-
-        background.load_from_array(region_mapTiles, region_mapTilesLen, region_mapMap, region_mapMapLen,
-                                   region_mapPal, region_mapPalLen);
-
-        tte_write("array loading finished\n");
+        /*background.load_from_array(reinterpret_cast<const unsigned int*>(brinTiles), brinTilesLen, brinPal, brinPalLen,
+                                   brinMap, brinMapLen, morpheus::core::gfx::Vector2(64, 32));*/
+        background.load_from_array(region_map2Tiles, region_map2TilesLen, region_map2Pal, region_map2PalLen,
+                                   region_map2Map, region_map2MapLen, morpheus::core::gfx::Vector2(32, 32));
+        /*background.load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
+                                   region_mapMap, region_mapMapLen, morpheus::core::gfx::Vector2(32, 32));*/
     }
-
-    tte_write("end\n");
 
     main_loop->set_root(controls);
 

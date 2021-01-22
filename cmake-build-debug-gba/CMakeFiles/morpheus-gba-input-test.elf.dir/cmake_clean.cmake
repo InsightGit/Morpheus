@@ -5,7 +5,6 @@ file(REMOVE_RECURSE
   "morpheus-gba-tileset-test.gba"
   "test4.o"
   "test8.o"
-  "testt.o"
 )
 
 # Per-language clean rules from dependency scanning.

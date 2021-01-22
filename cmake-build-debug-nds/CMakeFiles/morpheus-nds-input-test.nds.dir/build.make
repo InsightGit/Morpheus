@@ -74,7 +74,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 include CMakeFiles/morpheus-nds-input-test.nds.dir/progress.make
 
 CMakeFiles/morpheus-nds-input-test.nds: morpheus-nds-input-test.elf
-	/opt/devkitpro/tools/bin/ndstool -c morpheus-nds-input-test.nds -9 morpheus-nds-input-test.elf -b /home/bobby/morpheus/tests/nds/ds_icon.bmp "Morpheus NDS Test;hopefully this works;hopefully this works ii"
+	/opt/devkitpro/tools/bin/ndstool -c morpheus-nds-input-test.nds -9 morpheus-nds-input-test.elf -b /home/bobby/morpheus/tests/nds/input_test/ds_icon.bmp "Morpheus NDS Test;hopefully this works;hopefully this works ii"
 
 morpheus-nds-input-test.nds: CMakeFiles/morpheus-nds-input-test.nds
 morpheus-nds-input-test.nds: CMakeFiles/morpheus-nds-input-test.nds.dir/build.make

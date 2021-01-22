@@ -77,11 +77,15 @@ core/main_loop.hpp
 ../morpheus/gba/gfx/background.hpp
 algorithm
 -
+cassert
+-
 cstring
 -
 memory
 -
 tonc.h
+-
+core/gfx/vector_2.hpp
 -
 gba/gba_main_loop.hpp
 -
@@ -144,11 +148,17 @@ nds.h
 core/main_loop.hpp
 -
 
+/home/bobby/morpheus/tests/tileset_test/region_map.h
+
 /home/bobby/morpheus/tests/tileset_test/tileset_test.cpp
 core/core.hpp
 -
+region_map2.h
+/home/bobby/morpheus/tests/tileset_test/region_map2.h
 region_map.h
 /home/bobby/morpheus/tests/tileset_test/region_map.h
+brin.h
+/home/bobby/morpheus/tests/tileset_test/brin.h
 nds/nds.hpp
 -
 gba/gba.hpp
@@ -264,5 +274,7 @@ tonc_memdef.h
 tonc_core.h
 /opt/devkitpro/libtonc/include/tonc_core.h
 
-region_map.h
+brin.h
+
+region_map2.h
 

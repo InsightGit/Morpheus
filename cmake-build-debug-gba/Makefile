@@ -195,6 +195,33 @@ morpheus-gba-tileset-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/build
 .PHONY : morpheus-gba-tileset-test.elf/fast
 
+brin.o: brin.c.o
+
+.PHONY : brin.o
+
+# target to build an object file
+brin.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o
+.PHONY : brin.c.o
+
+brin.i: brin.c.i
+
+.PHONY : brin.i
+
+# target to preprocess a source file
+brin.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.i
+.PHONY : brin.c.i
+
+brin.s: brin.c.s
+
+.PHONY : brin.s
+
+# target to generate assembly for a file
+brin.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.s
+.PHONY : brin.c.s
+
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
 .PHONY : morpheus/core/gfx/palette_manager.o
@@ -505,6 +532,9 @@ help:
 	@echo "... morpheus"
 	@echo "... morpheus-gba-input-test.elf"
 	@echo "... morpheus-gba-tileset-test.elf"
+	@echo "... brin.o"
+	@echo "... brin.i"
+	@echo "... brin.s"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"

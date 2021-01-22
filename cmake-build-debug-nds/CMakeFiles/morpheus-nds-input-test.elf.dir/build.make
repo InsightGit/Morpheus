@@ -79,7 +79,7 @@ include CMakeFiles/morpheus-nds-input-test.elf.dir/flags.make
 
 test8_pcx.o:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating test8_pcx.o"
-	/opt/devkitpro/tools/bin/bin2s ../tests/nds/test8.pcx > test8_pcx.s
+	/opt/devkitpro/tools/bin/bin2s ../tests/nds/input_test/test8.pcx > test8_pcx.s
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as test8_pcx.s -otest8_pcx.o
 
 test4.o:
@@ -89,12 +89,12 @@ test4.o:
 
 test8.o:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating test8.o"
-	/opt/devkitpro/tools/bin/grit ../tests/nds/test8.png -gB8 -Mw 4 -Mh 4
+	/opt/devkitpro/tools/bin/grit ../tests/nds/input_test/test8.png -gB8 -Mw 4 -Mh 4
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as test8.s -otest8.o
 
 testt.o:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating testt.o"
-	/opt/devkitpro/tools/bin/grit ../tests/nds/testt.png -gB8 -Mw 4 -Mh 4
+	/opt/devkitpro/tools/bin/grit ../tests/nds/input_test/testt.png -gB8 -Mw 4 -Mh 4
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-as testt.s -otestt.o
 
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: CMakeFiles/morpheus-nds-input-test.elf.dir/flags.make

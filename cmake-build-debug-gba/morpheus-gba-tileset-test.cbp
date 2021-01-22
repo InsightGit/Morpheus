@@ -226,6 +226,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/brin.c">
+			<Option target="morpheus-gba-tileset-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/brin.h">
+			<Option target="morpheus-gba-tileset-test.elf"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/region_map.c">
 			<Option target="morpheus-gba-tileset-test.elf"/>
 		</Unit>
@@ -233,6 +239,12 @@
 			<Option target="morpheus-gba-tileset-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/region_map.h">
+			<Option target="morpheus-gba-tileset-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/region_map2.o">
+			<Option target="morpheus-gba-tileset-test.elf"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/region_map2.o.rule">
 			<Option target="morpheus-gba-tileset-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test4.o">
@@ -245,12 +257,6 @@
 			<Option target="morpheus-gba-input-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o.rule">
-			<Option target="morpheus-gba-input-test.elf"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o">
-			<Option target="morpheus-gba-input-test.elf"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/testt.o.rule">
 			<Option target="morpheus-gba-input-test.elf"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
