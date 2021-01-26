@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 ../morpheus/core/core.hpp
+core/gfx/tiled_background_base.hpp
+-
 core/gfx/vector_2.hpp
 -
 core/input_event.hpp
@@ -16,6 +18,12 @@ core/main_loop.hpp
 core/node.hpp
 -
 core/uncopyable.hpp
+-
+
+../morpheus/core/gfx/tiled_background_base.hpp
+algorithm
+-
+core/main_loop.hpp
 -
 
 ../morpheus/core/gfx/vector_2.hpp
@@ -30,10 +38,6 @@ core/input_event.hpp
 core/node.hpp
 -
 core/uncopyable.hpp
--
-gba/gba.hpp
--
-nds/nds.hpp
 -
 
 ../morpheus/core/node.hpp
@@ -57,7 +61,9 @@ gba/gfx/sprite_4_bpp.hpp
 -
 gba/gfx/sprite_8_bpp.hpp
 -
-gba/gfx/background.hpp
+gba/gfx/tiled_background.hpp
+-
+utils.hpp
 -
 
 ../morpheus/gba/gba_main_loop.hpp
@@ -72,22 +78,6 @@ string
 tonc.h
 -
 core/main_loop.hpp
--
-
-../morpheus/gba/gfx/background.hpp
-algorithm
--
-cassert
--
-cstring
--
-memory
--
-tonc.h
--
-core/gfx/vector_2.hpp
--
-gba/gba_main_loop.hpp
 -
 
 ../morpheus/gba/gfx/sprite.hpp
@@ -108,6 +98,20 @@ gba/gfx/sprite.hpp
 
 ../morpheus/gba/gfx/sprite_8_bpp.hpp
 gba/gfx/sprite.hpp
+-
+
+../morpheus/gba/gfx/tiled_background.hpp
+cassert
+-
+cstring
+-
+memory
+-
+tonc.h
+-
+gba/gba_main_loop.hpp
+-
+core/gfx/tiled_background_base.hpp
 -
 
 ../morpheus/nds/gfx/sprite.hpp
@@ -132,12 +136,24 @@ core/core.hpp
 nds/gfx/sprite.hpp
 -
 
+../morpheus/nds/gfx/tiled_background.hpp
+nds.h
+-
+core/core.hpp
+-
+nds/nds_main_loop.hpp
+-
+
 ../morpheus/nds/nds.hpp
 nds/gfx/sprite_8_bpp.hpp
 -
 nds/gfx/sprite_4_bpp.hpp
 -
+nds/gfx/tiled_background.hpp
+-
 nds/nds_main_loop.hpp
+-
+utils.hpp
 -
 
 ../morpheus/nds/nds_main_loop.hpp
@@ -146,6 +162,12 @@ stdio.h
 nds.h
 -
 core/main_loop.hpp
+-
+
+../morpheus/utils.hpp
+gba/gba.hpp
+-
+nds/nds.hpp
 -
 
 /home/bobby/morpheus/tests/tileset_test/region_map.h
@@ -160,8 +182,6 @@ region_map.h
 brin.h
 /home/bobby/morpheus/tests/tileset_test/brin.h
 nds/nds.hpp
--
-gba/gba.hpp
 -
 gba/gba.hpp
 -

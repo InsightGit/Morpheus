@@ -9,6 +9,8 @@
 
 #include <gba/gfx/sprite_4_bpp.hpp>
 #include <gba/gfx/sprite_8_bpp.hpp>
-#include <gba/gfx/background.hpp>
+#include <gba/gfx/tiled_background.hpp>
+
+#include <utils.hpp>
 
 #endif //MORPHEUS_GBA_TEST_GBA_HPP

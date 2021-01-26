@@ -5,7 +5,9 @@
 #ifndef MORPHEUS_CORE_HPP
 #define MORPHEUS_CORE_HPP
 
+#include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
+
 #include <core/input_event.hpp>
 #include <core/main_loop.hpp>
 #include <core/node.hpp>

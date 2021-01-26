@@ -257,15 +257,9 @@ GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
 //Path to a program.
 OBJCOPY:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy
 
-//Image sizes of previously listed 4bpp PNG Files (widthXlength)
-PNG4_IMAGE_SIZES:STRING=32X32
-
 //8bpp PNG Files used by test code (paths are relative to cmake
 // build dir)
 PNG8_FILES:STRING=../tests/gba/input_test/test8.png
-
-//Image sizes of the previously listed 8bpp PNG files (widthXlength)
-PNG8_IMAGE_SIZES:STRING=32X32;32X32
 
 //Path to a program.
 PYTHON3:FILEPATH=/usr/bin/python3

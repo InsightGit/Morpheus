@@ -265,6 +265,12 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.hpp">
 			<Option target="morpheus"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.hpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/vector_2.hpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -289,12 +295,6 @@
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp">
 			<Option target="morpheus"/>
 		</Unit>
-		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.cpp">
-			<Option target="morpheus"/>
-		</Unit>
-		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/background.hpp">
-			<Option target="morpheus"/>
-		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -311,6 +311,12 @@
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.hpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/tests/gba/input_test/gba_input_test.cpp">

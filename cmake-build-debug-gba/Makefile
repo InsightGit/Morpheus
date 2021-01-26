@@ -249,6 +249,33 @@ morpheus/core/gfx/palette_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
 .PHONY : morpheus/core/gfx/palette_manager.cpp.s
 
+morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
+
+.PHONY : morpheus/core/gfx/tiled_background_base.o
+
+# target to build an object file
+morpheus/core/gfx/tiled_background_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.o
+
+morpheus/core/gfx/tiled_background_base.i: morpheus/core/gfx/tiled_background_base.cpp.i
+
+.PHONY : morpheus/core/gfx/tiled_background_base.i
+
+# target to preprocess a source file
+morpheus/core/gfx/tiled_background_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.i
+
+morpheus/core/gfx/tiled_background_base.s: morpheus/core/gfx/tiled_background_base.cpp.s
+
+.PHONY : morpheus/core/gfx/tiled_background_base.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/tiled_background_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.s
+
 morpheus/core/main_loop.o: morpheus/core/main_loop.cpp.o
 
 .PHONY : morpheus/core/main_loop.o
@@ -330,33 +357,6 @@ morpheus/gba/gba_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.s
 .PHONY : morpheus/gba/gba_main_loop.cpp.s
 
-morpheus/gba/gfx/background.o: morpheus/gba/gfx/background.cpp.o
-
-.PHONY : morpheus/gba/gfx/background.o
-
-# target to build an object file
-morpheus/gba/gfx/background.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.o
-.PHONY : morpheus/gba/gfx/background.cpp.o
-
-morpheus/gba/gfx/background.i: morpheus/gba/gfx/background.cpp.i
-
-.PHONY : morpheus/gba/gfx/background.i
-
-# target to preprocess a source file
-morpheus/gba/gfx/background.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.i
-.PHONY : morpheus/gba/gfx/background.cpp.i
-
-morpheus/gba/gfx/background.s: morpheus/gba/gfx/background.cpp.s
-
-.PHONY : morpheus/gba/gfx/background.s
-
-# target to generate assembly for a file
-morpheus/gba/gfx/background.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/background.cpp.s
-.PHONY : morpheus/gba/gfx/background.cpp.s
-
 morpheus/gba/gfx/sprite.o: morpheus/gba/gfx/sprite.cpp.o
 
 .PHONY : morpheus/gba/gfx/sprite.o
@@ -437,6 +437,33 @@ morpheus/gba/gfx/sprite_8_bpp.s: morpheus/gba/gfx/sprite_8_bpp.cpp.s
 morpheus/gba/gfx/sprite_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s
 .PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.s
+
+morpheus/gba/gfx/tiled_background.o: morpheus/gba/gfx/tiled_background.cpp.o
+
+.PHONY : morpheus/gba/gfx/tiled_background.o
+
+# target to build an object file
+morpheus/gba/gfx/tiled_background.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o
+.PHONY : morpheus/gba/gfx/tiled_background.cpp.o
+
+morpheus/gba/gfx/tiled_background.i: morpheus/gba/gfx/tiled_background.cpp.i
+
+.PHONY : morpheus/gba/gfx/tiled_background.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/tiled_background.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.i
+.PHONY : morpheus/gba/gfx/tiled_background.cpp.i
+
+morpheus/gba/gfx/tiled_background.s: morpheus/gba/gfx/tiled_background.cpp.s
+
+.PHONY : morpheus/gba/gfx/tiled_background.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/tiled_background.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.s
+.PHONY : morpheus/gba/gfx/tiled_background.cpp.s
 
 region_map.o: region_map.c.o
 
@@ -538,6 +565,9 @@ help:
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
+	@echo "... morpheus/core/gfx/tiled_background_base.o"
+	@echo "... morpheus/core/gfx/tiled_background_base.i"
+	@echo "... morpheus/core/gfx/tiled_background_base.s"
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
@@ -547,9 +577,6 @@ help:
 	@echo "... morpheus/gba/gba_main_loop.o"
 	@echo "... morpheus/gba/gba_main_loop.i"
 	@echo "... morpheus/gba/gba_main_loop.s"
-	@echo "... morpheus/gba/gfx/background.o"
-	@echo "... morpheus/gba/gfx/background.i"
-	@echo "... morpheus/gba/gfx/background.s"
 	@echo "... morpheus/gba/gfx/sprite.o"
 	@echo "... morpheus/gba/gfx/sprite.i"
 	@echo "... morpheus/gba/gfx/sprite.s"
@@ -559,6 +586,9 @@ help:
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.o"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.i"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.s"
+	@echo "... morpheus/gba/gfx/tiled_background.o"
+	@echo "... morpheus/gba/gfx/tiled_background.i"
+	@echo "... morpheus/gba/gfx/tiled_background.s"
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"

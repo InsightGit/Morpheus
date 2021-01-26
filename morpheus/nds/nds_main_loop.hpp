@@ -32,6 +32,8 @@ namespace morpheus {
         public:
             explicit NdsMainLoop(DebugConsoleMode debug_console_mode = DebugConsoleMode::USE_DEFAULT_MAIN);
 
+            void enable_background(unsigned int background_reference_num)override;
+
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;

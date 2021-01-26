@@ -9,6 +9,8 @@
 
 #include <core/core.hpp>
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 namespace morpheus {
     namespace nds {
         namespace gfx {
@@ -26,7 +28,7 @@ namespace morpheus {
                 NEEDOFF
             };
 
-            //static OamStatus OAM_STATUS = OamStatus::DISABLED;
+            static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
             class Sprite : public core::Node {
             public:

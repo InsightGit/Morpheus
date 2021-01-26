@@ -1,5 +1,7 @@
 /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/rebuild_cache.dir
 /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir
 /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-input-test.elf.dir
-/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/edit_cache.dir
+/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-tileset-test.nds.dir
 /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-input-test.nds.dir
+/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/edit_cache.dir
+/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus-nds-tileset-test.elf.dir

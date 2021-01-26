@@ -1,5 +1,8 @@
 # Hashes of file build rules.
 1a1aa0c02ec428c03d6a65c678d75a68 CMakeFiles/morpheus-nds-input-test.nds
+08fbf9baf5e27cb914bcb0f2f959bd06 CMakeFiles/morpheus-nds-tileset-test.nds
+07cc26ac97825e735394bf5afcbb73f6 region_map.c
+608702ce20b39f66a6c2ecb2d6c7b586 region_map2.o
 3c78901f5930ed5aecb89dedce04edde test4.o
 aab7c99143f747a7ef5d3aa58c2eddda test8.o
 45b57d335f0997e762cf5265d250c0c7 test8_pcx.o

@@ -2,7 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
   "morpheus-nds-input-test.elf"
   "morpheus-nds-input-test.elf.pdb"
-  "morpheus-nds-input-test.nds"
+  "morpheus-nds-tileset-test.nds"
   "test4.o"
   "test8.o"
   "test8_pcx.o"

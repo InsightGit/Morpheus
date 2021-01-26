@@ -15,7 +15,9 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/uncopyable.hpp
         morpheus/core/gfx/palette_manager.hpp
         morpheus/core/gfx/palette_manager.cpp
-        morpheus/core/gfx/vector_2.hpp)
+        morpheus/core/gfx/vector_2.hpp
+        morpheus/core/gfx/tiled_background_base.hpp
+        morpheus/core/gfx/tiled_background_base.cpp)
 
 project(morpheus)
 
@@ -42,8 +44,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_4_bpp.cpp
             morpheus/gba/gfx/sprite_8_bpp.hpp
             morpheus/gba/gfx/sprite_8_bpp.cpp
-            morpheus/gba/gfx/background.hpp
-            morpheus/gba/gfx/background.cpp)
+            morpheus/gba/gfx/tiled_background.hpp
+            morpheus/gba/gfx/tiled_background.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -68,7 +70,10 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/sprite_4_bpp.hpp
             morpheus/nds/gfx/sprite_4_bpp.cpp
             morpheus/nds/gfx/sprite_8_bpp.hpp
-            morpheus/nds/gfx/sprite_8_bpp.cpp)
+            morpheus/nds/gfx/sprite_8_bpp.cpp
+            morpheus/nds/gfx/tiled_background.hpp
+            morpheus/nds/gfx/tiled_background.cpp
+            morpheus/utils.hpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 
@@ -169,12 +174,12 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
         convert_tilemap_bin_image_file(${CMAKE_CURRENT_BINARY_DIR} 0 "tests/tileset_test/region_map.bin"
-                                       "tests/tileset_test/region_map.png" 8)
+                "tests/tileset_test/region_map.png" 8)
 
         add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
-                        "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
-                        "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
-                        "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
+                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_gba_executable(morpheus-gba-tileset-test.elf)
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
@@ -232,6 +237,21 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-input-test.elf)
 
         target_link_libraries(morpheus-nds-input-test.elf morpheus nds9)
+
+        project(morpheus-nds-tileset-test)
+
+        link_directories(morpheus-nds-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
+
+        convert_tilemap_bin_image_file(${CMAKE_CURRENT_BINARY_DIR} 0 "tests/tileset_test/region_map.bin"
+                "tests/tileset_test/region_map.png" 8)
+
+        add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
+                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+        add_nds_executable(morpheus-nds-tileset-test.elf)
+
+        target_link_libraries(morpheus-nds-tileset-test.elf morpheus nds9)
     endif()
 endif()
 

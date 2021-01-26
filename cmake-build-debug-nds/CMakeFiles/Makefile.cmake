@@ -54,5 +54,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/morpheus.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-input-test.elf.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-tileset-test.nds.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-input-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-tileset-test.elf.dir/DependInfo.cmake"
   )

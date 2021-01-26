@@ -6,6 +6,7 @@ CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o: brin.c
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o: region_map.c
 
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/main_loop.hpp
@@ -13,15 +14,17 @@ CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gba.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gba_main_loop.hpp
-CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gfx/background.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gfx/sprite.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gfx/sprite_8_bpp.hpp
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/gba/gfx/tiled_background.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/gfx/sprite.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/gfx/sprite_4_bpp.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/gfx/sprite_8_bpp.hpp
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/gfx/tiled_background.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/nds.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/nds/nds_main_loop.hpp
+CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../morpheus/utils.hpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../tests/tileset_test/region_map.h
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: ../tests/tileset_test/tileset_test.cpp
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o: /opt/devkitpro/libtonc/include/tonc.h

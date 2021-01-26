@@ -5,11 +5,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
   "/home/bobby/morpheus/morpheus/core/node.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
+  "/home/bobby/morpheus/morpheus/nds/gfx/tiled_background.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

@@ -38,6 +38,12 @@ morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_co
     }
 }
 
+void morpheus::nds::NdsMainLoop::enable_background(unsigned int background_reference_num) {
+    std::cout << "Showing " << background_reference_num << "\n";
+
+    bgShow(background_reference_num);
+}
+
 morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     platform_init();
 
@@ -79,6 +85,8 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 
         oamUpdate(&oamMain);
         oamUpdate(&oamSub);
+
+        bgUpdate();
     }
 }
 
@@ -88,10 +96,10 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
 
 void morpheus::nds::NdsMainLoop::setup_debug_console(bool use_main_display) {
     if(use_main_display) {
-        vramSetBankC(VRAM_C_MAIN_BG);
+        vramSetBankA(VRAM_A_MAIN_BG);
         videoSetMode(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     } else {
-        vramSetBankH(VRAM_H_SUB_BG);
+        vramSetBankC(VRAM_C_SUB_BG);
         videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     }
 

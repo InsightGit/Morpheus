@@ -33,7 +33,7 @@ namespace morpheus {
 
             virtual ~GbaMainLoop();
 
-            void enable_background(unsigned int background_num);
+            void enable_background(unsigned int background_num)override;
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;

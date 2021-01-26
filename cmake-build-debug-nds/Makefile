@@ -157,6 +157,19 @@ morpheus-nds-input-test.elf/fast:
 .PHONY : morpheus-nds-input-test.elf/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-tileset-test.nds
+
+# Build rule for target.
+morpheus-nds-tileset-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.nds
+.PHONY : morpheus-nds-tileset-test.nds
+
+# fast build rule for target.
+morpheus-nds-tileset-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.nds.dir/build.make CMakeFiles/morpheus-nds-tileset-test.nds.dir/build
+.PHONY : morpheus-nds-tileset-test.nds/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-input-test.nds
 
 # Build rule for target.
@@ -168,6 +181,46 @@ morpheus-nds-input-test.nds: cmake_check_build_system
 morpheus-nds-input-test.nds/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.nds.dir/build.make CMakeFiles/morpheus-nds-input-test.nds.dir/build
 .PHONY : morpheus-nds-input-test.nds/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-tileset-test.elf
+
+# Build rule for target.
+morpheus-nds-tileset-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.elf
+.PHONY : morpheus-nds-tileset-test.elf
+
+# fast build rule for target.
+morpheus-nds-tileset-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/build
+.PHONY : morpheus-nds-tileset-test.elf/fast
+
+brin.o: brin.c.o
+
+.PHONY : brin.o
+
+# target to build an object file
+brin.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.o
+.PHONY : brin.c.o
+
+brin.i: brin.c.i
+
+.PHONY : brin.i
+
+# target to preprocess a source file
+brin.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.i
+.PHONY : brin.c.i
+
+brin.s: brin.c.s
+
+.PHONY : brin.s
+
+# target to generate assembly for a file
+brin.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.s
+.PHONY : brin.c.s
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -195,6 +248,33 @@ morpheus/core/gfx/palette_manager.s: morpheus/core/gfx/palette_manager.cpp.s
 morpheus/core/gfx/palette_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
 .PHONY : morpheus/core/gfx/palette_manager.cpp.s
+
+morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
+
+.PHONY : morpheus/core/gfx/tiled_background_base.o
+
+# target to build an object file
+morpheus/core/gfx/tiled_background_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.o
+
+morpheus/core/gfx/tiled_background_base.i: morpheus/core/gfx/tiled_background_base.cpp.i
+
+.PHONY : morpheus/core/gfx/tiled_background_base.i
+
+# target to preprocess a source file
+morpheus/core/gfx/tiled_background_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.i
+
+morpheus/core/gfx/tiled_background_base.s: morpheus/core/gfx/tiled_background_base.cpp.s
+
+.PHONY : morpheus/core/gfx/tiled_background_base.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/tiled_background_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
+.PHONY : morpheus/core/gfx/tiled_background_base.cpp.s
 
 morpheus/core/main_loop.o: morpheus/core/main_loop.cpp.o
 
@@ -331,6 +411,33 @@ morpheus/nds/gfx/sprite_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.s
 .PHONY : morpheus/nds/gfx/sprite_8_bpp.cpp.s
 
+morpheus/nds/gfx/tiled_background.o: morpheus/nds/gfx/tiled_background.cpp.o
+
+.PHONY : morpheus/nds/gfx/tiled_background.o
+
+# target to build an object file
+morpheus/nds/gfx/tiled_background.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o
+.PHONY : morpheus/nds/gfx/tiled_background.cpp.o
+
+morpheus/nds/gfx/tiled_background.i: morpheus/nds/gfx/tiled_background.cpp.i
+
+.PHONY : morpheus/nds/gfx/tiled_background.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/tiled_background.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.i
+.PHONY : morpheus/nds/gfx/tiled_background.cpp.i
+
+morpheus/nds/gfx/tiled_background.s: morpheus/nds/gfx/tiled_background.cpp.s
+
+.PHONY : morpheus/nds/gfx/tiled_background.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/tiled_background.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.s
+.PHONY : morpheus/nds/gfx/tiled_background.cpp.s
+
 morpheus/nds/nds_main_loop.o: morpheus/nds/nds_main_loop.cpp.o
 
 .PHONY : morpheus/nds/nds_main_loop.o
@@ -357,6 +464,33 @@ morpheus/nds/nds_main_loop.s: morpheus/nds/nds_main_loop.cpp.s
 morpheus/nds/nds_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s
 .PHONY : morpheus/nds/nds_main_loop.cpp.s
+
+region_map.o: region_map.c.o
+
+.PHONY : region_map.o
+
+# target to build an object file
+region_map.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.o
+.PHONY : region_map.c.o
+
+region_map.i: region_map.c.i
+
+.PHONY : region_map.i
+
+# target to preprocess a source file
+region_map.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.i
+.PHONY : region_map.c.i
+
+region_map.s: region_map.c.s
+
+.PHONY : region_map.s
+
+# target to generate assembly for a file
+region_map.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.s
+.PHONY : region_map.c.s
 
 tests/nds/input_test/nds_input_test.o: tests/nds/input_test/nds_input_test.cpp.o
 
@@ -385,6 +519,33 @@ tests/nds/input_test/nds_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s
 .PHONY : tests/nds/input_test/nds_input_test.cpp.s
 
+tests/tileset_test/tileset_test.o: tests/tileset_test/tileset_test.cpp.o
+
+.PHONY : tests/tileset_test/tileset_test.o
+
+# target to build an object file
+tests/tileset_test/tileset_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o
+.PHONY : tests/tileset_test/tileset_test.cpp.o
+
+tests/tileset_test/tileset_test.i: tests/tileset_test/tileset_test.cpp.i
+
+.PHONY : tests/tileset_test/tileset_test.i
+
+# target to preprocess a source file
+tests/tileset_test/tileset_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.i
+.PHONY : tests/tileset_test/tileset_test.cpp.i
+
+tests/tileset_test/tileset_test.s: tests/tileset_test/tileset_test.cpp.s
+
+.PHONY : tests/tileset_test/tileset_test.s
+
+# target to generate assembly for a file
+tests/tileset_test/tileset_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.s
+.PHONY : tests/tileset_test/tileset_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -394,11 +555,19 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... morpheus-nds-input-test.nds"
+	@echo "... morpheus-nds-tileset-test.nds"
 	@echo "... morpheus"
 	@echo "... morpheus-nds-input-test.elf"
+	@echo "... morpheus-nds-tileset-test.elf"
+	@echo "... brin.o"
+	@echo "... brin.i"
+	@echo "... brin.s"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
+	@echo "... morpheus/core/gfx/tiled_background_base.o"
+	@echo "... morpheus/core/gfx/tiled_background_base.i"
+	@echo "... morpheus/core/gfx/tiled_background_base.s"
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
@@ -414,12 +583,21 @@ help:
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.o"
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.i"
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.s"
+	@echo "... morpheus/nds/gfx/tiled_background.o"
+	@echo "... morpheus/nds/gfx/tiled_background.i"
+	@echo "... morpheus/nds/gfx/tiled_background.s"
 	@echo "... morpheus/nds/nds_main_loop.o"
 	@echo "... morpheus/nds/nds_main_loop.i"
 	@echo "... morpheus/nds/nds_main_loop.s"
+	@echo "... region_map.o"
+	@echo "... region_map.i"
+	@echo "... region_map.s"
 	@echo "... tests/nds/input_test/nds_input_test.o"
 	@echo "... tests/nds/input_test/nds_input_test.i"
 	@echo "... tests/nds/input_test/nds_input_test.s"
+	@echo "... tests/tileset_test/tileset_test.o"
+	@echo "... tests/tileset_test/tileset_test.i"
+	@echo "... tests/tileset_test/tileset_test.s"
 .PHONY : help
 
 
