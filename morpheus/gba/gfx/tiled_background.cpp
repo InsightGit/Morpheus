@@ -85,6 +85,24 @@ void morpheus::gba::gfx::TiledBackground::update_background_register() {
 }
 
 void morpheus::gba::gfx::TiledBackground::update_scroll() {
-    REG_BG1HOFS = get_scroll().get_x();
-    REG_BG1VOFS = get_scroll().get_y();
+    morpheus::core::gfx::Vector2 scroll_position = get_scroll();
+
+    switch(get_background_num()) {
+        case 0:
+            REG_BG0HOFS = scroll_position.get_x();
+            REG_BG0VOFS = scroll_position.get_y();
+            break;
+        case 1:
+            REG_BG1HOFS = scroll_position.get_x();
+            REG_BG1VOFS = scroll_position.get_y();
+            break;
+        case 2:
+            REG_BG2HOFS = scroll_position.get_x();
+            REG_BG2VOFS = scroll_position.get_y();
+            break;
+        case 3:
+            REG_BG3HOFS = scroll_position.get_x();
+            REG_BG3VOFS = scroll_position.get_y();
+            break;
+    }
 }

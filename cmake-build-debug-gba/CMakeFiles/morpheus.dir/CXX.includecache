@@ -11,6 +11,10 @@ algorithm
 -
 core/main_loop.hpp
 -
+core/gfx/vector_2.hpp
+-
+
+../morpheus/core/gfx/vector_2.hpp
 
 ../morpheus/core/input_event.hpp
 
@@ -39,24 +43,6 @@ core/input_event.hpp
 ../morpheus/core/uncopyable.hpp
 
 ../morpheus/gba/gba_main_loop.hpp
-iostream
--
-list
--
-sstream
--
-string
--
-tonc.h
--
-core/main_loop.hpp
--
-
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp
-gba_main_loop.hpp
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
-
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
 iostream
 -
 list

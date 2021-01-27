@@ -3,6 +3,7 @@
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o: ../morpheus/core/gfx/palette_manager.cpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/node.hpp
@@ -118,6 +119,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libt
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/node.hpp

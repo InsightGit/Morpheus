@@ -25,6 +25,8 @@ algorithm
 -
 core/main_loop.hpp
 -
+core/gfx/vector_2.hpp
+-
 
 ../morpheus/core/gfx/vector_2.hpp
 

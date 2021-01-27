@@ -23,9 +23,13 @@ void morpheus::nds::gfx::TiledBackground::load_from_array(const unsigned int *ti
                                                           const unsigned short *tile_map,
                                                           const unsigned int tile_map_len,
                                                           morpheus::core::gfx::TiledBackgroundSize size) {
-    load_from_array(tiles, tiles_len, palette, tile_map_len, size);
+    load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
 
-    dmaCopy(palette, BG_PALETTE, pal_len);
+    if(m_use_sub_display) {
+        dmaCopy(palette, BG_PALETTE_SUB, pal_len);
+    } else {
+        dmaCopy(palette, BG_PALETTE, pal_len);
+    }
 }
 
 void morpheus::nds::gfx::TiledBackground::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
