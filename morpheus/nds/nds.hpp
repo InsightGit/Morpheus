@@ -7,7 +7,8 @@
 
 #include <nds/gfx/sprite_8_bpp.hpp>
 #include <nds/gfx/sprite_4_bpp.hpp>
-#include <nds/gfx/tiled_background.hpp>
+#include <nds/gfx/tiled_background_4_bpp.hpp>
+#include <nds/gfx/tiled_background_8_bpp.hpp>
 #include <nds/nds_main_loop.hpp>
 
 #include <utils.hpp>

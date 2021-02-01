@@ -7,10 +7,12 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   "libnds_morpheus.a"
   "libnds_morpheus.pdb"
-  "morpheus-nds-tileset-test.nds"
+  "morpheus-nds-extended-palette-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,7 +1,9 @@
-/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/203.6682.181/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/bobby/morpheus
+/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/bobby/morpheus
 -- Configuring for the Nintendo DS...
 -- /home/bobby/morpheus/buildtools/bintileconvert/bintileconvert.py
 -- region_map
+-- /home/bobby/morpheus/buildtools/bintileconvert/bintileconvert.py
+-- custom1map
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/bobby/morpheus/cmake-build-debug-nds

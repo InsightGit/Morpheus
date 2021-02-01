@@ -14,8 +14,53 @@
 #endif
 
 namespace morpheus {
-    class Utils {
-    public:
+    namespace utils {
+        class BackgroundTestControls : public morpheus::core::Node {
+        public:
+            BackgroundTestControls(std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background) {
+                m_background = background;
+            }
+
+            void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override {}
+
+            virtual void input(morpheus::core::InputEvent input_event)override {
+                scroll_background(input_event);
+            }
+
+            void change_background(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> new_background) {
+                m_background = new_background;
+            }
+
+        protected:
+            void scroll_background(morpheus::core::InputEvent input_event) {
+                if(input_event.state == morpheus::core::InputState::DOWN ||
+                   input_event.state == morpheus::core::InputState::HELD) {
+                    morpheus::core::gfx::Vector2 scroll_pos = m_background->get_scroll();
+
+                    switch(input_event.button) {
+                        case morpheus::core::InputButton::DPADUP:
+                            scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() - 10);
+                            break;
+                        case morpheus::core::InputButton::DPADLEFT:
+                            scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() - 10, scroll_pos.get_y());
+                            break;
+                        case morpheus::core::InputButton::DPADRIGHT:
+                            scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() + 10, scroll_pos.get_y());
+                            break;
+                        case morpheus::core::InputButton::DPADDOWN:
+                            scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() + 10);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    m_background->set_scroll(scroll_pos);
+                }
+            }
+        private:
+            std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
+        };
+
         static morpheus::core::MainLoop* construct_appropriate_main_loop() {
             #ifdef _GBA
                 return new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::OFF);
@@ -25,7 +70,7 @@ namespace morpheus {
 
             return nullptr;
         }
-    };
+    }
 }
 
 

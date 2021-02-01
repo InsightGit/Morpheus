@@ -106,3 +106,11 @@ void morpheus::gba::gfx::TiledBackground::update_scroll() {
             break;
     }
 }
+
+unsigned int morpheus::gba::gfx::TiledBackground::get_priority() {
+    return 0;
+}
+
+void morpheus::gba::gfx::TiledBackground::set_priority(unsigned int priority) const {
+
+}

@@ -52,34 +52,36 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     int iteration = 0;
 
     while(true) {
-        scanKeys();
+        if(m_root != nullptr) {
+            scanKeys();
 
-        std::vector<morpheus::core::InputEvent> down_events = to_input_events(keysDown(),
-                                                                              NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                              morpheus::core::InputState::DOWN);
-        std::vector<morpheus::core::InputEvent> held_events = to_input_events(keysHeld(),
-                                                                              NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                              morpheus::core::InputState::HELD);
-        std::vector<morpheus::core::InputEvent> up_events = to_input_events(keysUp(),
-                                                                            NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                            morpheus::core::InputState::UP);
+            std::vector<morpheus::core::InputEvent> down_events = to_input_events(keysDown(),
+                                                                                  NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                                  morpheus::core::InputState::DOWN);
+            std::vector<morpheus::core::InputEvent> held_events = to_input_events(keysHeld(),
+                                                                                  NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                                  morpheus::core::InputState::HELD);
+            std::vector<morpheus::core::InputEvent> up_events = to_input_events(keysUp(),
+                                                                                NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                                morpheus::core::InputState::UP);
 
-        std::vector<core::InputEvent> input_events;
+            std::vector<core::InputEvent> input_events;
 
-        input_events.insert(input_events.end(), down_events.begin(), down_events.end());
-        input_events.insert(input_events.end(), held_events.begin(), held_events.end());
-        input_events.insert(input_events.end(), up_events.begin(), up_events.end());
+            input_events.insert(input_events.end(), down_events.begin(), down_events.end());
+            input_events.insert(input_events.end(), held_events.begin(), held_events.end());
+            input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
-        for(core::InputEvent input_event : input_events) {
-            m_root->received_input(input_event);
+            for(core::InputEvent input_event : input_events) {
+                m_root->received_input(input_event);
+            }
+
+            // TODO(Bobby): Fix unneeded argument 1 problem
+            m_root->draw(std::vector<void *>(), 0);
         }
 
         ++iteration;
 
         iprintf("\x1b[10;0HIterations = %d", iteration);
-
-        // TODO(Bobby): Fix unneeded argument 1 problem
-        m_root->draw(std::vector<void *>(), 0);
 
         swiWaitForVBlank();
 

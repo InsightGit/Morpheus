@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus-nds-input-test.nds"
-  "morpheus-nds-tileset-test.nds"
+  "morpheus-nds-extended-palette-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

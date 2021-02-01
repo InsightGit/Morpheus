@@ -41,6 +41,9 @@ namespace morpheus {
 
                     update_scroll();
                 }
+
+                virtual unsigned int get_priority() = 0;
+                virtual void set_priority(unsigned int priority) const = 0;
             protected:
                 unsigned int get_background_num() const {
                     return m_background_num;

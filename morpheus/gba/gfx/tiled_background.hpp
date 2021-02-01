@@ -23,6 +23,8 @@ namespace morpheus {
                 explicit TiledBackground(unsigned int background_num, std::shared_ptr<GbaMainLoop> main_loop,
                                          bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num);
 
+                unsigned int get_priority()override;
+
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *palette, const unsigned int pal_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
@@ -30,6 +32,8 @@ namespace morpheus {
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                      core::gfx::TiledBackgroundSize size)override;
+
+                void set_priority(unsigned int priority)const override;
             protected:
                 void update_scroll()override;
             private:

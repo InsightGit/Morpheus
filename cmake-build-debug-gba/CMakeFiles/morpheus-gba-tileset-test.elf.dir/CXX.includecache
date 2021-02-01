@@ -146,12 +146,22 @@ core/core.hpp
 nds/nds_main_loop.hpp
 -
 
+../morpheus/nds/gfx/tiled_background_4_bpp.hpp
+nds/gfx/tiled_background.hpp
+-
+
+../morpheus/nds/gfx/tiled_background_8_bpp.hpp
+nds/gfx/tiled_background.hpp
+-
+
 ../morpheus/nds/nds.hpp
 nds/gfx/sprite_8_bpp.hpp
 -
 nds/gfx/sprite_4_bpp.hpp
 -
-nds/gfx/tiled_background.hpp
+nds/gfx/tiled_background_4_bpp.hpp
+-
+nds/gfx/tiled_background_8_bpp.hpp
 -
 nds/nds_main_loop.hpp
 -

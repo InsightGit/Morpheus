@@ -1,7 +1,7 @@
 # Hashes of file build rules.
 3e4ab3f2f68cc416488e21469aa51df8 CMakeFiles/morpheus-gba-input-test.gba
 68c78af36f50a58d091e8b67b7694e4c CMakeFiles/morpheus-gba-tileset-test.gba
-524243bd847a4d44aaf29d495d4e4edd region_map.c
-60dee98e85db6362a65389f1cd124459 region_map2.o
+aa28722ed53fd71c39804a5140b461ad region_map.c
+f790c4e9095526b0ac0ece98766cbcb2 region_map2.o
 bb3d79b3a2852f906759dfabf35a65d8 test4.o
 8f23366b1dc7563e75a52667edcb9038 test8.o

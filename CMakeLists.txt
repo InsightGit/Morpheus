@@ -73,6 +73,10 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/sprite_8_bpp.cpp
             morpheus/nds/gfx/tiled_background.hpp
             morpheus/nds/gfx/tiled_background.cpp
+            morpheus/nds/gfx/tiled_background_4_bpp.hpp
+            morpheus/nds/gfx/tiled_background_4_bpp.cpp
+            morpheus/nds/gfx/tiled_background_8_bpp.hpp
+            morpheus/nds/gfx/tiled_background_8_bpp.cpp
             morpheus/utils.hpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
@@ -125,7 +129,7 @@ if("$ENV{BUILD_TESTS}")
 
     execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
     execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
-    execute_grit_tilemap("../tests/tileset_test/region_map2.png" FALSE)
+    execute_grit_tilemap("../tests/tileset_test/region_map2.png" FALSE 3)
 
     foreach(png4_file ${PNG4_FILES})
         get_filename_component(png4_file ${png4_file} NAME_WLE)
@@ -173,8 +177,8 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
-        convert_tilemap_bin_image_file(${CMAKE_CURRENT_BINARY_DIR} 0 "tests/tileset_test/region_map.bin"
-                "tests/tileset_test/region_map.png" 8)
+        convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
+                                       "tests/tileset_test/region_map.png" 8)
 
         add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
@@ -205,14 +209,10 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-nds-input-test)
 
-        set(NDS_GAME_ICON  "tests/nds/input_test/ds_icon.bmp" CACHE STRING "NDS game icon location realitve to project location")
-        set(NDS_TITLE "Morpheus NDS Test" CACHE STRING "NDS game title")
-        set(NDS_SUBTITLE1 "hopefully this works" CACHE STRING "NDS game subtitle #1")
-        set(NDS_SUBTITLE2 "hopefully this works ii" CACHE STRING "NDS game subtitle #2")
         set(NDS_PCX_FILES "../tests/nds/input_test/test8.pcx" CACHE STRING
                 "PCX Files used by test code (paths are relative to cmake build dir)")
 
-        link_directories(morpheus-gba-input-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+        link_directories(morpheus-nds-input-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         foreach(pcx_file IN LISTS NDS_PCX_FILES)
             get_filename_component(pcx_file_underscores_no_path ${pcx_file} NAME)
@@ -234,7 +234,8 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-nds-input-test.elf tests/nds/input_test/nds_input_test.cpp
                 ${NDS_PCX_OBJECTS} ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
-        add_nds_executable(morpheus-nds-input-test.elf)
+        add_nds_executable(morpheus-nds-input-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Input Test"
+                           "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-input-test.elf morpheus nds9)
 
@@ -242,16 +243,36 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
-        convert_tilemap_bin_image_file(${CMAKE_CURRENT_BINARY_DIR} 0 "tests/tileset_test/region_map.bin"
+        convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
                 "tests/tileset_test/region_map.png" 8)
 
         add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp
+                "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
                 "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
-        add_nds_executable(morpheus-nds-tileset-test.elf)
+        add_nds_executable(morpheus-nds-tileset-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Tileset Test"
+                           "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-tileset-test.elf morpheus nds9)
+
+        project(morpheus-nds-extended-palette-test)
+
+        convert_tilemap_bin_image_file("tests/nds/extended_palette_test/custom1map.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                64 64 10 "tests/nds/extended_palette_test/custom1map.png" 8)
+
+        link_directories(morpheus-nds-extended-palette-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
+        add_executable(morpheus-nds-extended-palette-test.elf
+                tests/nds/extended_palette_test/nds_extended_palette_test.cpp
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
+                "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
+                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+        add_nds_executable(morpheus-nds-extended-palette-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus ExtPalette Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
     endif()
 endif()
 

@@ -6,3 +6,7 @@
 
 #IncludeRegexTransform: 
 
+/home/bobby/morpheus/cmake-build-debug-gba/brin.c
+
+/home/bobby/morpheus/cmake-build-debug-gba/region_map.c
+
