@@ -19,7 +19,7 @@ namespace morpheus {
                                          std::shared_ptr<NdsMainLoop> main_loop,
                                          unsigned int cbb_num, unsigned int sbb_num);
 
-                unsigned int get_priority() override {
+                unsigned int get_priority() const override {
                     if(m_background_reference_num >= 0) {
                         return bgGetPriority(m_background_reference_num);
                     } else {
@@ -27,7 +27,7 @@ namespace morpheus {
                     }
                 }
 
-                void set_priority(unsigned int priority) const override {
+                void set_priority(unsigned int priority) override {
                     if(m_background_reference_num >= 0) {
                         bgSetPriority(m_background_reference_num, priority);
                     }

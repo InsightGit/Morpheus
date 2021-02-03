@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/bobby/morpheus/morpheus/core/audio/max_mod_music.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
@@ -28,6 +29,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../."
   "."
   "/opt/devkitpro/libtonc/include"
+  "/opt/devkitpro/libgba/include"
   )
 
 # Targets to which this target links.

@@ -147,3 +147,32 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
             VERBATIM)
 
 endfunction()
+
+function(generate_maxmod_soundbank is_gba sound_files soundbank_name)
+    if(NOT MMUTIL)
+        find_program(MMUTIL mmutil ${DEVKITPRO}/tools)
+        if(MMUTIL)
+            message(STATUS "mmutil: ${MMUTIL} - found")
+        else()
+            message(FATAL_ERROR "mmutil - not found")
+        endif()
+    endif()
+
+    if(is_gba)
+        set(SOUNDS_ARGUMENT "")
+    else()
+        set(SOUNDS_ARGUMENT "-d")
+    endif()
+
+    string(APPEND SOUNDS_ARGUMENT "${${sound_files}}")
+    string(REPLACE ";" " " SOUNDS_ARGUMENT ${SOUNDS_ARGUMENT})
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+            COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
+                -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${SOUNDS_ARGUMENT}
+            COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
+                             ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
+            COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                                        ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+            VERBATIM)
+endfunction()

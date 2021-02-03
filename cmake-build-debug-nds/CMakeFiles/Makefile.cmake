@@ -50,11 +50,13 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/DependInfo.cmake"
-  "CMakeFiles/morpheus.dir/DependInfo.cmake"
-  "CMakeFiles/morpheus-nds-input-test.elf.dir/DependInfo.cmake"
-  "CMakeFiles/morpheus-nds-tileset-test.nds.dir/DependInfo.cmake"
-  "CMakeFiles/morpheus-nds-input-test.nds.dir/DependInfo.cmake"
-  "CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-tileset-test.elf.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-input-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-tileset-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-input-test.elf.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-maxmod-test.elf.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-maxmod-test.nds.dir/DependInfo.cmake"
   )

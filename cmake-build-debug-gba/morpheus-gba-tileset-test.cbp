@@ -50,6 +50,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -78,6 +79,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -106,6 +108,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -134,6 +137,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -182,6 +186,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -210,6 +215,7 @@
 					<Add directory="/home/bobby/morpheus/."/>
 					<Add directory="/home/bobby/morpheus/cmake-build-debug-gba"/>
 					<Add directory="/opt/devkitpro/libtonc/include"/>
+					<Add directory="/opt/devkitpro/libgba/include"/>
 					<Add directory="/usr/include/c++/10"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
 					<Add directory="/usr/include/c++/10/backward"/>
@@ -259,6 +265,15 @@
 		<Unit filename="/home/bobby/morpheus/cmake-build-debug-gba/test8.o.rule">
 			<Option target="morpheus-gba-input-test.elf"/>
 		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/audio/max_mod_music.cpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/audio/max_mod_music.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/core/audio/max_mod_sfx.hpp">
+			<Option target="morpheus"/>
+		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp">
 			<Option target="morpheus"/>
 		</Unit>
@@ -287,6 +302,9 @@
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/core/uncopyable.hpp">
+			<Option target="morpheus"/>
+		</Unit>
+		<Unit filename="/home/bobby/morpheus/morpheus/gba/audio/gba_max_mod_music.hpp">
 			<Option target="morpheus"/>
 		</Unit>
 		<Unit filename="/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp">

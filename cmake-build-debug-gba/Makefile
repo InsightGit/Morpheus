@@ -130,6 +130,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-maxmod-test.elf
+
+# Build rule for target.
+morpheus-gba-maxmod-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.elf
+.PHONY : morpheus-gba-maxmod-test.elf
+
+# fast build rule for target.
+morpheus-gba-maxmod-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build
+.PHONY : morpheus-gba-maxmod-test.elf/fast
+
+#=============================================================================
 # Target rules for targets named morpheus
 
 # Build rule for target.
@@ -154,6 +167,19 @@ morpheus-gba-input-test.elf: cmake_check_build_system
 morpheus-gba-input-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
 .PHONY : morpheus-gba-input-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-maxmod-test.gba
+
+# Build rule for target.
+morpheus-gba-maxmod-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.gba
+.PHONY : morpheus-gba-maxmod-test.gba
+
+# fast build rule for target.
+morpheus-gba-maxmod-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build
+.PHONY : morpheus-gba-maxmod-test.gba/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-gba-tileset-test.gba
@@ -220,6 +246,33 @@ brin.s: brin.c.s
 brin.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.s
 .PHONY : brin.c.s
+
+morpheus/core/audio/max_mod_music.o: morpheus/core/audio/max_mod_music.cpp.o
+
+.PHONY : morpheus/core/audio/max_mod_music.o
+
+# target to build an object file
+morpheus/core/audio/max_mod_music.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o
+.PHONY : morpheus/core/audio/max_mod_music.cpp.o
+
+morpheus/core/audio/max_mod_music.i: morpheus/core/audio/max_mod_music.cpp.i
+
+.PHONY : morpheus/core/audio/max_mod_music.i
+
+# target to preprocess a source file
+morpheus/core/audio/max_mod_music.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.i
+.PHONY : morpheus/core/audio/max_mod_music.cpp.i
+
+morpheus/core/audio/max_mod_music.s: morpheus/core/audio/max_mod_music.cpp.s
+
+.PHONY : morpheus/core/audio/max_mod_music.s
+
+# target to generate assembly for a file
+morpheus/core/audio/max_mod_music.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.s
+.PHONY : morpheus/core/audio/max_mod_music.cpp.s
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -518,6 +571,33 @@ tests/gba/input_test/gba_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.s
 .PHONY : tests/gba/input_test/gba_input_test.cpp.s
 
+tests/maxmod_test/maxmod_test.o: tests/maxmod_test/maxmod_test.cpp.o
+
+.PHONY : tests/maxmod_test/maxmod_test.o
+
+# target to build an object file
+tests/maxmod_test/maxmod_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.o
+.PHONY : tests/maxmod_test/maxmod_test.cpp.o
+
+tests/maxmod_test/maxmod_test.i: tests/maxmod_test/maxmod_test.cpp.i
+
+.PHONY : tests/maxmod_test/maxmod_test.i
+
+# target to preprocess a source file
+tests/maxmod_test/maxmod_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.i
+.PHONY : tests/maxmod_test/maxmod_test.cpp.i
+
+tests/maxmod_test/maxmod_test.s: tests/maxmod_test/maxmod_test.cpp.s
+
+.PHONY : tests/maxmod_test/maxmod_test.s
+
+# target to generate assembly for a file
+tests/maxmod_test/maxmod_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.s
+.PHONY : tests/maxmod_test/maxmod_test.cpp.s
+
 tests/tileset_test/tileset_test.o: tests/tileset_test/tileset_test.cpp.o
 
 .PHONY : tests/tileset_test/tileset_test.o
@@ -554,13 +634,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... morpheus-gba-input-test.gba"
+	@echo "... morpheus-gba-maxmod-test.gba"
 	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
 	@echo "... morpheus-gba-input-test.elf"
+	@echo "... morpheus-gba-maxmod-test.elf"
 	@echo "... morpheus-gba-tileset-test.elf"
 	@echo "... brin.o"
 	@echo "... brin.i"
 	@echo "... brin.s"
+	@echo "... morpheus/core/audio/max_mod_music.o"
+	@echo "... morpheus/core/audio/max_mod_music.i"
+	@echo "... morpheus/core/audio/max_mod_music.s"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
@@ -594,6 +679,9 @@ help:
 	@echo "... tests/gba/input_test/gba_input_test.o"
 	@echo "... tests/gba/input_test/gba_input_test.i"
 	@echo "... tests/gba/input_test/gba_input_test.s"
+	@echo "... tests/maxmod_test/maxmod_test.o"
+	@echo "... tests/maxmod_test/maxmod_test.i"
+	@echo "... tests/maxmod_test/maxmod_test.s"
 	@echo "... tests/tileset_test/tileset_test.o"
 	@echo "... tests/tileset_test/tileset_test.i"
 	@echo "... tests/tileset_test/tileset_test.s"

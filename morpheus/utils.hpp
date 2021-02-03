@@ -70,6 +70,18 @@ namespace morpheus {
 
             return nullptr;
         }
+
+        static morpheus::core::audio::MaxModMusic *construct_appropriate_max_mod_music(void *sound_bank,
+                                                                                       int num_of_channels,
+                                                                                       int sound_bank_ref_num) {
+            #ifdef _GBA
+                return new morpheus::gba::audio::GbaMaxModMusic(sound_bank, num_of_channels, sound_bank_ref_num);
+            #elif _NDS
+                return new morpheus::nds::audio::NdsMaxModMusic(sound_bank, sound_bank_ref_num);
+            #endif
+
+            return nullptr;
+        }
     }
 }
 

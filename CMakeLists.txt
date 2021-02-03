@@ -13,11 +13,15 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/node.hpp
         morpheus/core/node.cpp
         morpheus/core/uncopyable.hpp
+        morpheus/core/audio/max_mod_music.hpp
+        morpheus/core/audio/max_mod_music.cpp
+        morpheus/core/audio/max_mod_sfx.hpp
         morpheus/core/gfx/palette_manager.hpp
         morpheus/core/gfx/palette_manager.cpp
         morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/tiled_background_base.hpp
         morpheus/core/gfx/tiled_background_base.cpp)
+
 
 project(morpheus)
 
@@ -38,6 +42,7 @@ if(platform_lower STREQUAL "gba")
     list(APPEND MORPHEUS_SOURCE_FILES
             morpheus/gba/gba_main_loop.hpp
             morpheus/gba/gba_main_loop.cpp
+            morpheus/gba/audio/gba_max_mod_music.hpp
             morpheus/gba/gfx/sprite.hpp
             morpheus/gba/gfx/sprite.cpp
             morpheus/gba/gfx/sprite_4_bpp.hpp
@@ -49,8 +54,9 @@ if(platform_lower STREQUAL "gba")
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
-    include_directories(morpheus PRIVATE ${BASE_INCLUDE_DIRS} /opt/devkitpro/libtonc/include)
-    link_directories(${DEVKITPRO}/libtonc/lib)
+    include_directories(morpheus PRIVATE ${BASE_INCLUDE_DIRS} /opt/devkitpro/libtonc/include
+                        /opt/devkitpro/libgba/include/)
+    link_directories(${DEVKITPRO}/libtonc/lib ${DEVKITPRO}/libgba/lib)
 elseif(platform_lower STREQUAL "nds")
     set(CMAKE_STATIC_LIBRARY_PREFIX "libnds_")
     set(CMAKE_SYSTEM_NAME Generic)
@@ -65,6 +71,7 @@ elseif(platform_lower STREQUAL "nds")
     list(APPEND MORPHEUS_SOURCE_FILES
             morpheus/nds/nds_main_loop.hpp
             morpheus/nds/nds_main_loop.cpp
+            morpheus/nds/audio/nds_max_mod_music.hpp
             morpheus/nds/gfx/sprite.hpp
             morpheus/nds/gfx/sprite.cpp
             morpheus/nds/gfx/sprite_4_bpp.hpp
@@ -187,6 +194,15 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-tileset-test.elf)
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
+
+        project(morpheus-gba-maxmod-test)
+
+        link_directories(morpheus-gba-maxmod-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+
+        add_executable(morpheus-gba-maxmod-test.elf tests/maxmod_test/maxmod_test.cpp)
+        add_gba_executable(morpheus-gba-maxmod-test.elf)
+
+        target_link_libraries(morpheus-gba-maxmod-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
@@ -273,6 +289,17 @@ if("$ENV{BUILD_TESTS}")
                 "Morpheus ExtPalette Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
+
+        project(morpheus-nds-maxmod-test)
+
+        link_directories(morpheus-nds-maxmod-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
+        add_executable(morpheus-nds-maxmod-test.elf
+                tests/maxmod_test/maxmod_test.cpp)
+        add_nds_executable(morpheus-nds-maxmod-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus MaxMod Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm)
     endif()
 endif()
 

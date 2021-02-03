@@ -130,56 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-extended-palette-test.nds
+# Target rules for targets named morpheus-nds-tileset-test.elf
 
 # Build rule for target.
-morpheus-nds-extended-palette-test.nds: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-extended-palette-test.nds
-.PHONY : morpheus-nds-extended-palette-test.nds
+morpheus-nds-tileset-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.elf
+.PHONY : morpheus-nds-tileset-test.elf
 
 # fast build rule for target.
-morpheus-nds-extended-palette-test.nds/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/build
-.PHONY : morpheus-nds-extended-palette-test.nds/fast
-
-#=============================================================================
-# Target rules for targets named morpheus
-
-# Build rule for target.
-morpheus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
-.PHONY : morpheus
-
-# fast build rule for target.
-morpheus/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
-.PHONY : morpheus/fast
-
-#=============================================================================
-# Target rules for targets named morpheus-nds-input-test.elf
-
-# Build rule for target.
-morpheus-nds-input-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-input-test.elf
-.PHONY : morpheus-nds-input-test.elf
-
-# fast build rule for target.
-morpheus-nds-input-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/build
-.PHONY : morpheus-nds-input-test.elf/fast
-
-#=============================================================================
-# Target rules for targets named morpheus-nds-tileset-test.nds
-
-# Build rule for target.
-morpheus-nds-tileset-test.nds: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.nds
-.PHONY : morpheus-nds-tileset-test.nds
-
-# fast build rule for target.
-morpheus-nds-tileset-test.nds/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.nds.dir/build.make CMakeFiles/morpheus-nds-tileset-test.nds.dir/build
-.PHONY : morpheus-nds-tileset-test.nds/fast
+morpheus-nds-tileset-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/build
+.PHONY : morpheus-nds-tileset-test.elf/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-nds-input-test.nds
@@ -195,6 +156,45 @@ morpheus-nds-input-test.nds/fast:
 .PHONY : morpheus-nds-input-test.nds/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-tileset-test.nds
+
+# Build rule for target.
+morpheus-nds-tileset-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.nds
+.PHONY : morpheus-nds-tileset-test.nds
+
+# fast build rule for target.
+morpheus-nds-tileset-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.nds.dir/build.make CMakeFiles/morpheus-nds-tileset-test.nds.dir/build
+.PHONY : morpheus-nds-tileset-test.nds/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-input-test.elf
+
+# Build rule for target.
+morpheus-nds-input-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-input-test.elf
+.PHONY : morpheus-nds-input-test.elf
+
+# fast build rule for target.
+morpheus-nds-input-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/build
+.PHONY : morpheus-nds-input-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus
+
+# Build rule for target.
+morpheus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
+.PHONY : morpheus
+
+# fast build rule for target.
+morpheus/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
+.PHONY : morpheus/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-extended-palette-test.elf
 
 # Build rule for target.
@@ -208,17 +208,43 @@ morpheus-nds-extended-palette-test.elf/fast:
 .PHONY : morpheus-nds-extended-palette-test.elf/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-tileset-test.elf
+# Target rules for targets named morpheus-nds-extended-palette-test.nds
 
 # Build rule for target.
-morpheus-nds-tileset-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-tileset-test.elf
-.PHONY : morpheus-nds-tileset-test.elf
+morpheus-nds-extended-palette-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-extended-palette-test.nds
+.PHONY : morpheus-nds-extended-palette-test.nds
 
 # fast build rule for target.
-morpheus-nds-tileset-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/build
-.PHONY : morpheus-nds-tileset-test.elf/fast
+morpheus-nds-extended-palette-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/build
+.PHONY : morpheus-nds-extended-palette-test.nds/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-maxmod-test.elf
+
+# Build rule for target.
+morpheus-nds-maxmod-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-maxmod-test.elf
+.PHONY : morpheus-nds-maxmod-test.elf
+
+# fast build rule for target.
+morpheus-nds-maxmod-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build
+.PHONY : morpheus-nds-maxmod-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-maxmod-test.nds
+
+# Build rule for target.
+morpheus-nds-maxmod-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-maxmod-test.nds
+.PHONY : morpheus-nds-maxmod-test.nds
+
+# fast build rule for target.
+morpheus-nds-maxmod-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build
+.PHONY : morpheus-nds-maxmod-test.nds/fast
 
 brin.o: brin.c.o
 
@@ -226,8 +252,8 @@ brin.o: brin.c.o
 
 # target to build an object file
 brin.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.o
 .PHONY : brin.c.o
 
 brin.i: brin.c.i
@@ -236,8 +262,8 @@ brin.i: brin.c.i
 
 # target to preprocess a source file
 brin.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.i
 .PHONY : brin.c.i
 
 brin.s: brin.c.s
@@ -246,8 +272,8 @@ brin.s: brin.c.s
 
 # target to generate assembly for a file
 brin.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/brin.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/brin.c.s
 .PHONY : brin.c.s
 
 custom1map.o: custom1map.c.o
@@ -256,8 +282,8 @@ custom1map.o: custom1map.c.o
 
 # target to build an object file
 custom1map.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/custom1map.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.o
 .PHONY : custom1map.c.o
 
 custom1map.i: custom1map.c.i
@@ -266,8 +292,8 @@ custom1map.i: custom1map.c.i
 
 # target to preprocess a source file
 custom1map.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/custom1map.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.i
 .PHONY : custom1map.c.i
 
 custom1map.s: custom1map.c.s
@@ -276,9 +302,36 @@ custom1map.s: custom1map.c.s
 
 # target to generate assembly for a file
 custom1map.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/custom1map.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/custom1map.c.s
 .PHONY : custom1map.c.s
+
+morpheus/core/audio/max_mod_music.o: morpheus/core/audio/max_mod_music.cpp.o
+
+.PHONY : morpheus/core/audio/max_mod_music.o
+
+# target to build an object file
+morpheus/core/audio/max_mod_music.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o
+.PHONY : morpheus/core/audio/max_mod_music.cpp.o
+
+morpheus/core/audio/max_mod_music.i: morpheus/core/audio/max_mod_music.cpp.i
+
+.PHONY : morpheus/core/audio/max_mod_music.i
+
+# target to preprocess a source file
+morpheus/core/audio/max_mod_music.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.i
+.PHONY : morpheus/core/audio/max_mod_music.cpp.i
+
+morpheus/core/audio/max_mod_music.s: morpheus/core/audio/max_mod_music.cpp.s
+
+.PHONY : morpheus/core/audio/max_mod_music.s
+
+# target to generate assembly for a file
+morpheus/core/audio/max_mod_music.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.s
+.PHONY : morpheus/core/audio/max_mod_music.cpp.s
 
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
@@ -583,8 +636,8 @@ region_map.o: region_map.c.o
 
 # target to build an object file
 region_map.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.o
 .PHONY : region_map.c.o
 
 region_map.i: region_map.c.i
@@ -593,8 +646,8 @@ region_map.i: region_map.c.i
 
 # target to preprocess a source file
 region_map.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.i
 .PHONY : region_map.c.i
 
 region_map.s: region_map.c.s
@@ -603,9 +656,36 @@ region_map.s: region_map.c.s
 
 # target to generate assembly for a file
 region_map.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.s
 .PHONY : region_map.c.s
+
+tests/maxmod_test/maxmod_test.o: tests/maxmod_test/maxmod_test.cpp.o
+
+.PHONY : tests/maxmod_test/maxmod_test.o
+
+# target to build an object file
+tests/maxmod_test/maxmod_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.o
+.PHONY : tests/maxmod_test/maxmod_test.cpp.o
+
+tests/maxmod_test/maxmod_test.i: tests/maxmod_test/maxmod_test.cpp.i
+
+.PHONY : tests/maxmod_test/maxmod_test.i
+
+# target to preprocess a source file
+tests/maxmod_test/maxmod_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.i
+.PHONY : tests/maxmod_test/maxmod_test.cpp.i
+
+tests/maxmod_test/maxmod_test.s: tests/maxmod_test/maxmod_test.cpp.s
+
+.PHONY : tests/maxmod_test/maxmod_test.s
+
+# target to generate assembly for a file
+tests/maxmod_test/maxmod_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/tests/maxmod_test/maxmod_test.cpp.s
+.PHONY : tests/maxmod_test/maxmod_test.cpp.s
 
 tests/nds/extended_palette_test/nds_extended_palette_test.o: tests/nds/extended_palette_test/nds_extended_palette_test.cpp.o
 
@@ -698,10 +778,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... morpheus-nds-extended-palette-test.nds"
 	@echo "... morpheus-nds-input-test.nds"
+	@echo "... morpheus-nds-maxmod-test.nds"
 	@echo "... morpheus-nds-tileset-test.nds"
 	@echo "... morpheus"
 	@echo "... morpheus-nds-extended-palette-test.elf"
 	@echo "... morpheus-nds-input-test.elf"
+	@echo "... morpheus-nds-maxmod-test.elf"
 	@echo "... morpheus-nds-tileset-test.elf"
 	@echo "... brin.o"
 	@echo "... brin.i"
@@ -709,6 +791,9 @@ help:
 	@echo "... custom1map.o"
 	@echo "... custom1map.i"
 	@echo "... custom1map.s"
+	@echo "... morpheus/core/audio/max_mod_music.o"
+	@echo "... morpheus/core/audio/max_mod_music.i"
+	@echo "... morpheus/core/audio/max_mod_music.s"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"
@@ -745,6 +830,9 @@ help:
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
+	@echo "... tests/maxmod_test/maxmod_test.o"
+	@echo "... tests/maxmod_test/maxmod_test.i"
+	@echo "... tests/maxmod_test/maxmod_test.s"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.o"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.i"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.s"

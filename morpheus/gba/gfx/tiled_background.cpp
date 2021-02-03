@@ -64,16 +64,16 @@ void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *ti
 void morpheus::gba::gfx::TiledBackground::update_background_register() {
     switch (get_background_num()) {
         case 0u:
-            REG_BG0CNT = m_background_register;
+            REG_BG0CNT = m_background_register | BG_PRIO(m_background_priority);
             break;
         case 1u:
-            REG_BG1CNT = m_background_register;
+            REG_BG1CNT = m_background_register | BG_PRIO(m_background_priority);
             break;
         case 2u:
-            REG_BG2CNT = m_background_register;
+            REG_BG2CNT = m_background_register | BG_PRIO(m_background_priority);
             break;
         case 3u:
-            REG_BG3CNT = m_background_register;
+            REG_BG3CNT = m_background_register | BG_PRIO(m_background_priority);
             break;
     }
 
@@ -105,12 +105,4 @@ void morpheus::gba::gfx::TiledBackground::update_scroll() {
             REG_BG3VOFS = scroll_position.get_y();
             break;
     }
-}
-
-unsigned int morpheus::gba::gfx::TiledBackground::get_priority() {
-    return 0;
-}
-
-void morpheus::gba::gfx::TiledBackground::set_priority(unsigned int priority) const {
-
 }

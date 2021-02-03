@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
@@ -12,7 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   "libnds_morpheus.a"
   "libnds_morpheus.pdb"
-  "morpheus-nds-extended-palette-test.nds"
+  "morpheus-nds-maxmod-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -20,6 +20,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../."
   "."
   "/opt/devkitpro/libtonc/include"
+  "/opt/devkitpro/libgba/include"
   )
 
 # Targets to which this target links.

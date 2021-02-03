@@ -187,7 +187,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=morpheus-nds-extended-palette-test
+CMAKE_PROJECT_NAME:STATIC=morpheus-nds-maxmod-test
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -297,6 +297,12 @@ morpheus-nds-input-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug
 
 //Value Computed by CMake
 morpheus-nds-input-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
+
+//Value Computed by CMake
+morpheus-nds-maxmod-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
+
+//Value Computed by CMake
+morpheus-nds-maxmod-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus-nds-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds

@@ -90,6 +90,8 @@ void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) 
             m_debug_stream.get()->refresh_and_print();
         }
 
+        mmFrame();
+
         VBlankIntrWait();
     }
     //return morpheus::core::OK;

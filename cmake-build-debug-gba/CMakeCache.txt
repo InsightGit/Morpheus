@@ -184,7 +184,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=morpheus-gba-tileset-test
+CMAKE_PROJECT_NAME:STATIC=morpheus-gba-maxmod-test
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -275,6 +275,12 @@ morpheus-gba-input-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug
 
 //Value Computed by CMake
 morpheus-gba-input-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
+
+//Value Computed by CMake
+morpheus-gba-maxmod-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
+
+//Value Computed by CMake
+morpheus-gba-maxmod-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus-gba-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba

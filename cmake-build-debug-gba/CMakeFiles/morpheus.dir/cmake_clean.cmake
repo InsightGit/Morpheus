@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
@@ -10,7 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o"
   "libgba_morpheus.a"
   "libgba_morpheus.pdb"
-  "morpheus-gba-tileset-test.gba"
+  "morpheus-gba-maxmod-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

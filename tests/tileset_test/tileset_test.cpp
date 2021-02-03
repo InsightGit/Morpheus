@@ -32,7 +32,7 @@ int main() {
         background1.reset(new morpheus::gba::gfx::TiledBackground(2,
                                                               std::static_pointer_cast<
                                                                       morpheus::gba::GbaMainLoop>(main_loop),
-                                                              true, 2, 1));
+                                                              false, 2, 1));
     #elif _NDS
         std::cout << "Initing TiledBackground class\n";
 
@@ -56,13 +56,15 @@ int main() {
     #endif
 
     std::shared_ptr<morpheus::utils::BackgroundTestControls> controls(
-                                                           new morpheus::utils::BackgroundTestControls(background0));
+                                                           new morpheus::utils::BackgroundTestControls(background1));
 
     std::cout << "Loading TiledBackground class\n";
 
     background0->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                            region_mapMap, region_mapMapLen * 4,
                            morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+
+
     std::cout << "All ready!\n";
 
     main_loop->set_root(controls);

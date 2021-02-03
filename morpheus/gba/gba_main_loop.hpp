@@ -10,6 +10,7 @@
 #include <sstream>
 #include <string>
 
+#include <maxmod.h>
 #include <tonc.h>
 
 #include <core/main_loop.hpp>
