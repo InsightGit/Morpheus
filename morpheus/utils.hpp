@@ -13,6 +13,8 @@
     #error Unsupported Platform!
 #endif
 
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 namespace morpheus {
     namespace utils {
         class BackgroundTestControls : public morpheus::core::Node {
@@ -71,13 +73,27 @@ namespace morpheus {
             return nullptr;
         }
 
-        static morpheus::core::audio::MaxModMusic *construct_appropriate_max_mod_music(void *sound_bank,
-                                                                                       int num_of_channels,
-                                                                                       int sound_bank_ref_num) {
+        static morpheus::core::audio::MaxModMusic *construct_appropriate_max_mod_music(
+                                                                                   int sound_bank_ref_num,
+                                                                                   void *sound_bank = nullptr,
+                                                                                   unsigned char num_of_channels = -1) {
             #ifdef _GBA
-                return new morpheus::gba::audio::GbaMaxModMusic(sound_bank, num_of_channels, sound_bank_ref_num);
+                return new morpheus::gba::audio::GbaMaxModMusic(sound_bank_ref_num, sound_bank, num_of_channels);
             #elif _NDS
-                return new morpheus::nds::audio::NdsMaxModMusic(sound_bank, sound_bank_ref_num);
+                return new morpheus::nds::audio::NdsMaxModMusic(sound_bank_ref_num, sound_bank);
+            #endif
+
+            return nullptr;
+        }
+
+        static morpheus::core::audio::MaxModSfx *construct_appropriate_max_mod_sfx(
+                int sound_bank_ref_num,
+                void *sound_bank = nullptr,
+                unsigned char num_of_channels = -1) {
+            #ifdef _GBA
+                return new morpheus::gba::audio::GbaMaxModSfx(sound_bank_ref_num, sound_bank, num_of_channels);
+            #elif _NDS
+                return new morpheus::nds::audio::NdsMaxModSfx(sound_bank_ref_num, sound_bank);
             #endif
 
             return nullptr;

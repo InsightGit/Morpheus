@@ -8,6 +8,7 @@
 #include <nds/nds_main_loop.hpp>
 
 #include <nds/audio/nds_max_mod_music.hpp>
+#include <nds/audio/nds_max_mod_sfx.hpp>
 
 #include <nds/gfx/sprite_8_bpp.hpp>
 #include <nds/gfx/sprite_4_bpp.hpp>

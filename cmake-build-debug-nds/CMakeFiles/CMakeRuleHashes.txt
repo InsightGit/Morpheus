@@ -6,6 +6,7 @@ e59e9b603cd385fb8c3a97b033f27732 CMakeFiles/morpheus-nds-maxmod-test.nds
 f7d5e6a1f2806cbe49d3eeb7d335f7db custom1map.c
 a59ddfc28b7caa49cc0eebb478870f1f region_map.c
 5c99319311996e3d57ed70b96901eae8 region_map2.o
+34cd0cd3e4887263494444616698643d soundbank.bin.o
 3c78901f5930ed5aecb89dedce04edde test4.o
 aab7c99143f747a7ef5d3aa58c2eddda test8.o
 45b57d335f0997e762cf5265d250c0c7 test8_pcx.o

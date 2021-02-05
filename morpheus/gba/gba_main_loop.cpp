@@ -104,8 +104,6 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable;
     REG_IME = 1;
 
-    //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
-
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
         m_obj_buffer.push_back(new OBJ_ATTR());
     }
@@ -113,6 +111,9 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     oam_init(static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
     m_platform_inited = true;
+
+    irq_add(II_VBLANK, mmVBlank);
+    irq_enable(II_VBLANK);
 
     return morpheus::core::Error::OK;
 }
@@ -170,6 +171,7 @@ morpheus::core::InputEvent morpheus::gba::GbaMainLoop::to_input_event(uint32_t i
 void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
     if(!str().empty()) {
         tte_write(str().c_str());
+        nocash_puts(str().c_str());
 
         str("");
         clear();
@@ -177,6 +179,8 @@ void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
 }
 
 void morpheus::gba::GbaMainLoop::setup_debug_console() {
+    //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
+
     tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
 
     m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream());

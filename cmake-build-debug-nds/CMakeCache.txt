@@ -255,6 +255,9 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
 
 //Path to a program.
+MMUTIL:FILEPATH=/opt/devkitpro/tools/bin/mmutil
+
+//Path to a program.
 NDSTOOL:FILEPATH=/opt/devkitpro/tools/bin/ndstool
 
 //NDS game icon location realitve to project location

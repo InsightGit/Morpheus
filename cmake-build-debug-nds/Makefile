@@ -333,6 +333,33 @@ morpheus/core/audio/max_mod_music.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.s
 .PHONY : morpheus/core/audio/max_mod_music.cpp.s
 
+morpheus/core/audio/max_mod_sfx.o: morpheus/core/audio/max_mod_sfx.cpp.o
+
+.PHONY : morpheus/core/audio/max_mod_sfx.o
+
+# target to build an object file
+morpheus/core/audio/max_mod_sfx.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o
+.PHONY : morpheus/core/audio/max_mod_sfx.cpp.o
+
+morpheus/core/audio/max_mod_sfx.i: morpheus/core/audio/max_mod_sfx.cpp.i
+
+.PHONY : morpheus/core/audio/max_mod_sfx.i
+
+# target to preprocess a source file
+morpheus/core/audio/max_mod_sfx.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.i
+.PHONY : morpheus/core/audio/max_mod_sfx.cpp.i
+
+morpheus/core/audio/max_mod_sfx.s: morpheus/core/audio/max_mod_sfx.cpp.s
+
+.PHONY : morpheus/core/audio/max_mod_sfx.s
+
+# target to generate assembly for a file
+morpheus/core/audio/max_mod_sfx.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
+.PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
+
 morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
 
 .PHONY : morpheus/core/gfx/palette_manager.o
@@ -794,6 +821,9 @@ help:
 	@echo "... morpheus/core/audio/max_mod_music.o"
 	@echo "... morpheus/core/audio/max_mod_music.i"
 	@echo "... morpheus/core/audio/max_mod_music.s"
+	@echo "... morpheus/core/audio/max_mod_sfx.o"
+	@echo "... morpheus/core/audio/max_mod_sfx.i"
+	@echo "... morpheus/core/audio/max_mod_sfx.s"
 	@echo "... morpheus/core/gfx/palette_manager.o"
 	@echo "... morpheus/core/gfx/palette_manager.i"
 	@echo "... morpheus/core/gfx/palette_manager.s"

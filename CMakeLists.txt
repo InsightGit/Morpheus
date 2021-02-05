@@ -16,6 +16,7 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/audio/max_mod_music.hpp
         morpheus/core/audio/max_mod_music.cpp
         morpheus/core/audio/max_mod_sfx.hpp
+        morpheus/core/audio/max_mod_sfx.cpp
         morpheus/core/gfx/palette_manager.hpp
         morpheus/core/gfx/palette_manager.cpp
         morpheus/core/gfx/vector_2.hpp
@@ -43,6 +44,7 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gba_main_loop.hpp
             morpheus/gba/gba_main_loop.cpp
             morpheus/gba/audio/gba_max_mod_music.hpp
+            morpheus/gba/audio/gba_max_mod_sfx.hpp
             morpheus/gba/gfx/sprite.hpp
             morpheus/gba/gfx/sprite.cpp
             morpheus/gba/gfx/sprite_4_bpp.hpp
@@ -72,6 +74,7 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/nds_main_loop.hpp
             morpheus/nds/nds_main_loop.cpp
             morpheus/nds/audio/nds_max_mod_music.hpp
+            morpheus/nds/audio/nds_max_mod_sfx.hpp
             morpheus/nds/gfx/sprite.hpp
             morpheus/nds/gfx/sprite.cpp
             morpheus/nds/gfx/sprite_4_bpp.hpp
@@ -152,7 +155,13 @@ if("$ENV{BUILD_TESTS}")
 
     #message(STATUS "${PNG8_OUTPUT_FILES}")
 
+    list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/examplesfx.wav")
+
     if(platform_lower STREQUAL "gba")
+        list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
+
+        message(STATUS ${maxmod_soundbank_list})
+
         if(NOT GBAFIX)
             find_program(GBAFIX gbafix $ENV{DEVKITPRO}/tools/bin/)
             if(GBAFIX)
@@ -197,13 +206,20 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-gba-maxmod-test)
 
+        message(STATUS ${maxmod_soundbank_list})
+
+        generate_maxmod_soundbank(true "soundbank" maxmod_soundbank_list)
+
         link_directories(morpheus-gba-maxmod-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
-        add_executable(morpheus-gba-maxmod-test.elf tests/maxmod_test/maxmod_test.cpp)
+        add_executable(morpheus-gba-maxmod-test.elf tests/maxmod_test/maxmod_test.cpp
+                       ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
         add_gba_executable(morpheus-gba-maxmod-test.elf)
 
         target_link_libraries(morpheus-gba-maxmod-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
+        list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
+
         if(NOT NDSTOOL)
             find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
             if(NDSTOOL)
@@ -294,12 +310,14 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-maxmod-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
+        generate_maxmod_soundbank(false "soundbank" maxmod_soundbank_list)
+
         add_executable(morpheus-nds-maxmod-test.elf
-                tests/maxmod_test/maxmod_test.cpp)
+                tests/maxmod_test/maxmod_test.cpp ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
         add_nds_executable(morpheus-nds-maxmod-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus MaxMod Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm)
+        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm9)
     endif()
 endif()
 

@@ -12,9 +12,10 @@ namespace morpheus {
         namespace audio {
             class GbaMaxModMusic : public morpheus::core::audio::MaxModMusic {
             public:
-                GbaMaxModMusic(void *sound_bank, int num_of_channels, int sound_bank_ref_num) :
+                GbaMaxModMusic(int sound_bank_ref_num, void *sound_bank = nullptr,
+                               unsigned char num_of_channels = -1) :
                     morpheus::core::audio::MaxModMusic(sound_bank_ref_num) {
-                    if(sound_bank != nullptr && num_of_channels > 0) {
+                    if(sound_bank != nullptr && num_of_channels > 0 && num_of_channels <= 4) {
                         mmInitDefault(sound_bank, num_of_channels);
                     }
                 }

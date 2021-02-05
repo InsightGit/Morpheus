@@ -148,7 +148,7 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
 
 endfunction()
 
-function(generate_maxmod_soundbank is_gba sound_files soundbank_name)
+function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
     if(NOT MMUTIL)
         find_program(MMUTIL mmutil ${DEVKITPRO}/tools)
         if(MMUTIL)
@@ -158,21 +158,41 @@ function(generate_maxmod_soundbank is_gba sound_files soundbank_name)
         endif()
     endif()
 
-    if(is_gba)
-        set(SOUNDS_ARGUMENT "")
-    else()
-        set(SOUNDS_ARGUMENT "-d")
+    if(NOT BIN2S)
+        # message(STATUS "Looking for bin2s...")
+        find_program(BIN2S bin2s ${DEVKITARM}/bin)
+        if(BIN2S)
+            message(STATUS "bin2s: ${BIN2S} - found")
+        else()
+            message(FATAL_ERROR "bin2s - not found")
+        endif()
     endif()
 
-    string(APPEND SOUNDS_ARGUMENT "${${sound_files}}")
-    string(REPLACE ";" " " SOUNDS_ARGUMENT ${SOUNDS_ARGUMENT})
+    # TODO(Bobby): Fix this... mess
+    if(is_gba)
+        message(STATUS "using maxmod for gba")
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
+                    -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
+                COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
+                                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
+                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                                            ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                VERBATIM)
+    else()
+        message(STATUS "using maxmod for nds")
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                COMMAND ${MMUTIL} -d -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
+                -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
+                COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
+                ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
+                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                VERBATIM)
+    endif()
 
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
-            COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
-                -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${SOUNDS_ARGUMENT}
-            COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
-                             ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
-            COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
-                                        ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
-            VERBATIM)
+    file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}_bin.h
+            "extern const uint8_t ${soundbank_name}_bin_end[];\n"
+            "extern const uint8_t ${soundbank_name}_bin[];\n"
+            "extern const uint32_t ${soundbank_name}_bin_size;")
 endfunction()

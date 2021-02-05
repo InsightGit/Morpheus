@@ -15,6 +15,9 @@
 ########################
 
 //Path to a program.
+BIN2S:FILEPATH=/opt/devkitpro/tools/bin/bin2s
+
+//Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
 //Path to a program.
@@ -253,6 +256,9 @@ GBAFIX:FILEPATH=/opt/devkitpro/tools/bin/gbafix
 
 //Path to a program.
 GRIT:FILEPATH=/opt/devkitpro/tools/bin/grit
+
+//Path to a program.
+MMUTIL:FILEPATH=/opt/devkitpro/tools/bin/mmutil
 
 //Path to a program.
 OBJCOPY:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-objcopy

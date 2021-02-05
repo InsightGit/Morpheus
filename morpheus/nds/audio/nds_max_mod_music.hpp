@@ -12,9 +12,11 @@ namespace morpheus {
         namespace audio {
             class NdsMaxModMusic : public morpheus::core::audio::MaxModMusic {
             public:
-                NdsMaxModMusic(void *sound_bank, int sound_bank_ref_num) :
+                NdsMaxModMusic(int sound_bank_ref_num, void *sound_bank = nullptr) :
                     morpheus::core::audio::MaxModMusic(sound_bank_ref_num) {
-                    mmInitDefaultMem(sound_bank);
+                    if(sound_bank != nullptr) {
+                        mmInitDefaultMem(sound_bank);
+                    }
                 }
 
                 virtual ~NdsMaxModMusic() {
