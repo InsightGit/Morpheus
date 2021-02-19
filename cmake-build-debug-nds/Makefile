@@ -58,10 +58,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-nds
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -130,6 +130,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-maxmod-test.nds
+
+# Build rule for target.
+morpheus-nds-maxmod-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-maxmod-test.nds
+.PHONY : morpheus-nds-maxmod-test.nds
+
+# fast build rule for target.
+morpheus-nds-maxmod-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build
+.PHONY : morpheus-nds-maxmod-test.nds/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-tileset-test.elf
 
 # Build rule for target.
@@ -141,6 +154,19 @@ morpheus-nds-tileset-test.elf: cmake_check_build_system
 morpheus-nds-tileset-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/build
 .PHONY : morpheus-nds-tileset-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-flash-test.elf
+
+# Build rule for target.
+morpheus-nds-flash-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-flash-test.elf
+.PHONY : morpheus-nds-flash-test.elf
+
+# fast build rule for target.
+morpheus-nds-flash-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/build
+.PHONY : morpheus-nds-flash-test.elf/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-nds-input-test.nds
@@ -221,6 +247,19 @@ morpheus-nds-extended-palette-test.nds/fast:
 .PHONY : morpheus-nds-extended-palette-test.nds/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-flash-test.nds
+
+# Build rule for target.
+morpheus-nds-flash-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-flash-test.nds
+.PHONY : morpheus-nds-flash-test.nds
+
+# fast build rule for target.
+morpheus-nds-flash-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.nds.dir/build.make CMakeFiles/morpheus-nds-flash-test.nds.dir/build
+.PHONY : morpheus-nds-flash-test.nds/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-maxmod-test.elf
 
 # Build rule for target.
@@ -232,19 +271,6 @@ morpheus-nds-maxmod-test.elf: cmake_check_build_system
 morpheus-nds-maxmod-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build
 .PHONY : morpheus-nds-maxmod-test.elf/fast
-
-#=============================================================================
-# Target rules for targets named morpheus-nds-maxmod-test.nds
-
-# Build rule for target.
-morpheus-nds-maxmod-test.nds: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-maxmod-test.nds
-.PHONY : morpheus-nds-maxmod-test.nds
-
-# fast build rule for target.
-morpheus-nds-maxmod-test.nds/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.nds.dir/build
-.PHONY : morpheus-nds-maxmod-test.nds/fast
 
 brin.o: brin.c.o
 
@@ -360,33 +386,6 @@ morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
 
-morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
-
-.PHONY : morpheus/core/gfx/palette_manager.o
-
-# target to build an object file
-morpheus/core/gfx/palette_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o
-.PHONY : morpheus/core/gfx/palette_manager.cpp.o
-
-morpheus/core/gfx/palette_manager.i: morpheus/core/gfx/palette_manager.cpp.i
-
-.PHONY : morpheus/core/gfx/palette_manager.i
-
-# target to preprocess a source file
-morpheus/core/gfx/palette_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i
-.PHONY : morpheus/core/gfx/palette_manager.cpp.i
-
-morpheus/core/gfx/palette_manager.s: morpheus/core/gfx/palette_manager.cpp.s
-
-.PHONY : morpheus/core/gfx/palette_manager.s
-
-# target to generate assembly for a file
-morpheus/core/gfx/palette_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
-.PHONY : morpheus/core/gfx/palette_manager.cpp.s
-
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
 .PHONY : morpheus/core/gfx/tiled_background_base.o
@@ -413,6 +412,33 @@ morpheus/core/gfx/tiled_background_base.s: morpheus/core/gfx/tiled_background_ba
 morpheus/core/gfx/tiled_background_base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
 .PHONY : morpheus/core/gfx/tiled_background_base.cpp.s
+
+morpheus/core/gfx/window.o: morpheus/core/gfx/window.cpp.o
+
+.PHONY : morpheus/core/gfx/window.o
+
+# target to build an object file
+morpheus/core/gfx/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
+.PHONY : morpheus/core/gfx/window.cpp.o
+
+morpheus/core/gfx/window.i: morpheus/core/gfx/window.cpp.i
+
+.PHONY : morpheus/core/gfx/window.i
+
+# target to preprocess a source file
+morpheus/core/gfx/window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i
+.PHONY : morpheus/core/gfx/window.cpp.i
+
+morpheus/core/gfx/window.s: morpheus/core/gfx/window.cpp.s
+
+.PHONY : morpheus/core/gfx/window.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s
+.PHONY : morpheus/core/gfx/window.cpp.s
 
 morpheus/core/main_loop.o: morpheus/core/main_loop.cpp.o
 
@@ -741,6 +767,33 @@ tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s
 .PHONY : tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s
 
+tests/nds/flash_test/nds_flash_test.o: tests/nds/flash_test/nds_flash_test.cpp.o
+
+.PHONY : tests/nds/flash_test/nds_flash_test.o
+
+# target to build an object file
+tests/nds/flash_test/nds_flash_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.o
+.PHONY : tests/nds/flash_test/nds_flash_test.cpp.o
+
+tests/nds/flash_test/nds_flash_test.i: tests/nds/flash_test/nds_flash_test.cpp.i
+
+.PHONY : tests/nds/flash_test/nds_flash_test.i
+
+# target to preprocess a source file
+tests/nds/flash_test/nds_flash_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.i
+.PHONY : tests/nds/flash_test/nds_flash_test.cpp.i
+
+tests/nds/flash_test/nds_flash_test.s: tests/nds/flash_test/nds_flash_test.cpp.s
+
+.PHONY : tests/nds/flash_test/nds_flash_test.s
+
+# target to generate assembly for a file
+tests/nds/flash_test/nds_flash_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.s
+.PHONY : tests/nds/flash_test/nds_flash_test.cpp.s
+
 tests/nds/input_test/nds_input_test.o: tests/nds/input_test/nds_input_test.cpp.o
 
 .PHONY : tests/nds/input_test/nds_input_test.o
@@ -804,11 +857,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... morpheus-nds-extended-palette-test.nds"
+	@echo "... morpheus-nds-flash-test.nds"
 	@echo "... morpheus-nds-input-test.nds"
 	@echo "... morpheus-nds-maxmod-test.nds"
 	@echo "... morpheus-nds-tileset-test.nds"
 	@echo "... morpheus"
 	@echo "... morpheus-nds-extended-palette-test.elf"
+	@echo "... morpheus-nds-flash-test.elf"
 	@echo "... morpheus-nds-input-test.elf"
 	@echo "... morpheus-nds-maxmod-test.elf"
 	@echo "... morpheus-nds-tileset-test.elf"
@@ -824,12 +879,12 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
-	@echo "... morpheus/core/gfx/palette_manager.o"
-	@echo "... morpheus/core/gfx/palette_manager.i"
-	@echo "... morpheus/core/gfx/palette_manager.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"
+	@echo "... morpheus/core/gfx/window.o"
+	@echo "... morpheus/core/gfx/window.i"
+	@echo "... morpheus/core/gfx/window.s"
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
@@ -866,6 +921,9 @@ help:
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.o"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.i"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.s"
+	@echo "... tests/nds/flash_test/nds_flash_test.o"
+	@echo "... tests/nds/flash_test/nds_flash_test.i"
+	@echo "... tests/nds/flash_test/nds_flash_test.s"
 	@echo "... tests/nds/input_test/nds_input_test.o"
 	@echo "... tests/nds/input_test/nds_input_test.i"
 	@echo "... tests/nds/input_test/nds_input_test.s"

@@ -58,10 +58,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-gba
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -130,56 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named morpheus-gba-maxmod-test.elf
+# Target rules for targets named morpheus-gba-sram-test.elf
 
 # Build rule for target.
-morpheus-gba-maxmod-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.elf
-.PHONY : morpheus-gba-maxmod-test.elf
+morpheus-gba-sram-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-sram-test.elf
+.PHONY : morpheus-gba-sram-test.elf
 
 # fast build rule for target.
-morpheus-gba-maxmod-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build
-.PHONY : morpheus-gba-maxmod-test.elf/fast
-
-#=============================================================================
-# Target rules for targets named morpheus
-
-# Build rule for target.
-morpheus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
-.PHONY : morpheus
-
-# fast build rule for target.
-morpheus/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
-.PHONY : morpheus/fast
-
-#=============================================================================
-# Target rules for targets named morpheus-gba-input-test.elf
-
-# Build rule for target.
-morpheus-gba-input-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-input-test.elf
-.PHONY : morpheus-gba-input-test.elf
-
-# fast build rule for target.
-morpheus-gba-input-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
-.PHONY : morpheus-gba-input-test.elf/fast
-
-#=============================================================================
-# Target rules for targets named morpheus-gba-maxmod-test.gba
-
-# Build rule for target.
-morpheus-gba-maxmod-test.gba: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.gba
-.PHONY : morpheus-gba-maxmod-test.gba
-
-# fast build rule for target.
-morpheus-gba-maxmod-test.gba/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build
-.PHONY : morpheus-gba-maxmod-test.gba/fast
+morpheus-gba-sram-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/build
+.PHONY : morpheus-gba-sram-test.elf/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-gba-tileset-test.gba
@@ -195,6 +156,45 @@ morpheus-gba-tileset-test.gba/fast:
 .PHONY : morpheus-gba-tileset-test.gba/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-maxmod-test.gba
+
+# Build rule for target.
+morpheus-gba-maxmod-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.gba
+.PHONY : morpheus-gba-maxmod-test.gba
+
+# fast build rule for target.
+morpheus-gba-maxmod-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build
+.PHONY : morpheus-gba-maxmod-test.gba/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-input-test.elf
+
+# Build rule for target.
+morpheus-gba-input-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-input-test.elf
+.PHONY : morpheus-gba-input-test.elf
+
+# fast build rule for target.
+morpheus-gba-input-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
+.PHONY : morpheus-gba-input-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus
+
+# Build rule for target.
+morpheus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
+.PHONY : morpheus
+
+# fast build rule for target.
+morpheus/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
+.PHONY : morpheus/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-gba-input-test.gba
 
 # Build rule for target.
@@ -208,6 +208,19 @@ morpheus-gba-input-test.gba/fast:
 .PHONY : morpheus-gba-input-test.gba/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-sram-test.gba
+
+# Build rule for target.
+morpheus-gba-sram-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-sram-test.gba
+.PHONY : morpheus-gba-sram-test.gba
+
+# fast build rule for target.
+morpheus-gba-sram-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.gba.dir/build.make CMakeFiles/morpheus-gba-sram-test.gba.dir/build
+.PHONY : morpheus-gba-sram-test.gba/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-gba-tileset-test.elf
 
 # Build rule for target.
@@ -219,6 +232,19 @@ morpheus-gba-tileset-test.elf: cmake_check_build_system
 morpheus-gba-tileset-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/build
 .PHONY : morpheus-gba-tileset-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-maxmod-test.elf
+
+# Build rule for target.
+morpheus-gba-maxmod-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-maxmod-test.elf
+.PHONY : morpheus-gba-maxmod-test.elf
+
+# fast build rule for target.
+morpheus-gba-maxmod-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build
+.PHONY : morpheus-gba-maxmod-test.elf/fast
 
 brin.o: brin.c.o
 
@@ -301,33 +327,6 @@ morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
 
-morpheus/core/gfx/palette_manager.o: morpheus/core/gfx/palette_manager.cpp.o
-
-.PHONY : morpheus/core/gfx/palette_manager.o
-
-# target to build an object file
-morpheus/core/gfx/palette_manager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o
-.PHONY : morpheus/core/gfx/palette_manager.cpp.o
-
-morpheus/core/gfx/palette_manager.i: morpheus/core/gfx/palette_manager.cpp.i
-
-.PHONY : morpheus/core/gfx/palette_manager.i
-
-# target to preprocess a source file
-morpheus/core/gfx/palette_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.i
-.PHONY : morpheus/core/gfx/palette_manager.cpp.i
-
-morpheus/core/gfx/palette_manager.s: morpheus/core/gfx/palette_manager.cpp.s
-
-.PHONY : morpheus/core/gfx/palette_manager.s
-
-# target to generate assembly for a file
-morpheus/core/gfx/palette_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.s
-.PHONY : morpheus/core/gfx/palette_manager.cpp.s
-
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
 .PHONY : morpheus/core/gfx/tiled_background_base.o
@@ -354,6 +353,33 @@ morpheus/core/gfx/tiled_background_base.s: morpheus/core/gfx/tiled_background_ba
 morpheus/core/gfx/tiled_background_base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
 .PHONY : morpheus/core/gfx/tiled_background_base.cpp.s
+
+morpheus/core/gfx/window.o: morpheus/core/gfx/window.cpp.o
+
+.PHONY : morpheus/core/gfx/window.o
+
+# target to build an object file
+morpheus/core/gfx/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
+.PHONY : morpheus/core/gfx/window.cpp.o
+
+morpheus/core/gfx/window.i: morpheus/core/gfx/window.cpp.i
+
+.PHONY : morpheus/core/gfx/window.i
+
+# target to preprocess a source file
+morpheus/core/gfx/window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i
+.PHONY : morpheus/core/gfx/window.cpp.i
+
+morpheus/core/gfx/window.s: morpheus/core/gfx/window.cpp.s
+
+.PHONY : morpheus/core/gfx/window.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s
+.PHONY : morpheus/core/gfx/window.cpp.s
 
 morpheus/core/main_loop.o: morpheus/core/main_loop.cpp.o
 
@@ -544,6 +570,33 @@ morpheus/gba/gfx/tiled_background.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.s
 .PHONY : morpheus/gba/gfx/tiled_background.cpp.s
 
+morpheus/gba/gfx/window.o: morpheus/gba/gfx/window.cpp.o
+
+.PHONY : morpheus/gba/gfx/window.o
+
+# target to build an object file
+morpheus/gba/gfx/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o
+.PHONY : morpheus/gba/gfx/window.cpp.o
+
+morpheus/gba/gfx/window.i: morpheus/gba/gfx/window.cpp.i
+
+.PHONY : morpheus/gba/gfx/window.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.i
+.PHONY : morpheus/gba/gfx/window.cpp.i
+
+morpheus/gba/gfx/window.s: morpheus/gba/gfx/window.cpp.s
+
+.PHONY : morpheus/gba/gfx/window.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.s
+.PHONY : morpheus/gba/gfx/window.cpp.s
+
 region_map.o: region_map.c.o
 
 .PHONY : region_map.o
@@ -597,6 +650,33 @@ tests/gba/input_test/gba_input_test.s: tests/gba/input_test/gba_input_test.cpp.s
 tests/gba/input_test/gba_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.s
 .PHONY : tests/gba/input_test/gba_input_test.cpp.s
+
+tests/gba/sram_test/gba_sram_test.o: tests/gba/sram_test/gba_sram_test.cpp.o
+
+.PHONY : tests/gba/sram_test/gba_sram_test.o
+
+# target to build an object file
+tests/gba/sram_test/gba_sram_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/tests/gba/sram_test/gba_sram_test.cpp.o
+.PHONY : tests/gba/sram_test/gba_sram_test.cpp.o
+
+tests/gba/sram_test/gba_sram_test.i: tests/gba/sram_test/gba_sram_test.cpp.i
+
+.PHONY : tests/gba/sram_test/gba_sram_test.i
+
+# target to preprocess a source file
+tests/gba/sram_test/gba_sram_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/tests/gba/sram_test/gba_sram_test.cpp.i
+.PHONY : tests/gba/sram_test/gba_sram_test.cpp.i
+
+tests/gba/sram_test/gba_sram_test.s: tests/gba/sram_test/gba_sram_test.cpp.s
+
+.PHONY : tests/gba/sram_test/gba_sram_test.s
+
+# target to generate assembly for a file
+tests/gba/sram_test/gba_sram_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/tests/gba/sram_test/gba_sram_test.cpp.s
+.PHONY : tests/gba/sram_test/gba_sram_test.cpp.s
 
 tests/maxmod_test/maxmod_test.o: tests/maxmod_test/maxmod_test.cpp.o
 
@@ -662,10 +742,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... morpheus-gba-input-test.gba"
 	@echo "... morpheus-gba-maxmod-test.gba"
+	@echo "... morpheus-gba-sram-test.gba"
 	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
 	@echo "... morpheus-gba-input-test.elf"
 	@echo "... morpheus-gba-maxmod-test.elf"
+	@echo "... morpheus-gba-sram-test.elf"
 	@echo "... morpheus-gba-tileset-test.elf"
 	@echo "... brin.o"
 	@echo "... brin.i"
@@ -676,12 +758,12 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
-	@echo "... morpheus/core/gfx/palette_manager.o"
-	@echo "... morpheus/core/gfx/palette_manager.i"
-	@echo "... morpheus/core/gfx/palette_manager.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"
+	@echo "... morpheus/core/gfx/window.o"
+	@echo "... morpheus/core/gfx/window.i"
+	@echo "... morpheus/core/gfx/window.s"
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
@@ -703,12 +785,18 @@ help:
 	@echo "... morpheus/gba/gfx/tiled_background.o"
 	@echo "... morpheus/gba/gfx/tiled_background.i"
 	@echo "... morpheus/gba/gfx/tiled_background.s"
+	@echo "... morpheus/gba/gfx/window.o"
+	@echo "... morpheus/gba/gfx/window.i"
+	@echo "... morpheus/gba/gfx/window.s"
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
 	@echo "... tests/gba/input_test/gba_input_test.o"
 	@echo "... tests/gba/input_test/gba_input_test.i"
 	@echo "... tests/gba/input_test/gba_input_test.s"
+	@echo "... tests/gba/sram_test/gba_sram_test.o"
+	@echo "... tests/gba/sram_test/gba_sram_test.i"
+	@echo "... tests/gba/sram_test/gba_sram_test.s"
 	@echo "... tests/maxmod_test/maxmod_test.o"
 	@echo "... tests/maxmod_test/maxmod_test.i"
 	@echo "... tests/maxmod_test/maxmod_test.s"

@@ -18,8 +18,14 @@ namespace morpheus {
         namespace gfx {
             class Sprite : public core::Node {
                 public:
-                    explicit Sprite(bool is_4bpp) {
+                    explicit Sprite(const bool is_4bpp) {
                         m_is_4bpp = is_4bpp;
+                    }
+
+                    explicit Sprite(const bool is_4bpp, const unsigned short palette_id, const unsigned short tile_id,
+                                    const unsigned short width, const unsigned short height) : Sprite(is_4bpp) {
+                        build_attr2(palette_id, tile_id);
+                        setup_size_attr(width, height);
                     }
 
                     core::gfx::Vector2 get_position() const {
@@ -40,14 +46,19 @@ namespace morpheus {
 
                     void load_from_array(const unsigned short *tile_array, const unsigned short width,
                                          const unsigned short height, const unsigned short tile_id);
+
+                    virtual void load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                                   const unsigned int pal_len) = 0;
                 protected:
                     void build_attr2(const unsigned short palette_id, const unsigned short tile_id) {
                         m_attr2 = ATTR2_BUILD(tile_id, palette_id, 0);
                     }
+                    void setup_size_attr(const unsigned short width, const unsigned short height);
 
                     void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override;
 
                     virtual void input(core::InputEvent input_event)override {}
+                    virtual void update(unsigned char cycle_time)override {}
 
                     virtual void array_load(const unsigned short *tile_array, const unsigned short width,
                                             const unsigned short height, const unsigned short tile_id) = 0;
@@ -62,8 +73,6 @@ namespace morpheus {
                     unsigned short m_attr2;
 
                     core::gfx::Vector2 m_position;
-
-                    void setup_size_attr(const unsigned short width, const unsigned short height);
             };
         }
     }

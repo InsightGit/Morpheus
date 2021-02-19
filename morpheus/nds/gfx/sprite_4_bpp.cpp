@@ -31,21 +31,13 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
         return false;
     }
 
-    copy_into_palette(palette, palette_id);
+    load_into_palette(palette, palette_id);
 
     return true;
 }
 
-void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *> obj_attr_buffer, int obj_attr_num, int priority) {
-    core::gfx::Vector2 position = get_position();
-
-    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
-           static_cast<int>(get_palette_id()), get_sprite_size(),
-           SpriteColorFormat_16Color, get_gfx_pointer(), -1,
-           false, false, false, false, false);
-}
-
-bool morpheus::nds::gfx::Sprite4Bpp::copy_into_palette(const unsigned short *palette, const unsigned int palette_id) {
+bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                                       const unsigned int pal_len) {
     unsigned int palette_index;
 
     if(palette_id > 15) {
@@ -58,10 +50,19 @@ bool morpheus::nds::gfx::Sprite4Bpp::copy_into_palette(const unsigned short *pal
     }
 
     if(get_current_oam() == &oamSub) {
-        dmaCopy(&palette[palette_index], SPRITE_PALETTE_SUB, 32);
+        dmaCopy(&palette[palette_index], SPRITE_PALETTE_SUB, pal_len);
     } else {
-        dmaCopy(&palette[palette_index], SPRITE_PALETTE, 32);
+        dmaCopy(&palette[palette_index], SPRITE_PALETTE, pal_len);
     }
 
     return true;
+}
+
+void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *> obj_attr_buffer, int obj_attr_num, int priority) {
+    core::gfx::Vector2 position = get_position();
+
+    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
+           static_cast<int>(get_palette_id()), get_sprite_size(),
+           SpriteColorFormat_16Color, get_gfx_pointer(), -1,
+           false, false, false, false, false);
 }

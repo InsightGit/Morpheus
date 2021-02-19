@@ -38,16 +38,22 @@ morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_co
     }
 }
 
+void morpheus::nds::NdsMainLoop::disable_window(morpheus::core::gfx::WindowType window_type) {
+    //
+}
+
 void morpheus::nds::NdsMainLoop::enable_background(unsigned int background_reference_num) {
     std::cout << "Showing " << background_reference_num << "\n";
 
     bgShow(background_reference_num);
 }
 
+void morpheus::nds::NdsMainLoop::enable_window(morpheus::core::gfx::WindowType window_type) {
+    //
+}
+
 morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     platform_init();
-
-    iprintf("      Morpheus Debug");
 
     int iteration = 0;
 
@@ -75,13 +81,25 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
                 m_root->received_input(input_event);
             }
 
+            m_root->received_update(m_cycle_time);
+
             // TODO(Bobby): Fix unneeded argument 1 problem
             m_root->draw(std::vector<void *>(), 0);
         }
 
         ++iteration;
 
-        iprintf("\x1b[10;0HIterations = %d", iteration);
+        /*iprintf("\x1b[21;0H      Morpheus Debug");
+        iprintf("\x1b[22;0HIterations = %d", iteration);*/
+
+        ++m_cycle_time;
+
+        if(m_cycle_time >= 60) {
+            m_cycle_time = 0;
+        }
+
+        // to insure the randomness of the random number generator
+        get_random_number(0, 0);
 
         swiWaitForVBlank();
 

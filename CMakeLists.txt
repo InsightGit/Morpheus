@@ -12,16 +12,17 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/main_loop.cpp
         morpheus/core/node.hpp
         morpheus/core/node.cpp
+        morpheus/core/save_manager.hpp
         morpheus/core/uncopyable.hpp
         morpheus/core/audio/max_mod_music.hpp
         morpheus/core/audio/max_mod_music.cpp
         morpheus/core/audio/max_mod_sfx.hpp
         morpheus/core/audio/max_mod_sfx.cpp
-        morpheus/core/gfx/palette_manager.hpp
-        morpheus/core/gfx/palette_manager.cpp
-        morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/tiled_background_base.hpp
-        morpheus/core/gfx/tiled_background_base.cpp)
+        morpheus/core/gfx/tiled_background_base.cpp
+        morpheus/core/gfx/vector_2.hpp
+        morpheus/core/gfx/window.hpp
+        morpheus/core/gfx/window.cpp)
 
 
 project(morpheus)
@@ -52,7 +53,9 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_8_bpp.hpp
             morpheus/gba/gfx/sprite_8_bpp.cpp
             morpheus/gba/gfx/tiled_background.hpp
-            morpheus/gba/gfx/tiled_background.cpp)
+            morpheus/gba/gfx/tiled_background.cpp
+            morpheus/gba/gfx/window.hpp
+            morpheus/gba/gfx/window.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -182,12 +185,22 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-gba-input-test)
 
-        link_directories(morpheus-gba-input-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
+        link_directories(morpheus-gba-input-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         add_executable(morpheus-gba-input-test.elf tests/gba/input_test/gba_input_test.cpp ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
         add_gba_executable(morpheus-gba-input-test.elf)
 
-        target_link_libraries(morpheus-gba-input-test.elf morpheus tonc)
+        target_link_libraries(morpheus-gba-input-test.elf morpheus mm tonc)
+
+        project(morpheus-gba-sram-test)
+
+        link_directories(morpheus-gba-sram-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-gba-sram-test.elf tests/gba/sram_test/gba_sram_test.cpp
+                       ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
+        add_gba_executable(morpheus-gba-sram-test.elf)
+
+        target_link_libraries(morpheus-gba-sram-test.elf morpheus mm tonc)
 
         project(morpheus-gba-tileset-test)
 
@@ -305,6 +318,17 @@ if("$ENV{BUILD_TESTS}")
                 "Morpheus ExtPalette Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
+
+        project(morpheus-nds-flash-test)
+
+        link_directories(morpheus-nds-flash-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
+        add_executable(morpheus-nds-flash-test.elf tests/nds/flash_test/nds_flash_test.cpp
+                ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
+        add_nds_executable(morpheus-nds-flash-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus Flash Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-flash-test.elf nds9 mm9 morpheus)
 
         project(morpheus-nds-maxmod-test)
 

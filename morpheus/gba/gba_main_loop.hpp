@@ -14,6 +14,7 @@
 #include <tonc.h>
 
 #include <core/main_loop.hpp>
+#include <core/gfx/window.hpp>
 
 namespace morpheus {
     namespace gba {
@@ -34,7 +35,11 @@ namespace morpheus {
 
             virtual ~GbaMainLoop();
 
+            void disable_window(core::gfx::WindowType window_type)override;
+
             void enable_background(unsigned int background_num)override;
+            void enable_window(core::gfx::WindowType window_type)override;
+
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;
@@ -54,6 +59,7 @@ namespace morpheus {
             std::vector<void *> m_obj_buffer;
 
             unsigned int m_backgrounds_to_enable = 0x0;
+            unsigned int m_windows_to_enable = 0x0;
             bool m_platform_inited = false;
 
             void setup_debug_console();

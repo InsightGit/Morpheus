@@ -1,9 +1,11 @@
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/rebuild_cache.dir
-/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/edit_cache.dir
-/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-maxmod-test.elf.dir
-/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir
-/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-input-test.elf.dir
-/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-maxmod-test.gba.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-sram-test.elf.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.gba.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-maxmod-test.gba.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-input-test.elf.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-input-test.gba.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-sram-test.gba.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.elf.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-maxmod-test.elf.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/edit_cache.dir

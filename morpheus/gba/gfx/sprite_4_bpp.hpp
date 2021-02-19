@@ -12,7 +12,9 @@ namespace morpheus {
         namespace gfx {
             class Sprite4Bpp : public morpheus::gba::gfx::Sprite {
             public:
-                explicit Sprite4Bpp(int palette_id = 0);
+                explicit Sprite4Bpp(const unsigned int palette_id = 0);
+                explicit Sprite4Bpp(const unsigned short tile_id, const unsigned int palette_id,
+                                    const unsigned short width, const unsigned short height);
 
                 int get_palette_id() const {
                     return m_palette_id;
@@ -28,6 +30,9 @@ namespace morpheus {
                 void load_from_array(const unsigned short *tile_array, const unsigned short palette_id,
                                           const unsigned short width, const unsigned short height,
                                           const unsigned short tile_id);
+
+                void load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                       const unsigned int pal_len = 16)override;
             protected:
                 void array_load(const unsigned short *tile_array, const unsigned short width,
                                 const unsigned short height, const unsigned short tile_id)override;

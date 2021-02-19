@@ -5,11 +5,12 @@
 #ifndef MORPHEUS_NDS_MAIN_LOOP_HPP
 #define MORPHEUS_NDS_MAIN_LOOP_HPP
 
-#include <stdio.h>
+#include <cstdio>
 
 #include <nds.h>
 
 #include <core/main_loop.hpp>
+#include <core/gfx/window.hpp>
 
 namespace morpheus {
     namespace nds {
@@ -32,7 +33,10 @@ namespace morpheus {
         public:
             explicit NdsMainLoop(DebugConsoleMode debug_console_mode = DebugConsoleMode::USE_DEFAULT_MAIN);
 
+            void disable_window(core::gfx::WindowType window_type)override;
+
             void enable_background(unsigned int background_reference_num)override;
+            void enable_window(core::gfx::WindowType window_type)override;
 
             [[noreturn]] core::Error game_loop() override;
         protected:

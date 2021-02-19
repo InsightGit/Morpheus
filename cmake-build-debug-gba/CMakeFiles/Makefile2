@@ -54,10 +54,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.4961.39/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.5787.12/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -72,13 +72,15 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-gba
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
-all: CMakeFiles/morpheus.dir/all
-all: CMakeFiles/morpheus-gba-input-test.elf.dir/all
-all: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
+all: CMakeFiles/morpheus-gba-sram-test.elf.dir/all
 all: CMakeFiles/morpheus-gba-tileset-test.gba.dir/all
+all: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
+all: CMakeFiles/morpheus-gba-input-test.elf.dir/all
+all: CMakeFiles/morpheus.dir/all
 all: CMakeFiles/morpheus-gba-input-test.gba.dir/all
+all: CMakeFiles/morpheus-gba-sram-test.gba.dir/all
 all: CMakeFiles/morpheus-gba-tileset-test.elf.dir/all
+all: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
 
 .PHONY : all
 
@@ -88,123 +90,44 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
-clean: CMakeFiles/morpheus.dir/clean
-clean: CMakeFiles/morpheus-gba-input-test.elf.dir/clean
-clean: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
+clean: CMakeFiles/morpheus-gba-sram-test.elf.dir/clean
 clean: CMakeFiles/morpheus-gba-tileset-test.gba.dir/clean
+clean: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
+clean: CMakeFiles/morpheus-gba-input-test.elf.dir/clean
+clean: CMakeFiles/morpheus.dir/clean
 clean: CMakeFiles/morpheus-gba-input-test.gba.dir/clean
+clean: CMakeFiles/morpheus-gba-sram-test.gba.dir/clean
 clean: CMakeFiles/morpheus-gba-tileset-test.elf.dir/clean
+clean: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/morpheus-gba-maxmod-test.elf.dir
+# Target rules for target CMakeFiles/morpheus-gba-sram-test.elf.dir
 
 # All Build rule for target.
-CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all: CMakeFiles/morpheus.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=17,18,19 "Built target morpheus-gba-maxmod-test.elf"
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
+CMakeFiles/morpheus-gba-sram-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=21,22,23 "Built target morpheus-gba-sram-test.elf"
+.PHONY : CMakeFiles/morpheus-gba-sram-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 15
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule
-
-# Convenience name for target.
-morpheus-gba-maxmod-test.elf: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule
-
-.PHONY : morpheus-gba-maxmod-test.elf
-
-# clean rule for target.
-CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/morpheus.dir
-
-# All Build rule for target.
-CMakeFiles/morpheus.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target morpheus"
-.PHONY : CMakeFiles/morpheus.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/morpheus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 12
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus.dir/rule
-
-# Convenience name for target.
-morpheus: CMakeFiles/morpheus.dir/rule
-
-.PHONY : morpheus
-
-# clean rule for target.
-CMakeFiles/morpheus.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/clean
-.PHONY : CMakeFiles/morpheus.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/morpheus-gba-input-test.elf.dir
-
-# All Build rule for target.
-CMakeFiles/morpheus-gba-input-test.elf.dir/all: CMakeFiles/morpheus.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=13,14,15,16 "Built target morpheus-gba-input-test.elf"
-.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/morpheus-gba-input-test.elf.dir/rule: cmake_check_build_system
+CMakeFiles/morpheus-gba-sram-test.elf.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 16
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-input-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-sram-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/rule
+.PHONY : CMakeFiles/morpheus-gba-sram-test.elf.dir/rule
 
 # Convenience name for target.
-morpheus-gba-input-test.elf: CMakeFiles/morpheus-gba-input-test.elf.dir/rule
+morpheus-gba-sram-test.elf: CMakeFiles/morpheus-gba-sram-test.elf.dir/rule
 
-.PHONY : morpheus-gba-input-test.elf
-
-# clean rule for target.
-CMakeFiles/morpheus-gba-input-test.elf.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/clean
-.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/morpheus-gba-maxmod-test.gba.dir
-
-# All Build rule for target.
-CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num= "Built target morpheus-gba-maxmod-test.gba"
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 15
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule
-
-# Convenience name for target.
-morpheus-gba-maxmod-test.gba: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule
-
-.PHONY : morpheus-gba-maxmod-test.gba
+.PHONY : morpheus-gba-sram-test.elf
 
 # clean rule for target.
-CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
-.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
+CMakeFiles/morpheus-gba-sram-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-sram-test.elf.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/morpheus-gba-tileset-test.gba.dir
@@ -218,7 +141,7 @@ CMakeFiles/morpheus-gba-tileset-test.gba.dir/all: CMakeFiles/morpheus-gba-tilese
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-gba-tileset-test.gba.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 18
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 19
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-tileset-test.gba.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.gba.dir/rule
@@ -234,6 +157,87 @@ CMakeFiles/morpheus-gba-tileset-test.gba.dir/clean:
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.gba.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-maxmod-test.gba.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num= "Built target morpheus-gba-maxmod-test.gba"
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 16
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-maxmod-test.gba.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule
+
+# Convenience name for target.
+morpheus-gba-maxmod-test.gba: CMakeFiles/morpheus-gba-maxmod-test.gba.dir/rule
+
+.PHONY : morpheus-gba-maxmod-test.gba
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.gba.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.gba.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-input-test.elf.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-input-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=14,15,16,17 "Built target morpheus-gba-input-test.elf"
+.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-input-test.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 17
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-input-test.elf.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/rule
+
+# Convenience name for target.
+morpheus-gba-input-test.elf: CMakeFiles/morpheus-gba-input-test.elf.dir/rule
+
+.PHONY : morpheus-gba-input-test.elf
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-input-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-input-test.elf.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/morpheus.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13 "Built target morpheus"
+.PHONY : CMakeFiles/morpheus.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 13
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus.dir/rule
+
+# Convenience name for target.
+morpheus: CMakeFiles/morpheus.dir/rule
+
+.PHONY : morpheus
+
+# clean rule for target.
+CMakeFiles/morpheus.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/clean
+.PHONY : CMakeFiles/morpheus.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/morpheus-gba-input-test.gba.dir
 
 # All Build rule for target.
@@ -245,7 +249,7 @@ CMakeFiles/morpheus-gba-input-test.gba.dir/all: CMakeFiles/morpheus-gba-input-te
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-gba-input-test.gba.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 17
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-input-test.gba.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-gba-input-test.gba.dir/rule
@@ -261,18 +265,45 @@ CMakeFiles/morpheus-gba-input-test.gba.dir/clean:
 .PHONY : CMakeFiles/morpheus-gba-input-test.gba.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-sram-test.gba.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-sram-test.gba.dir/all: CMakeFiles/morpheus-gba-sram-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.gba.dir/build.make CMakeFiles/morpheus-gba-sram-test.gba.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.gba.dir/build.make CMakeFiles/morpheus-gba-sram-test.gba.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num= "Built target morpheus-gba-sram-test.gba"
+.PHONY : CMakeFiles/morpheus-gba-sram-test.gba.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-sram-test.gba.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 16
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-sram-test.gba.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-sram-test.gba.dir/rule
+
+# Convenience name for target.
+morpheus-gba-sram-test.gba: CMakeFiles/morpheus-gba-sram-test.gba.dir/rule
+
+.PHONY : morpheus-gba-sram-test.gba
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-sram-test.gba.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.gba.dir/build.make CMakeFiles/morpheus-gba-sram-test.gba.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-sram-test.gba.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/morpheus-gba-tileset-test.elf.dir
 
 # All Build rule for target.
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=20,21,22,23,24,25 "Built target morpheus-gba-tileset-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=24,25,26,27,28,29 "Built target morpheus-gba-tileset-test.elf"
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 18
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 19
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-tileset-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.elf.dir/rule
@@ -286,6 +317,33 @@ morpheus-gba-tileset-test.elf: CMakeFiles/morpheus-gba-tileset-test.elf.dir/rule
 CMakeFiles/morpheus-gba-tileset-test.elf.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/clean
 .PHONY : CMakeFiles/morpheus-gba-tileset-test.elf.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/morpheus-gba-maxmod-test.elf.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles --progress-num=18,19,20 "Built target morpheus-gba-maxmod-test.elf"
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 16
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-gba-maxmod-test.elf.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule
+
+# Convenience name for target.
+morpheus-gba-maxmod-test.elf: CMakeFiles/morpheus-gba-maxmod-test.elf.dir/rule
+
+.PHONY : morpheus-gba-maxmod-test.elf
+
+# clean rule for target.
+CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-gba-maxmod-test.elf.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -30,7 +30,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
         return false;
     }
 
-    copy_into_palette(palette, 0);
+    load_into_palette(palette, 0);
 
     return true;
 }
@@ -64,7 +64,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
         return false;
     }
 
-    copy_into_palette(palette, 0);
+    load_into_palette(m_sprite_image->palette, 0);
 
     return true;
 }
@@ -95,7 +95,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
     if(copy_palette) {
         std::cout << "copying into palette\n";
 
-        copy_into_palette(m_sprite_image->palette, palette_id);
+        load_into_palette(m_sprite_image->palette, palette_id);
     }
 
     std::cout << "loaded pcx\n";
@@ -103,15 +103,8 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
     return true;
 }
 
-void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) {
-    core::gfx::Vector2 position = get_position();
-
-    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
-           static_cast<int>(get_palette_id()),get_sprite_size(), SpriteColorFormat_256Color,
-           get_gfx_pointer(), -1, false, false, false, false, false);
-}
-
-bool morpheus::nds::gfx::Sprite8Bpp::copy_into_palette(const unsigned short *palette, const unsigned int palette_id) {
+bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                                       const unsigned int pal_len) {
     OamState *current_oam = get_current_oam();
     std::string oam_name;
 
@@ -121,13 +114,13 @@ bool morpheus::nds::gfx::Sprite8Bpp::copy_into_palette(const unsigned short *pal
 
             vramSetBankI(VRAM_I_LCD);
 
-            dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], 256);
+            dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], pal_len);
         } else {
             oam_name = "oamMain";
 
             vramSetBankF(VRAM_F_LCD);
 
-            dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], 256);
+            dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], pal_len);
         }
 
         set_palette_id(palette_id);
@@ -141,13 +134,21 @@ bool morpheus::nds::gfx::Sprite8Bpp::copy_into_palette(const unsigned short *pal
         }
     } else {
         if(current_oam == &oamSub) {
-            dmaCopy(palette, &SPRITE_PALETTE_SUB[0], 256);
+            dmaCopy(palette, &SPRITE_PALETTE_SUB[0], pal_len);
         } else {
-            dmaCopy(palette, &SPRITE_PALETTE[0], 256);
+            dmaCopy(palette, &SPRITE_PALETTE[0], pal_len);
         }
 
         std::cout << "loaded 8bpp palette (single palette mode)\n";
     }
 
     return true;
+}
+
+void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) {
+    core::gfx::Vector2 position = get_position();
+
+    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
+           static_cast<int>(get_palette_id()),get_sprite_size(), SpriteColorFormat_256Color,
+           get_gfx_pointer(), -1, false, false, false, false, false);
 }

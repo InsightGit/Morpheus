@@ -98,6 +98,8 @@ namespace morpheus {
 
             return nullptr;
         }
+
+        //static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background()
     }
 }
 

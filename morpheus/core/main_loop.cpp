@@ -5,6 +5,11 @@
 #include "main_loop.hpp"
 
 
+int morpheus::core::MainLoop::past_random_number = 0;
+bool morpheus::core::MainLoop::mt_inited = false;
+unsigned short morpheus::core::MainLoop::r256table[256];
+unsigned char morpheus::core::MainLoop::r256index;
+
 std::vector<morpheus::core::InputEvent>
 morpheus::core::MainLoop::to_input_events(const uint32_t inputs, const uint16_t input_bits[],
                                           int input_bits_size, const morpheus::core::InputState input_state) {
@@ -19,4 +24,13 @@ morpheus::core::MainLoop::to_input_events(const uint32_t inputs, const uint16_t 
     }
 
     return input_events;
+}
+
+int morpheus::core::MainLoop::get_random_number(int max, int min) {
+    // based of libtonc's qran_range function as explained here:
+    // https://www.coranac.com/tonc/text/gfx.htm
+
+    past_random_number = 1664525 * past_random_number + 1013904223;
+
+    return (((past_random_number >> 16) & 0x7FFF) * (max - min) >> 15) + min;
 }

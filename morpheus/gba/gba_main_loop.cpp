@@ -32,6 +32,10 @@ morpheus::gba::GbaMainLoop::~GbaMainLoop() {
     }
 }
 
+void morpheus::gba::GbaMainLoop::disable_window(morpheus::core::gfx::WindowType window_type) {
+
+}
+
 void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) {
     switch (background_num) {
         case 0:
@@ -50,6 +54,19 @@ void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) 
 
     if(m_platform_inited) {
         REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable;
+    }
+}
+
+void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType window_type) {
+    switch(window_type) {
+        case morpheus::core::gfx::WindowType::WINDOW_0:
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_1:
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_OBJ:
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_OUT:
+            break;
     }
 }
 
@@ -81,13 +98,22 @@ void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) 
                 m_root->received_input(input_event);
             }
 
+            m_root->received_update(m_cycle_time);
+
             m_root->draw(m_obj_buffer, 0);
+
         }
 
         oam_copy(oam_mem, static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
         if(m_debug_stream.get() != nullptr) {
             m_debug_stream.get()->refresh_and_print();
+        }
+
+        ++m_cycle_time;
+
+        if(m_cycle_time >= 60) {
+            m_cycle_time = 0;
         }
 
         mmFrame();
@@ -182,6 +208,8 @@ void morpheus::gba::GbaMainLoop::setup_debug_console() {
     //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
 
     tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
+
+    enable_background(0);
 
     m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream());
 

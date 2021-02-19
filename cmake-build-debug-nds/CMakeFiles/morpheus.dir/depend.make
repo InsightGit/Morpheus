@@ -11,9 +11,8 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: ../morpheus/core/
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libnds/include/mm_types.h
 
-CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o: ../morpheus/core/gfx/palette_manager.cpp
-
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/node.hpp
@@ -21,6 +20,15 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/input_event.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/node.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.cpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
+
+CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/node.hpp
@@ -28,6 +36,7 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/uncopyab
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.cpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/node.hpp
@@ -39,6 +48,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/audio/ma
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/node.hpp
@@ -102,6 +112,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/au
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/node.hpp
@@ -166,6 +177,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/au
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/node.hpp
@@ -230,6 +242,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/cor
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/node.hpp
@@ -294,6 +307,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/node.hpp
@@ -359,6 +373,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/node.hpp
@@ -420,6 +435,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devk
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/node.hpp

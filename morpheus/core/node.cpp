@@ -13,6 +13,14 @@ void morpheus::core::Node::received_input(InputEvent input_event) {
     }
 }
 
+void morpheus::core::Node::received_update(unsigned char cycle_time) {
+    update(cycle_time);
+
+    for(std::unique_ptr<Node> &child : m_children) {
+        child->received_update(cycle_time);
+    }
+}
+
 unsigned int morpheus::core::Node::draw(std::vector<void *> obj_attr_buffer, unsigned int obj_attr_num,
                                         unsigned int priority) {
     if(obj_attr_num >= 128) {

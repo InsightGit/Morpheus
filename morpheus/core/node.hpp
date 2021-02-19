@@ -26,7 +26,9 @@ namespace morpheus {
                 // TODO(Bobby): Implement this method
             }
 
+            // only called when Node is root of the tree.
             void received_input(InputEvent input_event);
+            void received_update(unsigned char cycle_time);
 
             unsigned int draw(std::vector<void *>obj_attr_buffer, unsigned int obj_attr_num = 0,
                               unsigned int priority = 0);
@@ -36,6 +38,7 @@ namespace morpheus {
             virtual void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) = 0;
 
             virtual void input(InputEvent input_event) = 0;
+            virtual void update(unsigned char cycle_time) = 0;
         private:
             unsigned int draw_children(std::vector<void *>obj_attr_buffer, unsigned int obj_attr_num,
                                        unsigned int priority);

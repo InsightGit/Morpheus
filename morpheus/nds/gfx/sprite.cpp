@@ -55,10 +55,23 @@ morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, const SpriteMappi
 
         oamInit(m_current_oam, sprite_mapping, m_extended_palette);
     }
+
+    m_do_not_free_gfx_pointer = false;
+}
+
+morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
+                                   morpheus::nds::gfx::ExtendedPaletteStatus external_palette,
+                                   unsigned short *nds_oam_address, const unsigned char width,
+                                   const unsigned char height) : Sprite(use_sub_display, sprite_mapping,
+                                                                        external_palette) {
+    m_do_not_free_gfx_pointer = true;
+    m_gfx_pointer = nds_oam_address;
+
+    set_sprite_size(width, height);
 }
 
 morpheus::nds::gfx::Sprite::~Sprite() {
-    if(m_gfx_pointer != nullptr) {
+    if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
         oamFreeGfx(m_current_oam, m_gfx_pointer);
     }
 }
@@ -68,7 +81,7 @@ void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_fo
         set_sprite_size(width, height);
     }
 
-    if(m_gfx_pointer != nullptr) {
+    if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
         std::cout << "freeing gfx\n";
 
         oamFreeGfx(m_current_oam, m_gfx_pointer);
@@ -77,7 +90,7 @@ void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_fo
     m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
 }
 
-void morpheus::nds::gfx::Sprite::set_sprite_size(const uint8_t width, const uint8_t height) {
+void morpheus::nds::gfx::Sprite::set_sprite_size(const unsigned char width, const unsigned char height) {
     if(width == height) {
         switch(width) {
             case 8:

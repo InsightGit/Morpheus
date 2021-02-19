@@ -35,12 +35,12 @@ namespace morpheus {
                     bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                          const unsigned short *palette, const unsigned int width,
                                          const unsigned int height)override;
+                    bool load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                           const unsigned int pal_len = 256)override;
 
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
-                                       bool copy_palette = true);
-
+                                           bool copy_palette = true);
                 protected:
-                    bool copy_into_palette(const unsigned short *palette, const unsigned int palette_id)override;
                     void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override;
                 private:
                     std::unique_ptr<sImage> m_sprite_image;

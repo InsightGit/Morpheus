@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o"
-  "CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o"
@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o"
   "libgba_morpheus.a"
   "libgba_morpheus.pdb"
   "morpheus-gba-maxmod-test.gba"

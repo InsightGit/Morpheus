@@ -1,5 +1,6 @@
 # Hashes of file build rules.
 594a714a7367e8b91ad44befb8d9d989 CMakeFiles/morpheus-nds-extended-palette-test.nds
+ae7195f3e176946e0911ae800da667b6 CMakeFiles/morpheus-nds-flash-test.nds
 448f629992d5585b15028a9fdfab90fd CMakeFiles/morpheus-nds-input-test.nds
 e59e9b603cd385fb8c3a97b033f27732 CMakeFiles/morpheus-nds-maxmod-test.nds
 575ea065534be12d898f95137840b81d CMakeFiles/morpheus-nds-tileset-test.nds

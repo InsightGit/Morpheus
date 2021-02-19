@@ -11,17 +11,25 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o
  /home/bobby/morpheus/morpheus/core/audio/max_mod_sfx.hpp
  /opt/devkitpro/libgba/include/maxmod.h
  /opt/devkitpro/libgba/include/mm_types.h
-CMakeFiles/morpheus.dir/morpheus/core/gfx/palette_manager.cpp.o
- /home/bobby/morpheus/morpheus/core/gfx/palette_manager.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
  ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
  ../morpheus/core/uncopyable.hpp
  /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp
  /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
+ ../morpheus/core/gfx/window.hpp
+ ../morpheus/core/input_event.hpp
+ ../morpheus/core/main_loop.hpp
+ ../morpheus/core/node.hpp
+ ../morpheus/core/uncopyable.hpp
+ /home/bobby/morpheus/morpheus/core/gfx/window.cpp
+ /home/bobby/morpheus/morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -29,6 +37,7 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
  /home/bobby/morpheus/morpheus/core/main_loop.cpp
  /home/bobby/morpheus/morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -36,6 +45,7 @@ CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
  /home/bobby/morpheus/morpheus/core/node.cpp
  /home/bobby/morpheus/morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -61,6 +71,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o
  /opt/devkitpro/libtonc/include/tonc_video.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o
  ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -84,6 +95,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o
  /opt/devkitpro/libtonc/include/tonc_video.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
  ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -108,6 +120,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
  /opt/devkitpro/libtonc/include/tonc_video.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
  ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -133,6 +146,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o
  ../morpheus/core/gfx/tiled_background_base.hpp
  ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
@@ -157,3 +171,17 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o
  /opt/devkitpro/libtonc/include/tonc_tte.h
  /opt/devkitpro/libtonc/include/tonc_types.h
  /opt/devkitpro/libtonc/include/tonc_video.h
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o
+ ../morpheus/core/audio/max_mod_music.hpp
+ ../morpheus/core/core.hpp
+ ../morpheus/core/gfx/tiled_background_base.hpp
+ ../morpheus/core/gfx/vector_2.hpp
+ ../morpheus/core/gfx/window.hpp
+ ../morpheus/core/input_event.hpp
+ ../morpheus/core/main_loop.hpp
+ ../morpheus/core/node.hpp
+ ../morpheus/core/uncopyable.hpp
+ /home/bobby/morpheus/morpheus/gba/gfx/window.cpp
+ /home/bobby/morpheus/morpheus/gba/gfx/window.hpp
+ /opt/devkitpro/libgba/include/maxmod.h
+ /opt/devkitpro/libgba/include/mm_types.h

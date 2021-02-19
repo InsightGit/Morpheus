@@ -24,6 +24,12 @@ namespace morpheus {
                 int get_y() const {
                     return m_y;
                 }
+
+                // TODO(Bobby): Do all other operator overloads
+
+                bool operator==(const Vector2& other) const {
+                    return (m_x == other.m_x) && (m_y == other.m_y);
+                }
             private:
                 int m_x;
                 int m_y;

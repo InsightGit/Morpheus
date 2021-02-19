@@ -34,8 +34,15 @@ namespace morpheus {
             public:
                 explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
                                 ExtendedPaletteStatus external_palette);
+                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
+                                ExtendedPaletteStatus external_palette, unsigned short *nds_oam_address,
+                                const unsigned char width, const unsigned char height);
 
                 virtual ~Sprite();
+
+                uint16_t *get_gfx_pointer() const {
+                    return m_gfx_pointer;
+                }
 
                 core::gfx::Vector2 get_position() const {
                     return m_position;
@@ -55,15 +62,13 @@ namespace morpheus {
                 virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                              const unsigned short *palette, const unsigned int width,
                                              const unsigned int height) = 0;
+                virtual bool load_into_palette(const unsigned short *palette, const unsigned int palette_id,
+                                               const unsigned int pal_len) = 0;
             protected:
                 void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0);
 
                 OamState *get_current_oam() const {
                     return m_current_oam;
-                }
-
-                uint16_t *get_gfx_pointer() const {
-                    return m_gfx_pointer;
                 }
 
                 SpriteSize get_sprite_size() const {
@@ -82,11 +87,12 @@ namespace morpheus {
                     return m_extended_palette;
                 }
 
-                void set_sprite_size(uint8_t width, uint8_t height);
+                void set_sprite_size(const unsigned char width, const unsigned char height);
 
-                virtual bool copy_into_palette(const unsigned short *palette, const unsigned int palette_id) = 0;
+                virtual void update(unsigned char cycle_time)override {}
                 virtual void input(core::InputEvent input_event)override {}
             private:
+                bool m_do_not_free_gfx_pointer;
                 bool m_extended_palette;
                 unsigned int m_palette_id;
 

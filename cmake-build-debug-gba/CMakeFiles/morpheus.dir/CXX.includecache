@@ -6,10 +6,20 @@
 
 #IncludeRegexTransform: 
 
+../morpheus/core/gfx/vector_2.hpp
+
+../morpheus/core/gfx/window.hpp
+memory
+-
+core/main_loop.hpp
+-
+
 ../morpheus/core/input_event.hpp
 
 ../morpheus/core/main_loop.hpp
 vector
+-
+core/gfx/window.hpp
 -
 core/input_event.hpp
 -
@@ -32,31 +42,25 @@ core/input_event.hpp
 
 ../morpheus/core/uncopyable.hpp
 
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp
-gba_main_loop.hpp
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
-
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
-iostream
+../morpheus/gba/gfx/sprite.hpp
+cassert
 -
-list
--
-sstream
--
-string
--
-maxmod.h
+cstring
 -
 tonc.h
 -
-core/main_loop.hpp
+core/node.hpp
+-
+core/gfx/vector_2.hpp
 -
 
-/opt/devkitpro/libgba/include/maxmod.h
-mm_types.h
--
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
+sprite_4_bpp.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
 
-/opt/devkitpro/libgba/include/mm_types.h
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
+gba/gfx/sprite.hpp
+-
 
 /opt/devkitpro/libtonc/include/tonc.h
 tonc_types.h
