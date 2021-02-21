@@ -18,7 +18,7 @@ public:
         m_background1 = background1;
     }
 
-    virtual void input(morpheus::core::InputEvent input_event)override {
+    virtual void input(morpheus::core::InputEvent input_event) override {
         if(input_event.state == morpheus::core::InputState::DOWN ||
            input_event.state == morpheus::core::InputState::HELD) {
             switch(input_event.button) {
@@ -37,6 +37,8 @@ public:
             scroll_background(input_event);
         }
     }
+
+    virtual void update(unsigned char cycle_time) override {}
 private:
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background1;

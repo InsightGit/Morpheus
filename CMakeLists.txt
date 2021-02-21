@@ -84,6 +84,8 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/sprite_4_bpp.cpp
             morpheus/nds/gfx/sprite_8_bpp.hpp
             morpheus/nds/gfx/sprite_8_bpp.cpp
+            morpheus/nds/gfx/text.hpp
+            morpheus/nds/gfx/text.cpp
             morpheus/nds/gfx/tiled_background.hpp
             morpheus/nds/gfx/tiled_background.cpp
             morpheus/nds/gfx/tiled_background_4_bpp.hpp

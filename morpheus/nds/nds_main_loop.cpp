@@ -4,6 +4,8 @@
 
 #include "nds_main_loop.hpp"
 
+PrintConsole *morpheus::nds::NdsMainLoop::debug_print_console = nullptr;
+
 morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) {
     #ifdef NDEBUG
         bool debug = false;
@@ -58,6 +60,8 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     int iteration = 0;
 
     while(true) {
+        reset_to_debug_print_console();
+
         if(m_root != nullptr) {
             scanKeys();
 
@@ -123,7 +127,7 @@ void morpheus::nds::NdsMainLoop::setup_debug_console(bool use_main_display) {
         videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     }
 
-    consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);
+    debug_print_console = consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);
 }
 
 morpheus::core::InputEvent

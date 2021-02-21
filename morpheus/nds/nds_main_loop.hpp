@@ -33,6 +33,12 @@ namespace morpheus {
         public:
             explicit NdsMainLoop(DebugConsoleMode debug_console_mode = DebugConsoleMode::USE_DEFAULT_MAIN);
 
+            static void reset_to_debug_print_console() {
+                if(debug_print_console != nullptr) {
+                    consoleSelect(debug_print_console);
+                }
+            }
+
             void disable_window(core::gfx::WindowType window_type)override;
 
             void enable_background(unsigned int background_reference_num)override;
@@ -45,6 +51,8 @@ namespace morpheus {
             core::InputEvent to_input_event(uint32_t inputs, uint16_t keypad_bit,
                                             morpheus::core::InputState input_state)override;
         private:
+            static PrintConsole *debug_print_console;
+
             void setup_debug_console(bool use_main_display);
         };
     }

@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
+  "/home/bobby/morpheus/morpheus/nds/gfx/text.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/tiled_background.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/tiled_background_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/tiled_background_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"

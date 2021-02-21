@@ -238,6 +238,9 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libn
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: ../morpheus/nds/gfx/text.cpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: ../morpheus/nds/gfx/text.hpp
+
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp

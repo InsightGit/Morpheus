@@ -38,9 +38,9 @@ namespace puzzler {
         void setup()override;
         void update(unsigned char cycle_time)override;
     private:
-        bool is_gem_at_position(morpheus::core::gfx::Vector2 position);
-
         const morpheus::core::gfx::Vector2 MOVE_PER_SEC = morpheus::core::gfx::Vector2(10, 10);
+        const int SCORE_TEXT_MAP_BASE = 22;
+        const int SCORE_TEXT_TILE_BASE = 3;
 
         std::shared_ptr<Jewel> m_active_jewel;
         unsigned char m_current_action_cycle;
@@ -48,7 +48,24 @@ namespace puzzler {
         bool m_current_action_cycle_waiting = false;
         std::vector<std::shared_ptr<Jewel>> m_jewels;
         std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
+        unsigned int m_total_score = 0;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
+
+        #ifdef _NDS
+            PrintConsole m_score_console;
+        #endif
+
+        std::vector<puzzler::Jewel*> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
+        bool is_gem_at_position(morpheus::core::gfx::Vector2 position) {
+            std::vector<morpheus::core::gfx::Vector2> vector;
+
+            vector.push_back(position);
+
+            return is_gem_at_positions(vector);
+        }
+        bool is_gem_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
+
+        void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
     };
 }
 

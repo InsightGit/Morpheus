@@ -575,6 +575,33 @@ morpheus/nds/gfx/sprite_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.s
 .PHONY : morpheus/nds/gfx/sprite_8_bpp.cpp.s
 
+morpheus/nds/gfx/text.o: morpheus/nds/gfx/text.cpp.o
+
+.PHONY : morpheus/nds/gfx/text.o
+
+# target to build an object file
+morpheus/nds/gfx/text.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o
+.PHONY : morpheus/nds/gfx/text.cpp.o
+
+morpheus/nds/gfx/text.i: morpheus/nds/gfx/text.cpp.i
+
+.PHONY : morpheus/nds/gfx/text.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/text.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.i
+.PHONY : morpheus/nds/gfx/text.cpp.i
+
+morpheus/nds/gfx/text.s: morpheus/nds/gfx/text.cpp.s
+
+.PHONY : morpheus/nds/gfx/text.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/text.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.s
+.PHONY : morpheus/nds/gfx/text.cpp.s
+
 morpheus/nds/gfx/tiled_background.o: morpheus/nds/gfx/tiled_background.cpp.o
 
 .PHONY : morpheus/nds/gfx/tiled_background.o
@@ -900,6 +927,9 @@ help:
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.o"
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.i"
 	@echo "... morpheus/nds/gfx/sprite_8_bpp.s"
+	@echo "... morpheus/nds/gfx/text.o"
+	@echo "... morpheus/nds/gfx/text.i"
+	@echo "... morpheus/nds/gfx/text.s"
 	@echo "... morpheus/nds/gfx/tiled_background.o"
 	@echo "... morpheus/nds/gfx/tiled_background.i"
 	@echo "... morpheus/nds/gfx/tiled_background.s"

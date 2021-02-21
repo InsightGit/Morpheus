@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"
