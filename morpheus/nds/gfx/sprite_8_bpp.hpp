@@ -41,7 +41,7 @@ namespace morpheus {
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
                                            bool copy_palette = true);
                 protected:
-                    void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override;
+                    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
                 private:
                     std::unique_ptr<sImage> m_sprite_image;
             };

@@ -56,6 +56,14 @@ namespace morpheus {
                     set_position(core::gfx::Vector2(x, y));
                 }
 
+                unsigned int get_palette_id() const {
+                    return m_palette_id;
+                }
+
+                void set_palette_id(const unsigned int palette_id) {
+                    m_palette_id = palette_id;
+                }
+
                 // Extended palette load functions
                 virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                              const unsigned int width, const unsigned int height) = 0;
@@ -75,14 +83,6 @@ namespace morpheus {
                     return m_sprite_size;
                 }
 
-                unsigned int get_palette_id() const {
-                    return m_palette_id;
-                }
-
-                void set_palette_id(const unsigned int palette_id) {
-                    m_palette_id = palette_id;
-                }
-
                 bool is_in_extended_palette_mode() const {
                     return m_extended_palette;
                 }
@@ -91,9 +91,15 @@ namespace morpheus {
 
                 virtual void update(unsigned char cycle_time)override {}
                 virtual void input(core::InputEvent input_event)override {}
+            protected:
+                void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
+                    m_last_used_obj_attr_num = last_used_obj_attr_num;
+                }
             private:
                 bool m_do_not_free_gfx_pointer;
                 bool m_extended_palette;
+                bool m_enabled = false;
+                int m_last_used_obj_attr_num = -1;
                 unsigned int m_palette_id;
 
                 core::gfx::Vector2 m_position;

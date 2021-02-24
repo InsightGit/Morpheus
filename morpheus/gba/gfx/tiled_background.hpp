@@ -37,6 +37,8 @@ namespace morpheus {
 
                 void set_priority(const unsigned int priority) override {
                     m_background_priority = std::min(3u, priority);
+
+                    update_background_register();
                 }
             protected:
                 void update_scroll()override;

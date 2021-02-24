@@ -42,11 +42,11 @@ namespace puzzler {
         const int SCORE_TEXT_MAP_BASE = 22;
         const int SCORE_TEXT_TILE_BASE = 3;
 
-        std::shared_ptr<Jewel> m_active_jewel;
+        std::unique_ptr<Jewel> m_active_jewel;
         unsigned char m_current_action_cycle;
         unsigned int m_cycles = 0;
         bool m_current_action_cycle_waiting = false;
-        std::vector<std::shared_ptr<Jewel>> m_jewels;
+        std::vector<std::unique_ptr<Jewel>> m_jewels;
         std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
         unsigned int m_total_score = 0;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
@@ -55,7 +55,7 @@ namespace puzzler {
             PrintConsole m_score_console;
         #endif
 
-        std::vector<puzzler::Jewel*> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
+        std::vector<unsigned int> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
         bool is_gem_at_position(morpheus::core::gfx::Vector2 position) {
             std::vector<morpheus::core::gfx::Vector2> vector;
 

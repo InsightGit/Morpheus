@@ -54,11 +54,35 @@ core/node.hpp
 core/gfx/vector_2.hpp
 -
 
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
+sprite.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+cassert
+-
+cstring
+-
+tonc.h
+-
+core/node.hpp
+-
+core/gfx/vector_2.hpp
+-
+
 /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
 sprite_4_bpp.hpp
 /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
 
 /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
+gba/gfx/sprite.hpp
+-
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp
+sprite_8_bpp.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp
 gba/gfx/sprite.hpp
 -
 

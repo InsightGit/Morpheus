@@ -107,8 +107,8 @@ namespace puzzler {
                 m_jewel_sprite->draw(obj_attr_buffer, obj_attr_num, priority);
             }
         }
+
     protected:
-        // both are implemented in parent MainGameScene class
         void input(morpheus::core::InputEvent input_event) override {}
         void update(unsigned char cycle_time) override {}
     private:
@@ -131,7 +131,7 @@ namespace puzzler {
         puzzler::JewelType m_jewel_type;
         unsigned int m_palette_id = 0;
         morpheus::core::gfx::Vector2 m_pre_position;
-        unsigned int m_tile_id;
+        unsigned short m_tile_id;
         bool m_using_light_palette = false;
     };
 }

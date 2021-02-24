@@ -74,6 +74,14 @@ morpheus::nds::gfx::Sprite::~Sprite() {
     if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
         oamFreeGfx(m_current_oam, m_gfx_pointer);
     }
+
+    std::cout << "Destructor called\n";
+
+    if(m_last_used_obj_attr_num != -1) {
+        oamClearSprite(m_current_oam, m_last_used_obj_attr_num);
+
+        std::cout << "sprite cleared\n";
+    }
 }
 
 void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width, uint8_t height) {

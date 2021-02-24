@@ -74,6 +74,8 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
     platform_init();
 
     while(true) {
+        int attr_num = 0;
+
         if(m_root != nullptr) {
             key_poll();
 
@@ -100,14 +102,15 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
 
             m_root->received_update(m_cycle_time);
 
-            m_root->draw(m_obj_buffer, 0);
-
+            attr_num = m_root->draw(m_obj_buffer, 0);
         }
 
-        oam_copy(oam_mem, static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
+        for(int i = 0; attr_num > i; ++i) {
+            oam_copy(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 1);
+        }
 
-        if(m_debug_stream.get() != nullptr) {
-            m_debug_stream.get()->refresh_and_print();
+        if(m_debug_stream != nullptr) {
+            m_debug_stream->refresh_and_print();
         }
 
         ++m_cycle_time;

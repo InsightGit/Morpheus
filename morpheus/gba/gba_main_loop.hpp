@@ -55,6 +55,8 @@ namespace morpheus {
                 }
             };
 
+            const int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
+
             std::unique_ptr<DebugStream> m_debug_stream;
             std::vector<void *> m_obj_buffer;
 

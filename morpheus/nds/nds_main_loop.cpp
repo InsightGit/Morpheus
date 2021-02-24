@@ -87,8 +87,13 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 
             m_root->received_update(m_cycle_time);
 
+            oamClear(&oamMain, 0, 0);
+            oamClear(&oamSub, 0, 0);
+
             // TODO(Bobby): Fix unneeded argument 1 problem
-            m_root->draw(std::vector<void *>(), 0);
+            std::vector<void*> filler;
+
+            m_root->draw(filler, 0);
         }
 
         ++iteration;

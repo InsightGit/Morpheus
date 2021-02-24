@@ -24,12 +24,22 @@ namespace morpheus {
 
                     explicit Sprite(const bool is_4bpp, const unsigned short palette_id, const unsigned short tile_id,
                                     const unsigned short width, const unsigned short height) : Sprite(is_4bpp) {
+                        m_palette_id = palette_id;
+
                         build_attr2(palette_id, tile_id);
                         setup_size_attr(width, height);
                     }
 
+                    unsigned short get_palette_id() const {
+                        return m_palette_id;
+                    }
+
                     core::gfx::Vector2 get_position() const {
                         return m_position;
+                    }
+
+                    void set_palette_id(const unsigned short palette_id) {
+                        m_palette_id = palette_id;
                     }
 
                     void set_position(const core::gfx::Vector2 position) {
@@ -55,7 +65,7 @@ namespace morpheus {
                     }
                     void setup_size_attr(const unsigned short width, const unsigned short height);
 
-                    void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override;
+                    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
 
                     virtual void input(core::InputEvent input_event)override {}
                     virtual void update(unsigned char cycle_time)override {}
@@ -71,6 +81,8 @@ namespace morpheus {
                     unsigned short m_attr0;
                     unsigned short m_attr1;
                     unsigned short m_attr2;
+
+                    unsigned short m_palette_id;
 
                     core::gfx::Vector2 m_position;
             };

@@ -20,7 +20,7 @@ puzzler::Jewel::Jewel() {
         case 0:
             m_jewel_type = JewelType::Circle;
             m_palette_id = 8;
-            m_tile_id = 1;
+            m_tile_id = 0;
 
             tile_array = reinterpret_cast<const unsigned short*>(&circlejewelTiles[0]);
 
@@ -28,7 +28,7 @@ puzzler::Jewel::Jewel() {
         case 1:
             m_jewel_type = JewelType::Diamond;
             m_palette_id = 6;
-            m_tile_id = 2;
+            m_tile_id = 10;
 
             tile_array = reinterpret_cast<const unsigned short*>(&diamondjewelTiles[0]);
 
@@ -36,7 +36,7 @@ puzzler::Jewel::Jewel() {
         case 2:
             m_jewel_type = JewelType::Square;
             m_palette_id = 0;
-            m_tile_id = 3;
+            m_tile_id = 20;
 
             tile_array = reinterpret_cast<const unsigned short*>(&squarejewelTiles[0]);
 
@@ -44,7 +44,7 @@ puzzler::Jewel::Jewel() {
         case 3:
             m_jewel_type = JewelType::Triangle;
             m_palette_id = 2;
-            m_tile_id = 4;
+            m_tile_id = 30;
 
             tile_array = reinterpret_cast<const unsigned short*>(&trianglejewelTiles[0]);
 
@@ -55,24 +55,23 @@ puzzler::Jewel::Jewel() {
         #ifdef _GBA
             m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
 
-
             reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
         #elif _NDS
-            m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false,
-                                                                       jewel_oam_pointers[random_number],
-                                                                       16, 16));
+            m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false, jewel_oam_pointers[random_number], 16, 16));
 
-            reinterpret_cast<morpheus::nds::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
+            auto *sprite = reinterpret_cast<morpheus::nds::gfx::Sprite4Bpp*>(m_jewel_sprite.get());
+
+            sprite->set_palette_id(m_palette_id);
         #endif
     } else {
         #ifdef _GBA
-            auto *sprite4Bpp = new morpheus::gba::gfx::Sprite4Bpp();
+            auto *sprite4Bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
 
             m_jewel_sprite.reset(sprite4Bpp);
 
             sprite4Bpp->set_position(m_pre_position);
 
-            sprite4Bpp->load_from_array(tile_array, m_palette_id,16, 16, m_tile_id);
+            static_cast<morpheus::gba::gfx::Sprite*>(sprite4Bpp)->load_from_array(tile_array, 16, 16, m_tile_id);
         #elif _NDS
             auto *sprite_4_bpp = new morpheus::nds::gfx::Sprite4Bpp(false);
 
@@ -82,7 +81,7 @@ puzzler::Jewel::Jewel() {
 
             sprite_4_bpp->set_position(m_pre_position);
 
-            assert(sprite_4_bpp->load_from_array(tile_array, m_palette_id, 16, 16));
+            sassert(sprite_4_bpp->load_from_array(tile_array, m_palette_id, 16, 16), "sprite not properly loaded");
             jewel_oam_pointers[random_number] = sprite_4_bpp->get_gfx_pointer();
         #endif
 
@@ -115,7 +114,7 @@ puzzler::JewelCollision puzzler::Jewel::check_collision(puzzler::JewelCollision 
                     m_south_jewel->check_collision(base_jewel_collision);
                 }
                 break;
-        }//
+        }
     }
 
     return base_jewel_collision;

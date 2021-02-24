@@ -4,7 +4,7 @@
 
 #include "sprite.hpp"
 
-void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) {
+void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
     auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
 
     if(priority < 3 && priority >= 0) {

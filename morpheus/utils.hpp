@@ -23,7 +23,7 @@ namespace morpheus {
                 m_background = background;
             }
 
-            void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority)override {}
+            void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override {}
 
             virtual void input(morpheus::core::InputEvent input_event)override {
                 scroll_background(input_event);

@@ -19,31 +19,37 @@ namespace morpheus {
             Node() = default;
 
             void add_child(Node *child) {
-                m_children.push_back(std::unique_ptr<Node>(child));
+                m_children.push_back(child);
             }
 
             void remove_child(Node *child){
                 // TODO(Bobby): Implement this method
+                for(unsigned int i = 0; m_children.size() > i; ++i) {
+                    if(m_children[i] == child) {
+                        m_children.erase(m_children.begin() + static_cast<int>(i));
+                    }
+                }
             }
 
             // only called when Node is root of the tree.
             void received_input(InputEvent input_event);
             void received_update(unsigned char cycle_time);
 
-            unsigned int draw(std::vector<void *>obj_attr_buffer, unsigned int obj_attr_num = 0,
-                              unsigned int priority = 0);
+            int draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num = 0,
+                     unsigned int priority = 0);
         protected:
-            std::list<Node*> get_children();
+            std::vector<Node*> get_children() const {
+                return m_children;
+            }
 
-            virtual void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) = 0;
-
+            virtual void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) = 0;
             virtual void input(InputEvent input_event) = 0;
             virtual void update(unsigned char cycle_time) = 0;
         private:
-            unsigned int draw_children(std::vector<void *>obj_attr_buffer, unsigned int obj_attr_num,
+            unsigned int draw_children(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num,
                                        unsigned int priority);
 
-            std::list<std::unique_ptr<Node>> m_children;
+            std::vector<Node*> m_children;
         };
     }
 }
