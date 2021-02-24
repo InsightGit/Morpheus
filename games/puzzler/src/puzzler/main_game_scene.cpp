@@ -66,24 +66,15 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 }
 
 void puzzler::MainGameScene::setup() {
-    #ifdef _GBA
-        /*morpheus::gba::gfx::Sprite4Bpp sprite;
-
-        sprite.load_into_palette(circlejewelPal, 0, circlejewelPalLen);*/
-        memcpy16(pal_obj_mem, circlejewelPal, circlejewelPalLen);
-    #elif _NDS
-        morpheus::nds::gfx::Sprite8Bpp sprite(false, false);
-
-        sprite.load_into_palette(circlejewelPal, 0, circlejewelPalLen);
-    #endif
-
     m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
                                        maingamescreenPalLen, maingamescreenMap, maingamescreenMapLen,
                                        morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
 
-    m_user_background->set_priority(1);
-
     #ifdef _GBA
+        morpheus::gba::gfx::Sprite4Bpp sprite;
+
+        sprite.load_into_palette(circlejewelPal, 0, circlejewelPalLen);
+
         m_main_loop->enable_background(1);
 
         tte_init_se(1, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr,
@@ -100,6 +91,10 @@ void puzzler::MainGameScene::setup() {
         // intentional copy
         unsigned short old_palette_value = BG_PALETTE[0];
 
+        morpheus::nds::gfx::Sprite8Bpp sprite(false, false);
+
+        sprite.load_into_palette(circlejewelPal, 0, circlejewelPalLen);
+
         m_score_console = *consoleGetDefault();
 
         std::cout << "Printing score\n";
@@ -115,6 +110,8 @@ void puzzler::MainGameScene::setup() {
 
         std::cout << "Printed score\n";
     #endif
+
+    m_user_background->set_priority(1);
 }
 
 void puzzler::MainGameScene::update(unsigned char cycle_time) {
@@ -122,25 +119,17 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
     #ifdef _NDS
         bgSetPriority(0, 1);
-    #elif _GBA
-        //
     #endif
 
     if(m_active_jewel == nullptr) {
         if(m_current_action_cycle_waiting && m_current_action_cycle == cycle_time) {
             m_current_action_cycle_waiting = false;
 
-            #ifdef _GBA
-                m_active_jewel.reset(new Jewel());
-            #elif _NDS
-                m_active_jewel.reset(new Jewel());
-            #endif
+            m_active_jewel.reset(new Jewel());
 
             m_active_jewel->set_position(morpheus::core::gfx::Vector2(64, 16));
 
             add_child(m_active_jewel.get());
-
-            m_current_action_cycle_waiting = false;
 
             //std::cout << "\x1b[6;0H Added jewel\n";
         } else if(!m_current_action_cycle_waiting) {

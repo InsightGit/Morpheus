@@ -28,8 +28,8 @@ namespace morpheus {
                                      const unsigned short palette_id, const unsigned short width,
                                      const unsigned short height, const unsigned short tile_id);
                 void load_from_array(const unsigned short *tile_array, const unsigned short palette_id,
-                                          const unsigned short width, const unsigned short height,
-                                          const unsigned short tile_id);
+                                     const unsigned short width, const unsigned short height,
+                                     const unsigned short tile_id);
 
                 void load_into_palette(const unsigned short *palette, const unsigned int palette_id,
                                        const unsigned int pal_len = 16)override;

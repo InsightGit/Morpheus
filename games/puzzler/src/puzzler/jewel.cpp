@@ -11,8 +11,8 @@ unsigned short *puzzler::Jewel::jewel_oam_pointers[4] = {nullptr, nullptr, nullp
 #endif
 
 puzzler::Jewel::Jewel() {
-    const unsigned short *tile_array = nullptr;
     int random_number = morpheus::core::MainLoop::get_random_number(0, 4);
+    const unsigned short *tile_array = nullptr;
 
     std::cout << "random num = " << random_number << "\n";
 
@@ -55,6 +55,8 @@ puzzler::Jewel::Jewel() {
         #ifdef _GBA
             m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
 
+            std::cout << "loading spawned jewel num " << random_number << "\n";
+
             reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
         #elif _NDS
             m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false, jewel_oam_pointers[random_number], 16, 16));
@@ -65,13 +67,15 @@ puzzler::Jewel::Jewel() {
         #endif
     } else {
         #ifdef _GBA
-            auto *sprite4Bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
+            auto *sprite_4_bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
 
-            m_jewel_sprite.reset(sprite4Bpp);
+            sprite_4_bpp->set_position(m_pre_position);
 
-            sprite4Bpp->set_position(m_pre_position);
+            std::cout << "loading unspawned jewel num " << random_number << "\n";
 
-            static_cast<morpheus::gba::gfx::Sprite*>(sprite4Bpp)->load_from_array(tile_array, 16, 16, m_tile_id);
+            static_cast<morpheus::gba::gfx::Sprite*>(sprite_4_bpp)->load_from_array(tile_array, 16, 16, m_tile_id);
+
+            m_jewel_sprite.reset(sprite_4_bpp);
         #elif _NDS
             auto *sprite_4_bpp = new morpheus::nds::gfx::Sprite4Bpp(false);
 

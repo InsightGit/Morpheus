@@ -28,7 +28,7 @@ void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *ti
                                                           core::gfx::TiledBackgroundSize size) {
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
 
-    memcpy16(pal_bg_mem, palette, pal_len);
+    memcpy16(pal_bg_mem, palette, pal_len / 2);
 }
 
 void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,

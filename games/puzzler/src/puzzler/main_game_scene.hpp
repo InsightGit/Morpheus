@@ -29,7 +29,7 @@ namespace puzzler {
     public:
         MainGameScene(std::shared_ptr<morpheus::core::MainLoop> &main_loop);
 
-        void draw_node(std::vector<void *> obj_attr_buffer, int obj_attr_num, int priority) override {
+        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_active_jewel != nullptr) {
                 m_active_jewel->draw_node(obj_attr_buffer, obj_attr_num, priority);
             }

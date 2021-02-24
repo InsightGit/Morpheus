@@ -26,6 +26,7 @@ namespace morpheus {
         enum class DebugConsoleMode {
             USE_DEFAULT, // on when compiled in debug mode, off otherwise
             ON, // on no matter what
+            NOCASH_ONLY, // only sends to nocash
             OFF, // no console shown no matter what
         };
 
@@ -49,10 +50,16 @@ namespace morpheus {
         private:
             class DebugStream : std::ostringstream {
             public:
+                DebugStream(GbaMainLoop *main_loop) {
+                    m_main_loop = main_loop;
+                }
+
                 void refresh_and_print();
                 std::streambuf *rdbuf_string_stream() {
                     return rdbuf();
                 }
+            private:
+                GbaMainLoop *m_main_loop;
             };
 
             const int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
@@ -63,8 +70,9 @@ namespace morpheus {
             unsigned int m_backgrounds_to_enable = 0x0;
             unsigned int m_windows_to_enable = 0x0;
             bool m_platform_inited = false;
+            bool m_using_tte = false;
 
-            void setup_debug_console();
+            void setup_debug_console(bool use_tte);
         };
     }
 }

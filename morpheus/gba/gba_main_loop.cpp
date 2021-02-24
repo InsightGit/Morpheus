@@ -13,12 +13,16 @@ morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_co
 
     switch (debug_console_mode) {
         case DebugConsoleMode::ON:
-            setup_debug_console();
+            setup_debug_console(true);
             break;
         case DebugConsoleMode::USE_DEFAULT:
             if(debug) {
-                setup_debug_console();
+                setup_debug_console(true);
             }
+            break;
+        case DebugConsoleMode::NOCASH_ONLY:
+            setup_debug_console(false);
+
             break;
         case DebugConsoleMode::OFF:
             break;
@@ -199,7 +203,10 @@ morpheus::core::InputEvent morpheus::gba::GbaMainLoop::to_input_event(uint32_t i
 
 void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
     if(!str().empty()) {
-        tte_write(str().c_str());
+        if(m_main_loop->m_using_tte) {
+            tte_write(str().c_str());
+        }
+
         nocash_puts(str().c_str());
 
         str("");
@@ -207,14 +214,16 @@ void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
     }
 }
 
-void morpheus::gba::GbaMainLoop::setup_debug_console() {
+void morpheus::gba::GbaMainLoop::setup_debug_console(bool use_tte) {
     //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
 
-    tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
+    if(use_tte) {
+        tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
 
-    enable_background(0);
+        enable_background(0);
+    }
 
-    m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream());
+    m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream(this));
 
     std::cout.rdbuf(m_debug_stream.get()->rdbuf_string_stream());
 

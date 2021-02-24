@@ -102,7 +102,7 @@ namespace puzzler {
             return base_jewel_collision;
         }
 
-        void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) override {
+        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_jewel_sprite != nullptr) {
                 m_jewel_sprite->draw(obj_attr_buffer, obj_attr_num, priority);
             }

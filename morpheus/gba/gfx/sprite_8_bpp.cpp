@@ -26,5 +26,5 @@ void morpheus::gba::gfx::Sprite8Bpp::array_load(const unsigned short *tile_array
 
 void morpheus::gba::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
                                                        const unsigned int pal_len) {
-    memcpy16(pal_obj_mem, palette + (palette_id * 16), pal_len);
+    memcpy16(pal_obj_mem + (palette_id * 16), palette, pal_len);
 }
