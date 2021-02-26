@@ -31,7 +31,7 @@ namespace puzzler {
 
         void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_active_jewel != nullptr) {
-                m_active_jewel->draw_node(obj_attr_buffer, obj_attr_num, priority);
+                m_active_jewel->draw(obj_attr_buffer, obj_attr_num, priority);
             }
         }
         void input(morpheus::core::InputEvent input_event)override;
@@ -42,18 +42,11 @@ namespace puzzler {
         const int SCORE_TEXT_MAP_BASE = 22;
         const int SCORE_TEXT_TILE_BASE = 3;
 
-        std::unique_ptr<Jewel> m_active_jewel;
-        unsigned char m_current_action_cycle;
-        unsigned int m_cycles = 0;
-        bool m_current_action_cycle_waiting = false;
-        std::vector<std::unique_ptr<Jewel>> m_jewels;
-        std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
-        unsigned int m_total_score = 0;
-        std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
-
-        #ifdef _NDS
-            PrintConsole m_score_console;
-        #endif
+        struct ActionTimer {
+            unsigned char current_action_cycle = 0;
+            bool current_action_cycle_waiting = false;
+            int cycles_since = 0;
+        };
 
         std::vector<unsigned int> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
         bool is_gem_at_position(morpheus::core::gfx::Vector2 position) {
@@ -66,6 +59,19 @@ namespace puzzler {
         bool is_gem_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
 
         void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
+
+        std::unique_ptr<Jewel> m_active_jewel;
+        unsigned int m_cycles = 0;
+        std::vector<std::unique_ptr<Jewel>> m_jewels;
+        ActionTimer m_jewel_animation_timer;
+        ActionTimer m_jewel_spawning_timer;
+        std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
+        unsigned int m_total_score = 0;
+        std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
+
+        #ifdef _NDS
+            PrintConsole m_score_console;
+        #endif
     };
 }
 

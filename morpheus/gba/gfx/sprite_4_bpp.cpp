@@ -53,5 +53,5 @@ void morpheus::gba::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
 
 void morpheus::gba::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
                                                        const unsigned int pal_len) {
-    memcpy16(pal_obj_mem + (16 * palette_id), palette, pal_len);
+    memcpy16(pal_obj_mem + (16 * palette_id), palette, pal_len / 2);
 }

@@ -108,6 +108,7 @@ namespace puzzler {
             }
         }
 
+        void toggle_light_palette();
     protected:
         void input(morpheus::core::InputEvent input_event) override {}
         void update(unsigned char cycle_time) override {}

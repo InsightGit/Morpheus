@@ -115,16 +115,13 @@ void puzzler::MainGameScene::setup() {
 }
 
 void puzzler::MainGameScene::update(unsigned char cycle_time) {
-    //std::cout << " time = " << static_cast<unsigned int>(cycle_time) << "\n";
-
     #ifdef _NDS
         bgSetPriority(0, 1);
     #endif
 
     if(m_active_jewel == nullptr) {
-        if(m_current_action_cycle_waiting && m_current_action_cycle == cycle_time) {
-            m_current_action_cycle_waiting = false;
-
+        if(m_jewel_spawning_timer.current_action_cycle_waiting &&
+           m_jewel_spawning_timer.current_action_cycle == cycle_time) {
             m_active_jewel.reset(new Jewel());
 
             m_active_jewel->set_position(morpheus::core::gfx::Vector2(64, 16));
@@ -132,14 +129,15 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
             add_child(m_active_jewel.get());
 
             //std::cout << "\x1b[6;0H Added jewel\n";
-        } else if(!m_current_action_cycle_waiting) {
+        } else if(!m_jewel_spawning_timer.current_action_cycle_waiting) {
             //std::cout << "\x1b[5;0H Cycle time set to " << static_cast<unsigned int>(cycle_time) << "\n";
 
-            m_current_action_cycle = cycle_time;
-            m_current_action_cycle_waiting = true;
+            m_jewel_spawning_timer.current_action_cycle = cycle_time;
+            m_jewel_spawning_timer.current_action_cycle_waiting = true;
         }
     } else {
-        if(m_current_action_cycle_waiting && m_current_action_cycle == cycle_time) {
+        if(m_jewel_spawning_timer.current_action_cycle_waiting &&
+           m_jewel_spawning_timer.current_action_cycle == cycle_time) {
             std::vector<unsigned int> jewel_collisions;
             std::vector<JewelCollision> jewel_collision_results;
             morpheus::core::gfx::Vector2 position = m_active_jewel->get_position();
@@ -215,12 +213,34 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
             ++m_cycles;
 
             //std::cout << "\x1b[8;0H Jewel finished: " << m_cycles << "\n";
-        } else if(!m_current_action_cycle_waiting) {
+        } else if(!m_jewel_spawning_timer.current_action_cycle_waiting) {
             //std::cout << "\x1b[7;0H Jewel started\n";
 
-            m_current_action_cycle = cycle_time;
-            m_current_action_cycle_waiting = true;
+            m_jewel_spawning_timer.current_action_cycle = cycle_time;
+            m_jewel_spawning_timer.current_action_cycle_waiting = true;
         }
+    }
+
+    if(m_jewel_animation_timer.current_action_cycle_waiting &&
+       m_jewel_animation_timer.current_action_cycle == cycle_time) {
+        for(unsigned int i = 0; m_jewels.size() > i; ++i) {
+            m_jewels[i]->toggle_light_palette();
+        }
+
+        if(m_active_jewel != nullptr) {
+            m_active_jewel->toggle_light_palette();
+        }
+
+        int new_cycle_time = cycle_time + 30;
+
+        if(new_cycle_time > 59) {
+            new_cycle_time -= 60;
+        }
+
+        m_jewel_animation_timer.current_action_cycle = new_cycle_time;
+    } else if(!m_jewel_animation_timer.current_action_cycle_waiting) {
+        m_jewel_animation_timer.current_action_cycle = 30;
+        m_jewel_animation_timer.current_action_cycle_waiting = true;
     }
 }
 
@@ -243,31 +263,34 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
                 continue;
         }
 
-        for(unsigned int i = 0; m_jewels.size() > i; ++i) {
+        m_jewels.erase(std::remove_if(m_jewels.begin(), m_jewels.end(), [this, &jewel_collision_result](std::unique_ptr<Jewel> &jewel) {
             std::cout << "Destroying jewels\n";
+
+            morpheus::core::gfx::Vector2 position = jewel->get_position();
 
             for(unsigned int i2 = 0; jewel_collision_result.collisions.size() > i2; ++i2) {
                 if(jewel_collision_result.collisions[i2] == nullptr) {
-                    jewel_collision_result.collisions.erase(jewel_collision_result.collisions.begin() + i2);
+                    continue;
                 }
 
+                morpheus::core::gfx::Vector2 position2 = jewel_collision_result.collisions[i2]->get_position();
+
                 // TODO(Bobby): better equality check
-                if(m_jewels[i]->get_position() == jewel_collision_result.collisions[i2]->get_position()) {
-                    //std::cout << "Jewel being destroyed with use count " << m_jewels[i].use_count() << "\n";
+                if(position == position2) {
+                    remove_child(jewel.get());
 
-                    jewel_collision_result.collisions.erase(jewel_collision_result.collisions.begin() + i2);
+                    jewel_collision_result.collisions.erase(jewel_collision_result.collisions.begin() +
+                                                            static_cast<int>(i2));
 
-                    remove_child(m_jewels[i].get());
-
-                    m_jewels.erase(m_jewels.begin() + static_cast<int>(i));
-
-                    std::cout << "Jewel Destroyed\n";
+                    return true;
                 }
             }
 
-            remove_child(m_active_jewel.get());
-            m_active_jewel.reset(nullptr);
-        }
+            return false;
+        }), m_jewels.end());
+
+        remove_child(m_active_jewel.get());
+        m_active_jewel.reset(nullptr);
 
         #ifdef _GBA
             tte_set_pos(192, 24);
@@ -276,7 +299,7 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
 
             tte_set_pos(192, 24);
 
-            tte_write("0");
+            tte_write(std::to_string(m_total_score).c_str());
         #elif _NDS
             consoleInit(&m_score_console, 1, BgType_Text4bpp, BgSize_T_256x256, SCORE_TEXT_MAP_BASE,
                         SCORE_TEXT_TILE_BASE, true, false);

@@ -25,10 +25,18 @@ namespace morpheus {
                     return m_y;
                 }
 
+                std::string to_string() const {
+                    return "(" + std::to_string(m_x) + "," + std::to_string(m_y) + ")";
+                }
+
                 // TODO(Bobby): Do all other operator overloads
 
-                bool operator==(const Vector2& other) const {
+                bool operator==(const Vector2 &other) const {
                     return (m_x == other.m_x) && (m_y == other.m_y);
+                }
+
+                bool operator!=(const Vector2 &other) const {
+                    return (m_x != other.m_x) || (m_y != other.m_y);
                 }
             private:
                 int m_x;

@@ -32,7 +32,7 @@ namespace morpheus {
                                      const unsigned short tile_id);
 
                 void load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                       const unsigned int pal_len = 16)override;
+                                       const unsigned int pal_len = 32)override;
             protected:
                 void array_load(const unsigned short *tile_array, const unsigned short width,
                                 const unsigned short height, const unsigned short tile_id)override;

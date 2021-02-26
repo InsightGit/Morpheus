@@ -28,7 +28,7 @@ puzzler::Jewel::Jewel() {
         case 1:
             m_jewel_type = JewelType::Diamond;
             m_palette_id = 6;
-            m_tile_id = 10;
+            m_tile_id = 5;
 
             tile_array = reinterpret_cast<const unsigned short*>(&diamondjewelTiles[0]);
 
@@ -36,7 +36,7 @@ puzzler::Jewel::Jewel() {
         case 2:
             m_jewel_type = JewelType::Square;
             m_palette_id = 0;
-            m_tile_id = 20;
+            m_tile_id = 10;
 
             tile_array = reinterpret_cast<const unsigned short*>(&squarejewelTiles[0]);
 
@@ -44,7 +44,7 @@ puzzler::Jewel::Jewel() {
         case 3:
             m_jewel_type = JewelType::Triangle;
             m_palette_id = 2;
-            m_tile_id = 30;
+            m_tile_id = 15;
 
             tile_array = reinterpret_cast<const unsigned short*>(&trianglejewelTiles[0]);
 
@@ -56,6 +56,7 @@ puzzler::Jewel::Jewel() {
             m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
 
             std::cout << "loading spawned jewel num " << random_number << "\n";
+            std::cout << "using tid " << m_tile_id << " and palette-id " << m_palette_id << "\n";
 
             reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
         #elif _NDS
@@ -95,7 +96,9 @@ puzzler::Jewel::Jewel() {
 
 puzzler::JewelCollision puzzler::Jewel::check_collision(puzzler::JewelCollision &base_jewel_collision) {
     if(base_jewel_collision.collisions.empty() || base_jewel_collision.type == m_jewel_type) {
-        base_jewel_collision.collisions.push_back(this);
+        if(get_position() != morpheus::core::gfx::Vector2(0, 0)) {
+            base_jewel_collision.collisions.push_back(this);
+        }
 
         switch (base_jewel_collision.direction) {
             case JewelSide::Up:
@@ -123,3 +126,21 @@ puzzler::JewelCollision puzzler::Jewel::check_collision(puzzler::JewelCollision 
 
     return base_jewel_collision;
 }
+
+void puzzler::Jewel::toggle_light_palette() {
+    if(m_using_light_palette) {
+        m_palette_id--;
+    } else {
+        m_palette_id++;
+    }
+
+    m_using_light_palette = !m_using_light_palette;
+
+    #ifdef _GBA
+        reinterpret_cast<morpheus::gba::gfx::Sprite*>(m_jewel_sprite.get())->set_palette_id(m_palette_id);
+    #elif _NDS
+        reinterpret_cast<morpheus::nds::gfx::Sprite*>(m_jewel_sprite.get())->set_palette_id(m_palette_id);
+    #endif
+}
+
+void puzzler::Jewel

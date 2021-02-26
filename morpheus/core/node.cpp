@@ -43,12 +43,14 @@ int morpheus::core::Node::draw(std::vector<void *> &obj_attr_buffer, unsigned in
 unsigned int morpheus::core::Node::draw_children(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num,
                                                  unsigned int priority) {
     for(core::Node *node : get_children()) {
-        int new_obj_attr = node->draw(obj_attr_buffer, obj_attr_num, priority);
+        if(node != nullptr) {
+            int new_obj_attr = node->draw(obj_attr_buffer, obj_attr_num, priority);
 
-        if(new_obj_attr >= 0) {
-            obj_attr_num = new_obj_attr;
-        } else {
-            break;
+            if(new_obj_attr >= 0) {
+                obj_attr_num = new_obj_attr;
+            } else {
+                break;
+            }
         }
     }
 
