@@ -20,7 +20,7 @@ void morpheus::nds::gfx::TiledBackground::update_scroll() {
 }
 
 void morpheus::nds::gfx::TiledBackground::set_background_size(morpheus::core::gfx::TiledBackgroundSize size) {
-    std::cout << "setting background size\n";
+    //std::cout << "setting background size\n";
     switch(size) {
         case morpheus::core::gfx::TiledBackgroundSize::BG_32x32:
             m_background_size = BgSize_T_256x256;

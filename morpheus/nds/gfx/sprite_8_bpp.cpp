@@ -6,7 +6,7 @@
 
 bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_array, const unsigned int width,
                                                      const unsigned int height) {
-    std::cout << "loading tiled array in single palette mode\n";
+    //std::cout << "loading tiled array in single palette mode\n";
 
     if(is_in_extended_palette_mode()) {
         std::cout << "ERROR: the DS is not in single palette mode!\n";
@@ -19,7 +19,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
 
     dmaCopy(tile_array, get_gfx_pointer(), width * height);
 
-    std::cout << "loaded tiled array in single palette mode\n";
+    //std::cout << "loaded tiled array in single palette mode\n";
 
     return true;
 }
@@ -46,13 +46,13 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
 
     allocate_gfx_pointer(SpriteColorFormat_256Color);
 
-    std::cout << "loading tiled array in extended palette mode\n";
+    //std::cout << "loading tiled array in extended palette mode\n";
 
     dmaCopy(tile_array, get_gfx_pointer(),width * height);
 
     set_palette_id(palette_id);
 
-    std::cout << "loaded tiled array in extended palette mode\n";
+    ///std::cout << "loaded tiled array in extended palette mode\n";
 
     return true;
 }
@@ -73,7 +73,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
                                                    bool copy_palette) {
     bool return_value = loadPCX(pcx_data, m_sprite_image.get()) == 1;
 
-    std::cout << "loading pcx\n";
+    //std::cout << "loading pcx\n";
 
     if(return_value) {
         imageTileData(m_sprite_image.get());
@@ -83,22 +83,22 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
 
     set_sprite_size(m_sprite_image->width, m_sprite_image->height);
 
-    std::cout << "allocating gfx\n";
+    //std::cout << "allocating gfx\n";
 
     allocate_gfx_pointer(SpriteColorFormat_256Color);
 
-    std::cout << "copying into gfx\n";
+    //std::cout << "copying into gfx\n";
 
     dmaCopy(m_sprite_image->image.data16, get_gfx_pointer(),
             (m_sprite_image->width * m_sprite_image->height));
 
     if(copy_palette) {
-        std::cout << "copying into palette\n";
+        //std::cout << "copying into palette\n";
 
         load_into_palette(m_sprite_image->palette, palette_id);
     }
 
-    std::cout << "loaded pcx\n";
+    //std::cout << "loaded pcx\n";
 
     return true;
 }
@@ -125,7 +125,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
 
         set_palette_id(palette_id);
 
-        std::cout << "loaded 8bpp palette into " << oam_name << "\n" << "Palette #" << int(palette_id) << "\n";
+        //std::cout << "loaded 8bpp palette into " << oam_name << "\n" << "Palette #" << int(palette_id) << "\n";
 
         if(current_oam == &oamSub) {
             vramSetBankI(VRAM_I_SUB_SPRITE_EXT_PALETTE);
@@ -139,7 +139,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
             dmaCopy(palette, &SPRITE_PALETTE[0], pal_len);
         }
 
-        std::cout << "loaded 8bpp palette (single palette mode)\n";
+        //std::cout << "loaded 8bpp palette (single palette mode)\n";
     }
 
     return true;

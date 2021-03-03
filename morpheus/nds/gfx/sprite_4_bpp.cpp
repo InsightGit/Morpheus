@@ -11,7 +11,7 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
 
     allocate_gfx_pointer(SpriteColorFormat_16Color);
 
-    std::cout << "loading 4bpp tiled array to palette #" << palette_id << "\n";
+    //std::cout << "loading 4bpp tiled array to palette #" << palette_id << "\n";
 
     for(unsigned int i = 0; i < (width * height) / 2u; ++i) {
         get_gfx_pointer()[i] = *(tile_array + i);
@@ -19,7 +19,7 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
 
     set_palette_id(palette_id);
 
-    std::cout << "loaded tiled array to palette #" << palette_id << "\n";
+    //std::cout << "loaded tiled array to palette #" << palette_id << "\n";
 
     return true;
 }
@@ -41,7 +41,7 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *pal
     unsigned int palette_index;
 
     if(palette_id > 15) {
-        std::cout << "ERROR: invalid palette number:" << palette_id << "\n";
+        sassert(false, "Palette number in 4bpp sprite above 16");
         return false;
     } else if(palette_id == 0) {
         palette_index = 0;

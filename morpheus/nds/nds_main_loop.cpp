@@ -45,7 +45,7 @@ void morpheus::nds::NdsMainLoop::disable_window(morpheus::core::gfx::WindowType 
 }
 
 void morpheus::nds::NdsMainLoop::enable_background(unsigned int background_reference_num) {
-    std::cout << "Showing " << background_reference_num << "\n";
+    //std::cout << "Showing " << background_reference_num << "\n";
 
     bgShow(background_reference_num);
 }

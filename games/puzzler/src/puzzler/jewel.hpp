@@ -13,6 +13,8 @@
 #include <nds/nds.hpp>
 #endif
 
+#include "action_timer.hpp"
+
 // Grit OBJ includes
 #include "circlejewel.h"
 #include "diamondjewel.h"
@@ -44,7 +46,7 @@ namespace puzzler {
 
     class Jewel : public morpheus::core::Node {
     public:
-        Jewel();
+        Jewel(morpheus::core::MainLoop *main_loop);
 
         virtual ~Jewel() {}
 
@@ -108,10 +110,17 @@ namespace puzzler {
             }
         }
 
+        void disconnect_jewel();
+
+        std::string to_string();
+
         void toggle_light_palette();
+        void transition_deactive() {
+            m_active = false;
+        }
     protected:
         void input(morpheus::core::InputEvent input_event) override {}
-        void update(unsigned char cycle_time) override {}
+        void update(unsigned char cycle_time)override;
     private:
         // in this order: circle spawned?, diamond spawned?, square spawned?, triangle spawned?
         static bool jewel_types_spawned[4];
@@ -128,6 +137,9 @@ namespace puzzler {
         Jewel *m_east_jewel;
         Jewel *m_south_jewel;
 
+        bool m_active = true;
+        ActionTimer m_gravity_timer;
+        morpheus::core::MainLoop *m_main_loop;
         std::unique_ptr<morpheus::core::Node> m_jewel_sprite;
         puzzler::JewelType m_jewel_type;
         unsigned int m_palette_id = 0;

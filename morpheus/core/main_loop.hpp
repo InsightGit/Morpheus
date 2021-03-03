@@ -5,6 +5,7 @@
 #ifndef MORPHEUS_MAIN_LOOP_HPP
 #define MORPHEUS_MAIN_LOOP_HPP
 
+#include <random>
 #include <vector>
 
 #include <core/gfx/window.hpp>
@@ -32,12 +33,14 @@ namespace morpheus {
                 m_root = root;
             }
 
-            static int get_random_number(int max, int min);
+            static int get_random_number(int max, int min, bool use_mt = true);
 
             virtual void disable_window(gfx::WindowType window_type) = 0;
 
             virtual void enable_background(unsigned int background_num) = 0;
             virtual void enable_window(gfx::WindowType window_type) = 0;
+
+            virtual void send_to_debug_window(std::string string) = 0;
 
             virtual Error game_loop() = 0;
         protected:

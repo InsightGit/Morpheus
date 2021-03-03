@@ -29,6 +29,11 @@ void morpheus::gba::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
 void morpheus::gba::gfx::Sprite4Bpp::array_load(const unsigned short *tile_array, const unsigned short width,
                                                 const unsigned short height, const unsigned short tile_id) {
     memcpy32(&tile_mem[4][tile_id], tile_array, (width * height) / 8);
+
+    nocash_puts(std::string("Building attr2 with tile id " + std::to_string(tile_id) +
+                                " and palette id " + std::to_string(m_palette_id)).c_str());
+
+    build_attr2(tile_id, m_palette_id);
 }
 
 void morpheus::gba::gfx::Sprite4Bpp::array_load(const unsigned short *tile_array, const unsigned short *palette,

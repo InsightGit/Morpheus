@@ -67,13 +67,23 @@ set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-
 project(puzzler)
 
 
+set(MAXMOD_SOUNDBANK_LIST "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/gemcompleted.wav"
+                          "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/gemplaced.wav"
+                          "${CMAKE_CURRENT_SOURCE_DIR}/assets/music/main_theme3.xm"
+                          "${CMAKE_CURRENT_SOURCE_DIR}/assets/music/gameover.xm")
+set(MAXMOD_SOUNDBANK_NAME "soundbank")
+
 set(SOURCE_FILES
         src/main.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/maingamescreen.c"
         "${CMAKE_CURRENT_BINARY_DIR}/maingamescreen.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.bin.o"
+        "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.h"
         src/puzzler/main_game_scene.cpp
         src/puzzler/main_game_scene.hpp
-        src/puzzler/scene.hpp src/puzzler/jewel.cpp src/puzzler/jewel.hpp)
+        src/puzzler/scene.hpp src/puzzler/jewel.cpp
+        src/puzzler/jewel.hpp
+        src/puzzler/action_timer.hpp)
 
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
@@ -126,7 +136,7 @@ if(platform_lower STREQUAL "gba")
         endif()
     endif()
 
-    #generate_maxmod_soundbank(true "soundbank" maxmod_soundbank_list)
+    generate_maxmod_soundbank(true ${MAXMOD_SOUNDBANK_NAME} MAXMOD_SOUNDBANK_LIST)
 
     link_directories(puzzler PRIVATE ../../cmake-build-debug-gba $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
@@ -135,8 +145,6 @@ if(platform_lower STREQUAL "gba")
 
     target_link_libraries(puzzler.elf gba_morpheus mm tonc)
 elseif(platform_lower STREQUAL "nds")
-    list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
-
     if(NOT NDSTOOL)
         find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
         if(NDSTOOL)
@@ -158,7 +166,13 @@ elseif(platform_lower STREQUAL "nds")
 
     link_directories(puzzler PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
 
-    #generate_maxmod_soundbank(false "soundbank" maxmod_soundbank_list)
+    convert_tilemap_bin_image_file("assets/backgrounds/subscorescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
+                                   "assets/backgrounds/subscorescreen.png" false)
+    list(APPEND SOURCE_FILES
+            "${CMAKE_CURRENT_BINARY_DIR}/subscorescreen.c"
+            "${CMAKE_CURRENT_BINARY_DIR}/subscorescreen.h")
+
+    generate_maxmod_soundbank(false ${MAXMOD_SOUNDBANK_NAME} MAXMOD_SOUNDBANK_LIST)
 
     add_executable(puzzler.elf ${SOURCE_FILES})
     add_nds_executable(puzzler.elf "ds_icon.bmp"

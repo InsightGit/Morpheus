@@ -16,8 +16,8 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
         bgExtPaletteEnable();
     }
 
-    std::cout << "Loading via extended palette\n" << "into pal_id:" << palette_id << " background num:"
-              << get_background_num() << "\n";
+    //std::cout << "Loading via extended palette\n" << "into pal_id:" << palette_id << " background num:"
+    //          << get_background_num() << "\n";
 
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
 

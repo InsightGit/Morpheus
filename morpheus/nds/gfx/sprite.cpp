@@ -75,12 +75,12 @@ morpheus::nds::gfx::Sprite::~Sprite() {
         oamFreeGfx(m_current_oam, m_gfx_pointer);
     }
 
-    std::cout << "Destructor called\n";
+    //std::cout << "Destructor called\n";
 
     if(m_last_used_obj_attr_num != -1) {
         oamClearSprite(m_current_oam, m_last_used_obj_attr_num);
 
-        std::cout << "sprite cleared\n";
+        //std::cout << "sprite cleared\n";
     }
 }
 
@@ -90,7 +90,7 @@ void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_fo
     }
 
     if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
-        std::cout << "freeing gfx\n";
+        //std::cout << "freeing gfx\n";
 
         oamFreeGfx(m_current_oam, m_gfx_pointer);
     }
@@ -115,8 +115,7 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const unsigned char width, cons
                 break;
             default:
                 // unknown tile size passed
-                std::cout << "assert fired\n";
-                assert(false);
+                sassert(false, "Unknown Sprite Size");
                 break;
         }
     } else if(width == height * 2) {
@@ -132,8 +131,7 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const unsigned char width, cons
                 break;
             default:
                 // unknown tile size passed
-                std::cout << "assert fired\n";
-                assert(false);
+                sassert(false, "Unknown Sprite Size");
                 break;
         }
     } else if(width * 2 == height) {
@@ -149,13 +147,11 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(const unsigned char width, cons
                 break;
             default:
                 // unknown tile size passed
-                std::cout << "assert fired\n";
-                assert(false);
+                sassert(false, "Unknown Sprite Size");
                 break;
         }
     } else {
         // unknown tile size passed
-        std::cout << "assert fired\n";
-        assert(false);
+        sassert(false, "Unknown Sprite Size");
     }
 }

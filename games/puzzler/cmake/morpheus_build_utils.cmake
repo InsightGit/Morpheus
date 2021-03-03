@@ -172,24 +172,28 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
     if(is_gba)
         message(STATUS "Using maxmod for gba")
         add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                                  ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h
                 COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
                 -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
                 COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
-                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                COMMAND ${CMAKE_AS} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 VERBATIM)
     else()
         message(STATUS "Using maxmod for nds")
         add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                                  ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h
                 COMMAND ${MMUTIL} -d -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
                 -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
                 COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
-                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                COMMAND ${CMAKE_AS} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 VERBATIM)
     endif()
+
+    message(STATUS "Generating ${soundbank_name}_bin.h...")
 
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}_bin.h
             "extern const uint8_t ${soundbank_name}_bin_end[];\n"

@@ -26,11 +26,17 @@ morpheus::core::MainLoop::to_input_events(const uint32_t inputs, const uint16_t 
     return input_events;
 }
 
-int morpheus::core::MainLoop::get_random_number(int max, int min) {
+int morpheus::core::MainLoop::get_random_number(int max, int min, bool use_mt) {
     // based of libtonc's qran_range function as explained here:
     // https://www.coranac.com/tonc/text/gfx.htm
 
-    past_random_number = 1664525 * past_random_number + 1013904223;
+    if(use_mt) {
+        std::mt19937 mt_engine(past_random_number);
+
+        past_random_number = static_cast<int>(mt_engine());
+    } else {
+        past_random_number = 1664525 * past_random_number + 1013904223;
+    }
 
     return (((past_random_number >> 16) & 0x7FFF) * (max - min) >> 15) + min;
 }

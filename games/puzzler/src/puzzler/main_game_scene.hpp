@@ -13,14 +13,21 @@
 #include <nds/nds.hpp>
 #endif
 
-#pragma GCC diagnostic warning "-Wswitch"
+#pragma GCC diagnostic ignored "-Wswitch"
 
 // Grit Background includes
 #include "maingamescreen.h"
 
+#ifdef _NDS
+#include "subscorescreen.h"
+#endif
+
 // Grit OBJ includes
 #include "circlejewel.h"
 
+#include "action_timer.hpp"
+#include "soundbank.h"
+#include "soundbank_bin.h"
 #include "jewel.hpp"
 #include "scene.hpp"
 
@@ -42,12 +49,6 @@ namespace puzzler {
         const int SCORE_TEXT_MAP_BASE = 22;
         const int SCORE_TEXT_TILE_BASE = 3;
 
-        struct ActionTimer {
-            unsigned char current_action_cycle = 0;
-            bool current_action_cycle_waiting = false;
-            int cycles_since = 0;
-        };
-
         std::vector<unsigned int> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
         bool is_gem_at_position(morpheus::core::gfx::Vector2 position) {
             std::vector<morpheus::core::gfx::Vector2> vector;
@@ -58,12 +59,20 @@ namespace puzzler {
         }
         bool is_gem_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);
 
+        #ifdef _NDS
+            void setup_second_screen();
+        #endif
+
         void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
 
         std::unique_ptr<Jewel> m_active_jewel;
+        std::unique_ptr<morpheus::core::audio::MaxModMusic> m_active_module;
         unsigned int m_cycles = 0;
+        bool m_game_over = false;
         std::vector<std::unique_ptr<Jewel>> m_jewels;
         ActionTimer m_jewel_animation_timer;
+        std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_complete_sfx;
+        std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_put_sfx;
         ActionTimer m_jewel_spawning_timer;
         std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
         unsigned int m_total_score = 0;
@@ -71,6 +80,8 @@ namespace puzzler {
 
         #ifdef _NDS
             PrintConsole m_score_console;
+            PrintConsole m_sub_console;
+            std::unique_ptr<morpheus::nds::gfx::TiledBackground4Bpp> m_sub_background;
         #endif
     };
 }

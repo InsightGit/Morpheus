@@ -10,11 +10,11 @@ bool puzzler::Jewel::jewel_types_spawned[4] = {false, false, false, false};
 unsigned short *puzzler::Jewel::jewel_oam_pointers[4] = {nullptr, nullptr, nullptr, nullptr};
 #endif
 
-puzzler::Jewel::Jewel() {
+puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop) {
     int random_number = morpheus::core::MainLoop::get_random_number(0, 4);
     const unsigned short *tile_array = nullptr;
 
-    std::cout << "random num = " << random_number << "\n";
+    m_main_loop = main_loop;
 
     switch(random_number) {
         case 0:
@@ -55,8 +55,10 @@ puzzler::Jewel::Jewel() {
         #ifdef _GBA
             m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
 
-            std::cout << "loading spawned jewel num " << random_number << "\n";
-            std::cout << "using tid " << m_tile_id << " and palette-id " << m_palette_id << "\n";
+
+            m_main_loop->send_to_debug_window("loading spawned jewel num " + std::to_string(random_number));
+            //std::cout << "loading spawned jewel num " << random_number << "\n";
+            //std::cout << "using tid " << m_tile_id << " and palette-id " << m_palette_id << "\n";
 
             reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
         #elif _NDS
@@ -68,13 +70,23 @@ puzzler::Jewel::Jewel() {
         #endif
     } else {
         #ifdef _GBA
+            /*memcpy32(&tile_mem[4][m_tile_id], tile_array, (16 * 16) / 8);
+
+            m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
+
+            m_main_loop->send_to_debug_window("loading spawned jewel num " + std::to_string(random_number));
+
+            reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);*/
             auto *sprite_4_bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
 
+            m_main_loop->send_to_debug_window("loading unspawned jewel num " + std::to_string(random_number) +
+                                              "\nusing palette id " + std::to_string(m_palette_id) +
+                                              " and using tile id " + std::to_string(m_tile_id));
+
+            static_cast<morpheus::gba::gfx::Sprite*>(sprite_4_bpp)->load_from_array(tile_array, 16, 16,
+                                                                                    m_tile_id);
+
             sprite_4_bpp->set_position(m_pre_position);
-
-            std::cout << "loading unspawned jewel num " << random_number << "\n";
-
-            static_cast<morpheus::gba::gfx::Sprite*>(sprite_4_bpp)->load_from_array(tile_array, 16, 16, m_tile_id);
 
             m_jewel_sprite.reset(sprite_4_bpp);
         #elif _NDS
@@ -82,7 +94,7 @@ puzzler::Jewel::Jewel() {
 
             m_jewel_sprite.reset(sprite_4_bpp);
 
-            std::cout << "loading 4bpp sprite\n";
+            //std::cout << "loading 4bpp sprite\n";
 
             sprite_4_bpp->set_position(m_pre_position);
 
@@ -137,10 +149,63 @@ void puzzler::Jewel::toggle_light_palette() {
     m_using_light_palette = !m_using_light_palette;
 
     #ifdef _GBA
-        reinterpret_cast<morpheus::gba::gfx::Sprite*>(m_jewel_sprite.get())->set_palette_id(m_palette_id);
+        reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_palette_id(m_palette_id);
     #elif _NDS
         reinterpret_cast<morpheus::nds::gfx::Sprite*>(m_jewel_sprite.get())->set_palette_id(m_palette_id);
     #endif
 }
 
-void puzzler::Jewel
+void puzzler::Jewel::update(unsigned char cycle_time) {
+    morpheus::core::gfx::Vector2 current_position = get_position();
+
+    if(m_south_jewel == nullptr && current_position.get_y() < 144 && !m_active) {
+        if(m_gravity_timer.current_action_cycle_waiting && m_gravity_timer.current_action_cycle == cycle_time) {
+            set_position(morpheus::core::gfx::Vector2(current_position.get_x(),
+                                                           current_position.get_y() - 16));
+        } else if(!m_gravity_timer.current_action_cycle_waiting) {
+            m_gravity_timer.current_action_cycle = cycle_time;
+            m_gravity_timer.current_action_cycle_waiting = true;
+        }
+    } else {
+        m_gravity_timer.current_action_cycle_waiting = false;
+    }
+}
+
+void puzzler::Jewel::disconnect_jewel() {
+    if(m_north_jewel != nullptr && m_north_jewel->m_south_jewel == this) {
+        m_north_jewel->m_south_jewel = nullptr;
+    }
+
+    if(m_west_jewel != nullptr && m_west_jewel->m_east_jewel == this) {
+        m_west_jewel->m_east_jewel = nullptr;
+    }
+
+    if(m_east_jewel != nullptr && m_east_jewel->m_west_jewel == this) {
+        m_east_jewel->m_west_jewel = nullptr;
+    }
+
+    if(m_south_jewel != nullptr && m_south_jewel->m_north_jewel == this) {
+        m_south_jewel->m_north_jewel = nullptr;
+    }
+}
+
+std::string puzzler::Jewel::to_string() {
+    std::string jewel_type_string;
+
+    switch(m_jewel_type) {
+        case JewelType::Circle:
+            jewel_type_string = "Circle";
+            break;
+        case JewelType::Diamond:
+            jewel_type_string = "Diamond";
+            break;
+        case JewelType::Square:
+            jewel_type_string = "Square";
+            break;
+        case JewelType::Triangle:
+            jewel_type_string = "Triangle";
+            break;
+    }
+
+    return jewel_type_string + " jewel at " + get_position().to_string();
+}

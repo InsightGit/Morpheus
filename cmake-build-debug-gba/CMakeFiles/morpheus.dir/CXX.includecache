@@ -17,6 +17,8 @@ core/main_loop.hpp
 ../morpheus/core/input_event.hpp
 
 ../morpheus/core/main_loop.hpp
+random
+-
 vector
 -
 core/gfx/window.hpp
@@ -43,6 +45,22 @@ core/input_event.hpp
 ../morpheus/core/uncopyable.hpp
 
 ../morpheus/gba/gfx/sprite.hpp
+cassert
+-
+cstring
+-
+tonc.h
+-
+core/node.hpp
+-
+core/gfx/vector_2.hpp
+-
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
+sprite.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+
+/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
 cassert
 -
 cstring

@@ -75,4 +75,10 @@ void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_arra
     setup_size_attr(width, height);
 
     array_load(tile_array, width, height, tile_id);
+
+    if(m_attr2 == 0x0) {
+        nocash_puts("replacement failed");
+    } else {
+        nocash_puts("replacement succeeded");
+    }
 }
