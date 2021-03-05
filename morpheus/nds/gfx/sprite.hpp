@@ -89,8 +89,14 @@ namespace morpheus {
 
                 void set_sprite_size(const unsigned char width, const unsigned char height);
 
-                virtual void update(unsigned char cycle_time)override {}
-                virtual void input(core::InputEvent input_event)override {}
+                void on_visible_state_changed(bool hidden) override {
+                    if(m_last_used_obj_attr_num != -1) {
+                        oamSetHidden(m_current_oam, m_last_used_obj_attr_num, hidden);
+                    }
+                }
+
+                virtual void update(unsigned char cycle_time) override {}
+                virtual void input(core::InputEvent input_event) override {}
             protected:
                 void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
                     m_last_used_obj_attr_num = last_used_obj_attr_num;

@@ -13,6 +13,8 @@
 #include <core/node.hpp>
 #include <core/gfx/vector_2.hpp>
 
+#include <gba/gba_main_loop.hpp>
+
 namespace morpheus {
     namespace gba {
         namespace gfx {
@@ -27,6 +29,9 @@ namespace morpheus {
                         build_attr2(palette_id, tile_id);
                         setup_size_attr(width, height);
                     }
+
+                    virtual ~Sprite();
+
                     core::gfx::Vector2 get_position() const {
                         return m_position;
                     }
@@ -55,6 +60,7 @@ namespace morpheus {
                     void setup_size_attr(const unsigned short width, const unsigned short height);
 
                     void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
+                    void on_visible_state_changed(bool hidden)override;
 
                     virtual void input(core::InputEvent input_event)override {}
                     virtual void update(unsigned char cycle_time)override {}
@@ -66,6 +72,7 @@ namespace morpheus {
                                             const unsigned short tile_id) = 0;
                 private:
                     bool m_is_4bpp;
+                    int m_last_obj_attr_num;
 
                     unsigned short m_attr0;
                     unsigned short m_attr1;

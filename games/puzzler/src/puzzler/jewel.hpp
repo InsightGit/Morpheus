@@ -48,7 +48,7 @@ namespace puzzler {
     public:
         Jewel(morpheus::core::MainLoop *main_loop);
 
-        virtual ~Jewel() {}
+        ~Jewel() override = default;
 
         puzzler::JewelType get_jewel_type() const {
             return m_jewel_type;
@@ -84,15 +84,25 @@ namespace puzzler {
             switch(jewel_side) {
                 case JewelSide::Up:
                     m_north_jewel = jewel;
+
+                    m_north_jewel->m_south_jewel = this;
                     break;
                 case JewelSide::Down:
                     m_south_jewel = jewel;
+
+                    m_south_jewel->m_north_jewel = this;
                     break;
                 case JewelSide::Left:
                     m_west_jewel = jewel;
+
+                    m_west_jewel->m_east_jewel = this;
+
                     break;
                 case JewelSide::Right:
                     m_east_jewel = jewel;
+
+                    m_east_jewel->m_west_jewel = this;
+
                     break;
             }
 
@@ -119,6 +129,16 @@ namespace puzzler {
             m_active = false;
         }
     protected:
+        void on_visible_state_changed(bool new_visible_state) override {
+            if(m_jewel_sprite != nullptr) {
+                if(new_visible_state) {
+                    m_jewel_sprite->show();
+                } else {
+                    m_jewel_sprite->hide();
+                }
+            }
+        }
+
         void input(morpheus::core::InputEvent input_event) override {}
         void update(unsigned char cycle_time)override;
     private:

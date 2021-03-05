@@ -6,8 +6,6 @@
 
 #IncludeRegexTransform: 
 
-../morpheus/core/gfx/vector_2.hpp
-
 ../morpheus/core/gfx/window.hpp
 memory
 -
@@ -44,41 +42,33 @@ core/input_event.hpp
 
 ../morpheus/core/uncopyable.hpp
 
-../morpheus/gba/gfx/sprite.hpp
-cassert
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp
+gba_main_loop.hpp
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
+
+/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
+iostream
 -
-cstring
+list
+-
+sstream
+-
+string
+-
+maxmod.h
 -
 tonc.h
 -
-core/node.hpp
+core/main_loop.hpp
 -
-core/gfx/vector_2.hpp
--
-
-/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
-sprite.hpp
-/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
-
-/home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
-cassert
--
-cstring
--
-tonc.h
--
-core/node.hpp
--
-core/gfx/vector_2.hpp
+core/gfx/window.hpp
 -
 
-/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
-sprite_4_bpp.hpp
-/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
-
-/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
-gba/gfx/sprite.hpp
+/opt/devkitpro/libgba/include/maxmod.h
+mm_types.h
 -
+
+/opt/devkitpro/libgba/include/mm_types.h
 
 /opt/devkitpro/libtonc/include/tonc.h
 tonc_types.h

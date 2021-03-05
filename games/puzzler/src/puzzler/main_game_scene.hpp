@@ -32,6 +32,8 @@
 #include "scene.hpp"
 
 namespace puzzler {
+    const static int JEWEL_GROUND = 128;
+
     class MainGameScene : public puzzler::Scene, public morpheus::core::Node {
     public:
         MainGameScene(std::shared_ptr<morpheus::core::MainLoop> &main_loop);
@@ -41,8 +43,12 @@ namespace puzzler {
                 m_active_jewel->draw(obj_attr_buffer, obj_attr_num, priority);
             }
         }
-        void input(morpheus::core::InputEvent input_event)override;
+
         void setup()override;
+    protected:
+        void on_visible_state_changed(bool new_visible_state) override {}
+
+        void input(morpheus::core::InputEvent input_event)override;
         void update(unsigned char cycle_time)override;
     private:
         const morpheus::core::gfx::Vector2 MOVE_PER_SEC = morpheus::core::gfx::Vector2(10, 10);

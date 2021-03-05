@@ -100,6 +100,10 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
             input_events.insert(input_events.end(), held_events.begin(), held_events.end());
             input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
+            if(input_events.size() > 0) {
+                m_last_input_size = input_events.size() * m_cycle_time;
+            }
+
             for(core::InputEvent input_event : input_events){
                 m_root->received_input(input_event);
             }
@@ -122,6 +126,8 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
         if(m_cycle_time >= 60) {
             m_cycle_time = 0;
         }
+
+        set_supplementary_seed(static_cast<int>(m_cycle_time) + m_obj_buffer.size() + m_last_input_size);
 
         mmFrame();
 

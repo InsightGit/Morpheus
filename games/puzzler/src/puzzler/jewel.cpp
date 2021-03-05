@@ -4,6 +4,8 @@
 
 #include "jewel.hpp"
 
+#include "main_game_scene.hpp"
+
 bool puzzler::Jewel::jewel_types_spawned[4] = {false, false, false, false};
 
 #ifdef _NDS
@@ -11,10 +13,11 @@ unsigned short *puzzler::Jewel::jewel_oam_pointers[4] = {nullptr, nullptr, nullp
 #endif
 
 puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop) {
-    int random_number = morpheus::core::MainLoop::get_random_number(0, 4);
+    int random_number;
     const unsigned short *tile_array = nullptr;
 
     m_main_loop = main_loop;
+    random_number = m_main_loop->get_random_number(0, 4);
 
     switch(random_number) {
         case 0:
@@ -55,11 +58,6 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop) {
         #ifdef _GBA
             m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
 
-
-            m_main_loop->send_to_debug_window("loading spawned jewel num " + std::to_string(random_number));
-            //std::cout << "loading spawned jewel num " << random_number << "\n";
-            //std::cout << "using tid " << m_tile_id << " and palette-id " << m_palette_id << "\n";
-
             reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);
         #elif _NDS
             m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false, jewel_oam_pointers[random_number], 16, 16));
@@ -70,18 +68,7 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop) {
         #endif
     } else {
         #ifdef _GBA
-            /*memcpy32(&tile_mem[4][m_tile_id], tile_array, (16 * 16) / 8);
-
-            m_jewel_sprite.reset(new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16));
-
-            m_main_loop->send_to_debug_window("loading spawned jewel num " + std::to_string(random_number));
-
-            reinterpret_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_jewel_sprite.get())->set_position(m_pre_position);*/
             auto *sprite_4_bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
-
-            m_main_loop->send_to_debug_window("loading unspawned jewel num " + std::to_string(random_number) +
-                                              "\nusing palette id " + std::to_string(m_palette_id) +
-                                              " and using tile id " + std::to_string(m_tile_id));
 
             static_cast<morpheus::gba::gfx::Sprite*>(sprite_4_bpp)->load_from_array(tile_array, 16, 16,
                                                                                     m_tile_id);
@@ -93,8 +80,6 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop) {
             auto *sprite_4_bpp = new morpheus::nds::gfx::Sprite4Bpp(false);
 
             m_jewel_sprite.reset(sprite_4_bpp);
-
-            //std::cout << "loading 4bpp sprite\n";
 
             sprite_4_bpp->set_position(m_pre_position);
 
@@ -158,21 +143,32 @@ void puzzler::Jewel::toggle_light_palette() {
 void puzzler::Jewel::update(unsigned char cycle_time) {
     morpheus::core::gfx::Vector2 current_position = get_position();
 
-    if(m_south_jewel == nullptr && current_position.get_y() < 144 && !m_active) {
+    if(m_south_jewel == nullptr && current_position.get_y() < puzzler::JEWEL_GROUND && !m_active) {
         if(m_gravity_timer.current_action_cycle_waiting && m_gravity_timer.current_action_cycle == cycle_time) {
             set_position(morpheus::core::gfx::Vector2(current_position.get_x(),
-                                                           current_position.get_y() - 16));
+                                                           current_position.get_y() + 16));
+
+            // insures no gravity desync if this jewel has already been updated before this Jewel's update function
+            m_north_jewel->update(cycle_time);
         } else if(!m_gravity_timer.current_action_cycle_waiting) {
             m_gravity_timer.current_action_cycle = cycle_time;
             m_gravity_timer.current_action_cycle_waiting = true;
         }
     } else {
+        if(m_south_jewel != nullptr && !m_active && current_position.get_y() < puzzler::JEWEL_GROUND) {
+            set_position(morpheus::core::gfx::Vector2(current_position.get_x(),
+                                                           m_south_jewel->get_position().get_y() - 16));
+        }
+
         m_gravity_timer.current_action_cycle_waiting = false;
     }
 }
 
 void puzzler::Jewel::disconnect_jewel() {
+    m_main_loop->send_to_debug_window("disconnect jewel called");
+
     if(m_north_jewel != nullptr && m_north_jewel->m_south_jewel == this) {
+        m_main_loop->send_to_debug_window("south jewel nullified");
         m_north_jewel->m_south_jewel = nullptr;
     }
 

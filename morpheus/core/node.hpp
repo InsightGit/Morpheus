@@ -18,6 +18,8 @@ namespace morpheus {
         public:
             Node() = default;
 
+            virtual ~Node() {}
+
             void add_child(Node *child) {
                 m_children.push_back(child);
             }
@@ -35,6 +37,22 @@ namespace morpheus {
             void received_input(InputEvent input_event);
             void received_update(unsigned char cycle_time);
 
+            bool is_hidden() {
+                return m_hidden;
+            }
+
+            void hide() {
+                m_hidden = true;
+
+                on_visible_state_changed(m_hidden);
+            }
+
+            void show() {
+                m_hidden = false;
+
+                on_visible_state_changed(m_hidden);
+            }
+
             int draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num = 0,
                      unsigned int priority = 0);
         protected:
@@ -44,12 +62,14 @@ namespace morpheus {
 
             virtual void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) = 0;
             virtual void input(InputEvent input_event) = 0;
+            virtual void on_visible_state_changed(bool new_visible_state) = 0;
             virtual void update(unsigned char cycle_time) = 0;
         private:
             unsigned int draw_children(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num,
                                        unsigned int priority);
 
             std::vector<Node*> m_children;
+            bool m_hidden = false;
         };
     }
 }

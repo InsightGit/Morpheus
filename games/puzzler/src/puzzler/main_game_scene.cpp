@@ -42,7 +42,7 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 
                     positions.push_back(position);
 
-                    if(is_gem_at_positions(positions) || position.get_y() >= 144) {
+                    if(is_gem_at_positions(positions) || position.get_y() >= JEWEL_GROUND) {
                         return;
                     }
 
@@ -54,7 +54,7 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 
                     positions.push_back(position);
 
-                    if(is_gem_at_positions(positions) || position.get_y() >= 144) {
+                    if(is_gem_at_positions(positions) || position.get_y() >= JEWEL_GROUND) {
                         return;
                     }
 
@@ -63,7 +63,7 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                     position = morpheus::core::gfx::Vector2(morpheus::core::gfx::Vector2(position.get_x(),
                                                                                          position.get_y() + 16));
 
-                    if(is_gem_at_position(position) || position.get_y() >= 144) {
+                    if(is_gem_at_position(position) || position.get_y() >= JEWEL_GROUND) {
                         return;
                     }
                     break;
@@ -72,7 +72,34 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
             m_active_jewel->set_position(position);
         } else if(m_game_over) {
             #ifdef _GBA
-                //
+                if(input_event.button == morpheus::core::InputButton::START) {
+                    m_total_score = 0;
+                    m_game_over = false;
+
+                    for(std::unique_ptr<Jewel> &jewel : m_jewels) {
+                        if(jewel != nullptr) {
+                            remove_child(jewel.get());
+                        }
+                    }
+
+                    m_jewels.clear();
+
+                    tte_set_pos(192, 16);
+
+                    tte_write("Score:");
+
+                    tte_set_pos(192, 24);
+
+                    tte_write("0                   ");
+
+                    tte_set_pos(80, 72);
+
+                    tte_write("                                      ");
+
+                    tte_set_pos(0, 80);
+
+                    tte_write("                                      ");
+                }
             #elif _NDS
                 if(input_event.button == morpheus::core::InputButton::TOUCH) {
                     nocashMessage("touch detected");
@@ -192,13 +219,13 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
             if(!get_gems_at_positions(initial_position_vector).empty()) {
                 // game over!
                 #ifdef _GBA
-                    tte_set_pos(192, 24);
+                    tte_set_pos(80, 72);
 
-                    tte_write("                                   ");
+                    tte_write("Game over!");
 
-                    tte_set_pos(192, 24);
+                    tte_set_pos(0, 80);
 
-                    tte_write(std::to_string(m_total_score).c_str());
+                    tte_write("Press the START button to restart");
                 #elif _NDS
                     unsigned short old_palette_value = BG_PALETTE_SUB[0];
 
@@ -248,7 +275,7 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
             jewel_collisions = get_gems_at_positions(positions);
 
-            if(position.get_y() > 144 || !jewel_collisions.empty()) {
+            if(position.get_y() > JEWEL_GROUND || !jewel_collisions.empty()) {
                 if(!jewel_collisions.empty()) {
                     JewelCollision jewel_collision_result;
 
@@ -260,6 +287,7 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                     if(m_active_jewel != nullptr) {
                         jewel_collision_result = m_active_jewel->update_jewel(m_jewels[jewel_collisions[0]].get(),
                                                                               JewelSide::Down);
+                        m_jewels[jewel_collisions[0]]->update_jewel(m_active_jewel.get(), JewelSide::Up);
                     }
 
                     if(!jewel_collision_result.collisions.empty()) {
@@ -269,8 +297,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
                 positions.clear();
 
-                positions.emplace_back(position.get_x() - 16, std::min(144, position.get_y() + 16));
-                positions.emplace_back(position.get_x() + 16, std::min(144, position.get_y() + 16));
+                positions.emplace_back(position.get_x() - 16, std::min(JEWEL_GROUND, position.get_y() + 16));
+                positions.emplace_back(position.get_x() + 16, std::min(JEWEL_GROUND, position.get_y() + 16));
 
                 jewel_collisions = get_gems_at_positions(positions);
 
@@ -278,10 +306,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                     JewelCollision jewel_collision_result;
 
                     if(m_jewels[i].get()->get_position().get_x() == position.get_x() - 16) {
-                        //nocashMessage("left jewel updated");
                         jewel_collision_result = m_active_jewel->update_jewel(m_jewels[i].get(), JewelSide::Left);
                     } else if(m_jewels[i].get()->get_position().get_x() == position.get_x() + 16) {
-                        //nocashMessage("right jewel updated");
                         jewel_collision_result = m_active_jewel->update_jewel(m_jewels[i].get(), JewelSide::Right);
                     }
 
@@ -297,11 +323,11 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                 update_gem_scoring(jewel_collision_results);
 
                 if(m_active_jewel != nullptr) {
+                    m_active_jewel->transition_deactive();
+
                     m_jewels.push_back(std::unique_ptr<puzzler::Jewel>());
 
                     remove_child(m_active_jewel.get());
-
-                    m_active_jewel->transition_deactive();
 
                     m_jewels[m_jewels.size() - 1] = std::move(m_active_jewel);
 
@@ -384,8 +410,6 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
                 if(position == position2) {
                     remove_child(jewel.get());
 
-                    m_main_loop->send_to_debug_window("Destroying " + jewel->to_string());
-
                     jewel->disconnect_jewel();
 
                     jewel_collision_result.collisions.erase(jewel_collision_result.collisions.begin() +
@@ -398,14 +422,10 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
             return false;
         }), m_jewels.end());
 
-        //m_active_jewel->disconnect_jewel();
-
-        m_main_loop->send_to_debug_window("Destroying " + m_active_jewel->to_string());
+        m_active_jewel->disconnect_jewel();
 
         remove_child(m_active_jewel.get());
         m_active_jewel.reset(nullptr);
-
-        m_main_loop->send_to_debug_window("active jewel reset");
 
         m_jewel_put_sfx->stop_effect();
         m_jewel_complete_sfx->start_effect(false);

@@ -76,8 +76,11 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
  ../morpheus/core/uncopyable.hpp
+ ../morpheus/gba/gba_main_loop.hpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
+ /opt/devkitpro/libgba/include/maxmod.h
+ /opt/devkitpro/libgba/include/mm_types.h
  /opt/devkitpro/libtonc/include/tonc.h
  /opt/devkitpro/libtonc/include/tonc_bios.h
  /opt/devkitpro/libtonc/include/tonc_core.h
@@ -100,9 +103,12 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
  ../morpheus/core/uncopyable.hpp
+ ../morpheus/gba/gba_main_loop.hpp
  ../morpheus/gba/gfx/sprite.hpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.hpp
+ /opt/devkitpro/libgba/include/maxmod.h
+ /opt/devkitpro/libgba/include/mm_types.h
  /opt/devkitpro/libtonc/include/tonc.h
  /opt/devkitpro/libtonc/include/tonc_bios.h
  /opt/devkitpro/libtonc/include/tonc_core.h
@@ -125,9 +131,12 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o
  ../morpheus/core/main_loop.hpp
  ../morpheus/core/node.hpp
  ../morpheus/core/uncopyable.hpp
+ ../morpheus/gba/gba_main_loop.hpp
  ../morpheus/gba/gfx/sprite.hpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp
  /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp
+ /opt/devkitpro/libgba/include/maxmod.h
+ /opt/devkitpro/libgba/include/mm_types.h
  /opt/devkitpro/libtonc/include/tonc.h
  /opt/devkitpro/libtonc/include/tonc_bios.h
  /opt/devkitpro/libtonc/include/tonc_core.h

@@ -33,7 +33,7 @@ namespace morpheus {
                 m_root = root;
             }
 
-            static int get_random_number(int max, int min, bool use_mt = true);
+            int get_random_number(int max, int min, int supplementary_seed = 1, bool use_mt = true);
 
             virtual void disable_window(gfx::WindowType window_type) = 0;
 
@@ -44,6 +44,10 @@ namespace morpheus {
 
             virtual Error game_loop() = 0;
         protected:
+            void set_supplementary_seed(int supplementary_seed) {
+                m_supplementary_seed = supplementary_seed;
+            }
+
             std::vector<InputEvent> to_input_events(const uint32_t inputs, const uint16_t input_bits[],
                                                     int input_bits_size, const morpheus::core::InputState input_state);
 
@@ -56,10 +60,11 @@ namespace morpheus {
             std::shared_ptr<Node> m_root;
             //std::unique_ptr<PaletteManager> m_palette_manager(new );
         private:
-            static bool mt_inited;
-            static unsigned short r256table[256];
-            static unsigned char r256index;
-            static int past_random_number;
+            bool m_mt_inited;
+            unsigned short m_r256table[256];
+            unsigned char m_r256index;
+            int m_past_random_number;
+            int m_supplementary_seed;
         };
     }
 }

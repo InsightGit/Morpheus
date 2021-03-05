@@ -32,6 +32,8 @@ namespace morpheus {
 
         class GbaMainLoop : public core::MainLoop {
         public:
+            const static int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
+
             explicit GbaMainLoop(DebugConsoleMode debug_console_mode);
 
             virtual ~GbaMainLoop();
@@ -66,15 +68,14 @@ namespace morpheus {
                 GbaMainLoop *m_main_loop;
             };
 
-            const int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
-
             std::unique_ptr<DebugStream> m_debug_stream;
             std::vector<void *> m_obj_buffer;
 
             unsigned int m_backgrounds_to_enable = 0x0;
-            unsigned int m_windows_to_enable = 0x0;
+            unsigned int m_last_input_size = 0;
             bool m_platform_inited = false;
             bool m_using_tte = false;
+            unsigned int m_windows_to_enable = 0x0;
 
             void setup_debug_console(bool use_tte);
         };
