@@ -8,7 +8,7 @@
 #include <vector>
 
 namespace puzzler {
-    class Scene {
+    class Scene : public morpheus::core::Node {
     public:
         virtual void setup() = 0;
     };

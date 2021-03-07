@@ -78,41 +78,7 @@ namespace puzzler {
             }
         }
 
-        JewelCollision update_jewel(Jewel *jewel, const JewelSide jewel_side) {
-            JewelCollision base_jewel_collision;
-
-            switch(jewel_side) {
-                case JewelSide::Up:
-                    m_north_jewel = jewel;
-
-                    m_north_jewel->m_south_jewel = this;
-                    break;
-                case JewelSide::Down:
-                    m_south_jewel = jewel;
-
-                    m_south_jewel->m_north_jewel = this;
-                    break;
-                case JewelSide::Left:
-                    m_west_jewel = jewel;
-
-                    m_west_jewel->m_east_jewel = this;
-
-                    break;
-                case JewelSide::Right:
-                    m_east_jewel = jewel;
-
-                    m_east_jewel->m_west_jewel = this;
-
-                    break;
-            }
-
-            base_jewel_collision.direction = jewel_side;
-            base_jewel_collision.type = m_jewel_type;
-
-            check_collision(base_jewel_collision);
-
-            return base_jewel_collision;
-        }
+        JewelCollision update_jewel(Jewel *jewel, const JewelSide jewel_side);
 
         void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_jewel_sprite != nullptr) {
@@ -152,10 +118,10 @@ namespace puzzler {
 
         JewelCollision check_collision(JewelCollision &base_jewel_collision);
 
-        Jewel *m_north_jewel;
-        Jewel *m_west_jewel;
-        Jewel *m_east_jewel;
-        Jewel *m_south_jewel;
+        Jewel *m_north_jewel = nullptr;
+        Jewel *m_west_jewel = nullptr;
+        Jewel *m_east_jewel = nullptr;
+        Jewel *m_south_jewel = nullptr;
 
         bool m_active = true;
         ActionTimer m_gravity_timer;
@@ -163,6 +129,7 @@ namespace puzzler {
         std::unique_ptr<morpheus::core::Node> m_jewel_sprite;
         puzzler::JewelType m_jewel_type;
         unsigned int m_palette_id = 0;
+        morpheus::core::gfx::Vector2 m_past_position;
         morpheus::core::gfx::Vector2 m_pre_position;
         unsigned short m_tile_id;
         bool m_using_light_palette = false;

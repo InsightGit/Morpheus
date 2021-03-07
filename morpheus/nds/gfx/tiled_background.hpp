@@ -16,7 +16,7 @@ namespace morpheus {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
                 explicit TiledBackground(bool use_sub_display, unsigned int background_num,
-                                         std::shared_ptr<NdsMainLoop> main_loop,
+                                         NdsMainLoop *main_loop,
                                          unsigned int cbb_num, unsigned int sbb_num);
 
                 unsigned int get_priority() const override {
@@ -51,7 +51,7 @@ namespace morpheus {
                 void update_scroll()override;
             private:
                 bool m_use_sub_display;
-                std::shared_ptr<NdsMainLoop> m_main_loop;
+                NdsMainLoop *m_main_loop;
 
                 int m_background_reference_num = -1;
 

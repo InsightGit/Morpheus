@@ -55,9 +55,11 @@ namespace morpheus {
             core::InputEvent to_input_event(uint32_t inputs, uint16_t keypad_bit,
                                             morpheus::core::InputState input_state)override;
         private:
+            void setup_debug_console(bool use_main_display);
+
             static PrintConsole *debug_print_console;
 
-            void setup_debug_console(bool use_main_display);
+            unsigned int m_last_input_size = 0;
         };
     }
 }

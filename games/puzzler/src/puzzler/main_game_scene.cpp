@@ -4,7 +4,7 @@
 
 #include "main_game_scene.hpp"
 
-puzzler::MainGameScene::MainGameScene(std::shared_ptr<morpheus::core::MainLoop> &main_loop) {
+puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop) {
     m_main_loop = main_loop;
 
     #ifdef _GBA
@@ -13,13 +13,14 @@ puzzler::MainGameScene::MainGameScene(std::shared_ptr<morpheus::core::MainLoop> 
                                                 false, 1, 1));
     #elif _NDS
         m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
-                                            false, 0, std::static_pointer_cast<morpheus::nds::NdsMainLoop>(m_main_loop),
+                                            false, 0, reinterpret_cast<morpheus::nds::NdsMainLoop*>(m_main_loop),
                                             1, 1));
     #endif
 
     // we can load the soundbank in the module and have all the other maxmod stuff just use that
     m_active_module.reset(morpheus::utils::construct_appropriate_max_mod_music(MOD_MAIN_THEME3,
-                                                              static_cast<void*>(const_cast<uint8_t*>(soundbank_bin))));
+                                                              static_cast<void*>(const_cast<uint8_t*>(soundbank_bin)),
+                                                              4));
 
     // TODO(Bobby): Do we really need a const_cast for this?
     m_jewel_complete_sfx.reset(
@@ -105,6 +106,8 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                     nocashMessage("touch detected");
 
                     if(m_game_over) {
+                        m_main_loop->send_to_debug_window("touch game over triggered. removing jewel children");
+
                         // time to restart game
                         for(std::unique_ptr<Jewel> &jewel : m_jewels) {
                             if(jewel != nullptr) {
@@ -112,9 +115,11 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                             }
                         }
 
-                        nocashMessage("touch game over triggered");
+                        m_main_loop->send_to_debug_window("clearing jewels");
 
                         m_jewels.clear();
+
+                        m_main_loop->send_to_debug_window("jewels cleared");
 
                         m_total_score = 0;
                         m_game_over = false;
@@ -197,7 +202,7 @@ void puzzler::MainGameScene::setup() {
 
     m_main_loop->send_to_debug_window("Loaded sfx. Loading module...");
 
-    //m_active_module->play_music(true);
+    m_active_module->play_music(true);
 
     m_main_loop->send_to_debug_window("Module loaded.");
 }
@@ -297,8 +302,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
                 positions.clear();
 
-                positions.emplace_back(position.get_x() - 16, std::min(JEWEL_GROUND, position.get_y() + 16));
-                positions.emplace_back(position.get_x() + 16, std::min(JEWEL_GROUND, position.get_y() + 16));
+                positions.emplace_back(position.get_x() - 16, std::min(JEWEL_GROUND, position.get_y() - 16));
+                positions.emplace_back(position.get_x() + 16, std::min(JEWEL_GROUND, position.get_y() - 16));
 
                 jewel_collisions = get_gems_at_positions(positions);
 
@@ -379,6 +384,18 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
 void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewel_collision_results) {
     for(JewelCollision &jewel_collision_result : jewel_collision_results) {
+        if(jewel_collision_result.type == JewelType::Triangle) {
+            m_main_loop->send_to_debug_window("Triangle Collision report:");
+
+            for(Jewel *jewel : jewel_collision_result.collisions) {
+                if(jewel == nullptr) {
+                    m_main_loop->send_to_debug_window("nullptr collision");
+                } else {
+                    m_main_loop->send_to_debug_window(jewel->to_string());
+                }
+            }
+        }
+
         switch(jewel_collision_result.collisions.size()) {
             case 3:
                 m_total_score += 10;
@@ -396,7 +413,8 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
                 continue;
         }
 
-        m_jewels.erase(std::remove_if(m_jewels.begin(), m_jewels.end(), [this, &jewel_collision_result](std::unique_ptr<Jewel> &jewel) {
+        m_jewels.erase(std::remove_if(m_jewels.begin(), m_jewels.end(),
+                                      [this, &jewel_collision_result](std::unique_ptr<Jewel> &jewel) {
             morpheus::core::gfx::Vector2 position = jewel->get_position();
 
             for(unsigned int i2 = 0; jewel_collision_result.collisions.size() > i2; ++i2) {
@@ -430,7 +448,7 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
         m_jewel_put_sfx->stop_effect();
         m_jewel_complete_sfx->start_effect(false);
 
-        m_main_loop->send_to_debug_window("effect started");
+        //m_main_loop->send_to_debug_window("effect started");
 
         #ifdef _GBA
             tte_set_pos(192, 24);

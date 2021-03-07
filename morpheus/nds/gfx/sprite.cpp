@@ -71,17 +71,26 @@ morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display, SpriteMapping sprite_ma
 }
 
 morpheus::nds::gfx::Sprite::~Sprite() {
-    if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
+    nocashMessage(std::string("destroying " + get_position().to_string()).c_str());
+
+    if(m_gfx_pointer != nullptr && !m_do_not_free_gfx_pointer) {
+        nocashMessage(std::string("freeing gfx " + std::to_string(reinterpret_cast<unsigned int>(m_gfx_pointer))).c_str());
+
         oamFreeGfx(m_current_oam, m_gfx_pointer);
+
+        nocashMessage("gfx freed");
     }
 
     //std::cout << "Destructor called\n";
 
     if(m_last_used_obj_attr_num != -1) {
+        nocashMessage("clearing sprite");
+
         oamClearSprite(m_current_oam, m_last_used_obj_attr_num);
 
-        //std::cout << "sprite cleared\n";
+        nocashMessage("sprite cleared");
     }
+    nocashMessage("destructed");
 }
 
 void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width, uint8_t height) {

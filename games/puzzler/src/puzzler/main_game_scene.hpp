@@ -34,18 +34,20 @@
 namespace puzzler {
     const static int JEWEL_GROUND = 128;
 
-    class MainGameScene : public puzzler::Scene, public morpheus::core::Node {
+    class MainGameScene : public puzzler::Scene {
     public:
-        MainGameScene(std::shared_ptr<morpheus::core::MainLoop> &main_loop);
+        MainGameScene(morpheus::core::MainLoop *main_loop);
 
+        ~MainGameScene() override = default;
+
+        void setup()override;
+    protected:
         void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_active_jewel != nullptr) {
                 m_active_jewel->draw(obj_attr_buffer, obj_attr_num, priority);
             }
         }
 
-        void setup()override;
-    protected:
         void on_visible_state_changed(bool new_visible_state) override {}
 
         void input(morpheus::core::InputEvent input_event)override;
@@ -80,7 +82,7 @@ namespace puzzler {
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_complete_sfx;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_put_sfx;
         ActionTimer m_jewel_spawning_timer;
-        std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
+        morpheus::core::MainLoop *m_main_loop;
         unsigned int m_total_score = 0;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
 

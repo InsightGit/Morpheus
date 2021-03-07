@@ -81,6 +81,10 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
             input_events.insert(input_events.end(), held_events.begin(), held_events.end());
             input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
+            if(!input_events.empty()) {
+                m_last_input_size = input_events.size() * m_cycle_time;
+            }
+
             for(core::InputEvent input_event : input_events) {
                 m_root->received_input(input_event);
             }
@@ -93,7 +97,8 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
             // TODO(Bobby): Fix unneeded argument 1 problem
             std::vector<void*> filler;
 
-            m_root->draw(filler, 0);
+            set_supplementary_seed(static_cast<int>(m_cycle_time) +
+                                    m_root->draw(filler, 0) + m_last_input_size);
         }
 
         ++iteration;

@@ -5,7 +5,7 @@
 #include "tiled_background.hpp"
 
 morpheus::nds::gfx::TiledBackground::TiledBackground(bool use_sub_display, unsigned int background_num,
-                                                     std::shared_ptr<NdsMainLoop> main_loop,
+                                                     NdsMainLoop *main_loop,
                                                      unsigned int cbb_num, unsigned int sbb_num) :
                                      morpheus::core::gfx::TiledBackgroundBase(background_num, cbb_num, sbb_num) {
     m_main_loop = main_loop;

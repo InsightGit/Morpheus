@@ -19,7 +19,8 @@ public:
         m_sfx = sfx;
     }
 
-    virtual void input(morpheus::core::InputEvent input_event)override {
+protected:
+    virtual void input(morpheus::core::InputEvent input_event) override {
         if(input_event.state == morpheus::core::InputState::DOWN ||
            input_event.state == morpheus::core::InputState::HELD) {
             switch(input_event.button) {
@@ -33,7 +34,10 @@ public:
         }
     }
 
-    void draw_node(std::vector<void *>obj_attr_buffer, int obj_attr_num, int priority) override {}
+    void on_visible_state_changed(bool new_visible_state)override {}
+    virtual void update(unsigned char cycle_time)override {}
+
+    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
 private:
     std::shared_ptr<morpheus::core::audio::MaxModSfx> m_sfx;
 };
