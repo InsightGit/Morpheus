@@ -85,7 +85,8 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
 
 
 def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
-                      palette_bank: int = 0, image_file: str = "", is_4bpp: bool = False) -> bool:
+                      palette_bank: int = 0, image_file: str = "", is_4bpp: bool = False,
+                      extra_grit_args: str = "") -> bool:
     try:
         file_obj = open(file_path, 'rb')
     except FileNotFoundError:
@@ -117,6 +118,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             #grit_subprocess.append("-MRtf")
 
         grit_subprocess.append("-ftc")
+
+        if len(extra_grit_args) > 0:
+            grit_subprocess.append(extra_grit_args)
 
         print(subprocess.run(["which", "grit"], capture_output=True))
         print(subprocess.run(grit_subprocess, capture_output=True))
@@ -166,14 +170,18 @@ def main() -> None:
                     raise ValueError
 
                 if len(sys.argv) > 6:
-                    if len(sys.argv) < 7:
+                    if len(sys.argv) < 8:
                         print("Missing image_bpp argument to accompany image_file argument")
                         sys.exit(2)
-
-                    # TODO(Bobby): Value checking like palette_bank on the image-related integer argument(s)
-                    return_value = _open_and_convert(sys.argv[1], sys.argv[2], int(sys.argv[3]),
-                                                     int(sys.argv[4]), palette_bank, sys.argv[6],
-                                                     int(sys.argv[7]) == 4)
+                    elif len(sys.argv) > 9:
+                        return_value = _open_and_convert(sys.argv[1], sys.argv[2], int(sys.argv[3]),
+                                                         int(sys.argv[4]), palette_bank, sys.argv[6],
+                                                         int(sys.argv[7]) == 4, sys.argv[8])
+                    else:
+                        # TODO(Bobby): Value checking like palette_bank on the image-related integer argument(s)
+                        return_value = _open_and_convert(sys.argv[1], sys.argv[2], int(sys.argv[3]),
+                                                         int(sys.argv[4]), palette_bank, sys.argv[6],
+                                                         int(sys.argv[7]) == 4)
                 else:
                     return_value = _open_and_convert(sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4]),
                                                      palette_bank)
@@ -189,7 +197,7 @@ def main() -> None:
     else:
         print("Invalid syntax:")
         print(os.path.basename(__file__) + " tilemap_studio_bin_file_path build_dir width height [palette_bank] "
-                                           "[image_file] [image_bpp]")
+                                           "[image_file] [image_bpp] [extra_grit_args]")
         print("Note: if an image_file argument is given, image_bpp becomes a " +\
               "required argument.")
         sys.exit(2)

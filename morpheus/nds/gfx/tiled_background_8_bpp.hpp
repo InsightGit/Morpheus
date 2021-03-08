@@ -13,7 +13,7 @@ namespace morpheus {
             class TiledBackground8Bpp : public TiledBackground {
             public:
                 explicit TiledBackground8Bpp(bool use_sub_display, unsigned int background_num,
-                                             std::shared_ptr<NdsMainLoop> main_loop,
+                                             NdsMainLoop *main_loop,
                                              unsigned int cbb_num, unsigned int sbb_num) :
                         TiledBackground(use_sub_display, background_num, main_loop,
                                         cbb_num, sbb_num) {}

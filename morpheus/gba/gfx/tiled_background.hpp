@@ -20,7 +20,7 @@ namespace morpheus {
         namespace gfx {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
-                explicit TiledBackground(unsigned int background_num, std::shared_ptr<GbaMainLoop> main_loop,
+                explicit TiledBackground(unsigned int background_num, GbaMainLoop *main_loop,
                                          bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num);
 
                 unsigned int get_priority() const override {
@@ -48,7 +48,7 @@ namespace morpheus {
                 unsigned int m_background_priority;
                 unsigned int m_background_register;
                 bool m_is_8bpp;
-                std::shared_ptr<GbaMainLoop> m_main_loop;
+                GbaMainLoop *m_main_loop;
                 bool m_main_loop_notified = false;
             };
         }

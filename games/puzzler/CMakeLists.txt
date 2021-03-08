@@ -77,6 +77,8 @@ set(SOURCE_FILES
         src/main.cpp
         "${CMAKE_CURRENT_BINARY_DIR}/maingamescreen.c"
         "${CMAKE_CURRENT_BINARY_DIR}/maingamescreen.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/mainmenuscreen.c"
+        "${CMAKE_CURRENT_BINARY_DIR}/mainmenuscreen.h"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.bin.o"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}_bin.h"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.h"
@@ -99,16 +101,19 @@ endif()
 # Background conversion
 
 convert_tilemap_bin_image_file("assets/backgrounds/maingamescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
-                               "assets/backgrounds/maingamescreen.png" false)
+                               "assets/backgrounds/maingamescreen.png" false "")
+convert_tilemap_bin_image_file("assets/backgrounds/mainmenuscreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 10
+                               "assets/backgrounds/mainmenuscreen.png" false "")
 
 # OBJ (Sprite) conversion
 
 set(OBJ_PNG_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/circlejewel.png"
                   "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/diamondjewel.png"
                   "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/squarejewel.png"
-                  "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/trianglejewel.png")
-set(OBJ_PNG_SIZES "16X16" "16X16" "16X16" "16X16")
-set(OBJ_PNG_ARGUMENTS "" "-p!" "-p!" "-p!") # tells to omit palette cause all sprites share the same palette
+                  "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/trianglejewel.png"
+                    "${CMAKE_CURRENT_SOURCE_DIR}/assets/sprites/menucursor.png")
+set(OBJ_PNG_SIZES "16X16" "16X16" "16X16" "16X16" "16X16")
+set(OBJ_PNG_ARGUMENTS "" "-p!" "-p!" "-p!" "-p!") # tells to omit palette cause all sprites share the same palette
 
 execute_grit_sprites(OBJ_PNG_FILES OBJ_PNG_SIZES OBJ_PNG_ARGUMENTS true)
 
@@ -168,10 +173,15 @@ elseif(platform_lower STREQUAL "nds")
     link_directories(puzzler PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
 
     convert_tilemap_bin_image_file("assets/backgrounds/subscorescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
-                                   "assets/backgrounds/subscorescreen.png" false)
+                                   "assets/backgrounds/subscorescreen.png" false "")
+    convert_tilemap_bin_image_file("assets/backgrounds/submainmenuscreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
+                                   "assets/backgrounds/submainmenuscreen.png" true "-p!")
+
     list(APPEND SOURCE_FILES
             "${CMAKE_CURRENT_BINARY_DIR}/subscorescreen.c"
-            "${CMAKE_CURRENT_BINARY_DIR}/subscorescreen.h")
+            "${CMAKE_CURRENT_BINARY_DIR}/subscorescreen.h"
+            "${CMAKE_CURRENT_BINARY_DIR}/submainmenuscreen.c"
+            "${CMAKE_CURRENT_BINARY_DIR}/submainmenuscreen.h")
 
     generate_maxmod_soundbank(false ${MAXMOD_SOUNDBANK_NAME} MAXMOD_SOUNDBANK_LIST)
 

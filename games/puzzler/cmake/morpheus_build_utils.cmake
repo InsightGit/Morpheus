@@ -119,7 +119,7 @@ function(convert_tilemap_bin_files build_dir palette_bank_num bin_files target_n
     execute_grit_tilemaps(palette_bank_num)
 endfunction()
 
-function(convert_tilemap_bin_image_file bin_file build_dir width height palette_bank_num image_file is_8bpp)
+function(convert_tilemap_bin bin_file build_dir width height palette_bank_num)
     if(WIN32)
         find_program(PYTHON3 python)
     else()
@@ -143,9 +143,36 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
     add_custom_command(OUTPUT ${build_dir}/${bin_file_path_name}.c ${build_dir}/${bin_file_path_name}.h
             COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py
             ${CMAKE_CURRENT_SOURCE_DIR}/${bin_file} ${build_dir} ${width} ${height}
-            ${palette_bank_num} ${CMAKE_CURRENT_SOURCE_DIR}/${image_file} ${bpp}
-            VERBATIM)
+            ${palette_bank_num} VERBATIM)
+endfunction()
 
+function(convert_tilemap_bin_image_file bin_file build_dir width height palette_bank_num image_file is_8bpp
+         extra_grit_args)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    if(is_8bpp)
+        set(bpp 8)
+    else()
+        set(bpp 4)
+    endif()
+
+    get_filename_component(bin_file_path_name ${bin_file} NAME)
+    string(REPLACE ".bin" "" bin_file_path_name ${bin_file_path_name})
+
+
+    add_custom_command(OUTPUT ${build_dir}/${bin_file_path_name}.c ${build_dir}/${bin_file_path_name}.h
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/${bin_file} ${build_dir} ${width} ${height}
+            ${palette_bank_num} ${CMAKE_CURRENT_SOURCE_DIR}/${image_file} ${bpp} ${extra_grit_args}
+            VERBATIM)
 endfunction()
 
 function(generate_maxmod_soundbank is_gba soundbank_name sound_files)

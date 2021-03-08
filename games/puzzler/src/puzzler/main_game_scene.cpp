@@ -9,7 +9,7 @@ puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop) {
 
     #ifdef _GBA
         m_user_background.reset(new morpheus::gba::gfx::TiledBackground(
-                                                0, std::static_pointer_cast<morpheus::gba::GbaMainLoop>(m_main_loop),
+                                                0, static_cast<morpheus::gba::GbaMainLoop*>(m_main_loop),
                                                 false, 1, 1));
     #elif _NDS
         m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
@@ -253,7 +253,7 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                 return;
             }
 
-            m_active_jewel.reset(new Jewel(m_main_loop.get()));
+            m_active_jewel.reset(new Jewel(m_main_loop));
 
             m_active_jewel->set_position(initial_position_vector[0]);
 
@@ -512,7 +512,7 @@ bool puzzler::MainGameScene::is_gem_at_positions(std::vector<morpheus::core::gfx
     void puzzler::MainGameScene::setup_second_screen() {
         m_sub_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
                                             true, 1,
-                                            std::static_pointer_cast<morpheus::nds::NdsMainLoop>(m_main_loop),
+                                            static_cast<morpheus::nds::NdsMainLoop*>(m_main_loop),
                                             1, 1));
 
         m_sub_background->load_from_array(subscorescreenTiles, subscorescreenTilesLen, subscorescreenPal,

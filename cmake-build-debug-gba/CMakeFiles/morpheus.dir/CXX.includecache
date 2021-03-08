@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+../morpheus/core/gfx/tiled_background_base.hpp
+algorithm
+-
+core/main_loop.hpp
+-
+core/gfx/vector_2.hpp
+-
+
+../morpheus/core/gfx/vector_2.hpp
+
 ../morpheus/core/gfx/window.hpp
 memory
 -
@@ -42,11 +52,7 @@ core/input_event.hpp
 
 ../morpheus/core/uncopyable.hpp
 
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.cpp
-gba_main_loop.hpp
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
-
-/home/bobby/morpheus/morpheus/gba/gba_main_loop.hpp
+../morpheus/gba/gba_main_loop.hpp
 iostream
 -
 list
@@ -62,6 +68,24 @@ tonc.h
 core/main_loop.hpp
 -
 core/gfx/window.hpp
+-
+
+/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.cpp
+tiled_background.hpp
+/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.hpp
+
+/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.hpp
+cassert
+-
+cstring
+-
+memory
+-
+tonc.h
+-
+gba/gba_main_loop.hpp
+-
+core/gfx/tiled_background_base.hpp
 -
 
 /opt/devkitpro/libgba/include/maxmod.h

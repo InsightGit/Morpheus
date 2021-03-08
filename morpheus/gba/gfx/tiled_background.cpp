@@ -6,7 +6,7 @@
 
 
 morpheus::gba::gfx::TiledBackground::TiledBackground(unsigned int background_num,
-                                                     std::shared_ptr<GbaMainLoop> main_loop,
+                                                     GbaMainLoop *main_loop,
                                                      bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num) :
                                          morpheus::core::gfx::TiledBackgroundBase(background_num, cbb_num, sbb_num) {
     m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num());
