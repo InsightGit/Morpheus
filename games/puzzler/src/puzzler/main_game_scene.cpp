@@ -4,7 +4,8 @@
 
 #include "main_game_scene.hpp"
 
-puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop) {
+puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const unsigned int difficulty_setting) {
+    m_difficulty_setting = difficulty_setting;
     m_main_loop = main_loop;
 
     #ifdef _GBA
@@ -147,9 +148,25 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 void puzzler::MainGameScene::setup() {
     m_main_loop->send_to_debug_window("Loading background...");
 
-    m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
-                                       maingamescreenPalLen, maingamescreenMap, maingamescreenMapLen,
-                                       morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+    switch(m_difficulty_setting) {
+        case 0:
+            m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
+                                               maingamescreenPalLen, maingamescreenMap, maingamescreenMapLen,
+                                               morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+            break;
+        case 1:
+            m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
+                                               maingamescreenPalLen, smallergamescreenMap,
+                                               SMALLERGAMESCREEN_TILE_MAP_LENGTH,
+                                               morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+            break;
+        case 2:
+            m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
+                                               maingamescreenPalLen, smallestgamescreenMap,
+                                               SMALLESTGAMESCREEN_TILE_MAP_LENGTH,
+                                               morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+            break;
+    }
 
     m_main_loop->send_to_debug_window("Background loaded. Loading gfx...");
 

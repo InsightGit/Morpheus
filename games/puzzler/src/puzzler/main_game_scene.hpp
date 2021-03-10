@@ -17,6 +17,8 @@
 
 // Grit Background includes
 #include "maingamescreen.h"
+#include "smallergamescreen.h"
+#include "smallestgamescreen.h"
 
 #ifdef _NDS
 #include "subscorescreen.h"
@@ -36,7 +38,7 @@ namespace puzzler {
 
     class MainGameScene : public puzzler::Scene {
     public:
-        MainGameScene(morpheus::core::MainLoop *main_loop);
+        MainGameScene(morpheus::core::MainLoop *main_loop, const unsigned int difficulty_setting);
 
         ~MainGameScene() override = default;
 
@@ -73,9 +75,11 @@ namespace puzzler {
 
         void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
 
+
         std::unique_ptr<Jewel> m_active_jewel;
         std::unique_ptr<morpheus::core::audio::MaxModMusic> m_active_module;
         unsigned int m_cycles = 0;
+        unsigned int m_difficulty_setting;
         bool m_game_over = false;
         std::vector<std::unique_ptr<Jewel>> m_jewels;
         ActionTimer m_jewel_animation_timer;

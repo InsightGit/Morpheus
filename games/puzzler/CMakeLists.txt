@@ -79,6 +79,10 @@ set(SOURCE_FILES
         "${CMAKE_CURRENT_BINARY_DIR}/maingamescreen.h"
         "${CMAKE_CURRENT_BINARY_DIR}/mainmenuscreen.c"
         "${CMAKE_CURRENT_BINARY_DIR}/mainmenuscreen.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/smallergamescreen.c"
+        "${CMAKE_CURRENT_BINARY_DIR}/smallergamescreen.h"
+        "${CMAKE_CURRENT_BINARY_DIR}/smallestgamescreen.c"
+        "${CMAKE_CURRENT_BINARY_DIR}/smallestgamescreen.h"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.bin.o"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}_bin.h"
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.h"
@@ -86,7 +90,7 @@ set(SOURCE_FILES
         src/puzzler/main_game_scene.hpp
         src/puzzler/scene.hpp src/puzzler/jewel.cpp
         src/puzzler/jewel.hpp
-        src/puzzler/action_timer.hpp src/puzzler/main_menu_scene.cpp src/puzzler/main_menu_scene.hpp)
+        src/puzzler/action_timer.hpp src/puzzler/main_menu_scene.cpp src/puzzler/main_menu_scene.hpp src/puzzler/scene_manager.cpp src/puzzler/scene_manager.hpp)
 
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
@@ -104,6 +108,9 @@ convert_tilemap_bin_image_file("assets/backgrounds/maingamescreen.bin" ${CMAKE_C
                                "assets/backgrounds/maingamescreen.png" false "")
 convert_tilemap_bin_image_file("assets/backgrounds/mainmenuscreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 10
                                "assets/backgrounds/mainmenuscreen.png" false "")
+
+convert_tilemap_bin("assets/backgrounds/smallergamescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0)
+convert_tilemap_bin("assets/backgrounds/smallestgamescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0)
 
 # OBJ (Sprite) conversion
 

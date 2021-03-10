@@ -10,7 +10,17 @@
 namespace puzzler {
     class Scene : public morpheus::core::Node {
     public:
+        bool is_marked_for_deletion() const {
+            return m_deletion;
+        }
+
         virtual void setup() = 0;
+    protected:
+        void mark_for_deletion() {
+            m_deletion = true;
+        }
+    private:
+        bool m_deletion = false;
     };
 }
 

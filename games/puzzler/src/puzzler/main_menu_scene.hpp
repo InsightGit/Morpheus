@@ -29,6 +29,10 @@ namespace puzzler {
 
         ~MainMenuScene() override = default;
 
+        unsigned int get_cursor_position() const {
+            return m_cursor_position;
+        }
+
         void setup()override;
     protected:
         void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {

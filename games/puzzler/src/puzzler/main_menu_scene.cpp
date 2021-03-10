@@ -97,6 +97,10 @@ void puzzler::MainMenuScene::input(morpheus::core::InputEvent input_event) {
             case morpheus::core::InputButton::DPADDOWN:
                 m_cursor_position = std::min(2u, m_cursor_position + 1);
                 break;
+            case morpheus::core::InputButton::A:
+            case morpheus::core::InputButton::START:
+                mark_for_deletion();
+                break;
             default:
                 break;
         }
