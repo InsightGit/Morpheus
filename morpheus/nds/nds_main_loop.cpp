@@ -203,3 +203,12 @@ morpheus::nds::NdsMainLoop::to_input_event(uint32_t inputs,
 
     return input_event;
 }
+
+void morpheus::nds::NdsMainLoop::clear_obj_vram() {
+    oamClear(&oamMain, 0, 0);
+    oamClear(&oamSub, 0, 0);
+}
+
+/*void morpheus::nds::NdsMainLoop::clear_vram() {
+    //
+}*/

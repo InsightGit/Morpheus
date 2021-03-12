@@ -15,7 +15,11 @@ namespace morpheus {
                 explicit TiledBackground4Bpp(bool use_sub_display, unsigned int background_num,
                                              NdsMainLoop *main_loop, unsigned int cbb_num, unsigned int sbb_num) :
                                              TiledBackground(use_sub_display, background_num, main_loop,
-                                                             cbb_num, sbb_num) {}
+                                                             cbb_num, sbb_num) {
+                    init_background_reference_num(BgType_Text4bpp);
+                }
+
+                virtual ~TiledBackground4Bpp() = default;
 
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *palette, const unsigned int pal_len,

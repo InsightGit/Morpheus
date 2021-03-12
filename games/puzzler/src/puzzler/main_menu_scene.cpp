@@ -4,7 +4,7 @@
 
 #include "main_menu_scene.hpp"
 
-puzzler::MainMenuScene::MainMenuScene(morpheus::core::MainLoop *main_loop) {
+puzzler::MainMenuScene::MainMenuScene(morpheus::core::MainLoop *main_loop) : puzzler::Scene(main_loop) {
     #ifdef _GBA
         m_cursor.reset(new morpheus::gba::gfx::Sprite4Bpp(4));
 
@@ -20,9 +20,35 @@ puzzler::MainMenuScene::MainMenuScene(morpheus::core::MainLoop *main_loop) {
                                                                    static_cast<morpheus::nds::NdsMainLoop*>(main_loop),
                                                                    MAIN_BG_CBB_NUM, MAIN_BG_SBB_NUM));
     #endif
-
-    m_main_loop = main_loop;
 }
+
+puzzler::MainMenuScene::~MainMenuScene() {
+    #ifdef _GBA
+        tte_set_pos(56, 40);
+
+        tte_write("                        ");
+
+        tte_set_pos(88, 64);
+
+        tte_write("                        ");
+
+        tte_set_pos(88, 88);
+
+        tte_write("                        ");
+
+        tte_set_pos(88, 104);
+
+        tte_write("                        ");
+    #elif _NDS
+        consoleInit(&m_title_console, 0, BgType_Text4bpp, BgSize_T_256x256, TITLE_TEXT_SBB_NUM, TITLE_TEXT_CBB_NUM,
+                    true, false);
+
+        consoleClear();
+
+        morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
+    #endif
+}
+
 
 void puzzler::MainMenuScene::setup() {
     m_main_bg->load_from_array(mainmenuscreenTiles, mainmenuscreenTilesLen, mainmenuscreenPal, mainmenuscreenPalLen,
@@ -31,8 +57,8 @@ void puzzler::MainMenuScene::setup() {
     #ifdef _GBA
         auto *cursor_sprite = static_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_cursor.get());
 
-        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles), mainmenuscreenPal, 4,
-                                       16, 16, 0);
+        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles), circlejewelPal,
+                                       circlejewelPalLen, 4, 16, 16, 0);
 
         tte_init_se(0, BG_CBB(TITLE_TEXT_CBB_NUM) | BG_SBB(TITLE_TEXT_SBB_NUM), 0, CLR_WHITE,
                     14, nullptr, nullptr);
@@ -53,6 +79,8 @@ void puzzler::MainMenuScene::setup() {
 
         tte_write("Hard board");
 
+        add_child(cursor_sprite);
+
         cursor_sprite->set_position(MENU_POSITIONS[0]);
     #elif _NDS
         auto *cursor_sprite = static_cast<morpheus::nds::gfx::Sprite4Bpp*>(m_cursor.get());
@@ -60,8 +88,8 @@ void puzzler::MainMenuScene::setup() {
         // intentional copy
         unsigned short old_palette_value = BG_PALETTE[0];
 
-        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles), 4,
-                                   mainmenuscreenPal, 16, 16);
+        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles),
+                                       circlejewelPal, circlejewelPalLen, 4, 16, 16);
         m_sub_bg->load_from_array(submainmenuscreenTiles, submainmenuscreenTilesLen, mainmenuscreenPal,
                                   mainmenuscreenPalLen, submainmenuscreenMap, submainmenuscreenMapLen,
                                   morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
@@ -83,7 +111,7 @@ void puzzler::MainMenuScene::setup() {
         morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
     #endif
 
-    m_main_loop->enable_background(0);
+    get_main_loop()->enable_background(0);
 }
 
 void puzzler::MainMenuScene::input(morpheus::core::InputEvent input_event) {

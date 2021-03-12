@@ -4,17 +4,22 @@
 
 #include "main_game_scene.hpp"
 
-puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const unsigned int difficulty_setting) {
+puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const unsigned int difficulty_setting) : 
+                                      puzzler::Scene(main_loop) {
     m_difficulty_setting = difficulty_setting;
-    m_main_loop = main_loop;
 
     #ifdef _GBA
         m_user_background.reset(new morpheus::gba::gfx::TiledBackground(
-                                                0, static_cast<morpheus::gba::GbaMainLoop*>(m_main_loop),
+                                                0, static_cast<morpheus::gba::GbaMainLoop*>(get_main_loop()),
                                                 false, 1, 1));
     #elif _NDS
+        m_sub_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(true, 1,
+                                                                           static_cast<morpheus::nds::NdsMainLoop*>(
+                                                                                   get_main_loop()),
+                                                                           1, 1));
+
         m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
-                                            false, 0, reinterpret_cast<morpheus::nds::NdsMainLoop*>(m_main_loop),
+                                            false, 0, reinterpret_cast<morpheus::nds::NdsMainLoop*>(get_main_loop()),
                                             1, 1));
     #endif
 
@@ -27,6 +32,50 @@ puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const
     m_jewel_complete_sfx.reset(
             morpheus::utils::construct_appropriate_max_mod_sfx(SFX_GEMCOMPLETED));
     m_jewel_put_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_GEMPLACED));
+}
+
+puzzler::MainGameScene::~MainGameScene() {
+    #ifdef _GBA
+        tte_set_pos(80, 72);
+
+        tte_write("                                        ");
+
+        tte_set_pos(16, 80);
+
+        tte_write("                                        ");
+
+        tte_set_pos(16, 88);
+
+        tte_write("                                        ");
+
+        tte_set_pos(16, 96);
+
+        tte_write("                                        ");
+
+        tte_set_pos(80, 104);
+
+        tte_write("                                        ");
+
+        tte_set_pos(192, 16);
+
+        tte_write("                                        ");
+
+        tte_set_pos(192, 24);
+
+        tte_write("                                        ");
+    #elif _NDS
+        consoleInit(&m_sub_console, 0, BgType_Text4bpp, BgSize_T_256x256,
+                    SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, false, false);
+
+        consoleClear();
+
+        consoleInit(&m_score_console, 1, BgType_Text4bpp, BgSize_T_256x256,
+                    SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, true, false);
+
+        consoleClear();
+
+        morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
+    #endif
 }
 
 void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
@@ -44,7 +93,7 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 
                     positions.push_back(position);
 
-                    if(is_gem_at_positions(positions) || position.get_y() >= JEWEL_GROUND) {
+                    if(is_gem_at_positions(positions) || position.get_y() >= m_bottom_y_boundary) {
                         return;
                     }
 
@@ -52,11 +101,12 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                 case morpheus::core::InputButton::DPADRIGHT:
                     positions.emplace_back(position.get_x(),position.get_y() + 16);
 
-                    position = morpheus::core::gfx::Vector2(std::min(144, position.get_x() + 16), position.get_y());
+                    position = morpheus::core::gfx::Vector2(std::min(m_right_x_boundary, position.get_x() + 16),
+                                                            position.get_y());
 
                     positions.push_back(position);
 
-                    if(is_gem_at_positions(positions) || position.get_y() >= JEWEL_GROUND) {
+                    if(is_gem_at_positions(positions) || position.get_y() >= m_bottom_y_boundary) {
                         return;
                     }
 
@@ -65,7 +115,7 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                     position = morpheus::core::gfx::Vector2(morpheus::core::gfx::Vector2(position.get_x(),
                                                                                          position.get_y() + 16));
 
-                    if(is_gem_at_position(position) || position.get_y() >= JEWEL_GROUND) {
+                    if(is_gem_at_position(position) || position.get_y() >= m_bottom_y_boundary) {
                         return;
                     }
                     break;
@@ -73,94 +123,115 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
 
             m_active_jewel->set_position(position);
         } else if(m_game_over) {
-            #ifdef _GBA
-                if(input_event.button == morpheus::core::InputButton::START) {
-                    m_total_score = 0;
-                    m_game_over = false;
+            if(input_event.button == morpheus::core::InputButton::SELECT) {
+                mark_for_deletion();
+            } else {
+                #ifdef _GBA
+                    if(input_event.button == morpheus::core::InputButton::START) {
+                        m_total_score = 0;
+                        m_game_over = false;
 
-                    for(std::unique_ptr<Jewel> &jewel : m_jewels) {
-                        if(jewel != nullptr) {
-                            remove_child(jewel.get());
-                        }
-                    }
-
-                    m_jewels.clear();
-
-                    tte_set_pos(192, 16);
-
-                    tte_write("Score:");
-
-                    tte_set_pos(192, 24);
-
-                    tte_write("0                   ");
-
-                    tte_set_pos(80, 72);
-
-                    tte_write("                                      ");
-
-                    tte_set_pos(0, 80);
-
-                    tte_write("                                      ");
-                }
-            #elif _NDS
-                if(input_event.button == morpheus::core::InputButton::TOUCH) {
-                    nocashMessage("touch detected");
-
-                    if(m_game_over) {
-                        m_main_loop->send_to_debug_window("touch game over triggered. removing jewel children");
-
-                        // time to restart game
                         for(std::unique_ptr<Jewel> &jewel : m_jewels) {
                             if(jewel != nullptr) {
                                 remove_child(jewel.get());
                             }
                         }
 
-                        m_main_loop->send_to_debug_window("clearing jewels");
-
                         m_jewels.clear();
 
-                        m_main_loop->send_to_debug_window("jewels cleared");
+                        tte_set_pos(192, 16);
 
-                        m_total_score = 0;
-                        m_game_over = false;
+                        tte_write("Score:");
 
-                        consoleInit(&m_sub_console, 0, BgType_Text4bpp, BgSize_T_256x256,
-                                    SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, false, false);
+                        tte_set_pos(192, 24);
 
-                        consoleClear();
+                        tte_write("0                   ");
 
-                        consoleInit(&m_score_console, 1, BgType_Text4bpp, BgSize_T_256x256,
-                                    SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, true, false);
+                        tte_set_pos(80, 72);
 
-                        consoleClear();
+                        tte_write("                                        ");
 
-                        std::cout << "\x1b[3;20H \x1b[40;5m Score:0";
+                        tte_set_pos(16, 80);
 
-                        morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
+                        tte_write("                                        ");
+
+                        tte_set_pos(16, 88);
+
+                        tte_write("                                        ");
+
+                        tte_set_pos(16, 96);
+
+                        tte_write("                                        ");
+
+                        tte_set_pos(80, 104);
+
+                        tte_write("                                        ");
+
                     }
-                }
-            #endif
+                #elif _NDS
+                    if(input_event.button == morpheus::core::InputButton::TOUCH) {
+                        nocashMessage("touch detected");
+
+                        if(m_game_over) {
+                            // time to restart game
+                            for(std::unique_ptr<Jewel> &jewel : m_jewels) {
+                                if(jewel != nullptr) {
+                                    remove_child(jewel.get());
+                                }
+                            }
+
+                            m_jewels.clear();
+
+                            m_total_score = 0;
+                            m_game_over = false;
+
+                            consoleInit(&m_sub_console, 0, BgType_Text4bpp, BgSize_T_256x256,
+                                        SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, false, false);
+
+                            consoleClear();
+
+                            consoleInit(&m_score_console, 1, BgType_Text4bpp, BgSize_T_256x256,
+                                        SCORE_TEXT_MAP_BASE, SCORE_TEXT_TILE_BASE, true, false);
+
+                            consoleClear();
+
+                            std::cout << "\x1b[3;20H \x1b[40;5m Score:0";
+
+                            morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
+                        }
+                    }
+                #endif
+            }
         }
     }
 }
 
 void puzzler::MainGameScene::setup() {
-    m_main_loop->send_to_debug_window("Loading background...");
-
     switch(m_difficulty_setting) {
         case 0:
+            m_bottom_y_boundary = 128;
+            m_right_x_boundary = 144;
+            m_jewel_spawn_x_pos = 64;
+
             m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
                                                maingamescreenPalLen, maingamescreenMap, maingamescreenMapLen,
                                                morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
             break;
         case 1:
+            m_bottom_y_boundary = 112;
+            m_right_x_boundary = 80;
+            m_jewel_spawn_x_pos = 32;
+
             m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
                                                maingamescreenPalLen, smallergamescreenMap,
                                                SMALLERGAMESCREEN_TILE_MAP_LENGTH,
                                                morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
             break;
         case 2:
+            m_bottom_y_boundary = 96;
+            m_right_x_boundary = 64;
+            m_jewel_spawn_x_pos = 32;
+
             m_user_background->load_from_array(maingamescreenTiles, maingamescreenTilesLen, maingamescreenPal,
                                                maingamescreenPalLen, smallestgamescreenMap,
                                                SMALLESTGAMESCREEN_TILE_MAP_LENGTH,
@@ -168,17 +239,15 @@ void puzzler::MainGameScene::setup() {
             break;
     }
 
-    m_main_loop->send_to_debug_window("Background loaded. Loading gfx...");
-
     #ifdef _GBA
         morpheus::gba::gfx::Sprite4Bpp sprite;
 
-        sprite.load_into_palette(circlejewelPal, 0, circlejewelPalLen);
+        sprite.load_into_palette(circlejewelPal, circlejewelPalLen);
 
-        m_main_loop->enable_background(1);
+        get_main_loop()->enable_background(1);
 
-        tte_init_se(1, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr,
-                    nullptr);
+        tte_init_se(1, BG_CBB(2) | BG_SBB(31) | BG_PRIO(0), 0, CLR_WHITE, 14,
+                    nullptr,nullptr);
 
         tte_set_pos(192, 16);
 
@@ -213,15 +282,9 @@ void puzzler::MainGameScene::setup() {
         setup_second_screen();
     #endif
 
-    m_main_loop->send_to_debug_window("Loaded gfx. Loading sfx...");
-
     m_user_background->set_priority(1);
 
-    m_main_loop->send_to_debug_window("Loaded sfx. Loading module...");
-
     m_active_module->play_music(true);
-
-    m_main_loop->send_to_debug_window("Module loaded.");
 }
 
 void puzzler::MainGameScene::update(unsigned char cycle_time) {
@@ -236,7 +299,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
     if(m_active_jewel == nullptr) {
         if(m_jewel_spawning_timer.current_action_cycle_waiting &&
            m_jewel_spawning_timer.current_action_cycle == cycle_time) {
-            std::vector<morpheus::core::gfx::Vector2> initial_position_vector = {morpheus::core::gfx::Vector2(64, 16)};
+            std::vector<morpheus::core::gfx::Vector2> initial_position_vector =
+                    { morpheus::core::gfx::Vector2(m_jewel_spawn_x_pos, 16) };
 
             if(!get_gems_at_positions(initial_position_vector).empty()) {
                 // game over!
@@ -245,9 +309,21 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
                     tte_write("Game over!");
 
-                    tte_set_pos(0, 80);
+                    tte_set_pos(16, 80);
 
-                    tte_write("Press the START button to restart");
+                    tte_write("Press the START button to");
+
+                    tte_set_pos(16, 88);
+
+                    tte_write("restart or press the SELECT");
+
+                    tte_set_pos(16, 96);
+
+                    tte_write("button to return to the");
+
+                    tte_set_pos(80, 104);
+
+                    tte_write("main menu!");
                 #elif _NDS
                     unsigned short old_palette_value = BG_PALETTE_SUB[0];
 
@@ -260,7 +336,9 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                     consoleClear();
 
                     std::cout << "\x1b[10;8H \x1b[40;5m Game Over!";
-                    std::cout << "\x1b[11;2H \x1b[40;5m Tap the screen to restart!";
+                    std::cout << "\x1b[11;2H \x1b[40;5m Tap the screen to restart";
+                    std::cout << "\x1b[12;0H \x1b[40;5m or press the SELECT button to";
+                    std::cout << "\x1b[13;2H \x1b[40;5m return to the main menu!";
 
                     morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
                 #endif
@@ -270,7 +348,11 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                 return;
             }
 
-            m_active_jewel.reset(new Jewel(m_main_loop));
+            m_active_jewel.reset(new Jewel(get_main_loop(), m_bottom_y_boundary, m_first_jewel));
+
+            if(m_first_jewel) {
+                m_first_jewel = false;
+            }
 
             m_active_jewel->set_position(initial_position_vector[0]);
 
@@ -297,7 +379,7 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
             jewel_collisions = get_gems_at_positions(positions);
 
-            if(position.get_y() > JEWEL_GROUND || !jewel_collisions.empty()) {
+            if(position.get_y() > m_bottom_y_boundary || !jewel_collisions.empty()) {
                 if(!jewel_collisions.empty()) {
                     JewelCollision jewel_collision_result;
 
@@ -319,8 +401,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
                 positions.clear();
 
-                positions.emplace_back(position.get_x() - 16, std::min(JEWEL_GROUND, position.get_y() - 16));
-                positions.emplace_back(position.get_x() + 16, std::min(JEWEL_GROUND, position.get_y() - 16));
+                positions.emplace_back(position.get_x() - 16, std::min(m_bottom_y_boundary, position.get_y() - 16));
+                positions.emplace_back(position.get_x() + 16, std::min(m_bottom_y_boundary, position.get_y() - 16));
 
                 jewel_collisions = get_gems_at_positions(positions);
 
@@ -401,18 +483,6 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
 void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewel_collision_results) {
     for(JewelCollision &jewel_collision_result : jewel_collision_results) {
-        if(jewel_collision_result.type == JewelType::Triangle) {
-            m_main_loop->send_to_debug_window("Triangle Collision report:");
-
-            for(Jewel *jewel : jewel_collision_result.collisions) {
-                if(jewel == nullptr) {
-                    m_main_loop->send_to_debug_window("nullptr collision");
-                } else {
-                    m_main_loop->send_to_debug_window(jewel->to_string());
-                }
-            }
-        }
-
         switch(jewel_collision_result.collisions.size()) {
             case 3:
                 m_total_score += 10;
@@ -464,8 +534,6 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
 
         m_jewel_put_sfx->stop_effect();
         m_jewel_complete_sfx->start_effect(false);
-
-        //m_main_loop->send_to_debug_window("effect started");
 
         #ifdef _GBA
             tte_set_pos(192, 24);
@@ -527,11 +595,6 @@ bool puzzler::MainGameScene::is_gem_at_positions(std::vector<morpheus::core::gfx
 
 #ifdef _NDS
     void puzzler::MainGameScene::setup_second_screen() {
-        m_sub_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
-                                            true, 1,
-                                            static_cast<morpheus::nds::NdsMainLoop*>(m_main_loop),
-                                            1, 1));
-
         m_sub_background->load_from_array(subscorescreenTiles, subscorescreenTilesLen, subscorescreenPal,
                                           subscorescreenPalLen, subscorescreenMap, subscorescreenMapLen,
                                           morpheus::core::gfx::TiledBackgroundSize::BG_32x32);

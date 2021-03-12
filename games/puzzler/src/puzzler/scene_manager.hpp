@@ -20,23 +20,15 @@ namespace puzzler {
     public:
         explicit SceneManager(morpheus::core::MainLoop *main_loop);
     protected:
-        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
-            if(m_current_scene != nullptr) {
-                m_current_scene->draw(obj_attr_buffer, obj_attr_num, priority);
-            }
-        }
+        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
 
-        void input(morpheus::core::InputEvent input_event) {
-            if(m_current_scene != nullptr) {
-                m_current_scene->received_input(input_event);
-            }
-        }
+        void input(morpheus::core::InputEvent input_event) override {}
 
-        void on_visible_state_changed(bool new_visible_state) {
+        void on_visible_state_changed(bool new_visible_state) override {
             // not needed because SceneManager should be the root and always visible
         }
 
-        virtual void update(unsigned char cycle_time);
+        virtual void update(unsigned char cycle_time)override;
     private:
         enum class SceneType {
             MAIN_MENU,

@@ -19,6 +19,8 @@ namespace morpheus {
                         mmInitDefault(sound_bank, num_of_channels);
                     }
                 }
+
+                virtual ~GbaMaxModMusic() = default;
             protected:
                 void load_music() override {}
             };

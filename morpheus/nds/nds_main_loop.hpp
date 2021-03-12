@@ -39,6 +39,8 @@ namespace morpheus {
                 }
             }
 
+            void clear_obj_vram()override;
+
             void disable_window(core::gfx::WindowType window_type)override;
 
             void enable_background(unsigned int background_reference_num)override;

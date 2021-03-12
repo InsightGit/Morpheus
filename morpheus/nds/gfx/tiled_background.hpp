@@ -19,6 +19,8 @@ namespace morpheus {
                                          NdsMainLoop *main_loop,
                                          unsigned int cbb_num, unsigned int sbb_num);
 
+                virtual ~TiledBackground() = default;
+
                 unsigned int get_priority() const override {
                     if(m_background_reference_num >= 0) {
                         return bgGetPriority(m_background_reference_num);

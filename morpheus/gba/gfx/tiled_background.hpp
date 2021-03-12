@@ -23,6 +23,8 @@ namespace morpheus {
                 explicit TiledBackground(unsigned int background_num, GbaMainLoop *main_loop,
                                          bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num);
 
+                virtual ~TiledBackground() = default;
+
                 unsigned int get_priority() const override {
                     return m_background_priority;
                 }

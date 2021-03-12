@@ -34,21 +34,15 @@
 #include "scene.hpp"
 
 namespace puzzler {
-    const static int JEWEL_GROUND = 128;
-
     class MainGameScene : public puzzler::Scene {
     public:
         MainGameScene(morpheus::core::MainLoop *main_loop, const unsigned int difficulty_setting);
 
-        ~MainGameScene() override = default;
+        ~MainGameScene()override;
 
         void setup()override;
     protected:
-        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
-            if(m_active_jewel != nullptr) {
-                m_active_jewel->draw(obj_attr_buffer, obj_attr_num, priority);
-            }
-        }
+        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
 
         void on_visible_state_changed(bool new_visible_state) override {}
 
@@ -75,18 +69,20 @@ namespace puzzler {
 
         void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
 
-
         std::unique_ptr<Jewel> m_active_jewel;
         std::unique_ptr<morpheus::core::audio::MaxModMusic> m_active_module;
+        int m_bottom_y_boundary;
         unsigned int m_cycles = 0;
         unsigned int m_difficulty_setting;
+        bool m_first_jewel = true;
         bool m_game_over = false;
         std::vector<std::unique_ptr<Jewel>> m_jewels;
         ActionTimer m_jewel_animation_timer;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_complete_sfx;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_put_sfx;
         ActionTimer m_jewel_spawning_timer;
-        morpheus::core::MainLoop *m_main_loop;
+        int m_jewel_spawn_x_pos;
+        int m_right_x_boundary;
         unsigned int m_total_score = 0;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_user_background;
 

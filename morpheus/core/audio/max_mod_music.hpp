@@ -20,6 +20,10 @@ namespace morpheus {
                     m_sound_bank_ref_num = sound_bank_ref_num;
                 }
 
+                virtual ~MaxModMusic() {
+                    mmStop();
+                }
+
                 int get_music_pitch() const {
                     return m_pitch;
                 }

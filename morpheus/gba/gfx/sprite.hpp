@@ -36,6 +36,10 @@ namespace morpheus {
                         return m_position;
                     }
 
+                    unsigned int get_priority() const {
+                        return m_priority;
+                    }
+
                     void set_position(const core::gfx::Vector2 position) {
                         m_position = position;
                     }
@@ -44,15 +48,18 @@ namespace morpheus {
                         set_position(core::gfx::Vector2(x, y));
                     }
 
+                    void set_priority(unsigned int priority) {
+                        m_priority = std::min(3u, priority);
+                    }
+
                     void load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                         const unsigned short width, const unsigned short height,
-                                         const unsigned short tile_id);
+                                         const unsigned int palette_len, const unsigned int width,
+                                         const unsigned int height, const unsigned int tile_id);
 
-                    void load_from_array(const unsigned short *tile_array, const unsigned short width,
-                                         const unsigned short height, const unsigned short tile_id);
+                    void load_from_array(const unsigned short *tile_array, const unsigned int width,
+                                         const unsigned int height, const unsigned int tile_id);
 
-                    virtual void load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                                   const unsigned int pal_len) = 0;
+                    virtual void load_into_palette(const unsigned short *palette, const unsigned int palette_len) = 0;
                 protected:
                     void build_attr2(const unsigned short palette_id, const unsigned short tile_id) {
                         m_attr2 = ATTR2_BUILD(tile_id, palette_id, 0);
@@ -65,14 +72,15 @@ namespace morpheus {
                     virtual void input(core::InputEvent input_event)override {}
                     virtual void update(unsigned char cycle_time)override {}
 
-                    virtual void array_load(const unsigned short *tile_array, const unsigned short width,
-                                            const unsigned short height, const unsigned short tile_id) = 0;
+                    virtual void array_load(const unsigned short *tile_array, const unsigned int width,
+                                            const unsigned int height, const unsigned int tile_id) = 0;
                     virtual void array_load(const unsigned short *tile_array, const unsigned short *palette,
-                                            const unsigned short width, const unsigned short height,
-                                            const unsigned short tile_id) = 0;
+                                            const unsigned int palette_len, const unsigned int width,
+                                            const unsigned int height, const unsigned int tile_id) = 0;
                 private:
                     bool m_is_4bpp;
                     int m_last_obj_attr_num;
+                    unsigned int m_priority = 0;
 
                     unsigned short m_attr0;
                     unsigned short m_attr1;

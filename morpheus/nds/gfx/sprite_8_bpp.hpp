@@ -22,24 +22,29 @@ namespace morpheus {
                                         use_extended_palette ? ExtendedPaletteStatus::NEEDED :
                                                                ExtendedPaletteStatus::NEEDOFF) {}
 
+                    ~Sprite8Bpp() override = default;
 
                     // Single palette load functions
                     bool load_from_array(const unsigned short *tile_array, const unsigned int width,
                                          const unsigned int height);
                     bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                         const unsigned int width, const unsigned int height);
+                                         const unsigned int palette_len, const unsigned int width,
+                                         const unsigned int height);
+                    bool load_into_palette(const unsigned short *palette, const unsigned int palette_len) override {
+                        return load_into_palette(palette, palette_len, 0);
+                    }
 
                     // Extended palette load functions
                     bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                          const unsigned int width, const unsigned int height)override;
-                    bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                         const unsigned short *palette, const unsigned int width,
-                                         const unsigned int height)override;
-                    bool load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                           const unsigned int pal_len = 256)override;
+                    bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                         const unsigned int palette_len, const unsigned int palette_id,
+                                         const unsigned int width, const unsigned int height)override;
+                    bool load_into_palette(const unsigned short *palette, const unsigned int palette_len,
+                                           const unsigned int palette_id);
 
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
-                                           bool copy_palette = true);
+                                       bool copy_palette = true);
                 protected:
                     void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
                 private:

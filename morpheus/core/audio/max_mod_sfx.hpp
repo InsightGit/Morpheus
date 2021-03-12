@@ -20,6 +20,12 @@ namespace morpheus {
                     m_sound_bank_ref_num = sound_bank_ref_num;
                 }
 
+                virtual ~MaxModSfx() {
+                    if(m_started) {
+                        stop_effect();
+                    }
+                }
+
                 unsigned char get_panning() const {
                     return m_sfx_panning;
                 }
@@ -58,6 +64,8 @@ namespace morpheus {
 
                 void stop_effect() {
                     mmEffectCancel(m_sfx_handle);
+
+                    m_started = false;
                 }
 
                 void start_effect(bool low_priority);
@@ -69,7 +77,9 @@ namespace morpheus {
                 virtual void load_effect() = 0;
             private:
                 bool m_loaded = false;
-                unsigned short m_sfx_handle = -1;
+                bool m_started = false;
+
+                unsigned short m_sfx_handle;
                 unsigned char m_sfx_panning = 128;
                 unsigned short m_sfx_rate = 1024;
                 unsigned char m_sfx_volume = 255;

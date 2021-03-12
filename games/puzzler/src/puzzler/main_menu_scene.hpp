@@ -13,11 +13,13 @@
 
 // Background includes
 #include "mainmenuscreen.h"
+
 #ifdef _NDS
 #include "submainmenuscreen.h"
 #endif
 
 // Sprite includes
+#include "circlejewel.h"
 #include "menucursor.h"
 
 #include "scene.hpp"
@@ -27,7 +29,7 @@ namespace puzzler {
     public:
         MainMenuScene(morpheus::core::MainLoop *main_loop);
 
-        ~MainMenuScene() override = default;
+        ~MainMenuScene()override;
 
         unsigned int get_cursor_position() const {
             return m_cursor_position;
@@ -59,7 +61,6 @@ namespace puzzler {
         std::unique_ptr<morpheus::core::Node> m_cursor;
         unsigned int m_cursor_position;
         std::unique_ptr<morpheus::core::gfx::TiledBackgroundBase> m_main_bg;
-        morpheus::core::MainLoop *m_main_loop;
 
         #ifdef _NDS
             std::unique_ptr<morpheus::core::gfx::TiledBackgroundBase> m_sub_bg;

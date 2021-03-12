@@ -7,11 +7,7 @@
 void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
     auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
 
-    if(priority < 3 && priority >= 0) {
-        m_attr2 |= ATTR2_PRIO(priority);
-    } else {
-        m_attr2 |= ATTR2_PRIO(3);
-    }
+    m_attr2 |= ATTR2_PRIO(m_priority);
 
     if(m_is_4bpp) {
         m_attr0 |= ATTR0_4BPP;
@@ -57,19 +53,19 @@ void morpheus::gba::gfx::Sprite::setup_size_attr(const unsigned short width, con
 }
 
 void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                                 const unsigned short width, const unsigned short height,
-                                                 const unsigned short tile_id) {
+                                                 const unsigned int palette_len, const unsigned int width,
+                                                 const unsigned int height, const unsigned int tile_id) {
     /*m_attr0 = 0x0;
     m_attr1 = 0x0;
     m_attr2 = 0x0;*/
 
     setup_size_attr(width, height);
 
-    array_load(tile_array, palette, width, height, tile_id);
+    array_load(tile_array, palette, palette_len, width, height, tile_id);
 }
 
-void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned short width,
-                                                 const unsigned short height, const unsigned short tile_id) {
+void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned int width,
+                                                 const unsigned int height, const unsigned int tile_id) {
     m_attr0 = 0x0;
     m_attr1 = 0x0;
     m_attr2 = 0x0;
@@ -95,5 +91,7 @@ morpheus::gba::gfx::Sprite::~Sprite() {
 
         oam_copy(oam_mem + (morpheus::gba::GbaMainLoop::OBJ_ATTR_SIZE * m_last_obj_attr_num),
                  static_cast<OBJ_ATTR *>(&obj_attr), 1);
+
+        nocash_puts("cleared obj attr");
     }
 }

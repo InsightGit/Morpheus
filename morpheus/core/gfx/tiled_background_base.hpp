@@ -24,6 +24,8 @@ namespace morpheus {
             public:
                 TiledBackgroundBase(unsigned int background_num, unsigned int cbb_num, unsigned int sbb_num);
 
+                virtual ~TiledBackgroundBase() = default;
+
                 virtual void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                              const unsigned short *palette, const unsigned int pal_len,
                                              const unsigned short *tile_map, const unsigned int tile_map_len,

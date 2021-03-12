@@ -235,3 +235,22 @@ void morpheus::gba::GbaMainLoop::setup_debug_console(bool use_tte) {
 
     std::cout << "morpheus debug\n";
 }
+
+void morpheus::gba::GbaMainLoop::clear_obj_vram() {
+    //memcpy16(oam_mem, 0, 256);
+
+    memset16(reinterpret_cast<void *>(MEM_VRAM), 0, 98304);
+}
+
+/*void morpheus::gba::GbaMainLoop::clear_vram() {
+    memset16(pal_obj_mem, 0, 512);
+    memset16(pal_bg_mem, 0, 512);
+
+    memset16(tile_mem, 0, 2048);
+    memset16(tile8_mem, 0, 2048);
+
+    memset16(tile_mem_obj, 0, 2048);
+    memset16(tile8_mem_obj, 0, 2048);
+
+    memset16(se_mem, 0, 4096);
+}*/

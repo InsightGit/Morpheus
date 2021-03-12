@@ -18,7 +18,7 @@ namespace morpheus {
         public:
             Node() = default;
 
-            virtual ~Node() {}
+            virtual ~Node() = default;
 
             void add_child(Node *child) {
                 m_children.push_back(child);
@@ -60,6 +60,14 @@ namespace morpheus {
                 return m_children;
             }
 
+            bool is_drawn_node() const {
+                return m_drawn_node;
+            }
+
+            void set_drawn_node(const bool drawn_node) {
+                m_drawn_node = drawn_node;
+            }
+
             virtual void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) = 0;
             virtual void input(InputEvent input_event) = 0;
             virtual void on_visible_state_changed(bool new_visible_state) = 0;
@@ -69,6 +77,7 @@ namespace morpheus {
                                        unsigned int priority);
 
             std::vector<Node*> m_children;
+            bool m_drawn_node = true;
             bool m_hidden = false;
         };
     }

@@ -38,6 +38,8 @@ namespace morpheus {
 
             virtual ~GbaMainLoop();
 
+            void clear_obj_vram()override;
+
             void disable_window(core::gfx::WindowType window_type)override;
 
             void enable_background(unsigned int background_num)override;

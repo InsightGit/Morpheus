@@ -25,12 +25,13 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
 }
 
 bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                                     const unsigned int width, const unsigned int height) {
+                                                     const unsigned int palette_len, const unsigned int width,
+                                                     const unsigned int height) {
     if(!load_from_array(tile_array, width, height)) {
         return false;
     }
 
-    load_into_palette(palette, 0);
+    load_into_palette(palette, palette_len);
 
     return true;
 }
@@ -57,14 +58,14 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                                     const unsigned short *palette, const unsigned int width,
-                                                     const unsigned int height) {
+bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                                     const unsigned int palette_len, const unsigned int palette_id,
+                                                     const unsigned int width, const unsigned int height) {
     if(!load_from_array(tile_array, palette_id, width, height)) {
         return false;
     }
 
-    load_into_palette(m_sprite_image->palette, 0);
+    load_into_palette(m_sprite_image->palette, palette_len);
 
     return true;
 }

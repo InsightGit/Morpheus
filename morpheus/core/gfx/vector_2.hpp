@@ -17,6 +17,8 @@ namespace morpheus {
 
                 Vector2() : Vector2(0, 0) {}
 
+                virtual ~Vector2() = default;
+
                 int get_x() const {
                     return m_x;
                 }

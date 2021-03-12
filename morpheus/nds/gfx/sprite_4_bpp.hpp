@@ -22,13 +22,15 @@ namespace morpheus {
                     nds::gfx::Sprite(use_sub_display, SpriteMapping_1D_32, ExtendedPaletteStatus::NOTNEEDED,
                                      nds_oam_address, width, height) {}
 
-                bool load_from_array(const unsigned short *tile_array,  const unsigned int palette_id,
-                                     const unsigned int width, const unsigned int height)override;
+                ~Sprite4Bpp() override = default;
+
                 bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                     const unsigned short *palette, const unsigned int width,
-                                     const unsigned int height)override;
-                bool load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                       const unsigned int pal_len = 32)override;
+                                     const unsigned int width, const unsigned int height)override;
+                bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                     const unsigned int palette_len, const unsigned int palette_id,
+                                     const unsigned int width, const unsigned int height)override;
+
+                bool load_into_palette(const unsigned short *palette, const unsigned int pal_len)override;
 
                 void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
             protected:

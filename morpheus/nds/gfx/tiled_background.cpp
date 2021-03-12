@@ -43,14 +43,14 @@ void morpheus::nds::gfx::TiledBackground::init_background_reference_num(BgType b
             vramSetBankC(VRAM_C_SUB_BG);
 
             m_background_reference_num =
-                    bgInitSub(get_background_num(), background_type, m_background_size, get_sbb_num(),
-                              get_cbb_num());
+                    bgInitSub(static_cast<int>(get_background_num()), background_type, m_background_size,
+                              static_cast<int>(get_sbb_num()),static_cast<int>(get_cbb_num()));
         } else {
             vramSetBankA(VRAM_A_MAIN_BG);
 
             m_background_reference_num =
-                    bgInit(get_background_num(), background_type, m_background_size, get_sbb_num(),
-                           get_cbb_num());
+                    bgInit(static_cast<int>(get_background_num()), background_type, m_background_size,
+                           static_cast<int>(get_sbb_num()),static_cast<int>(get_cbb_num()));
         }
 
         m_main_loop->enable_background(m_background_reference_num);

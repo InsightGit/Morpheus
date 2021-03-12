@@ -7,13 +7,19 @@
 puzzler::SceneManager::SceneManager(morpheus::core::MainLoop *main_loop) {
     m_main_loop = main_loop;
 
+    set_drawn_node(false);//
+
     m_current_scene.reset(new puzzler::MainMenuScene(m_main_loop));
+
+    add_child(m_current_scene.get());
 
     m_current_scene->setup();
 }
 
 void puzzler::SceneManager::update(unsigned char cycle_time) {
     if(m_current_scene->is_marked_for_deletion()) {
+        remove_child(m_current_scene.get());
+
         switch(m_current_scene_type) {
             case SceneType::MAIN_MENU:
                 m_current_scene.reset(new puzzler::MainGameScene(m_main_loop,
@@ -28,10 +34,8 @@ void puzzler::SceneManager::update(unsigned char cycle_time) {
                 break;
         }
 
-        m_current_scene->setup();
-    }
+        add_child(m_current_scene.get());
 
-    if(m_current_scene != nullptr) {
-        m_current_scene->received_update(cycle_time);
+        m_current_scene->setup();
     }
 }

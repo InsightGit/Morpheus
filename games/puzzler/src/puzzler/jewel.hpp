@@ -46,7 +46,7 @@ namespace puzzler {
 
     class Jewel : public morpheus::core::Node {
     public:
-        Jewel(morpheus::core::MainLoop *main_loop);
+        Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, bool new_scene_reset = false);
 
         ~Jewel() override = default;
 
@@ -83,6 +83,16 @@ namespace puzzler {
         void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
             if(m_jewel_sprite != nullptr) {
                 m_jewel_sprite->draw(obj_attr_buffer, obj_attr_num, priority);
+
+                if(!m_node_drawn) {
+                    /*if(m_active) {
+                        m_main_loop->send_to_debug_window(to_string() + " drawn while active");
+                    } else {
+                        m_main_loop->send_to_debug_window(to_string() + " drawn while inactive");
+                    }*/
+
+                    m_node_drawn = true;
+                }
             }
         }
 
@@ -93,6 +103,7 @@ namespace puzzler {
         void toggle_light_palette();
         void transition_deactive() {
             m_active = false;
+            m_node_drawn = false;
         }
     protected:
         void on_visible_state_changed(bool new_visible_state) override {
@@ -124,8 +135,10 @@ namespace puzzler {
         Jewel *m_south_jewel = nullptr;
 
         bool m_active = true;
+        bool m_node_drawn = false;
         ActionTimer m_gravity_timer;
         morpheus::core::MainLoop *m_main_loop;
+        int m_jewel_ground;
         std::unique_ptr<morpheus::core::Node> m_jewel_sprite;
         puzzler::JewelType m_jewel_type;
         unsigned int m_palette_id = 0;

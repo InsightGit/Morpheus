@@ -22,8 +22,6 @@ void morpheus::nds::gfx::TiledBackground4Bpp::load_from_array(const unsigned int
                                                               const unsigned short *tile_map,
                                                               const unsigned int tile_map_len,
                                                               morpheus::core::gfx::TiledBackgroundSize size) {
-    init_background_reference_num(BgType_Text4bpp);
-
     dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
     dmaCopy(tile_map, bgGetMapPtr(get_background_reference_num()), tile_map_len);
 }

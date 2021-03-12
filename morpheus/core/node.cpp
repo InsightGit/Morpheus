@@ -28,12 +28,14 @@ int morpheus::core::Node::draw(std::vector<void *> &obj_attr_buffer, unsigned in
         return -1;
     }
 
-    priority = std::min(priority, 3u);
+    if(is_drawn_node()) {
+        priority = std::min(priority, 3u);
 
-    draw_node(obj_attr_buffer, static_cast<int>(obj_attr_num), static_cast<int>(priority));
+        draw_node(obj_attr_buffer, static_cast<int>(obj_attr_num), static_cast<int>(priority));
 
-    ++obj_attr_num;
-    ++priority;
+        ++obj_attr_num;
+        //++priority;
+    }
 
     unsigned int children_value = draw_children(obj_attr_buffer, obj_attr_num, priority);
 

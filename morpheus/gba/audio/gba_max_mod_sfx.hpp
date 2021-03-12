@@ -19,6 +19,8 @@ namespace morpheus {
                         mmInitDefault(sound_bank, num_of_channels);
                     }
                 }
+
+                virtual ~GbaMaxModSfx() = default;
             protected:
                 void load_effect() override {}
             };

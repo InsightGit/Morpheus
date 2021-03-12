@@ -16,7 +16,11 @@ namespace morpheus {
                                              NdsMainLoop *main_loop,
                                              unsigned int cbb_num, unsigned int sbb_num) :
                         TiledBackground(use_sub_display, background_num, main_loop,
-                                        cbb_num, sbb_num) {}
+                                        cbb_num, sbb_num) {
+                    init_background_reference_num(BgType_Text8bpp);
+                }
+
+                virtual ~TiledBackground8Bpp() = default;
 
                 // Extended Palette Mode loading functions
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,

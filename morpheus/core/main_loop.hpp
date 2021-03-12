@@ -29,11 +29,15 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
+            virtual ~MainLoop() = default;
+
             void set_root(std::shared_ptr<Node> root) {
                 m_root = root;
             }
 
             int get_random_number(int max, int min, int supplementary_seed = 1, bool use_mt = true);
+
+            virtual void clear_obj_vram() = 0;
 
             virtual void disable_window(gfx::WindowType window_type) = 0;
 

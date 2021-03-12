@@ -56,8 +56,6 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
                                                               morpheus::core::gfx::TiledBackgroundSize size) {
     set_background_size(size);
 
-    init_background_reference_num(BgType_Text8bpp);
-
     dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
     dmaCopy(tile_map, bgGetMapPtr(get_background_reference_num()), tile_map_len);
 }

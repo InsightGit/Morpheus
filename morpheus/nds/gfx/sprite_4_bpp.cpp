@@ -24,35 +24,24 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                                     const unsigned short *palette, const unsigned int width,
-                                                     const unsigned int height) {
+bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                                     const unsigned int palette_len, const unsigned int palette_id,
+                                                     const unsigned int width, const unsigned int height) {
     if(!load_from_array(tile_array, palette_id, width, height)) {
         return false;
     }
 
-    load_into_palette(palette, palette_id);
+    load_into_palette(palette, palette_len);
 
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                                       const unsigned int pal_len) {
-    unsigned int palette_index;
-
-    if(palette_id > 15) {
-        sassert(false, "Palette number in 4bpp sprite above 16");
-        return false;
-    } else if(palette_id == 0) {
-        palette_index = 0;
-    } else {
-        palette_index = palette_id * 16;
-    }
+bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len) {
 
     if(get_current_oam() == &oamSub) {
-        dmaCopy(&palette[palette_index], SPRITE_PALETTE_SUB, pal_len);
+        dmaCopy(&palette[0], SPRITE_PALETTE_SUB, palette_len);
     } else {
-        dmaCopy(&palette[palette_index], SPRITE_PALETTE, pal_len);
+        dmaCopy(&palette[0], SPRITE_PALETTE, palette_len);
     }
 
     return true;

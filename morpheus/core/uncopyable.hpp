@@ -9,8 +9,8 @@ namespace morpheus {
     namespace core {
         class Uncopyable {
         protected:
-            Uncopyable() {}
-            ~Uncopyable() {}
+            Uncopyable() = default;
+            ~Uncopyable() = default;
         private:
             Uncopyable(const Uncopyable&) = delete;
             void operator=(const Uncopyable&) = delete;

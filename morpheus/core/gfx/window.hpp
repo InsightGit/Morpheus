@@ -33,6 +33,8 @@ namespace morpheus {
             public:
                 explicit Window(const WindowType window_type, const std::shared_ptr<core::MainLoop> main_loop);
 
+                virtual ~Window() = default;
+
                 WindowRect get_window_rect() const {
                     return m_window_rect;
                 };

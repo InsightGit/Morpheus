@@ -67,11 +67,10 @@ namespace morpheus {
                 // Extended palette load functions
                 virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
                                              const unsigned int width, const unsigned int height) = 0;
-                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                             const unsigned short *palette, const unsigned int width,
-                                             const unsigned int height) = 0;
-                virtual bool load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                               const unsigned int pal_len) = 0;
+                virtual bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                                             const unsigned int palette_len, const unsigned int palette_id,
+                                             const unsigned int width, const unsigned int height) = 0;
+                virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
             protected:
                 void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0);
 

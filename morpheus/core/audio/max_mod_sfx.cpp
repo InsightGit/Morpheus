@@ -21,6 +21,8 @@ void morpheus::core::audio::MaxModSfx::start_effect(bool low_priority) {
 
     m_sfx_handle = mmEffectEx(&sfx);
 
+    m_started = true;
+
     if(low_priority) {
         mmEffectRelease(m_sfx_handle);
     }
