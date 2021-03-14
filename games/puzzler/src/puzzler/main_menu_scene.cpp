@@ -142,5 +142,30 @@ void puzzler::MainMenuScene::input(morpheus::core::InputEvent input_event) {
 }
 
 void puzzler::MainMenuScene::update(unsigned char cycle_time) {
+    if(m_cursor_animation_timer.current_action_cycle_waiting &&
+       m_cursor_animation_timer.current_action_cycle == cycle_time) {
+        if(m_cursor_lit) {
+            #ifdef _GBA
+                static_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_cursor.get())->set_palette_id(4);
+            #elif _NDS
+                static_cast<morpheus::nds::gfx::Sprite*>(m_cursor.get())->set_palette_id(4);
+            #endif
+        } else {
+            #ifdef _GBA
+                static_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_cursor.get())->set_palette_id(5);
+            #elif _NDS
+                static_cast<morpheus::nds::gfx::Sprite*>(m_cursor.get())->set_palette_id(5);
+            #endif
+        }
 
+        m_cursor_animation_timer.current_action_cycle = cycle_time + 30;
+        m_cursor_lit = !m_cursor_lit;
+
+        if(m_cursor_animation_timer.current_action_cycle >= 60) {
+            m_cursor_animation_timer.current_action_cycle -= 60;
+        }
+    } else if(!m_cursor_animation_timer.current_action_cycle_waiting) {
+        m_cursor_animation_timer.current_action_cycle = 30;
+        m_cursor_animation_timer.current_action_cycle_waiting = true;
+    }
 }

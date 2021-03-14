@@ -50,7 +50,11 @@ namespace puzzler {
         void update(unsigned char cycle_time)override;
     private:
         const morpheus::core::gfx::Vector2 MOVE_PER_SEC = morpheus::core::gfx::Vector2(10, 10);
-        const int SCORE_TEXT_MAP_BASE = 22;
+        #ifdef _GBA
+            const int SCORE_TEXT_MAP_BASE = 28;
+        #elif _NDS
+            const int SCORE_TEXT_MAP_BASE = 22;
+        #endif
         const int SCORE_TEXT_TILE_BASE = 3;
 
         std::vector<unsigned int> get_gems_at_positions(std::vector<morpheus::core::gfx::Vector2> positions);

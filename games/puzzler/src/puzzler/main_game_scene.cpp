@@ -11,12 +11,11 @@ puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const
     #ifdef _GBA
         m_user_background.reset(new morpheus::gba::gfx::TiledBackground(
                                                 0, static_cast<morpheus::gba::GbaMainLoop*>(get_main_loop()),
-                                                false, 1, 1));
+                                                false, 2, 1));
     #elif _NDS
         m_sub_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(true, 1,
                                                                            static_cast<morpheus::nds::NdsMainLoop*>(
-                                                                                   get_main_loop()),
-                                                                           1, 1));
+                                                                                   get_main_loop()), 1, 1));
 
         m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
                                             false, 0, reinterpret_cast<morpheus::nds::NdsMainLoop*>(get_main_loop()),
@@ -246,8 +245,8 @@ void puzzler::MainGameScene::setup() {
 
         get_main_loop()->enable_background(1);
 
-        tte_init_se(1, BG_CBB(2) | BG_SBB(31) | BG_PRIO(0), 0, CLR_WHITE, 14,
-                    nullptr,nullptr);
+        tte_init_se(1, BG_CBB(SCORE_TEXT_TILE_BASE) | BG_SBB(SCORE_TEXT_MAP_BASE) | BG_PRIO(0),
+                    0, CLR_WHITE, 14,nullptr,nullptr);
 
         tte_set_pos(192, 16);
 

@@ -7,7 +7,7 @@
 puzzler::SceneManager::SceneManager(morpheus::core::MainLoop *main_loop) {
     m_main_loop = main_loop;
 
-    set_drawn_node(false);//
+    set_drawn_node(false);
 
     m_current_scene.reset(new puzzler::MainMenuScene(m_main_loop));
 
