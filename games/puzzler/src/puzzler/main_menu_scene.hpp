@@ -49,7 +49,12 @@ namespace puzzler {
         void input(morpheus::core::InputEvent input_event)override;
         void update(unsigned char cycle_time)override;
     private:
-        const int MAIN_BG_CBB_NUM = 2;
+        #ifdef _GBA
+            const int MAIN_BG_CBB_NUM = 2;
+        #elif _NDS
+            const int MAIN_BG_CBB_NUM = 1;
+        #endif
+
         const int MAIN_BG_SBB_NUM = 1;
 
         // positions for the easy, medium, and hard board sections
