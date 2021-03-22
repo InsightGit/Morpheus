@@ -11,6 +11,7 @@
 #include <core/gfx/vector_2.hpp>
 #include <core/gfx/window.hpp>
 
+#include <core/controllers.hpp>
 #include <core/input_event.hpp>
 #include <core/main_loop.hpp>
 #include <core/node.hpp>

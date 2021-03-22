@@ -130,6 +130,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-gfx-effects-test.gba
+
+# Build rule for target.
+morpheus-gba-gfx-effects-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-gfx-effects-test.gba
+.PHONY : morpheus-gba-gfx-effects-test.gba
+
+# fast build rule for target.
+morpheus-gba-gfx-effects-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir/build
+.PHONY : morpheus-gba-gfx-effects-test.gba/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-gba-sram-test.elf
 
 # Build rule for target.
@@ -182,19 +195,6 @@ morpheus-gba-input-test.elf/fast:
 .PHONY : morpheus-gba-input-test.elf/fast
 
 #=============================================================================
-# Target rules for targets named morpheus
-
-# Build rule for target.
-morpheus: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
-.PHONY : morpheus
-
-# fast build rule for target.
-morpheus/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
-.PHONY : morpheus/fast
-
-#=============================================================================
 # Target rules for targets named morpheus-gba-input-test.gba
 
 # Build rule for target.
@@ -232,6 +232,32 @@ morpheus-gba-tileset-test.elf: cmake_check_build_system
 morpheus-gba-tileset-test.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-tileset-test.elf.dir/build.make CMakeFiles/morpheus-gba-tileset-test.elf.dir/build
 .PHONY : morpheus-gba-tileset-test.elf/fast
+
+#=============================================================================
+# Target rules for targets named morpheus
+
+# Build rule for target.
+morpheus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus
+.PHONY : morpheus
+
+# fast build rule for target.
+morpheus/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
+.PHONY : morpheus/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-gfx-effects-test.elf
+
+# Build rule for target.
+morpheus-gba-gfx-effects-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-gfx-effects-test.elf
+.PHONY : morpheus-gba-gfx-effects-test.elf
+
+# fast build rule for target.
+morpheus-gba-gfx-effects-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build
+.PHONY : morpheus-gba-gfx-effects-test.elf/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-gba-maxmod-test.elf
@@ -326,6 +352,33 @@ morpheus/core/audio/max_mod_sfx.s: morpheus/core/audio/max_mod_sfx.cpp.s
 morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
+
+morpheus/core/controllers.o: morpheus/core/controllers.cpp.o
+
+.PHONY : morpheus/core/controllers.o
+
+# target to build an object file
+morpheus/core/controllers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o
+.PHONY : morpheus/core/controllers.cpp.o
+
+morpheus/core/controllers.i: morpheus/core/controllers.cpp.i
+
+.PHONY : morpheus/core/controllers.i
+
+# target to preprocess a source file
+morpheus/core/controllers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.i
+.PHONY : morpheus/core/controllers.cpp.i
+
+morpheus/core/controllers.s: morpheus/core/controllers.cpp.s
+
+.PHONY : morpheus/core/controllers.s
+
+# target to generate assembly for a file
+morpheus/core/controllers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.s
+.PHONY : morpheus/core/controllers.cpp.s
 
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
@@ -434,6 +487,33 @@ morpheus/core/node.s: morpheus/core/node.cpp.s
 morpheus/core/node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s
 .PHONY : morpheus/core/node.cpp.s
+
+morpheus/gba/gba_controllers.o: morpheus/gba/gba_controllers.cpp.o
+
+.PHONY : morpheus/gba/gba_controllers.o
+
+# target to build an object file
+morpheus/gba/gba_controllers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.o
+.PHONY : morpheus/gba/gba_controllers.cpp.o
+
+morpheus/gba/gba_controllers.i: morpheus/gba/gba_controllers.cpp.i
+
+.PHONY : morpheus/gba/gba_controllers.i
+
+# target to preprocess a source file
+morpheus/gba/gba_controllers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.i
+.PHONY : morpheus/gba/gba_controllers.cpp.i
+
+morpheus/gba/gba_controllers.s: morpheus/gba/gba_controllers.cpp.s
+
+.PHONY : morpheus/gba/gba_controllers.s
+
+# target to generate assembly for a file
+morpheus/gba/gba_controllers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.s
+.PHONY : morpheus/gba/gba_controllers.cpp.s
 
 morpheus/gba/gba_main_loop.o: morpheus/gba/gba_main_loop.cpp.o
 
@@ -678,6 +758,33 @@ tests/gba/sram_test/gba_sram_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.elf.dir/build.make CMakeFiles/morpheus-gba-sram-test.elf.dir/tests/gba/sram_test/gba_sram_test.cpp.s
 .PHONY : tests/gba/sram_test/gba_sram_test.cpp.s
 
+tests/gfx_effects_test/gfx_effects_test.o: tests/gfx_effects_test/gfx_effects_test.cpp.o
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.o
+
+# target to build an object file
+tests/gfx_effects_test/gfx_effects_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.o
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.o
+
+tests/gfx_effects_test/gfx_effects_test.i: tests/gfx_effects_test/gfx_effects_test.cpp.i
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.i
+
+# target to preprocess a source file
+tests/gfx_effects_test/gfx_effects_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.i
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.i
+
+tests/gfx_effects_test/gfx_effects_test.s: tests/gfx_effects_test/gfx_effects_test.cpp.s
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.s
+
+# target to generate assembly for a file
+tests/gfx_effects_test/gfx_effects_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.s
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.s
+
 tests/maxmod_test/maxmod_test.o: tests/maxmod_test/maxmod_test.cpp.o
 
 .PHONY : tests/maxmod_test/maxmod_test.o
@@ -740,11 +847,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... morpheus-gba-gfx-effects-test.gba"
 	@echo "... morpheus-gba-input-test.gba"
 	@echo "... morpheus-gba-maxmod-test.gba"
 	@echo "... morpheus-gba-sram-test.gba"
 	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
+	@echo "... morpheus-gba-gfx-effects-test.elf"
 	@echo "... morpheus-gba-input-test.elf"
 	@echo "... morpheus-gba-maxmod-test.elf"
 	@echo "... morpheus-gba-sram-test.elf"
@@ -758,6 +867,9 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
+	@echo "... morpheus/core/controllers.o"
+	@echo "... morpheus/core/controllers.i"
+	@echo "... morpheus/core/controllers.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"
@@ -770,6 +882,9 @@ help:
 	@echo "... morpheus/core/node.o"
 	@echo "... morpheus/core/node.i"
 	@echo "... morpheus/core/node.s"
+	@echo "... morpheus/gba/gba_controllers.o"
+	@echo "... morpheus/gba/gba_controllers.i"
+	@echo "... morpheus/gba/gba_controllers.s"
 	@echo "... morpheus/gba/gba_main_loop.o"
 	@echo "... morpheus/gba/gba_main_loop.i"
 	@echo "... morpheus/gba/gba_main_loop.s"
@@ -797,6 +912,9 @@ help:
 	@echo "... tests/gba/sram_test/gba_sram_test.o"
 	@echo "... tests/gba/sram_test/gba_sram_test.i"
 	@echo "... tests/gba/sram_test/gba_sram_test.s"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.o"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.i"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.s"
 	@echo "... tests/maxmod_test/maxmod_test.o"
 	@echo "... tests/maxmod_test/maxmod_test.i"
 	@echo "... tests/maxmod_test/maxmod_test.s"

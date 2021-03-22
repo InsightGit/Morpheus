@@ -13,6 +13,7 @@
 #include <core/node.hpp>
 #include <core/gfx/vector_2.hpp>
 
+#include <gba/gba_controllers.hpp>
 #include <gba/gba_main_loop.hpp>
 
 namespace morpheus {
@@ -20,12 +21,16 @@ namespace morpheus {
         namespace gfx {
             class Sprite : public core::Node {
                 public:
-                    explicit Sprite(const bool is_4bpp) {
+                    explicit Sprite(const bool is_4bpp,
+                                    morpheus::gba::gfx::GbaBlendingController *blending_controller) {
+                        m_blending_controller = blending_controller;
                         m_is_4bpp = is_4bpp;
                     }
 
                     explicit Sprite(const bool is_4bpp, const unsigned short palette_id, const unsigned short tile_id,
-                                    const unsigned short width, const unsigned short height) : Sprite(is_4bpp) {
+                                    const unsigned short width, const unsigned short height,
+                                    morpheus::gba::gfx::GbaBlendingController *blending_controller) :
+                                    Sprite(is_4bpp, blending_controller) {
                         build_attr2(palette_id, tile_id);
                         setup_size_attr(width, height);
                     }
@@ -50,6 +55,17 @@ namespace morpheus {
 
                     void set_priority(unsigned int priority) {
                         m_priority = std::min(3u, priority);
+                    }
+
+                    void disable_blending() {
+                        m_attr0 &= ~ATTR0_BLEND;
+
+                        m_blending_controller->disable_object_blending();
+                    }
+                    void enable_blending(bool bottom_layer) {
+                        m_attr0 |= ATTR0_BLEND;
+
+                        m_blending_controller->enable_object_blending(bottom_layer);
                     }
 
                     void load_from_array(const unsigned short *tile_array, const unsigned short *palette,
@@ -78,6 +94,8 @@ namespace morpheus {
                                             const unsigned int palette_len, const unsigned int width,
                                             const unsigned int height, const unsigned int tile_id) = 0;
                 private:
+                    morpheus::gba::gfx::GbaBlendingController *m_blending_controller;
+
                     bool m_is_4bpp;
                     int m_last_obj_attr_num;
                     unsigned int m_priority = 0;

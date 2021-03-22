@@ -8,6 +8,8 @@ string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
+        morpheus/core/controllers.hpp
+        morpheus/core/controllers.cpp
         morpheus/core/main_loop.hpp
         morpheus/core/main_loop.cpp
         morpheus/core/node.hpp
@@ -22,7 +24,8 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/tiled_background_base.cpp
         morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/window.hpp
-        morpheus/core/gfx/window.cpp)
+        morpheus/core/gfx/window.cpp
+        morpheus/utils.hpp)
 
 
 project(morpheus)
@@ -42,6 +45,8 @@ if(platform_lower STREQUAL "gba")
     add_compile_definitions(_GBA)
 
     list(APPEND MORPHEUS_SOURCE_FILES
+            morpheus/gba/gba_controllers.hpp
+            morpheus/gba/gba_controllers.cpp
             morpheus/gba/gba_main_loop.hpp
             morpheus/gba/gba_main_loop.cpp
             morpheus/gba/audio/gba_max_mod_music.hpp
@@ -74,6 +79,8 @@ elseif(platform_lower STREQUAL "nds")
     add_compile_definitions(_NDS)
 
     list(APPEND MORPHEUS_SOURCE_FILES
+            morpheus/nds/nds_controllers.cpp
+            morpheus/nds/nds_controllers.hpp
             morpheus/nds/nds_main_loop.hpp
             morpheus/nds/nds_main_loop.cpp
             morpheus/nds/audio/nds_max_mod_music.hpp
@@ -92,7 +99,8 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/tiled_background_4_bpp.cpp
             morpheus/nds/gfx/tiled_background_8_bpp.hpp
             morpheus/nds/gfx/tiled_background_8_bpp.cpp
-            morpheus/utils.hpp)
+            morpheus/nds/gfx/window.cpp
+            morpheus/nds/gfx/window.hpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 
@@ -194,6 +202,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-gba-input-test.elf morpheus mm tonc)
 
+
         project(morpheus-gba-sram-test)
 
         link_directories(morpheus-gba-sram-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
@@ -203,6 +212,7 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-sram-test.elf)
 
         target_link_libraries(morpheus-gba-sram-test.elf morpheus mm tonc)
+
 
         project(morpheus-gba-tileset-test)
 
@@ -219,6 +229,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
 
+
         project(morpheus-gba-maxmod-test)
 
         message(STATUS ${maxmod_soundbank_list})
@@ -232,6 +243,16 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-maxmod-test.elf)
 
         target_link_libraries(morpheus-gba-maxmod-test.elf morpheus mm tonc)
+
+
+        project(morpheus-gba-gfx-effects-test)
+
+        link_directories(morpheus-gba-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+
+        add_executable(morpheus-gba-gfx-effects-test.elf tests/gfx_effects_test/gfx_effects_test.cpp)
+        add_gba_executable(morpheus-gba-gfx-effects-test.elf)
+
+        target_link_libraries(morpheus-gba-gfx-effects-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
         list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
 
@@ -286,6 +307,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-nds-input-test.elf morpheus nds9)
 
+
         project(morpheus-nds-tileset-test)
 
         link_directories(morpheus-nds-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
@@ -302,6 +324,7 @@ if("$ENV{BUILD_TESTS}")
                            "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-tileset-test.elf morpheus nds9)
+
 
         project(morpheus-nds-extended-palette-test)
 
@@ -321,6 +344,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
 
+
         project(morpheus-nds-flash-test)
 
         link_directories(morpheus-nds-flash-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
@@ -332,6 +356,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-nds-flash-test.elf nds9 mm9 morpheus)
 
+
         project(morpheus-nds-maxmod-test)
 
         link_directories(morpheus-nds-maxmod-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
@@ -342,6 +367,19 @@ if("$ENV{BUILD_TESTS}")
                 tests/maxmod_test/maxmod_test.cpp ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
         add_nds_executable(morpheus-nds-maxmod-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus MaxMod Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm9)
+
+        project(morpheus-nds-gfx-effects-test)
+
+        link_directories(morpheus-nds-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
+        generate_maxmod_soundbank(false "soundbank" maxmod_soundbank_list)
+
+        add_executable(morpheus-nds-gfx-effects-test.elf
+                tests/gfx_effects_test/gfx_effects_test.cpp)
+        add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus GFX Effect Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm9)
     endif()

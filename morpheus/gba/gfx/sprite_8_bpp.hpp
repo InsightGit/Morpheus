@@ -12,7 +12,8 @@ namespace morpheus {
         namespace gfx {
             class Sprite8Bpp : public morpheus::gba::gfx::Sprite {
             public:
-                Sprite8Bpp() : morpheus::gba::gfx::Sprite(false) {}
+                Sprite8Bpp(GbaBlendingController *blending_controller) :
+                    morpheus::gba::gfx::Sprite(false, blending_controller) {}
 
                 virtual ~Sprite8Bpp() = default;
 

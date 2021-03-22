@@ -17,8 +17,9 @@ namespace morpheus {
         namespace gfx {
             class Sprite8Bpp : public nds::gfx::Sprite {
                 public:
-                    explicit Sprite8Bpp(bool use_sub_display, bool use_extended_palette = true) :
-                        nds::gfx::Sprite(use_sub_display,SpriteMapping_1D_32,
+                    explicit Sprite8Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
+                                        bool use_extended_palette = true) :
+                        nds::gfx::Sprite(use_sub_display, blending_controller, SpriteMapping_1D_32,
                                         use_extended_palette ? ExtendedPaletteStatus::NEEDED :
                                                                ExtendedPaletteStatus::NEEDOFF) {}
 

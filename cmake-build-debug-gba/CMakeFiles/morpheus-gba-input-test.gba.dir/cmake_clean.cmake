@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus-gba-input-test.gba"
-  "morpheus-gba-maxmod-test.gba"
+  "morpheus-gba-gfx-effects-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

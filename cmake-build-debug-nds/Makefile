@@ -130,6 +130,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-gfx-effects-test.nds
+
+# Build rule for target.
+morpheus-nds-gfx-effects-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-gfx-effects-test.nds
+.PHONY : morpheus-nds-gfx-effects-test.nds
+
+# fast build rule for target.
+morpheus-nds-gfx-effects-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/build
+.PHONY : morpheus-nds-gfx-effects-test.nds/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-nds-gfx-effects-test.elf
+
+# Build rule for target.
+morpheus-nds-gfx-effects-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-gfx-effects-test.elf
+.PHONY : morpheus-nds-gfx-effects-test.elf
+
+# fast build rule for target.
+morpheus-nds-gfx-effects-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build
+.PHONY : morpheus-nds-gfx-effects-test.elf/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-maxmod-test.nds
 
 # Build rule for target.
@@ -385,6 +411,33 @@ morpheus/core/audio/max_mod_sfx.s: morpheus/core/audio/max_mod_sfx.cpp.s
 morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
+
+morpheus/core/controllers.o: morpheus/core/controllers.cpp.o
+
+.PHONY : morpheus/core/controllers.o
+
+# target to build an object file
+morpheus/core/controllers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o
+.PHONY : morpheus/core/controllers.cpp.o
+
+morpheus/core/controllers.i: morpheus/core/controllers.cpp.i
+
+.PHONY : morpheus/core/controllers.i
+
+# target to preprocess a source file
+morpheus/core/controllers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.i
+.PHONY : morpheus/core/controllers.cpp.i
+
+morpheus/core/controllers.s: morpheus/core/controllers.cpp.s
+
+.PHONY : morpheus/core/controllers.s
+
+# target to generate assembly for a file
+morpheus/core/controllers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.s
+.PHONY : morpheus/core/controllers.cpp.s
 
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
@@ -683,6 +736,60 @@ morpheus/nds/gfx/tiled_background_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.s
 .PHONY : morpheus/nds/gfx/tiled_background_8_bpp.cpp.s
 
+morpheus/nds/gfx/window.o: morpheus/nds/gfx/window.cpp.o
+
+.PHONY : morpheus/nds/gfx/window.o
+
+# target to build an object file
+morpheus/nds/gfx/window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o
+.PHONY : morpheus/nds/gfx/window.cpp.o
+
+morpheus/nds/gfx/window.i: morpheus/nds/gfx/window.cpp.i
+
+.PHONY : morpheus/nds/gfx/window.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.i
+.PHONY : morpheus/nds/gfx/window.cpp.i
+
+morpheus/nds/gfx/window.s: morpheus/nds/gfx/window.cpp.s
+
+.PHONY : morpheus/nds/gfx/window.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.s
+.PHONY : morpheus/nds/gfx/window.cpp.s
+
+morpheus/nds/nds_controllers.o: morpheus/nds/nds_controllers.cpp.o
+
+.PHONY : morpheus/nds/nds_controllers.o
+
+# target to build an object file
+morpheus/nds/nds_controllers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o
+.PHONY : morpheus/nds/nds_controllers.cpp.o
+
+morpheus/nds/nds_controllers.i: morpheus/nds/nds_controllers.cpp.i
+
+.PHONY : morpheus/nds/nds_controllers.i
+
+# target to preprocess a source file
+morpheus/nds/nds_controllers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.i
+.PHONY : morpheus/nds/nds_controllers.cpp.i
+
+morpheus/nds/nds_controllers.s: morpheus/nds/nds_controllers.cpp.s
+
+.PHONY : morpheus/nds/nds_controllers.s
+
+# target to generate assembly for a file
+morpheus/nds/nds_controllers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.s
+.PHONY : morpheus/nds/nds_controllers.cpp.s
+
 morpheus/nds/nds_main_loop.o: morpheus/nds/nds_main_loop.cpp.o
 
 .PHONY : morpheus/nds/nds_main_loop.o
@@ -739,6 +846,33 @@ region_map.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.s
 .PHONY : region_map.c.s
+
+tests/gfx_effects_test/gfx_effects_test.o: tests/gfx_effects_test/gfx_effects_test.cpp.o
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.o
+
+# target to build an object file
+tests/gfx_effects_test/gfx_effects_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.o
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.o
+
+tests/gfx_effects_test/gfx_effects_test.i: tests/gfx_effects_test/gfx_effects_test.cpp.i
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.i
+
+# target to preprocess a source file
+tests/gfx_effects_test/gfx_effects_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.i
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.i
+
+tests/gfx_effects_test/gfx_effects_test.s: tests/gfx_effects_test/gfx_effects_test.cpp.s
+
+.PHONY : tests/gfx_effects_test/gfx_effects_test.s
+
+# target to generate assembly for a file
+tests/gfx_effects_test/gfx_effects_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/tests/gfx_effects_test/gfx_effects_test.cpp.s
+.PHONY : tests/gfx_effects_test/gfx_effects_test.cpp.s
 
 tests/maxmod_test/maxmod_test.o: tests/maxmod_test/maxmod_test.cpp.o
 
@@ -885,12 +1019,14 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... morpheus-nds-extended-palette-test.nds"
 	@echo "... morpheus-nds-flash-test.nds"
+	@echo "... morpheus-nds-gfx-effects-test.nds"
 	@echo "... morpheus-nds-input-test.nds"
 	@echo "... morpheus-nds-maxmod-test.nds"
 	@echo "... morpheus-nds-tileset-test.nds"
 	@echo "... morpheus"
 	@echo "... morpheus-nds-extended-palette-test.elf"
 	@echo "... morpheus-nds-flash-test.elf"
+	@echo "... morpheus-nds-gfx-effects-test.elf"
 	@echo "... morpheus-nds-input-test.elf"
 	@echo "... morpheus-nds-maxmod-test.elf"
 	@echo "... morpheus-nds-tileset-test.elf"
@@ -906,6 +1042,9 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
+	@echo "... morpheus/core/controllers.o"
+	@echo "... morpheus/core/controllers.i"
+	@echo "... morpheus/core/controllers.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"
@@ -939,12 +1078,21 @@ help:
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.o"
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.i"
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.s"
+	@echo "... morpheus/nds/gfx/window.o"
+	@echo "... morpheus/nds/gfx/window.i"
+	@echo "... morpheus/nds/gfx/window.s"
+	@echo "... morpheus/nds/nds_controllers.o"
+	@echo "... morpheus/nds/nds_controllers.i"
+	@echo "... morpheus/nds/nds_controllers.s"
 	@echo "... morpheus/nds/nds_main_loop.o"
 	@echo "... morpheus/nds/nds_main_loop.i"
 	@echo "... morpheus/nds/nds_main_loop.s"
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.o"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.i"
+	@echo "... tests/gfx_effects_test/gfx_effects_test.s"
 	@echo "... tests/maxmod_test/maxmod_test.o"
 	@echo "... tests/maxmod_test/maxmod_test.i"
 	@echo "... tests/maxmod_test/maxmod_test.s"

@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
@@ -12,10 +13,12 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
   "libnds_morpheus.a"
   "libnds_morpheus.pdb"
-  "morpheus-nds-maxmod-test.nds"
+  "morpheus-nds-gfx-effects-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

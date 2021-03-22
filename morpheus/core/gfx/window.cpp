@@ -15,6 +15,12 @@ morpheus::core::gfx::Window::Window(const morpheus::core::gfx::WindowType window
     m_window_rect.top = 0;
 }
 
+void morpheus::core::gfx::Window::add_background(unsigned int background) {
+    if(get_window_type() != morpheus::core::gfx::WindowType::WINDOW_OBJ) {
+        m_active_backgrounds.push_back(background);
+    }
+}
+
 void morpheus::core::gfx::Window::disable_window() {
     if(m_window_enabled) {
         toggle_window(false);
@@ -33,4 +39,8 @@ void morpheus::core::gfx::Window::enable_window() {
 
         m_window_enabled = true;
     }
+}
+
+std::vector<unsigned int> morpheus::core::gfx::Window::get_backgrounds() const {
+    return m_active_backgrounds;
 }

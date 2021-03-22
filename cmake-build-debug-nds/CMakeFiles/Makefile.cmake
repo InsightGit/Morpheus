@@ -50,6 +50,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-maxmod-test.nds.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-tileset-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-nds-flash-test.elf.dir/DependInfo.cmake"

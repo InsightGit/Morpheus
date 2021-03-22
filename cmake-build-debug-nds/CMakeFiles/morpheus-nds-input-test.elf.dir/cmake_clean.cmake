@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o"
+  "morpheus-nds-gfx-effects-test.nds"
   "morpheus-nds-input-test.elf"
   "morpheus-nds-input-test.elf.pdb"
-  "morpheus-nds-maxmod-test.nds"
   "test4.o"
   "test8.o"
   "test8_pcx.o"

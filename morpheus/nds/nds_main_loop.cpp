@@ -6,12 +6,15 @@
 
 PrintConsole *morpheus::nds::NdsMainLoop::debug_print_console = nullptr;
 
-morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) {
+morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) :
+            morpheus::core::MainLoop(new morpheus::nds::gfx::NdsBlendingController(false)) {
     #ifdef NDEBUG
         bool debug = false;
     #else
         bool debug = true;
     #endif
+
+    m_sub_blending_controller.reset(new morpheus::nds::gfx::NdsBlendingController(true));
 
     videoSetMode(MODE_0_2D);
     videoSetModeSub(MODE_0_2D);

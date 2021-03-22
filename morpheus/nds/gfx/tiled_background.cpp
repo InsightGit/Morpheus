@@ -5,9 +5,11 @@
 #include "tiled_background.hpp"
 
 morpheus::nds::gfx::TiledBackground::TiledBackground(bool use_sub_display, unsigned int background_num,
+                                                     NdsBlendingController *blending_controller,
                                                      NdsMainLoop *main_loop,
                                                      unsigned int cbb_num, unsigned int sbb_num) :
-                                     morpheus::core::gfx::TiledBackgroundBase(background_num, cbb_num, sbb_num) {
+                                     morpheus::core::gfx::TiledBackgroundBase(background_num, blending_controller,
+                                                                              cbb_num, sbb_num) {
     m_main_loop = main_loop;
     m_use_sub_display = use_sub_display;
 }

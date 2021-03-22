@@ -2,7 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/brin.c.o"
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/region_map.c.o"
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/tests/tileset_test/tileset_test.cpp.o"
-  "morpheus-gba-maxmod-test.gba"
+  "morpheus-gba-gfx-effects-test.gba"
   "morpheus-gba-tileset-test.elf"
   "morpheus-gba-tileset-test.elf.pdb"
   "region_map.c"

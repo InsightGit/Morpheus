@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <core/gfx/window.hpp>
+#include <core/controllers.hpp>
 #include <core/input_event.hpp>
 #include <core/node.hpp>
 #include <core/uncopyable.hpp>
@@ -29,7 +30,15 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
+            MainLoop(gfx::BlendingController *blending_controller) {
+                m_blending_controller.reset(blending_controller);
+            }
+
             virtual ~MainLoop() = default;
+
+            gfx::BlendingController &get_blending_controller() const {
+                return *m_blending_controller;
+            }
 
             void set_root(std::shared_ptr<Node> root) {
                 m_root = root;
@@ -64,6 +73,8 @@ namespace morpheus {
             std::shared_ptr<Node> m_root;
             //std::unique_ptr<PaletteManager> m_palette_manager(new );
         private:
+            std::unique_ptr<gfx::BlendingController> m_blending_controller;
+
             bool m_mt_inited;
             unsigned short m_r256table[256];
             unsigned char m_r256index;

@@ -16,6 +16,9 @@
 #include <core/main_loop.hpp>
 #include <core/gfx/window.hpp>
 
+#include <gba/gba_controllers.hpp>
+#include <gba/gba_main_loop.hpp>
+
 namespace morpheus {
     namespace gba {
         static constexpr uint16_t GBA_KEYPAD_BITS[] = { KEY_A, KEY_B, KEY_SELECT, KEY_START, KEY_RIGHT, KEY_LEFT,

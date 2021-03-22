@@ -14,12 +14,13 @@ namespace morpheus {
         namespace gfx {
         class Sprite4Bpp : public nds::gfx::Sprite {
             public:
-                explicit Sprite4Bpp(bool use_sub_display) :
-                    nds::gfx::Sprite(use_sub_display, SpriteMapping_1D_32,
+                explicit Sprite4Bpp(bool use_sub_display, NdsBlendingController *blending_controller) :
+                    nds::gfx::Sprite(use_sub_display, blending_controller, SpriteMapping_1D_32,
                                      ExtendedPaletteStatus::NOTNEEDED) {}
-                explicit Sprite4Bpp(bool use_sub_display, unsigned short *nds_oam_address, unsigned char width,
-                                    unsigned char height) :
-                    nds::gfx::Sprite(use_sub_display, SpriteMapping_1D_32, ExtendedPaletteStatus::NOTNEEDED,
+                explicit Sprite4Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
+                                    unsigned short *nds_oam_address, unsigned char width, unsigned char height) :
+                    nds::gfx::Sprite(use_sub_display, blending_controller, SpriteMapping_1D_32,
+                                     ExtendedPaletteStatus::NOTNEEDED,
                                      nds_oam_address, width, height) {}
 
                 ~Sprite4Bpp() override = default;

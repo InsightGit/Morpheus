@@ -9,6 +9,8 @@
 
 #include <core/core.hpp>
 
+#include <nds/nds_controllers.hpp>
+
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
 namespace morpheus {
@@ -32,11 +34,12 @@ namespace morpheus {
 
             class Sprite : public core::Node {
             public:
-                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
-                                ExtendedPaletteStatus external_palette);
-                explicit Sprite(bool use_sub_display, SpriteMapping sprite_mapping,
-                                ExtendedPaletteStatus external_palette, unsigned short *nds_oam_address,
-                                const unsigned char width, const unsigned char height);
+                explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
+                                SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette);
+                explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
+                                SpriteMapping sprite_mapping,ExtendedPaletteStatus external_palette,
+                                unsigned short *nds_oam_address, const unsigned char width,
+                                const unsigned char height);
 
                 virtual ~Sprite();
 
@@ -62,6 +65,24 @@ namespace morpheus {
 
                 void set_palette_id(const unsigned int palette_id) {
                     m_palette_id = palette_id;
+                }
+
+                bool is_blended() const {
+                    return m_blended;
+                }
+
+                void disable_blending() {
+                    m_blended = false;
+
+                    m_blending_controller->disable_object_blending();
+                }
+                void enable_blending(bool bottom) {
+                    // insures both top and bottom blending bits aren't set at the same time
+                    disable_blending();
+
+                    m_blended = true;
+
+                    m_blending_controller->enable_object_blending(bottom);
                 }
 
                 // Extended palette load functions
@@ -101,6 +122,9 @@ namespace morpheus {
                     m_last_used_obj_attr_num = last_used_obj_attr_num;
                 }
             private:
+                NdsBlendingController *m_blending_controller;
+
+                bool m_blended;
                 bool m_do_not_free_gfx_pointer;
                 bool m_extended_palette;
                 bool m_enabled = false;

@@ -1,4 +1,5 @@
 # Hashes of file build rules.
+4ca7b9bfd5a4100e7e3576a7333e945f CMakeFiles/morpheus-gba-gfx-effects-test.gba
 3e4ab3f2f68cc416488e21469aa51df8 CMakeFiles/morpheus-gba-input-test.gba
 fa8c0cbed193bccad5f524b75c3abe9a CMakeFiles/morpheus-gba-maxmod-test.gba
 282249fc19c2121bec78b8678b6ee8a1 CMakeFiles/morpheus-gba-sram-test.gba

@@ -13,9 +13,10 @@ namespace morpheus {
             class TiledBackground4Bpp : public TiledBackground {
             public:
                 explicit TiledBackground4Bpp(bool use_sub_display, unsigned int background_num,
+                                             NdsBlendingController *blending_controller,
                                              NdsMainLoop *main_loop, unsigned int cbb_num, unsigned int sbb_num) :
-                                             TiledBackground(use_sub_display, background_num, main_loop,
-                                                             cbb_num, sbb_num) {
+                                             TiledBackground(use_sub_display, background_num, blending_controller,
+                                                             main_loop, cbb_num, sbb_num) {
                     init_background_reference_num(BgType_Text4bpp);
                 }
 

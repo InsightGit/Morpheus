@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus-nds-input-test.nds"
-  "morpheus-nds-maxmod-test.nds"
+  "morpheus-nds-gfx-effects-test.nds"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -4,7 +4,8 @@
 
 #include "gba_main_loop.hpp"
 
-morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode) {
+morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode) :
+                            morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController()) {
     #ifdef NDEBUG
         bool debug = false;
     #else
@@ -37,7 +38,20 @@ morpheus::gba::GbaMainLoop::~GbaMainLoop() {
 }
 
 void morpheus::gba::GbaMainLoop::disable_window(morpheus::core::gfx::WindowType window_type) {
-
+    switch(window_type) {
+        case morpheus::core::gfx::WindowType::WINDOW_0:
+            REG_DISPCNT &= 0xDFFF;
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_1:
+            REG_DISPCNT &= 0xBFFF;
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_OBJ:
+            REG_DISPCNT &= 0x7FFF;
+            break;
+        case morpheus::core::gfx::WindowType::WINDOW_OUT:
+            // intentionally blank: window out is just the lack of being in a window
+            break;
+    }
 }
 
 void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) {
@@ -64,12 +78,16 @@ void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) 
 void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType window_type) {
     switch(window_type) {
         case morpheus::core::gfx::WindowType::WINDOW_0:
+            REG_DISPCNT |= DCNT_WIN0;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_1:
+            REG_DISPCNT |= DCNT_WIN1;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OBJ:
+            REG_DISPCNT |= DCNT_WINOBJ;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OUT:
+            // intentionally blank: window out is just the lack of being in a window
             break;
     }
 }

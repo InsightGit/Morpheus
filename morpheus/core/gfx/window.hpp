@@ -51,12 +51,14 @@ namespace morpheus {
                     return m_window_enabled;
                 }
 
+                void add_background(unsigned int background);
                 void disable_window();
-
                 void enable_window();
+                std::vector<unsigned int> get_backgrounds()const;
             protected:
                 virtual void toggle_window(bool on) = 0;
             private:
+                std::vector<unsigned int> m_active_backgrounds;
                 std::shared_ptr<core::MainLoop> m_main_loop;
                 bool m_window_enabled;
                 WindowRect m_window_rect;

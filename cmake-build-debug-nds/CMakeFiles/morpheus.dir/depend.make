@@ -11,6 +11,11 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: ../morpheus/core/
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libnds/include/mm_types.h
 
+CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.cpp
+CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.hpp
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/input_event.hpp
@@ -20,6 +25,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/main_loop.hpp
@@ -28,6 +34,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/uncopya
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.hpp
@@ -36,6 +43,7 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/uncopyab
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.cpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/main_loop.hpp
@@ -45,6 +53,7 @@ CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/node.cpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/node.hpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -53,6 +62,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/input_ev
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/nds/gfx/sprite.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/nds/gfx/sprite.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
@@ -109,6 +119,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: /opt/devkitpro/libnds/inc
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -118,6 +129,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/ma
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/nds/gfx/sprite.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/nds/gfx/sprite_4_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/nds/gfx/sprite_4_bpp.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
@@ -174,6 +186,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libn
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -183,6 +196,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/ma
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/nds/gfx/sprite.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/nds/gfx/sprite_8_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/nds/gfx/sprite_8_bpp.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
@@ -242,6 +256,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: ../morpheus/nds/gfx/text.cp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: ../morpheus/nds/gfx/text.hpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -250,6 +265,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/cor
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/nds/nds_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/nds/gfx/tiled_background.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/nds/gfx/tiled_background.hpp
@@ -307,6 +323,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: /opt/devkitpro/
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -316,6 +333,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/nds_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_4_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_4_bpp.hpp
@@ -373,6 +391,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: /opt/devk
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -382,6 +401,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/nds_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_8_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_8_bpp.hpp
@@ -438,13 +458,151 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devk
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
 
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/input_event.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/node.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/nds/gfx/window.cpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: ../morpheus/nds/gfx/window.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/mm_types.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/aes.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/audio.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/clock.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/codec.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/i2c.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/sdmmc.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/serial.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/touch.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/background.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/boxtest.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/cache.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/console.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/decompress.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/dynamicArray.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/exceptions.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/guitarGrip.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/image.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/keyboard.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/linkedlist.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/math.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/nand.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/paddle.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/pcx.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/piano.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/rumble.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sassert.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sound.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sprite.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/trig_lut.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/video.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/videoGL.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/window.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/bios.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/card.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/debug.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/dma.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/fifocommon.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/interrupts.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/ipc.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/libversion.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/memory.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/ndstypes.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/sha1.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/system.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
+CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
+
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/gfx/window.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/input_event.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/node.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/nds/nds_controllers.cpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/nds/nds_controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/mm_types.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/aes.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/audio.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/clock.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/codec.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/i2c.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/sdmmc.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/serial.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/touch.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/background.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/boxtest.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/cache.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/console.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/decompress.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/dynamicArray.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/exceptions.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/guitarGrip.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/image.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/keyboard.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/linkedlist.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/math.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/nand.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/paddle.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/pcx.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/piano.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/rumble.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sassert.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sound.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/sprite.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/trig_lut.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/video.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/videoGL.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/arm9/window.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/bios.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/card.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/debug.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/dma.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/fifocommon.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/input.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/interrupts.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/ipc.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/libversion.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/memory.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/ndstypes.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/sha1.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/system.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/timers.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: /opt/devkitpro/libnds/include/nds/touch.h
+
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/input_event.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/nds/nds_main_loop.cpp
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/nds/nds_main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: /opt/devkitpro/libnds/include/maxmod9.h
+CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: /opt/devkitpro/libnds/include/mm_types.h
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: /opt/devkitpro/libnds/include/nds.h
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/aes.h
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: /opt/devkitpro/libnds/include/nds/arm7/audio.h

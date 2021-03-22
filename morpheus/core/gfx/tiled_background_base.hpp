@@ -22,7 +22,8 @@ namespace morpheus {
 
             class TiledBackgroundBase {
             public:
-                TiledBackgroundBase(unsigned int background_num, unsigned int cbb_num, unsigned int sbb_num);
+                TiledBackgroundBase(unsigned int background_num, BlendingController *blending_controller,
+                                    unsigned int cbb_num, unsigned int sbb_num);
 
                 virtual ~TiledBackgroundBase() = default;
 
@@ -34,6 +35,17 @@ namespace morpheus {
                                              const unsigned short *tile_map, const unsigned int tile_map_len,
                                              TiledBackgroundSize size) = 0;
 
+                void disable_blending() {
+                    m_blending_controller->disable_background_blending(get_background_num());
+                }
+
+                void enable_blending(bool bottom) {
+                    // insures both top and bottom blending bits aren't set at the same time
+                    disable_blending();
+
+                    m_blending_controller->enable_background_blending(bottom, get_background_num());
+                }
+
                 Vector2 get_scroll() const {
                     return m_scroll_position;
                 }
@@ -44,7 +56,17 @@ namespace morpheus {
                     update_scroll();
                 }
 
+                bool is_mosaic() const {
+                    return m_mosaic;
+                }
+
+                void toggle_mosaic() {
+                    m_mosaic = !m_mosaic;
+                }
+
+                virtual Vector2 get_mosaic_levels() const = 0;
                 virtual unsigned int get_priority() const = 0;
+                virtual void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) = 0;
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
                 unsigned int get_background_num() const {
@@ -60,11 +82,14 @@ namespace morpheus {
                 }
 
                 virtual void update_scroll() = 0;
+                virtual void mosaic_state_updated() = 0;
             private:
+                gfx::BlendingController *m_blending_controller;
                 unsigned int m_background_num;
                 unsigned int m_cbb_num;
-                unsigned int m_sbb_num;
+                bool m_mosaic = false;
                 Vector2 m_scroll_position;
+                unsigned int m_sbb_num;
             };
         }
     }

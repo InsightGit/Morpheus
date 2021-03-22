@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_GBA_WINDOW_HPP
 #define MORPHEUS_GBA_TEST_GBA_WINDOW_HPP
 
+#include <tonc.h>
+
 #include <core/core.hpp>
 
 namespace morpheus {

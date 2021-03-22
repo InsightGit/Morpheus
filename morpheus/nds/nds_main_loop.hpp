@@ -12,6 +12,8 @@
 #include <core/main_loop.hpp>
 #include <core/gfx/window.hpp>
 
+#include <nds/nds_controllers.hpp>
+
 namespace morpheus {
     namespace nds {
 
@@ -39,6 +41,10 @@ namespace morpheus {
                 }
             }
 
+            core::gfx::BlendingController &get_sub_blending_controller() const {
+                return *m_sub_blending_controller;
+            }
+
             void clear_obj_vram()override;
 
             void disable_window(core::gfx::WindowType window_type)override;
@@ -62,6 +68,7 @@ namespace morpheus {
             static PrintConsole *debug_print_console;
 
             unsigned int m_last_input_size = 0;
+            std::unique_ptr<gfx::NdsBlendingController> m_sub_blending_controller;
         };
     }
 }
