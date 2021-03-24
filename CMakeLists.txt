@@ -25,7 +25,7 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/window.hpp
         morpheus/core/gfx/window.cpp
-        morpheus/utils.hpp)
+        morpheus/utils.hpp morpheus/core/gfx/sprite_base.cpp morpheus/core/gfx/sprite_base.hpp)
 
 
 project(morpheus)
@@ -247,9 +247,21 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-gba-gfx-effects-test)
 
+        set(GFX_EFFECT_PNG8_FILES "../tests/gba/input_test/test8.png")
+
+        # skipping the grit step cause the .o rule for test8 already exists
+        # skipping the tilemap conversion step cause the .o rule for region_map already exists
+
+        foreach(png8_file ${GFX_EFFECT_PNG8_FILES})
+            get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+            list(APPEND GFX_EFFECT_PNG8_OUTPUT_FILES ${png8_file}.o)
+        endforeach()
+
         link_directories(morpheus-gba-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
-        add_executable(morpheus-gba-gfx-effects-test.elf tests/gfx_effects_test/gfx_effects_test.cpp)
+        add_executable(morpheus-gba-gfx-effects-test.elf tests/gfx_effects_test/gfx_effects_test.cpp
+                       ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c")
         add_gba_executable(morpheus-gba-gfx-effects-test.elf)
 
         target_link_libraries(morpheus-gba-gfx-effects-test.elf morpheus mm tonc)
@@ -372,16 +384,26 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-nds-gfx-effects-test)
 
+        set(GFX_EFFECT_PNG8_FILES "../tests/gba/input_test/test8.png")
+
+        # skipping the grit step cause the .o rule for test8 already exists
+        # skipping the tilemap conversion step cause the .o rule for region_map already exists
+
+        foreach(png8_file ${GFX_EFFECT_PNG8_FILES})
+            get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+            list(APPEND GFX_EFFECT_PNG8_OUTPUT_FILES ${png8_file}.o)
+        endforeach()
+
         link_directories(morpheus-nds-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        generate_maxmod_soundbank(false "soundbank" maxmod_soundbank_list)
-
         add_executable(morpheus-nds-gfx-effects-test.elf
-                tests/gfx_effects_test/gfx_effects_test.cpp)
+                tests/gfx_effects_test/gfx_effects_test.cpp ${GFX_EFFECT_PNG8_OUTPUT_FILES}
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c")
         add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus GFX Effect Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm9)
+        target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus nds9 mm9)
     endif()
 endif()
 

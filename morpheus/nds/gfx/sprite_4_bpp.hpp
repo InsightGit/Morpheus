@@ -18,18 +18,19 @@ namespace morpheus {
                     nds::gfx::Sprite(use_sub_display, blending_controller, SpriteMapping_1D_32,
                                      ExtendedPaletteStatus::NOTNEEDED) {}
                 explicit Sprite4Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
-                                    unsigned short *nds_oam_address, unsigned char width, unsigned char height) :
+                                    unsigned short *nds_oam_address, core::gfx::SpriteSize size) :
                     nds::gfx::Sprite(use_sub_display, blending_controller, SpriteMapping_1D_32,
                                      ExtendedPaletteStatus::NOTNEEDED,
-                                     nds_oam_address, width, height) {}
+                                     nds_oam_address, size) {}
 
                 ~Sprite4Bpp() override = default;
 
-                bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                     const unsigned int width, const unsigned int height)override;
-                bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                     const unsigned int palette_len, const unsigned int palette_id,
-                                     const unsigned int width, const unsigned int height)override;
+                bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                     const unsigned int palette_id,
+                                     const morpheus::core::gfx::SpriteSize size)override;
+                bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                     const unsigned short *palette, const unsigned int palette_len,
+                                     const unsigned int palette_id, core::gfx::SpriteSize size)override;
 
                 bool load_into_palette(const unsigned short *palette, const unsigned int pal_len)override;
 

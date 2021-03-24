@@ -12,6 +12,8 @@ protected:
         if(input_event.state == morpheus::core::InputState::HELD || \
                input_event.state == morpheus::core::InputState::DOWN) {
 
+            nocash_puts("input detected");
+
             switch(input_event.button) {
                 case morpheus::core::InputButton::DPADUP:
                     position = morpheus::core::gfx::Vector2(position.get_x(), position.get_y() - 5);
@@ -35,13 +37,17 @@ protected:
 };
 
 class MoveableSprite8 : public morpheus::gba::gfx::Sprite8Bpp, InputBase {
-    protected:
-        void input(morpheus::core::InputEvent input_event)override {
-            set_position(input_routine(input_event, get_position()));
-        }
+public:
+    MoveableSprite8() : morpheus::gba::gfx::Sprite8Bpp(nullptr) {}
+protected:
+    void input(morpheus::core::InputEvent input_event)override {
+        set_position(input_routine(input_event, get_position()));
+    }
 };
 
 class MoveableSprite4 : public morpheus::gba::gfx::Sprite4Bpp, InputBase {
+public:
+    MoveableSprite4() : morpheus::gba::gfx::Sprite4Bpp(nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(input_routine(input_event, get_position()));
@@ -57,17 +63,17 @@ int main() {
     MoveableSprite8 test_sprite8{};
     MoveableSprite8 test_sprite8_2{};
 
-    test_sprite8.load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles),
-                                reinterpret_cast<const unsigned short *>(test8Pal),
-                                32, 32, 0);
-    test_sprite8_2.load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles),
-                                  32, 32, 0);
+    test_sprite8.load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
+                                 reinterpret_cast<const unsigned short *>(test8Pal), test8PalLen,
+                                morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
+    test_sprite8_2.load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
+                                   morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
 
-    test_sprite4.load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles),
-                                 reinterpret_cast<const unsigned short *>(test4Pal),
-                                 15, 32, 32, 33);
-    test_sprite4_2.load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles),
-                                   15, 32, 32, 33);
+    test_sprite4.load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles), test4TilesLen,
+                                 reinterpret_cast<const unsigned short *>(test4Pal), 32,
+                                 15, morpheus::core::gfx::SpriteSize::SIZE_32X32, 33);
+    test_sprite4_2.load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles), test4TilesLen,
+                                   15, morpheus::core::gfx::SpriteSize::SIZE_32X32, 33);
 
     test_sprite8.set_position(64, 64);
     test_sprite8_2.set_position(80, 80);

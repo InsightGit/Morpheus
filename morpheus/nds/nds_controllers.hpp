@@ -18,6 +18,8 @@ namespace morpheus {
                     m_use_sub_display = use_sub_display;
                 }
 
+                virtual ~NdsBlendingController() {}
+
                 void disable_backdrop_blending()override;
                 void enable_backdrop_blending(bool bottom)override;
 

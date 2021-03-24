@@ -36,8 +36,8 @@ namespace morpheus {
 
             virtual ~MainLoop() = default;
 
-            gfx::BlendingController &get_blending_controller() const {
-                return *m_blending_controller;
+            gfx::BlendingController *get_blending_controller() const {
+                return m_blending_controller.get();
             }
 
             void set_root(std::shared_ptr<Node> root) {

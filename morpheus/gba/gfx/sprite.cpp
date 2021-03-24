@@ -6,6 +6,7 @@
 
 void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
     auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
+    core::gfx::Vector2 position = get_position();
 
     m_attr2 |= ATTR2_PRIO(m_priority);
 
@@ -18,61 +19,72 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
     m_last_obj_attr_num = obj_attr_num;
 
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
-    obj_set_pos(obj, m_position.get_x(), m_position.get_y());
+    obj_set_pos(obj, position.get_x(), position.get_y());
 }
 
-void morpheus::gba::gfx::Sprite::setup_size_attr(const unsigned short width, const unsigned short height) {
-    if(width == height && (width == 8 || width == 16 || width == 32 || width == 64)) {
-        m_attr0 = ATTR0_SQUARE;
-    } else if(width == (height * 2) && (width == 16 || width == 32 || width == 64)) {
-        m_attr0 = ATTR0_WIDE;
-    } else if((width * 2) == height && (width == 8 || width == 16 || width == 32)) {
-        m_attr0 = ATTR0_TALL;
-    } else {
-        // unknown tile size passed
-        assert(false);
+void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {
+    switch(size) {
+        case core::gfx::SpriteSize::SIZE_8X8:
+        case core::gfx::SpriteSize::SIZE_16X16:
+        case core::gfx::SpriteSize::SIZE_32X32:
+        case core::gfx::SpriteSize::SIZE_64X64:
+            m_attr0 = ATTR0_SQUARE;
+            break;
+        case core::gfx::SpriteSize::SIZE_16X8:
+        case core::gfx::SpriteSize::SIZE_32X16:
+        case core::gfx::SpriteSize::SIZE_64X32:
+            m_attr0 = ATTR0_WIDE;
+            break;
+        case core::gfx::SpriteSize::SIZE_8X16:
+        case core::gfx::SpriteSize::SIZE_16X32:
+        case core::gfx::SpriteSize::SIZE_32X64:
+            m_attr0 = ATTR0_TALL;
+            break;
     }
 
-    switch(max(width, height)) {
-        case 8:
+    switch(size) {
+        case core::gfx::SpriteSize::SIZE_8X8:
             m_attr1 = ATTR1_SIZE_8;
             break;
-        case 16:
+        case core::gfx::SpriteSize::SIZE_8X16:
+        case core::gfx::SpriteSize::SIZE_16X8:
+        case core::gfx::SpriteSize::SIZE_16X16:
             m_attr1 = ATTR1_SIZE_16;
             break;
-        case 32:
+        case core::gfx::SpriteSize::SIZE_16X32:
+        case core::gfx::SpriteSize::SIZE_32X16:
+        case core::gfx::SpriteSize::SIZE_32X32:
             m_attr1 = ATTR1_SIZE_32;
             break;
-        case 64:
+        case core::gfx::SpriteSize::SIZE_32X64:
+        case core::gfx::SpriteSize::SIZE_64X32:
+        case core::gfx::SpriteSize::SIZE_64X64:
             m_attr1 = ATTR1_SIZE_64;
             break;
-        default:
-            // unknown tile size passed
-            assert(false);
     }
 }
 
-void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                                 const unsigned int palette_len, const unsigned int width,
-                                                 const unsigned int height, const unsigned int tile_id) {
+void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                                 const unsigned short *palette, const unsigned int palette_len,
+                                                 const core::gfx::SpriteSize size, const unsigned int tile_id) {
     /*m_attr0 = 0x0;
     m_attr1 = 0x0;
     m_attr2 = 0x0;*/
 
-    setup_size_attr(width, height);
+    set_sprite_size(size);
 
-    array_load(tile_array, palette, palette_len, width, height, tile_id);
+    array_load(tile_array, tile_array_len, palette, palette_len, size, tile_id);
 }
 
-void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned int width,
-                                                 const unsigned int height, const unsigned int tile_id) {
+void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                                 const core::gfx::SpriteSize size, const unsigned int tile_id) {
     m_attr0 = 0x0;
     m_attr1 = 0x0;
     m_attr2 = 0x0;
 
-    setup_size_attr(width, height);
+    set_sprite_size(size);
 
-    array_load(tile_array, width, height, tile_id);
+    array_load(tile_array, tile_array_len, size, tile_id);
 }
 
 void morpheus::gba::gfx::Sprite::on_visible_state_changed(bool hidden) {

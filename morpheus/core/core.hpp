@@ -7,6 +7,7 @@
 
 #include <core/audio/max_mod_music.hpp>
 
+#include <core/gfx/sprite_base.hpp>
 #include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
 #include <core/gfx/window.hpp>

@@ -17,13 +17,13 @@ namespace morpheus {
 
                 virtual ~Sprite8Bpp() = default;
 
-                void load_into_palette(const unsigned short *palette, const unsigned int palette_len)override;
+                bool load_into_palette(const unsigned short *palette, const unsigned int palette_len)override;
             protected:
-                void array_load(const unsigned short *tile_array, const unsigned int width,
-                                const unsigned int height, const unsigned int tile_id)override;
-                void array_load(const unsigned short *tile_array, const unsigned short *palette,
-                                const unsigned int palette_len, const unsigned int width,
-                                const unsigned int height, const unsigned int tile_id)override;
+                void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                const core::gfx::SpriteSize size, const unsigned int tile_id)override;
+                void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                const unsigned short *palette, const unsigned int palette_len,
+                                const core::gfx::SpriteSize size, const unsigned int tile_id)override;
             private:
                 unsigned int m_tile_id;
             };

@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"

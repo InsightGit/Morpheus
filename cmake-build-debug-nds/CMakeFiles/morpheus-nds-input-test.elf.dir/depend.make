@@ -3,7 +3,9 @@
 
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/audio/max_mod_sfx.hpp
+CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -14,6 +16,7 @@ CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.c
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/audio/gba_max_mod_music.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/audio/gba_max_mod_sfx.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/gba.hpp
+CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/gba_main_loop.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/gfx/sprite.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.hpp
@@ -29,6 +32,7 @@ CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.c
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/nds/gfx/tiled_background_4_bpp.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/nds/gfx/tiled_background_8_bpp.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/nds/nds.hpp
+CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/nds/nds_controllers.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/nds/nds_main_loop.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../morpheus/utils.hpp
 CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.o: ../tests/nds/input_test/nds_input_test.cpp

@@ -39,7 +39,7 @@ protected:
 
 class MoveableSprite8 : public morpheus::nds::gfx::Sprite8Bpp, SpriteInputBase {
 public:
-    MoveableSprite8(bool use_sub_display, bool use_extended_palette) : Sprite8Bpp(use_sub_display,
+    MoveableSprite8(bool use_sub_display, bool use_extended_palette) : Sprite8Bpp(use_sub_display, nullptr,
                                                                                   use_extended_palette) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
@@ -49,7 +49,7 @@ protected:
 
 class MoveableSprite4 : public morpheus::nds::gfx::Sprite4Bpp, SpriteInputBase {
 public:
-    explicit MoveableSprite4(bool use_sub_display) : Sprite4Bpp(use_sub_display) {}
+    explicit MoveableSprite4(bool use_sub_display) : Sprite4Bpp(use_sub_display, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(recieved_input(input_event, get_position()));
@@ -70,12 +70,13 @@ int main() {
         std::cout << "Couldn't load PCX!\n";
     }
 
-    test2_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test8Tiles[0])), 0u,
-                                 32, 32);
-    test3_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test4Tiles[0])), 0,
-                                 &(test4Pal[0]), 32, 32);
-    test4_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test4Tiles[0])), 0,
-                                 32, 32);
+    test2_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test8Tiles[0])), test8TilesLen,
+                                 0, morpheus::core::gfx::SpriteSize::SIZE_32X32);
+    test3_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test4Tiles[0])), test4TilesLen,
+                                 reinterpret_cast<const unsigned short*>(&(test4Pal[0])), test4PalLen, 0,
+                                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
+    test4_sprite.load_from_array(reinterpret_cast<const unsigned short*>(&(test4Tiles[0])), test4TilesLen, 0,
+                                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
 
     test_sprite.set_position(0, 0);
     test2_sprite.set_position(20, 20);

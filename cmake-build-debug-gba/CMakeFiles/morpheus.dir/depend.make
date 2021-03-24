@@ -15,6 +15,16 @@ CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/uncopy
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.cpp
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/window.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/input_event.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/node.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/uncopyable.hpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/sprite_base.cpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
+
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -100,7 +110,11 @@ CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libtonc
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/input_event.hpp
@@ -129,7 +143,11 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/in
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/input_event.hpp
@@ -159,7 +177,11 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libt
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/controllers.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/input_event.hpp
@@ -222,6 +244,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/core.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp

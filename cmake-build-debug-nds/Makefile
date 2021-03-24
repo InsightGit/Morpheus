@@ -439,6 +439,33 @@ morpheus/core/controllers.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.s
 .PHONY : morpheus/core/controllers.cpp.s
 
+morpheus/core/gfx/sprite_base.o: morpheus/core/gfx/sprite_base.cpp.o
+
+.PHONY : morpheus/core/gfx/sprite_base.o
+
+# target to build an object file
+morpheus/core/gfx/sprite_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o
+.PHONY : morpheus/core/gfx/sprite_base.cpp.o
+
+morpheus/core/gfx/sprite_base.i: morpheus/core/gfx/sprite_base.cpp.i
+
+.PHONY : morpheus/core/gfx/sprite_base.i
+
+# target to preprocess a source file
+morpheus/core/gfx/sprite_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.i
+.PHONY : morpheus/core/gfx/sprite_base.cpp.i
+
+morpheus/core/gfx/sprite_base.s: morpheus/core/gfx/sprite_base.cpp.s
+
+.PHONY : morpheus/core/gfx/sprite_base.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/sprite_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.s
+.PHONY : morpheus/core/gfx/sprite_base.cpp.s
+
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
 .PHONY : morpheus/core/gfx/tiled_background_base.o
@@ -823,6 +850,7 @@ region_map.o: region_map.c.o
 
 # target to build an object file
 region_map.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.o
 .PHONY : region_map.c.o
@@ -833,6 +861,7 @@ region_map.i: region_map.c.i
 
 # target to preprocess a source file
 region_map.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.i
 .PHONY : region_map.c.i
@@ -843,6 +872,7 @@ region_map.s: region_map.c.s
 
 # target to generate assembly for a file
 region_map.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/region_map.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.s
 .PHONY : region_map.c.s
@@ -1045,6 +1075,9 @@ help:
 	@echo "... morpheus/core/controllers.o"
 	@echo "... morpheus/core/controllers.i"
 	@echo "... morpheus/core/controllers.s"
+	@echo "... morpheus/core/gfx/sprite_base.o"
+	@echo "... morpheus/core/gfx/sprite_base.i"
+	@echo "... morpheus/core/gfx/sprite_base.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"

@@ -4,18 +4,18 @@
 
 #include "sprite_4_bpp.hpp"
 
-bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                                     const unsigned int width, const unsigned int height) {
+bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array,
+                                                     const unsigned int tile_array_len,
+                                                     const unsigned int palette_id,
+                                                     core::gfx::SpriteSize size) {
 
-    set_sprite_size(width, height);
+    set_sprite_size(size);
 
-    allocate_gfx_pointer(SpriteColorFormat_16Color);
+    allocate_gfx_pointer(SpriteColorFormat_16Color, size);
 
     //std::cout << "loading 4bpp tiled array to palette #" << palette_id << "\n";
 
-    for(unsigned int i = 0; i < (width * height) / 2u; ++i) {
-        get_gfx_pointer()[i] = *(tile_array + i);
-    }
+    dmaCopy(tile_array, get_gfx_pointer(), tile_array_len);
 
     set_palette_id(palette_id);
 
@@ -24,10 +24,11 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_array,
+                                                     const unsigned int tile_array_len, const unsigned short *palette,
                                                      const unsigned int palette_len, const unsigned int palette_id,
-                                                     const unsigned int width, const unsigned int height) {
-    if(!load_from_array(tile_array, palette_id, width, height)) {
+                                                     core::gfx::SpriteSize size) {
+    if(!load_from_array(tile_array, tile_array_len, palette_id, size)) {
         return false;
     }
 

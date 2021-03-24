@@ -32,31 +32,18 @@ namespace morpheus {
 
             static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
-            class Sprite : public core::Node {
+            class Sprite : public core::gfx::SpriteBase {
             public:
                 explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
                                 SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette);
                 explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
-                                SpriteMapping sprite_mapping,ExtendedPaletteStatus external_palette,
-                                unsigned short *nds_oam_address, const unsigned char width,
-                                const unsigned char height);
+                                SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette,
+                                unsigned short *nds_oam_address, const morpheus::core::gfx::SpriteSize sprite_size);
 
                 virtual ~Sprite();
 
                 uint16_t *get_gfx_pointer() const {
                     return m_gfx_pointer;
-                }
-
-                core::gfx::Vector2 get_position() const {
-                    return m_position;
-                }
-
-                void set_position(const core::gfx::Vector2 position) {
-                    m_position = position;
-                }
-
-                void set_position(const int x, const int y) {
-                    set_position(core::gfx::Vector2(x, y));
                 }
 
                 unsigned int get_palette_id() const {
@@ -67,38 +54,27 @@ namespace morpheus {
                     m_palette_id = palette_id;
                 }
 
-                bool is_blended() const {
+                bool is_blended() const override {
                     return m_blended;
                 }
 
-                void disable_blending() {
-                    m_blended = false;
-
-                    m_blending_controller->disable_object_blending();
-                }
-                void enable_blending(bool bottom) {
-                    // insures both top and bottom blending bits aren't set at the same time
-                    disable_blending();
-
-                    m_blended = true;
-
-                    m_blending_controller->enable_object_blending(bottom);
-                }
-
                 // Extended palette load functions
-                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                             const unsigned int width, const unsigned int height) = 0;
-                virtual bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                             const unsigned int palette_len, const unsigned int palette_id,
-                                             const unsigned int width, const unsigned int height) = 0;
-                virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
+                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                             const unsigned int palette_id,
+                                             const morpheus::core::gfx::SpriteSize size) = 0;
+                virtual bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                             const unsigned short *palette, const unsigned int palette_len,
+                                             const unsigned int palette_id,
+                                             const morpheus::core::gfx::SpriteSize size) = 0;
             protected:
-                void allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width = 0, uint8_t height = 0);
+                void allocate_gfx_pointer(const SpriteColorFormat color_format,
+                                          const morpheus::core::gfx::SpriteSize size);
 
                 OamState *get_current_oam() const {
                     return m_current_oam;
                 }
 
+                // This SpriteSize is from libnds
                 SpriteSize get_sprite_size() const {
                     return m_sprite_size;
                 }
@@ -107,7 +83,22 @@ namespace morpheus {
                     return m_extended_palette;
                 }
 
-                void set_sprite_size(const unsigned char width, const unsigned char height);
+                void toggle_blending(bool enable_blending, bool bottom_layer) override {
+                    // insures both top and bottom blending bits aren't set at the same time if blending is being
+                    // enabled
+                    m_blended = false;
+
+                    get_blending_controller()->disable_object_blending();
+
+                    if(enable_blending) {
+                        m_blended = true;
+
+                        get_blending_controller()->enable_object_blending(bottom_layer);
+                    }
+                }
+
+                // this morpheus::core::gfx::SpriteSize is morpheus'
+                void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
 
                 void on_visible_state_changed(bool hidden) override {
                     if(m_last_used_obj_attr_num != -1) {
@@ -122,16 +113,12 @@ namespace morpheus {
                     m_last_used_obj_attr_num = last_used_obj_attr_num;
                 }
             private:
-                NdsBlendingController *m_blending_controller;
-
                 bool m_blended;
                 bool m_do_not_free_gfx_pointer;
                 bool m_extended_palette;
                 bool m_enabled = false;
                 int m_last_used_obj_attr_num = -1;
                 unsigned int m_palette_id;
-
-                core::gfx::Vector2 m_position;
 
                 OamState *m_current_oam;
                 uint16_t *m_gfx_pointer = nullptr;
@@ -141,4 +128,4 @@ namespace morpheus {
     }
 }
 
-#endif //MORPHEUS_GBA_TEST_SPRITE_HPP
+#endif //MORPHEUS_GBA_TEST_SPRITE_BASE_HPP

@@ -5,9 +5,8 @@
 #include "sprite.hpp"
 
 morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, NdsBlendingController *blending_controller,
-                                   const SpriteMapping sprite_mapping, ExtendedPaletteStatus extended_palette) {
-    m_blending_controller = blending_controller;
-
+                                   const SpriteMapping sprite_mapping, ExtendedPaletteStatus extended_palette) :
+                                   SpriteBase(blending_controller) {
     if(use_sub_display) {
         m_current_oam = &oamSub;
 
@@ -64,13 +63,15 @@ morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, NdsBlendingContro
 morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
                                    SpriteMapping sprite_mapping,
                                    morpheus::nds::gfx::ExtendedPaletteStatus external_palette,
-                                   unsigned short *nds_oam_address, const unsigned char width,
-                                   const unsigned char height) : Sprite(use_sub_display, blending_controller,
-                                                                        sprite_mapping, external_palette) {
+                                   unsigned short *nds_oam_address,
+                                   const morpheus::core::gfx::SpriteSize sprite_size) : Sprite(use_sub_display,
+                                                                                               blending_controller,
+                                                                                               sprite_mapping,
+                                                                                               external_palette) {
     m_do_not_free_gfx_pointer = true;
     m_gfx_pointer = nds_oam_address;
 
-    set_sprite_size(width, height);
+    set_sprite_size(sprite_size);
 }
 
 morpheus::nds::gfx::Sprite::~Sprite() {
@@ -96,10 +97,9 @@ morpheus::nds::gfx::Sprite::~Sprite() {
     nocashMessage("destructed");
 }
 
-void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_format, uint8_t width, uint8_t height) {
-    if(width > 0 && height > 0) {
-        set_sprite_size(width, height);
-    }
+void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(const SpriteColorFormat color_format,
+                                                      const morpheus::core::gfx::SpriteSize size) {
+    set_sprite_size(size);
 
     if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
         //std::cout << "freeing gfx\n";
@@ -110,60 +110,38 @@ void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(SpriteColorFormat color_fo
     m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
 }
 
-void morpheus::nds::gfx::Sprite::set_sprite_size(const unsigned char width, const unsigned char height) {
-    if(width == height) {
-        switch(width) {
-            case 8:
-                m_sprite_size = SpriteSize_8x8;
-                break;
-            case 16:
-                m_sprite_size = SpriteSize_16x16;
-                break;
-            case 32:
-                m_sprite_size = SpriteSize_32x32;
-                break;
-            case 64:
-                m_sprite_size = SpriteSize_64x64;
-                break;
-            default:
-                // unknown tile size passed
-                sassert(false, "Unknown Sprite Size");
-                break;
-        }
-    } else if(width == height * 2) {
-        switch(width) {
-            case 16:
-                m_sprite_size = SpriteSize_16x8;
-                break;
-            case 32:
-                m_sprite_size = SpriteSize_32x16;
-                break;
-            case 64:
-                m_sprite_size = SpriteSize_64x32;
-                break;
-            default:
-                // unknown tile size passed
-                sassert(false, "Unknown Sprite Size");
-                break;
-        }
-    } else if(width * 2 == height) {
-        switch(width) {
-            case 8:
-                m_sprite_size = SpriteSize_8x16;
-                break;
-            case 16:
-                m_sprite_size = SpriteSize_16x32;
-                break;
-            case 32:
-                m_sprite_size = SpriteSize_32x64;
-                break;
-            default:
-                // unknown tile size passed
-                sassert(false, "Unknown Sprite Size");
-                break;
-        }
-    } else {
-        // unknown tile size passed
-        sassert(false, "Unknown Sprite Size");
+void morpheus::nds::gfx::Sprite::set_sprite_size(morpheus::core::gfx::SpriteSize size) {
+    switch(size) {
+        case core::gfx::SpriteSize::SIZE_8X8:
+            m_sprite_size = SpriteSize_8x8;
+            break;
+        case core::gfx::SpriteSize::SIZE_16X16:
+            m_sprite_size = SpriteSize_16x16;
+            break;
+        case core::gfx::SpriteSize::SIZE_32X32:
+            m_sprite_size = SpriteSize_32x32;
+            break;
+        case core::gfx::SpriteSize::SIZE_64X64:
+            m_sprite_size = SpriteSize_64x64;
+            break;
+        case core::gfx::SpriteSize::SIZE_16X8:
+            m_sprite_size = SpriteSize_16x8;
+            break;
+        case core::gfx::SpriteSize::SIZE_32X16:
+            m_sprite_size = SpriteSize_32x16;
+            break;
+        case core::gfx::SpriteSize::SIZE_64X32:
+            m_sprite_size = SpriteSize_64x32;
+            break;
+        case core::gfx::SpriteSize::SIZE_8X16:
+            m_sprite_size = SpriteSize_8x16;
+            break;
+        case core::gfx::SpriteSize::SIZE_16X32:
+            m_sprite_size = SpriteSize_16x32;
+            break;
+        case core::gfx::SpriteSize::SIZE_32X64:
+            m_sprite_size = SpriteSize_32x64;
+            break;
     }
 }
+

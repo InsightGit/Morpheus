@@ -108,6 +108,33 @@ namespace morpheus {
             return nullptr;
         }
 
+        // BlendingController should be platform specific blending controller
+        static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_4bpp(
+                morpheus::core::gfx::BlendingController *blending_controller, bool nds_use_sub_display = false) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::Sprite4Bpp(
+                        static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller));
+            #elif _NDS
+                return new morpheus::nds::gfx::Sprite4Bpp(
+                        nds_use_sub_display,
+                        static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller));
+            #endif
+        }
+
+        static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_8bpp(
+                morpheus::core::gfx::BlendingController *blending_controller,
+                bool nds_use_sub_display = false, bool nds_use_extended_palettes = true) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::Sprite8Bpp(
+                        static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller));
+            #elif _NDS
+                return new morpheus::nds::gfx::Sprite8Bpp(
+                        nds_use_sub_display,
+                        static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
+                        nds_use_extended_palettes);
+            #endif
+        }
+
         //static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background()
     }
 }

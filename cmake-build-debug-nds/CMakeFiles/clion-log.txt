@@ -5,7 +5,6 @@
 -- /home/bobby/morpheus/buildtools/bintileconvert/bintileconvert.py
 -- custom1map
 -- using maxmod for nds
--- using maxmod for nds
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/bobby/morpheus/cmake-build-debug-nds

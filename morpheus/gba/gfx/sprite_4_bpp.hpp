@@ -16,7 +16,7 @@ namespace morpheus {
                                     const unsigned int palette_id = 0);
                 explicit Sprite4Bpp(GbaBlendingController *blending_controller,
                                     const unsigned int tile_id, const unsigned int palette_id,
-                                    const unsigned int width, const unsigned int height);
+                                    const core::gfx::SpriteSize size);
 
                 virtual ~Sprite4Bpp() = default;
 
@@ -30,21 +30,21 @@ namespace morpheus {
                     build_attr2(m_palette_id, m_tile_id);
                 }
 
-                void load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                     const unsigned int palette_len, const unsigned int palette_id,
-                                     const unsigned int width, const unsigned int height,
+                void load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                     const unsigned short *palette, const unsigned int palette_len,
+                                     const unsigned int palette_id, const core::gfx::SpriteSize size,
                                      const unsigned int tile_id);
-                void load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                     const unsigned int width, const unsigned int height,
+                void load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                     const unsigned int palette_id, const core::gfx::SpriteSize size,
                                      const unsigned int tile_id);
 
-                void load_into_palette(const unsigned short *palette, const unsigned int palette_len)override;
+                bool load_into_palette(const unsigned short *palette, const unsigned int palette_len)override;
             protected:
-                void array_load(const unsigned short *tile_array, const unsigned int width,
-                                const unsigned int height, const unsigned int tile_id)override;
-                void array_load(const unsigned short *tile_array, const unsigned short *palette,
-                                const unsigned int palette_len, const unsigned int width,
-                                const unsigned int height, const unsigned int tile_id)override;
+                void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                const core::gfx::SpriteSize size, const unsigned int tile_id)override;
+                void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                const unsigned short *palette, const unsigned int palette_len,
+                                const core::gfx::SpriteSize size, const unsigned int tile_id)override;
             private:
                 unsigned int m_palette_id;
                 unsigned int m_tile_id;

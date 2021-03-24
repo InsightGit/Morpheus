@@ -2,8 +2,8 @@
 // Created by bobby on 27/11/2020.
 //
 
-#ifndef MORPHEUS_NDS_SPRITE_HPP
-#define MORPHEUS_NDS_SPRITE_HPP
+#ifndef MORPHEUS_NDS_SPRITE8BPP_HPP
+#define MORPHEUS_NDS_SPRITE8BPP_HPP
 
 #include <iostream>
 
@@ -26,21 +26,23 @@ namespace morpheus {
                     ~Sprite8Bpp() override = default;
 
                     // Single palette load functions
-                    bool load_from_array(const unsigned short *tile_array, const unsigned int width,
-                                         const unsigned int height);
-                    bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
-                                         const unsigned int palette_len, const unsigned int width,
-                                         const unsigned int height);
+                    bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                         const morpheus::core::gfx::SpriteSize size);
+                    bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                         const unsigned short *palette, const unsigned int palette_len,
+                                         const morpheus::core::gfx::SpriteSize size);
                     bool load_into_palette(const unsigned short *palette, const unsigned int palette_len) override {
                         return load_into_palette(palette, palette_len, 0);
                     }
 
                     // Extended palette load functions
-                    bool load_from_array(const unsigned short *tile_array, const unsigned int palette_id,
-                                         const unsigned int width, const unsigned int height)override;
-                    bool load_from_array(const unsigned short *tile_array, const unsigned short *palette,
+                    bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                         const unsigned int palette_id,
+                                         const morpheus::core::gfx::SpriteSize size)override;
+                    bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
+                                         const unsigned short *palette,
                                          const unsigned int palette_len, const unsigned int palette_id,
-                                         const unsigned int width, const unsigned int height)override;
+                                         const morpheus::core::gfx::SpriteSize size)override;
                     bool load_into_palette(const unsigned short *palette, const unsigned int palette_len,
                                            const unsigned int palette_id);
 
@@ -55,4 +57,4 @@ namespace morpheus {
     }
 }
 
-#endif //MORPHEUS_NDS_SPRITE_HPP*/
+#endif //MORPHEUS_NDS_SPRITE8BPP_HPP*/

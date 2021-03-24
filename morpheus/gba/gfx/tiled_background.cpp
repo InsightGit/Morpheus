@@ -107,3 +107,13 @@ void morpheus::gba::gfx::TiledBackground::update_scroll() {
             break;
     }
 }
+
+void morpheus::gba::gfx::TiledBackground::mosaic_state_updated() {
+    if(is_mosaic()) {
+        m_background_register |= BG_MOSAIC;
+    } else {
+        m_background_register &= ~(BG_MOSAIC);
+    }
+
+    update_background_register();
+}

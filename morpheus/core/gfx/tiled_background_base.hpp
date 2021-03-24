@@ -81,8 +81,8 @@ namespace morpheus {
                     return m_sbb_num;
                 }
 
-                virtual void update_scroll() = 0;
                 virtual void mosaic_state_updated() = 0;
+                virtual void update_scroll() = 0;
             private:
                 gfx::BlendingController *m_blending_controller;
                 unsigned int m_background_num;
