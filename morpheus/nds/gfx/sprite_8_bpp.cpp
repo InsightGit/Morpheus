@@ -196,7 +196,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
             dmaCopy(palette, &SPRITE_PALETTE[0], pal_len);
         }
 
-        //std::cout << "loaded 8bpp palette (single palette mode)\n";
+        nocashMessage("loaded 8bpp palette (single palette mode)\n");
     }
 
     return true;

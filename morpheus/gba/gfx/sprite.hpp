@@ -45,6 +45,28 @@ namespace morpheus {
                     void load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
                                          const core::gfx::SpriteSize size, const unsigned int tile_id);
                 protected:
+                    core::gfx::Vector2 get_mosaic_levels() const override {
+                        return m_mosaic_levels;
+                    }
+
+                    void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) override {
+                        m_mosaic_levels = core::gfx::Vector2(std::max(std::min(15, mosaic_levels.get_x()), 0),
+                                                             std::max(std::min(15, mosaic_levels.get_y()), 0));
+
+                        REG_MOSAIC &= ~(MOS_OH_MASK | MOS_OV_MASK);
+
+                        nocash_puts("setting mosaic to");
+                        nocash_puts(m_mosaic_levels.to_string().c_str());
+
+                        if(m_mosaic_levels.get_x() > 0 && m_mosaic_levels.get_y() > 0) {
+                            REG_MOSAIC |= MOS_OH(m_mosaic_levels.get_x()) | MOS_OV(m_mosaic_levels.get_y());
+                        } else if(m_mosaic_levels.get_x() > 0) {
+                            REG_MOSAIC |= MOS_OH(m_mosaic_levels.get_x());
+                        } else if(m_mosaic_levels.get_y() > 0) {
+                            REG_MOSAIC |= MOS_OV(m_mosaic_levels.get_y());
+                        }
+                    }
+
                     void build_attr2(const unsigned short palette_id, const unsigned short tile_id) {
                         m_attr2 = ATTR2_BUILD(tile_id, palette_id, 0);
                     }
@@ -66,6 +88,7 @@ namespace morpheus {
                     void set_sprite_size(core::gfx::SpriteSize size)override;
 
                     void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
+                    void mosaic_state_updated()override;
                     void on_visible_state_changed(bool hidden)override;
 
                     virtual void input(core::InputEvent input_event)override {}
@@ -80,6 +103,7 @@ namespace morpheus {
                     bool m_blended = false;
                     bool m_is_4bpp;
                     int m_last_obj_attr_num;
+                    core::gfx::Vector2 m_mosaic_levels = core::gfx::Vector2(1, 1);
                     unsigned int m_priority = 0;
 
                     unsigned short m_attr0;

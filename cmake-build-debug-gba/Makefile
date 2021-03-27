@@ -58,10 +58,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6432.9/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6432.9/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-gba
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6432.9/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6432.9/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -734,6 +734,33 @@ region_map.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/region_map.c.s
 .PHONY : region_map.c.s
 
+region_map_window.o: region_map_window.c.o
+
+.PHONY : region_map_window.o
+
+# target to build an object file
+region_map_window.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/region_map_window.c.o
+.PHONY : region_map_window.c.o
+
+region_map_window.i: region_map_window.c.i
+
+.PHONY : region_map_window.i
+
+# target to preprocess a source file
+region_map_window.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/region_map_window.c.i
+.PHONY : region_map_window.c.i
+
+region_map_window.s: region_map_window.c.s
+
+.PHONY : region_map_window.s
+
+# target to generate assembly for a file
+region_map_window.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/region_map_window.c.s
+.PHONY : region_map_window.c.s
+
 tests/gba/input_test/gba_input_test.o: tests/gba/input_test/gba_input_test.cpp.o
 
 .PHONY : tests/gba/input_test/gba_input_test.o
@@ -939,6 +966,9 @@ help:
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
+	@echo "... region_map_window.o"
+	@echo "... region_map_window.i"
+	@echo "... region_map_window.s"
 	@echo "... tests/gba/input_test/gba_input_test.o"
 	@echo "... tests/gba/input_test/gba_input_test.i"
 	@echo "... tests/gba/input_test/gba_input_test.s"

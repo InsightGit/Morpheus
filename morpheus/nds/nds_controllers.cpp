@@ -144,3 +144,69 @@ void morpheus::nds::gfx::NdsBlendingController::set_blend_fade(unsigned char fad
     }
 }
 
+morpheus::core::gfx::BlendingMode morpheus::nds::gfx::NdsBlendingController::get_blending_mode() {
+    unsigned int blending_mode;
+
+    if(m_use_sub_display) {
+        blending_mode = (REG_BLDCNT_SUB >> 6) & 0x0003;
+    } else {
+        blending_mode = (REG_BLDCNT >> 6) & 0x0003;
+    }
+
+    switch(blending_mode) {
+        case 0:
+            return morpheus::core::gfx::BlendingMode::OFF;
+        case 1:
+            return morpheus::core::gfx::BlendingMode::USE_WEIGHTS;
+        case 2:
+            return morpheus::core::gfx::BlendingMode::FADE_TO_WHITE;
+        case 3:
+            return morpheus::core::gfx::BlendingMode::FADE_TO_BLACK;
+        default:
+            return morpheus::core::gfx::BlendingMode::OFF;
+    }
+}
+
+void morpheus::nds::gfx::NdsBlendingController::set_blending_mode(morpheus::core::gfx::BlendingMode blending_mode) {
+    // Clears current blending mode
+    if(m_use_sub_display) {
+        REG_BLDCNT_SUB &= 0xFF3F;
+    } else {
+        REG_BLDCNT &= 0xFF3F;
+    }
+
+    switch (blending_mode) {
+        case core::gfx::BlendingMode::OFF:
+            // BM bits: 00
+            if(m_use_sub_display) {
+                REG_BLDCNT_SUB |= 0xFF3F;
+            } else {
+                REG_BLDCNT |= 0xFF3F;
+            }
+            break;
+        case core::gfx::BlendingMode::USE_WEIGHTS:
+            // BM bits: 01
+            if(m_use_sub_display) {
+                REG_BLDCNT_SUB |= 0xFF7F;
+            } else {
+                REG_BLDCNT |= 0xFF7F;
+            }
+            break;
+        case core::gfx::BlendingMode::FADE_TO_WHITE:
+            // BM bits: 10
+            if(m_use_sub_display) {
+                REG_BLDCNT_SUB |= 0xFFBF;
+            } else {
+                REG_BLDCNT |= 0xFFBF;
+            }
+            break;
+        case core::gfx::BlendingMode::FADE_TO_BLACK:
+            // BM bits: 11
+            if(m_use_sub_display) {
+                REG_BLDCNT_SUB |= 0xFFFF;
+            } else {
+                REG_BLDCNT |= 0xFFFF;
+            }
+            break;
+    }
+}

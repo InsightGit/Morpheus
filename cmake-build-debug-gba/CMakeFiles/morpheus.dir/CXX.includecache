@@ -97,6 +97,8 @@ core/input_event.hpp
 ../morpheus/gba/gba_controllers.hpp
 algorithm
 -
+string
+-
 tonc.h
 -
 core/controllers.hpp
@@ -138,18 +140,6 @@ gba/gba_controllers.hpp
 gba/gba_main_loop.hpp
 -
 
-/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp
-tiled_background_base.hpp
-/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.hpp
-
-/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.hpp
-algorithm
--
-core/main_loop.hpp
--
-core/gfx/vector_2.hpp
--
-
 /home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp
 sprite.hpp
 /home/bobby/morpheus/morpheus/gba/gfx/sprite.hpp
@@ -182,34 +172,6 @@ sprite_8_bpp.hpp
 
 /home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.hpp
 gba/gfx/sprite.hpp
--
-
-/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.cpp
-tiled_background.hpp
-/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.hpp
-
-/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.hpp
-cassert
--
-cstring
--
-memory
--
-tonc.h
--
-gba/gba_main_loop.hpp
--
-core/gfx/tiled_background_base.hpp
--
-
-/home/bobby/morpheus/morpheus/gba/gfx/window.cpp
-window.hpp
-/home/bobby/morpheus/morpheus/gba/gfx/window.hpp
-
-/home/bobby/morpheus/morpheus/gba/gfx/window.hpp
-tonc.h
--
-core/core.hpp
 -
 
 /opt/devkitpro/libgba/include/maxmod.h

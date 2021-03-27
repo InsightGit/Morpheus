@@ -63,6 +63,8 @@ namespace morpheus {
                     return m_use_sub_display;
                 }
 
+                void mosaic_state_updated() override {}
+
                 void init_background_reference_num(BgType background_type);
                 void set_background_size(core::gfx::TiledBackgroundSize size);
                 void update_scroll()override;

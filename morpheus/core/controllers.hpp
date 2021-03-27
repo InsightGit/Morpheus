@@ -10,6 +10,13 @@
 namespace morpheus {
     namespace core {
         namespace gfx {
+            enum class BlendingMode {
+                OFF,
+                USE_WEIGHTS,
+                FADE_TO_WHITE,
+                FADE_TO_BLACK
+            };
+
             class BlendingController : Uncopyable {
             public:
                 virtual void disable_backdrop_blending() = 0;
@@ -20,6 +27,9 @@ namespace morpheus {
 
                 virtual void disable_object_blending() = 0;
                 virtual void enable_object_blending(bool bottom) = 0;
+
+                virtual BlendingMode get_blending_mode() = 0;
+                virtual void set_blending_mode(BlendingMode blending_mode) = 0;
 
                 virtual unsigned char get_blend_weight(bool bottom) const = 0;
                 virtual void set_blend_weight(bool bottom, unsigned char weight) = 0;

@@ -107,3 +107,11 @@ morpheus::gba::gfx::Sprite::~Sprite() {
         nocash_puts("cleared obj attr");
     }
 }
+
+void morpheus::gba::gfx::Sprite::mosaic_state_updated() {
+    if(is_mosaic()) {
+        m_attr0 |= ATTR0_MOSAIC;
+    } else {
+        m_attr0 &= ~ATTR0_MOSAIC;
+    }
+}

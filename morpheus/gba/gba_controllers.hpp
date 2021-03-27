@@ -6,6 +6,7 @@
 #define MORPHEUS_GBA_TEST_GBA_CONTROLLERS_HPP
 
 #include <algorithm>
+#include <string>
 
 #include <tonc.h>
 
@@ -24,6 +25,9 @@ namespace morpheus {
 
                 void disable_object_blending()override;
                 void enable_object_blending(bool bottom)override;
+
+                core::gfx::BlendingMode get_blending_mode()override;
+                void set_blending_mode(core::gfx::BlendingMode blending_mode)override;
 
                 unsigned char get_blend_weight(bool bottom)const override;
                 void set_blend_weight(bool bottom, unsigned char weight)override;

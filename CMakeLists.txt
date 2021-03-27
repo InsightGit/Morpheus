@@ -260,8 +260,12 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
+        convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+
         add_executable(morpheus-gba-gfx-effects-test.elf tests/gfx_effects_test/gfx_effects_test.cpp
-                       ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c")
+                       ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
+                       "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c")
         add_gba_executable(morpheus-gba-gfx-effects-test.elf)
 
         target_link_libraries(morpheus-gba-gfx-effects-test.elf morpheus mm tonc)

@@ -71,8 +71,21 @@ namespace morpheus {
                     }
                 }
 
+                bool is_mosaic() const {
+                    return m_mosaic;
+                }
+
+                void toggle_mosaic() {
+                    m_mosaic = !m_mosaic;
+
+                    mosaic_state_updated();
+                }
+
+                virtual core::gfx::Vector2 get_mosaic_levels() const = 0;
+                virtual void set_mosaic_levels(const core::gfx::Vector2 position) = 0;
                 virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
             protected:
+                virtual void mosaic_state_updated() = 0;
                 virtual void toggle_blending(bool enable_blending, bool bottom_layer = true) = 0;
 
                 BlendingController *get_blending_controller() const {
@@ -82,6 +95,7 @@ namespace morpheus {
                 virtual void set_sprite_size(SpriteSize size) = 0;
             private:
                 BlendingController *m_blending_controller;
+                bool m_mosaic = false;
                 Vector2 m_position;
                 unsigned char m_priority = 0;
             };

@@ -9,59 +9,140 @@
 #endif
 
 #include "region_map.h"
+#include "region_map_window.h"
 #include "test8.h"
 
-class InputBase {
+class InputNode : public morpheus::core::Node {
+public:
+    InputNode(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> &mosaic_background,
+              const std::shared_ptr<morpheus::core::gfx::SpriteBase> &mosaic_sprite,
+              morpheus::core::gfx::BlendingController *blending_controller) {
+        m_blending_controller = blending_controller;
+        m_mosaic_background = mosaic_background;
+        m_mosaic_sprite = mosaic_sprite;
+    }
 protected:
-    morpheus::core::gfx::Vector2 input_routine(morpheus::core::InputEvent input_event,
-                                               morpheus::core::gfx::Vector2 position) {
+    void input(morpheus::core::InputEvent input_event) override {
         if(input_event.state == morpheus::core::InputState::HELD || \
                input_event.state == morpheus::core::InputState::DOWN) {
+            update_control_mode(input_event);
 
-            #ifdef _GBA
-                nocash_puts("input detected");
-            #elif _NDS
-                nocashMessage("input detected");
-            #endif
-
-            switch(input_event.button) {
-                case morpheus::core::InputButton::DPADUP:
-                    position = morpheus::core::gfx::Vector2(position.get_x(), position.get_y() - 5);
+            switch (m_control_mode) {
+                case ControlMode::BACKGROUND_MOSAIC:
+                    nocash_puts("On background mosaic mode");
+                    mosaic_input(input_event, true);
                     break;
-                case morpheus::core::InputButton::DPADDOWN:
-                    position = morpheus::core::gfx::Vector2(position.get_x(), position.get_y() + 5);
+                case ControlMode::SPRITE_MOSAIC:
+                    nocash_puts("On sprite mosaic mode");
+                    mosaic_input(input_event, false);
                     break;
-                case morpheus::core::InputButton::DPADLEFT:
-                    position = morpheus::core::gfx::Vector2(position.get_x() - 5, position.get_y());
-                    break;
-                case morpheus::core::InputButton::DPADRIGHT:
-                    position = morpheus::core::gfx::Vector2(position.get_x() + 5, position.get_y());
-                    break;
-                default:
+                case ControlMode::BLENDING:
+                    nocash_puts("On blending mosaic mode");
+                    blending_input(input_event);
                     break;
             }
         }
-
-        return position;
     }
-};
+    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
+    void on_visible_state_changed(bool new_visible_state) override {}
+    void update(unsigned char cycle_time) override {}
+private:
+    const static int CONTROL_MODE_GAP = 1;
 
-#ifdef _GBA
-class MoveableSprite8 : public morpheus::gba::gfx::Sprite8Bpp, InputBase {
-#elif _NDS
-class MoveableSprite8 : public morpheus::nds::gfx::Sprite8Bpp, InputBase {
-#endif
-public:
-    MoveableSprite8() :
-    #ifdef _GBA
-        morpheus::gba::gfx::Sprite8Bpp(nullptr) {}
-    #elif _NDS
-        morpheus::nds::gfx::Sprite8Bpp(true, nullptr) {}
-    #endif
-protected:
-    void input(morpheus::core::InputEvent input_event)override {
-        set_position(input_routine(input_event, get_position()));
+    enum class ControlMode {
+        BACKGROUND_MOSAIC = 0,
+        SPRITE_MOSAIC = static_cast<int>(BACKGROUND_MOSAIC) + CONTROL_MODE_GAP,
+        BLENDING = static_cast<int>(SPRITE_MOSAIC) + CONTROL_MODE_GAP
+    };
+
+    const static ControlMode FINAL_CONTROL_MODE = ControlMode::BLENDING;
+    const static ControlMode FIRST_CONTROL_MODE = ControlMode::BACKGROUND_MOSAIC;
+
+    void blending_input(morpheus::core::InputEvent input_event) {
+        switch(input_event.button) {
+            case morpheus::core::InputButton::DPADLEFT:
+                m_blending_controller->set_blend_weight(true,
+                                                        m_blending_controller->get_blend_weight(true) + 1);
+                m_blending_controller->set_blend_weight(false,
+                                                        m_blending_controller->get_blend_weight(false) - 1);
+                break;
+            case morpheus::core::InputButton::DPADRIGHT:
+                m_blending_controller->set_blend_weight(true,
+                                                        m_blending_controller->get_blend_weight(true) - 1);
+                m_blending_controller->set_blend_weight(false,
+                                                        m_blending_controller->get_blend_weight(false) + 1);
+                break;
+            default:
+                break;
+        }
     }
+
+    void mosaic_input(morpheus::core::InputEvent input_event, bool background) {
+        morpheus::core::gfx::Vector2 mosaic_levels;
+
+        if(background) {
+            mosaic_levels = m_mosaic_background->get_mosaic_levels();
+        } else {
+            mosaic_levels = m_mosaic_sprite->get_mosaic_levels();
+        }
+
+        switch(input_event.button) {
+            case morpheus::core::InputButton::DPADUP:
+                mosaic_levels = morpheus::core::gfx::Vector2(mosaic_levels.get_x(), mosaic_levels.get_y() + 1);
+                break;
+            case morpheus::core::InputButton::DPADDOWN:
+                mosaic_levels = morpheus::core::gfx::Vector2(mosaic_levels.get_x(), mosaic_levels.get_y() - 1);
+                break;
+            case morpheus::core::InputButton::DPADLEFT:
+                mosaic_levels = morpheus::core::gfx::Vector2(mosaic_levels.get_x() - 1, mosaic_levels.get_y());
+                break;
+            case morpheus::core::InputButton::DPADRIGHT:
+                mosaic_levels = morpheus::core::gfx::Vector2(mosaic_levels.get_x() + 1, mosaic_levels.get_y());
+                break;
+            default:
+                break;
+        }
+
+        if(background) {
+            m_mosaic_background->set_mosaic_levels(mosaic_levels);
+        } else {
+            m_mosaic_sprite->set_mosaic_levels(mosaic_levels);
+        }
+    }
+
+    void update_control_mode(morpheus::core::InputEvent input_event) {
+        switch(input_event.button) {
+            case morpheus::core::InputButton::START: {
+                int control_value_int = static_cast<int>(m_control_mode);
+
+                if(control_value_int >= static_cast<int>(FINAL_CONTROL_MODE)) {
+                    m_control_mode = FIRST_CONTROL_MODE;
+                } else {
+                    m_control_mode = static_cast<ControlMode>(control_value_int + CONTROL_MODE_GAP);
+                }
+
+                break;
+            }
+            case morpheus::core::InputButton::SELECT: {
+                int control_value_int = static_cast<int>(m_control_mode);
+
+                if(control_value_int <= static_cast<int>(FIRST_CONTROL_MODE)) {
+                    m_control_mode = FINAL_CONTROL_MODE;
+                } else {
+                    m_control_mode = static_cast<ControlMode>(control_value_int - CONTROL_MODE_GAP);
+                }
+
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    ControlMode m_control_mode = ControlMode::SPRITE_MOSAIC;
+    morpheus::core::gfx::BlendingController *m_blending_controller;
+    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_mosaic_background;
+    std::shared_ptr<morpheus::core::gfx::SpriteBase> m_mosaic_sprite;
 };
 
 int main() {
@@ -69,7 +150,9 @@ int main() {
 
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
-            morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(), false, false));
+            morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
+                                                               false, false));
+    std::shared_ptr<InputNode> input_node;
 
     #ifdef _GBA
         background.reset(new morpheus::gba::gfx::TiledBackground(
@@ -81,26 +164,42 @@ int main() {
                 reinterpret_cast<const unsigned short *>(test8Pal), test8PalLen,
                 morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
     #elif _NDS
-    background.reset(new morpheus::gba::gfx::TiledBackground(0, main_loop->get_blending_controller(),
-                                                                 main_loop.get(), true, 5, 5));
+        background.reset(new morpheus::nds::gfx::TiledBackground8Bpp(
+                         false, 0,
+                         static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
+                         static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 5, 5));
 
         static_cast<morpheus::nds::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(
-                                                reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
-                                                reinterpret_cast<const unsigned short *>(test8Pal), test8PalLen,
+                                                reinterpret_cast<const unsigned short *>(&test8Tiles[0]), test8TilesLen,
+                                                reinterpret_cast<const unsigned short *>(&test8Pal[0]), test8PalLen,
                                                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
+
         nocashMessage("Loaded from array");
     #endif
+
+    input_node.reset(new InputNode(background, sprite, main_loop->get_blending_controller()));
 
     background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                                 region_mapMap, region_mapMapLen, morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
 
-    background->set_mosaic_levels(morpheus::core::gfx::Vector2(10, 5));
-
     background->toggle_mosaic();
+    sprite->toggle_mosaic();
+
+    background->set_mosaic_levels(morpheus::core::gfx::Vector2(5, 1));
+    sprite->set_mosaic_levels(morpheus::core::gfx::Vector2(1, 1));
 
     sprite->set_position(50, 50);
 
-    main_loop->set_root(sprite);
+    background->enable_blending(true);
+    sprite->enable_blending(false);
+
+    input_node->add_child(sprite.get());
+
+    main_loop->set_root(input_node);
+
+    main_loop->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::USE_WEIGHTS);
+    main_loop->get_blending_controller()->set_blend_weight(false, 8);
+    main_loop->get_blending_controller()->set_blend_weight(true, 8);
 
     main_loop->game_loop();
 }

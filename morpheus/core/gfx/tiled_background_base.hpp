@@ -62,6 +62,8 @@ namespace morpheus {
 
                 void toggle_mosaic() {
                     m_mosaic = !m_mosaic;
+
+                    mosaic_state_updated();
                 }
 
                 virtual Vector2 get_mosaic_levels() const = 0;

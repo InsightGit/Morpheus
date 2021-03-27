@@ -1,6 +1,8 @@
 import os.path
+import shutil
 import subprocess
 import sys
+import tempfile
 
 from typing import Union
 
@@ -96,6 +98,7 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
 
         return False
 
+    base_image_file_name = ""
     file_name_array = os.path.basename(file_path).split(".")
     file_name = ""
 
@@ -104,6 +107,26 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             file_name += file_name_array[i]
 
     file_name = file_name.replace(".", "_")
+    file_name_array = os.path.basename(image_file).split(".")
+
+    for i in range(len(file_name_array)):
+        if i != len(file_name_array) - 1:
+            base_image_file_name += file_name_array[i]
+
+    base_image_file_name = base_image_file_name.replace(".", "_")
+
+    tmp_header_file = None
+    tmp_source_file = None
+
+    if base_image_file_name != file_name and os.path.isfile(os.path.join(build_dir, base_image_file_name + ".h")):
+        tmp_header_file = tempfile.TemporaryFile(mode="w+")
+        tmp_source_file = tempfile.TemporaryFile(mode="w+")
+
+        with open(os.path.join(build_dir, base_image_file_name + ".h"), 'r') as header_file:
+            tmp_header_file.write(header_file.read())
+
+        with open(os.path.join(build_dir, base_image_file_name + ".c"), 'r') as source_file:
+            tmp_source_file.write(source_file.read())
 
     if len(image_file) > 0:
         grit_subprocess = ["grit", image_file]
@@ -119,6 +142,34 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
 
         print(subprocess.run(["which", "grit"], capture_output=True))
         print(subprocess.run(grit_subprocess, capture_output=True))
+
+    if base_image_file_name != file_name:
+        shutil.copy(os.path.join(build_dir, base_image_file_name + ".h"), os.path.join(build_dir, file_name + ".h"))
+        shutil.copy(os.path.join(build_dir, base_image_file_name + ".c"), os.path.join(build_dir, file_name + ".c"))
+
+        header_file_contents = ""
+        source_file_contents = ""
+
+        with open(os.path.join(build_dir, file_name + ".h"), 'r') as header_file:
+            header_file_contents = header_file.read()
+
+        with open(os.path.join(build_dir, file_name + ".c"), 'r') as source_file:
+            source_file_contents = source_file.read()
+
+        with open(os.path.join(build_dir, file_name + ".h"), 'w') as header_file:
+            header_file.write(header_file_contents.replace(base_image_file_name, file_name))
+
+        with open(os.path.join(build_dir, file_name + ".c"), 'w') as source_file:
+            source_file.write(source_file_contents.replace(base_image_file_name, file_name))
+
+        if tmp_header_file is not None and tmp_source_file is not None:
+            with open(os.path.join(build_dir, base_image_file_name + ".h"), 'w') as header_file:
+                header_file.write(tmp_header_file.read())
+                tmp_header_file.close()
+
+            with open(os.path.join(build_dir, base_image_file_name + ".c"), 'w') as source_file:
+                source_file.write(tmp_source_file.read())
+                tmp_source_file.close()
 
     variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0, width * height)
 
