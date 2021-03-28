@@ -9,7 +9,7 @@
 #endif
 
 #include "region_map.h"
-//#include "region_map_window.h"
+#include "region_map_window.h"
 #include "test8.h"
 
 class InputNode : public morpheus::core::Node {
@@ -153,24 +153,32 @@ int main() {
             morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
                                                                main_loop->get_mosaic_controller(), false, true));
     std::shared_ptr<morpheus::core::gfx::Window> window;
+    std::shared_ptr<morpheus::core::gfx::Window> window_out;
+    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> window_background;
     std::shared_ptr<InputNode> input_node;
 
-    /*morpheus::core::gfx::WindowRect window_rect;
+    morpheus::core::gfx::WindowRect window_rect;
 
     window_rect.top = 36;
-    window_rect.bottom = 76;
+    window_rect.bottom = 96;
 
-    window_rect.left = 20;
-    window_rect.right = 60;*/
+    window_rect.left = 144;
+    window_rect.right = 232;
 
     #ifdef _GBA
         background.reset(new morpheus::gba::gfx::TiledBackground(
-                0, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
+                1, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
                 static_cast<morpheus::gba::gfx::GbaMosaicController*>(main_loop->get_mosaic_controller()),
                 static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 2));
+        window_background.reset(new morpheus::gba::gfx::TiledBackground(
+                0, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
+                static_cast<morpheus::gba::gfx::GbaMosaicController*>(main_loop->get_mosaic_controller()),
+                static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 10));
 
         window.reset(new morpheus::gba::gfx::GbaWindow(morpheus::core::gfx::WindowType::WINDOW_0,
                                                        main_loop));
+        window_out.reset(new morpheus::gba::gfx::GbaWindow(morpheus::core::gfx::WindowType::WINDOW_OUT,
+                                                           main_loop));
 
         static_cast<morpheus::gba::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(
                 reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
@@ -198,6 +206,8 @@ int main() {
 
     background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                                 region_mapMap, region_mapMapLen, morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+    window_background->load_from_array(region_map_windowTiles, region_map_windowTilesLen, region_map_windowMap,
+                                       region_map_windowMapLen,morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
 
     background->toggle_mosaic();
     sprite->toggle_mosaic();
@@ -210,7 +220,14 @@ int main() {
     background->enable_blending(true);
     sprite->enable_blending(false);
 
-    //window->set_window_rect()
+    window->set_window_rect(window_rect);
+    window->add_background(1);
+
+    window_out->add_background(0);
+    window_out->enable_objects();
+
+    window->enable_window();
+    window_out->enable_window();
 
     input_node->add_child(sprite.get());
 

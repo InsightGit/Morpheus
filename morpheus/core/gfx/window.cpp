@@ -16,13 +16,19 @@ morpheus::core::gfx::Window::Window(const morpheus::core::gfx::WindowType window
 }
 
 void morpheus::core::gfx::Window::add_background(unsigned int background) {
-    if(get_window_type() != morpheus::core::gfx::WindowType::WINDOW_OBJ) {
-        m_active_backgrounds.push_back(background);
+    m_active_backgrounds.push_back(background);
 
-        if(m_window_enabled) {
-            // to update window settings
-            toggle_window(true);
-        }
+    if(m_window_enabled) {
+        // to update window settings
+        toggle_window(true);
+    }
+}
+
+void morpheus::core::gfx::Window::disable_objects() {
+    m_objects_enabled = false;
+
+    if(m_window_enabled) {
+        toggle_window(true);
     }
 }
 
@@ -33,6 +39,14 @@ void morpheus::core::gfx::Window::disable_window() {
         m_main_loop->disable_window(m_window_type);
 
         m_window_enabled = false;
+    }
+}
+
+void morpheus::core::gfx::Window::enable_objects() {
+    m_objects_enabled = true;
+
+    if(m_window_enabled) {
+        toggle_window(true);
     }
 }
 

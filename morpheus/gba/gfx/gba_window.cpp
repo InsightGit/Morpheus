@@ -11,13 +11,13 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
 
         switch(get_window_type()) {
             case morpheus::core::gfx::WindowType::WINDOW_0:
-                REG_WIN0H = window_rect.left << 8 | window_rect.right;
-                REG_WIN0V = window_rect.top << 8 | window_rect.bottom;
+                REG_WIN0H = window_rect.left << 8 | window_rect.right << 0;
+                REG_WIN0V = window_rect.top << 8 | window_rect.bottom << 0;
 
                 break;
             case core::gfx::WindowType::WINDOW_1:
-                REG_WIN1H = window_rect.left << 8 | window_rect.right;
-                REG_WIN1V = window_rect.top << 8 | window_rect.bottom;
+                REG_WIN1H = window_rect.left << 8 | window_rect.right << 0;
+                REG_WIN1V = window_rect.top << 8 | window_rect.bottom << 0;
 
                 break;
             case core::gfx::WindowType::WINDOW_OBJ:
@@ -58,6 +58,46 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
                     REG_WINOUT |= window_register_value;
                     break;
             }
+        }
+
+        switch(get_window_type()) {
+            case morpheus::core::gfx::WindowType::WINDOW_0:
+                REG_WININ &= ~WIN_OBJ;
+
+                if(is_objects_enabled()) {
+                    REG_WININ |= WIN_OBJ;
+
+                    nocash_puts("Window 0 enable objects");
+                }
+                break;
+            case core::gfx::WindowType::WINDOW_1:
+                REG_WININ &= ~(WIN_OBJ << 8);
+
+                if(is_objects_enabled()) {
+                    REG_WININ |= WIN_OBJ << 8;
+
+                    nocash_puts("Window 1 enable objects");
+                }
+                break;
+            case core::gfx::WindowType::WINDOW_OBJ:
+                REG_WINOUT &= ~(WIN_OBJ << 8);
+
+                if(is_objects_enabled()) {
+                    REG_WINOUT |= WIN_OBJ << 8;
+
+                    nocash_puts("Window obj enable objects");
+                }
+                break;
+            case core::gfx::WindowType::WINDOW_OUT:
+                REG_WINOUT &= ~WIN_OBJ;
+
+                if(is_objects_enabled()) {
+                    REG_WINOUT |= WIN_OBJ;
+
+                    nocash_puts("Window out enable objects");
+                }
+
+                break;
         }
     } else {
         switch(get_window_type()) {

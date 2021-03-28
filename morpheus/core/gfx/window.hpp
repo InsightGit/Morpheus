@@ -47,12 +47,18 @@ namespace morpheus {
                     m_window_rect = window_rect;
                 }
 
+                bool is_objects_enabled() const {
+                    return m_objects_enabled;
+                }
+
                 bool is_window_enabled() const {
                     return m_window_enabled;
                 }
 
                 void add_background(unsigned int background);
+                void disable_objects();
                 void disable_window();
+                void enable_objects();
                 void enable_window();
                 std::vector<unsigned int> get_backgrounds()const;
             protected:
@@ -60,6 +66,7 @@ namespace morpheus {
             private:
                 std::vector<unsigned int> m_active_backgrounds;
                 std::shared_ptr<core::MainLoop> m_main_loop;
+                bool m_objects_enabled = false;
                 bool m_window_enabled;
                 WindowRect m_window_rect;
                 WindowType m_window_type;

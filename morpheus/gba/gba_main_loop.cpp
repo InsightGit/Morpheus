@@ -41,13 +41,13 @@ morpheus::gba::GbaMainLoop::~GbaMainLoop() {
 void morpheus::gba::GbaMainLoop::disable_window(morpheus::core::gfx::WindowType window_type) {
     switch(window_type) {
         case morpheus::core::gfx::WindowType::WINDOW_0:
-            REG_DISPCNT &= 0xDFFF;
+            m_windows_to_enable &= ~DCNT_WIN0;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_1:
-            REG_DISPCNT &= 0xBFFF;
+            m_windows_to_enable &= ~DCNT_WIN1;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OBJ:
-            REG_DISPCNT &= 0x7FFF;
+            m_windows_to_enable &= ~DCNT_WINOBJ;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OUT:
             // intentionally blank: window out is just the lack of being in a window
@@ -72,24 +72,28 @@ void morpheus::gba::GbaMainLoop::enable_background(unsigned int background_num) 
     }
 
     if(m_platform_inited) {
-        REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable;
+        REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable | m_windows_to_enable;
     }
 }
 
 void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType window_type) {
     switch(window_type) {
         case morpheus::core::gfx::WindowType::WINDOW_0:
-            REG_DISPCNT |= DCNT_WIN0;
+            m_windows_to_enable |= DCNT_WIN0;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_1:
-            REG_DISPCNT |= DCNT_WIN1;
+            m_windows_to_enable |= DCNT_WIN1;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OBJ:
-            REG_DISPCNT |= DCNT_WINOBJ;
+            m_windows_to_enable |= DCNT_WINOBJ;
             break;
         case morpheus::core::gfx::WindowType::WINDOW_OUT:
             // intentionally blank: window out is just the lack of being in a window
             break;
+    }
+
+    if(m_platform_inited) {
+        REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | DCNT_BG0 | m_backgrounds_to_enable | m_windows_to_enable;
     }
 }
 
@@ -159,7 +163,7 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable | m_windows_to_enable;
     REG_IME = 1;
 
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
