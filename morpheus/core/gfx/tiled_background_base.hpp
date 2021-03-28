@@ -23,7 +23,7 @@ namespace morpheus {
             class TiledBackgroundBase {
             public:
                 TiledBackgroundBase(unsigned int background_num, BlendingController *blending_controller,
-                                    unsigned int cbb_num, unsigned int sbb_num);
+                                    MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num);
 
                 virtual ~TiledBackgroundBase() = default;
 
@@ -66,9 +66,14 @@ namespace morpheus {
                     mosaic_state_updated();
                 }
 
-                virtual Vector2 get_mosaic_levels() const = 0;
+                Vector2 get_mosaic_levels() const {
+                    return m_mosaic_controller->get_background_mosaic_levels();
+                }
+                void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) {
+                    m_mosaic_controller->set_background_mosaic_levels(mosaic_levels);
+                }
+
                 virtual unsigned int get_priority() const = 0;
-                virtual void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) = 0;
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
                 unsigned int get_background_num() const {
@@ -90,6 +95,7 @@ namespace morpheus {
                 unsigned int m_background_num;
                 unsigned int m_cbb_num;
                 bool m_mosaic = false;
+                gfx::MosaicController *m_mosaic_controller;
                 Vector2 m_scroll_position;
                 unsigned int m_sbb_num;
             };

@@ -75,13 +75,17 @@ namespace morpheus {
                 }
 
                 void set_background_mosaic_levels(const Vector2 background_mosaic_levels) {
-                    m_background_mosaic_levels = background_mosaic_levels;
+                    m_background_mosaic_levels = core::gfx::Vector2(
+                                                        std::max(std::min(15, background_mosaic_levels.get_x()), 0),
+                                                        std::max(std::min(15, background_mosaic_levels.get_y()), 0));
 
                     update_mosaic_register();
                 }
 
                 void set_sprite_mosaic_levels(const Vector2 sprite_mosaic_levels) {
-                    m_sprite_mosaic_levels = sprite_mosaic_levels;
+                    m_sprite_mosaic_levels = core::gfx::Vector2(
+                                                             std::max(std::min(15, sprite_mosaic_levels.get_x()), 0),
+                                                             std::max(std::min(15, sprite_mosaic_levels.get_y()), 0));
 
                     update_mosaic_register();
                 }

@@ -21,25 +21,14 @@ namespace morpheus {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
                 explicit TiledBackground(unsigned int background_num, GbaBlendingController *blending_controller,
+                                         GbaMosaicController *mosaic_controller,
                                          GbaMainLoop *main_loop, bool is_8bpp, unsigned int cbb_num,
                                          unsigned int sbb_num);
 
                 virtual ~TiledBackground() = default;
 
-                morpheus::core::gfx::Vector2 get_mosaic_levels() const override {
-                    return m_mosaic_levels;
-                }
-
                 unsigned int get_priority() const override {
                     return m_background_priority;
-                }
-
-                void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) override {
-                    m_mosaic_levels = core::gfx::Vector2(std::max(std::min(15, mosaic_levels.get_x()), 0),
-                                                         std::max(std::min(15, mosaic_levels.get_y()), 0));
-
-                    REG_MOSAIC &= ~(MOS_BH_MASK | MOS_BV_MASK);
-                    REG_MOSAIC |= MOS_BH(m_mosaic_levels.get_x()) | MOS_BV(m_mosaic_levels.get_y());
                 }
 
                 void set_priority(const unsigned int priority) override {
@@ -63,7 +52,6 @@ namespace morpheus {
 
                 unsigned int m_background_priority;
                 unsigned int m_background_register;
-                core::gfx::Vector2 m_mosaic_levels;
                 bool m_is_8bpp;
                 GbaMainLoop *m_main_loop;
                 bool m_main_loop_notified = false;

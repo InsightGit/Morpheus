@@ -4,14 +4,16 @@
 
 #include "sprite_4_bpp.hpp"
 
-morpheus::gba::gfx::Sprite4Bpp::Sprite4Bpp(GbaBlendingController *blending_controller, unsigned int palette_id) :
-                                            morpheus::gba::gfx::Sprite(true, blending_controller) {
+morpheus::gba::gfx::Sprite4Bpp::Sprite4Bpp(GbaBlendingController *blending_controller,
+                                           GbaMosaicController *mosaic_controller, unsigned int palette_id) :
+                                            morpheus::gba::gfx::Sprite(true, blending_controller, mosaic_controller) {
     m_palette_id = palette_id;
 }
 
-morpheus::gba::gfx::Sprite4Bpp::Sprite4Bpp(GbaBlendingController *blending_controller, const unsigned int tile_id,
+morpheus::gba::gfx::Sprite4Bpp::Sprite4Bpp(GbaBlendingController *blending_controller,
+                                           GbaMosaicController *mosaic_controller, const unsigned int tile_id,
                                            const unsigned int palette_id, const core::gfx::SpriteSize size) :
-                                           Sprite4Bpp(blending_controller, palette_id) {
+                                           Sprite4Bpp(blending_controller, mosaic_controller, palette_id) {
     m_tile_id = tile_id;
 
     set_sprite_size(size);

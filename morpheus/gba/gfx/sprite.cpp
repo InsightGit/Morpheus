@@ -115,3 +115,17 @@ void morpheus::gba::gfx::Sprite::mosaic_state_updated() {
         m_attr0 &= ~ATTR0_MOSAIC;
     }
 }
+
+void morpheus::gba::gfx::Sprite::toggle_blending(bool enable_blending, bool bottom_layer) {
+    get_blending_controller()->disable_object_blending();
+
+    if(enable_blending) {
+        m_attr0 |= ATTR0_BLEND;
+        m_blended = true;
+
+        get_blending_controller()->enable_object_blending(bottom_layer);
+    } else {
+        m_attr0 &= ~ATTR0_BLEND;
+        m_blended = false;
+    }
+}

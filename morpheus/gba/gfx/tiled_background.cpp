@@ -6,10 +6,11 @@
 
 
 morpheus::gba::gfx::TiledBackground::TiledBackground(unsigned int background_num,
-                                                     GbaBlendingController *blending_controller, GbaMainLoop *main_loop,
+                                                     GbaBlendingController *blending_controller,
+                                                     GbaMosaicController *mosaic_controller, GbaMainLoop *main_loop,
                                                      bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num) :
                                          morpheus::core::gfx::TiledBackgroundBase(background_num, blending_controller,
-                                                                                  cbb_num, sbb_num) {
+                                                                                  mosaic_controller, cbb_num, sbb_num) {
     m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num());
     m_main_loop = main_loop;
     m_is_8bpp = is_8bpp;

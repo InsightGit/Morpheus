@@ -139,7 +139,7 @@ private:
         }
     }
 
-    ControlMode m_control_mode = ControlMode::SPRITE_MOSAIC;
+    ControlMode m_control_mode = ControlMode::BACKGROUND_MOSAIC;
     morpheus::core::gfx::BlendingController *m_blending_controller;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_mosaic_background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> m_mosaic_sprite;
@@ -151,7 +151,7 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
             morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
-                                                               false, true));
+                                                               main_loop->get_mosaic_controller(), false, true));
     std::shared_ptr<morpheus::core::gfx::Window> window;
     std::shared_ptr<InputNode> input_node;
 
@@ -166,6 +166,7 @@ int main() {
     #ifdef _GBA
         background.reset(new morpheus::gba::gfx::TiledBackground(
                 0, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
+                static_cast<morpheus::gba::gfx::GbaMosaicController*>(main_loop->get_mosaic_controller()),
                 static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 2));
 
         window.reset(new morpheus::gba::gfx::GbaWindow(morpheus::core::gfx::WindowType::WINDOW_0,
