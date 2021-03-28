@@ -134,3 +134,11 @@ void morpheus::gba::gfx::GbaBlendingController::set_blending_mode(morpheus::core
             break;
     }
 }
+
+void morpheus::gba::gfx::GbaMosaicController::update_mosaic_register() {
+    core::gfx::Vector2 background_mosaic_levels = get_background_mosaic_levels();
+    core::gfx::Vector2 sprite_mosaic_levels = get_sprite_mosaic_levels();
+
+    REG_MOSAIC = MOS_BUILD(background_mosaic_levels.get_x(), background_mosaic_levels.get_y(),
+                           sprite_mosaic_levels.get_x(), sprite_mosaic_levels.get_y());
+}

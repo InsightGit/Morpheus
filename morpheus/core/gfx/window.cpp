@@ -18,6 +18,11 @@ morpheus::core::gfx::Window::Window(const morpheus::core::gfx::WindowType window
 void morpheus::core::gfx::Window::add_background(unsigned int background) {
     if(get_window_type() != morpheus::core::gfx::WindowType::WINDOW_OBJ) {
         m_active_backgrounds.push_back(background);
+
+        if(m_window_enabled) {
+            // to update window settings
+            toggle_window(true);
+        }
     }
 }
 

@@ -40,6 +40,19 @@ namespace morpheus {
             private:
                 bool m_use_sub_display;
             };
+
+            class NdsMosaicController : public morpheus::core::gfx::MosaicController {
+            public:
+                NdsMosaicController(bool use_sub_display) {
+                    m_use_sub_display = use_sub_display;
+                }
+
+                virtual ~NdsMosaicController() {}
+            protected:
+                void update_mosaic_register()override;
+            private:
+                bool m_use_sub_display;
+            };
         }
     }
 }

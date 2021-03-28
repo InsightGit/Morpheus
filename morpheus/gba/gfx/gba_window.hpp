@@ -12,10 +12,11 @@
 namespace morpheus {
     namespace gba {
         namespace gfx {
-            class Window : public core::gfx::Window {
+            class GbaWindow : public core::gfx::Window {
             public:
-                Window(const core::gfx::WindowType window_type,
-                       const std::shared_ptr<core::MainLoop> main_loop) : core::gfx::Window(window_type, main_loop) {}
+                GbaWindow(const core::gfx::WindowType window_type,
+                          const std::shared_ptr<core::MainLoop> main_loop) :
+                          core::gfx::Window(window_type, main_loop) {}
             protected:
                 void toggle_window(bool on)override;
             };

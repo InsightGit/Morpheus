@@ -574,6 +574,33 @@ morpheus/core/node.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s
 .PHONY : morpheus/core/node.cpp.s
 
+morpheus/nds/gfx/nds_window.o: morpheus/nds/gfx/nds_window.cpp.o
+
+.PHONY : morpheus/nds/gfx/nds_window.o
+
+# target to build an object file
+morpheus/nds/gfx/nds_window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o
+.PHONY : morpheus/nds/gfx/nds_window.cpp.o
+
+morpheus/nds/gfx/nds_window.i: morpheus/nds/gfx/nds_window.cpp.i
+
+.PHONY : morpheus/nds/gfx/nds_window.i
+
+# target to preprocess a source file
+morpheus/nds/gfx/nds_window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.i
+.PHONY : morpheus/nds/gfx/nds_window.cpp.i
+
+morpheus/nds/gfx/nds_window.s: morpheus/nds/gfx/nds_window.cpp.s
+
+.PHONY : morpheus/nds/gfx/nds_window.s
+
+# target to generate assembly for a file
+morpheus/nds/gfx/nds_window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.s
+.PHONY : morpheus/nds/gfx/nds_window.cpp.s
+
 morpheus/nds/gfx/sprite.o: morpheus/nds/gfx/sprite.cpp.o
 
 .PHONY : morpheus/nds/gfx/sprite.o
@@ -762,33 +789,6 @@ morpheus/nds/gfx/tiled_background_8_bpp.s: morpheus/nds/gfx/tiled_background_8_b
 morpheus/nds/gfx/tiled_background_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.s
 .PHONY : morpheus/nds/gfx/tiled_background_8_bpp.cpp.s
-
-morpheus/nds/gfx/window.o: morpheus/nds/gfx/window.cpp.o
-
-.PHONY : morpheus/nds/gfx/window.o
-
-# target to build an object file
-morpheus/nds/gfx/window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.o
-.PHONY : morpheus/nds/gfx/window.cpp.o
-
-morpheus/nds/gfx/window.i: morpheus/nds/gfx/window.cpp.i
-
-.PHONY : morpheus/nds/gfx/window.i
-
-# target to preprocess a source file
-morpheus/nds/gfx/window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.i
-.PHONY : morpheus/nds/gfx/window.cpp.i
-
-morpheus/nds/gfx/window.s: morpheus/nds/gfx/window.cpp.s
-
-.PHONY : morpheus/nds/gfx/window.s
-
-# target to generate assembly for a file
-morpheus/nds/gfx/window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/gfx/window.cpp.s
-.PHONY : morpheus/nds/gfx/window.cpp.s
 
 morpheus/nds/nds_controllers.o: morpheus/nds/nds_controllers.cpp.o
 
@@ -1090,6 +1090,9 @@ help:
 	@echo "... morpheus/core/node.o"
 	@echo "... morpheus/core/node.i"
 	@echo "... morpheus/core/node.s"
+	@echo "... morpheus/nds/gfx/nds_window.o"
+	@echo "... morpheus/nds/gfx/nds_window.i"
+	@echo "... morpheus/nds/gfx/nds_window.s"
 	@echo "... morpheus/nds/gfx/sprite.o"
 	@echo "... morpheus/nds/gfx/sprite.i"
 	@echo "... morpheus/nds/gfx/sprite.s"
@@ -1111,9 +1114,6 @@ help:
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.o"
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.i"
 	@echo "... morpheus/nds/gfx/tiled_background_8_bpp.s"
-	@echo "... morpheus/nds/gfx/window.o"
-	@echo "... morpheus/nds/gfx/window.i"
-	@echo "... morpheus/nds/gfx/window.s"
 	@echo "... morpheus/nds/nds_controllers.o"
 	@echo "... morpheus/nds/nds_controllers.i"
 	@echo "... morpheus/nds/nds_controllers.s"

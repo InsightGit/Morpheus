@@ -26,7 +26,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 CMAKE_AS:STRING=ASSEMBLER_TO_USE
 
 //ASM compiler
-CMAKE_ASM_COMPILER:STRING=/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc
+CMAKE_ASM_COMPILER:FILEPATH=/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -70,7 +70,7 @@ CMAKE_CODEBLOCKS_MAKE_ARGUMENTS:STRING=-j8
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:STRING=/usr/bin/c++
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -96,7 +96,7 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:STRING=/usr/bin/cc
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -260,21 +260,9 @@ MMUTIL:FILEPATH=/opt/devkitpro/tools/bin/mmutil
 //Path to a program.
 NDSTOOL:FILEPATH=/opt/devkitpro/tools/bin/ndstool
 
-//NDS game icon location realitve to project location
-NDS_GAME_ICON:STRING=tests/nds/input_test/ds_icon.bmp
-
 //PCX Files used by test code (paths are relative to cmake build
 // dir)
 NDS_PCX_FILES:STRING=../tests/nds/input_test/test8.pcx
-
-//NDS game subtitle #1
-NDS_SUBTITLE1:STRING=hopefully this works
-
-//NDS game subtitle #2
-NDS_SUBTITLE2:STRING=hopefully this works ii
-
-//NDS game title
-NDS_TITLE:STRING=Morpheus NDS Test
 
 //8bpp PNG Files used by test code (paths are relative to cmake
 // build dir)
@@ -288,12 +276,6 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
-
-//Value Computed by CMake
-morpheus-gba-sram-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
-
-//Value Computed by CMake
-morpheus-gba-sram-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus-nds-extended-palette-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds

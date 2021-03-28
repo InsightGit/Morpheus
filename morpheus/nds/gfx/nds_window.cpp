@@ -2,9 +2,9 @@
 // Created by bobby on 19/03/2021.
 //
 
-#include "window.hpp"
+#include "nds_window.hpp"
 
-void morpheus::nds::gfx::Window::toggle_window(bool on) {
+void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
     WINDOW current_window;
     std::vector<unsigned int> active_backgrounds = get_backgrounds();
 

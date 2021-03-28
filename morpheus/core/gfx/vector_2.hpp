@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_VECTOR_2_HPP
 #define MORPHEUS_VECTOR_2_HPP
 
+#include <string>
+
 namespace morpheus {
     namespace core {
         namespace gfx {

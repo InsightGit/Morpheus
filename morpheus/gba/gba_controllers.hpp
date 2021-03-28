@@ -17,6 +17,8 @@ namespace morpheus {
         namespace gfx {
             class GbaBlendingController : public morpheus::core::gfx::BlendingController {
             public:
+                virtual ~GbaBlendingController() {}
+
                 void disable_backdrop_blending()override;
                 void enable_backdrop_blending(bool bottom)override;
 
@@ -34,6 +36,13 @@ namespace morpheus {
 
                 unsigned char get_blend_fade()const override;
                 void set_blend_fade(unsigned char fade)override;
+            };
+
+            class GbaMosaicController : public morpheus::core::gfx::MosaicController {
+            public:
+                virtual ~GbaMosaicController() {}
+            protected:
+                void update_mosaic_register()override;
             };
         }
     }

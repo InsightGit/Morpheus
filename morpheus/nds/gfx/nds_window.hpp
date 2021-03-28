@@ -2,8 +2,8 @@
 // Created by bobby on 19/03/2021.
 //
 
-#ifndef MORPHEUS_GBA_TEST_WINDOW_HPP
-#define MORPHEUS_GBA_TEST_WINDOW_HPP
+#ifndef MORPHEUS_GBA_TEST_NDS_WINDOW_HPP
+#define MORPHEUS_GBA_TEST_NDS_WINDOW_HPP
 
 #include <nds.h>
 
@@ -12,9 +12,9 @@
 namespace morpheus {
     namespace nds {
         namespace gfx {
-            class Window : public core::gfx::Window {
+            class NdsWindow : public core::gfx::Window {
             public:
-                Window(bool use_sub_display, const core::gfx::WindowType window_type,
+                NdsWindow(bool use_sub_display, const core::gfx::WindowType window_type,
                        const std::shared_ptr<core::MainLoop> main_loop) : core::gfx::Window(window_type, main_loop) {
                     m_use_sub_display = use_sub_display;
                 }
@@ -31,4 +31,4 @@ namespace morpheus {
     }
 }
 
-#endif //MORPHEUS_GBA_TEST_WINDOW_HPP
+#endif //MORPHEUS_GBA_TEST_NDS_WINDOW_HPP

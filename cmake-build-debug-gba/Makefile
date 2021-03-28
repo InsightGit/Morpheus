@@ -569,6 +569,33 @@ morpheus/gba/gba_main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.s
 .PHONY : morpheus/gba/gba_main_loop.cpp.s
 
+morpheus/gba/gfx/gba_window.o: morpheus/gba/gfx/gba_window.cpp.o
+
+.PHONY : morpheus/gba/gfx/gba_window.o
+
+# target to build an object file
+morpheus/gba/gfx/gba_window.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o
+.PHONY : morpheus/gba/gfx/gba_window.cpp.o
+
+morpheus/gba/gfx/gba_window.i: morpheus/gba/gfx/gba_window.cpp.i
+
+.PHONY : morpheus/gba/gfx/gba_window.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/gba_window.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.i
+.PHONY : morpheus/gba/gfx/gba_window.cpp.i
+
+morpheus/gba/gfx/gba_window.s: morpheus/gba/gfx/gba_window.cpp.s
+
+.PHONY : morpheus/gba/gfx/gba_window.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/gba_window.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.s
+.PHONY : morpheus/gba/gfx/gba_window.cpp.s
+
 morpheus/gba/gfx/sprite.o: morpheus/gba/gfx/sprite.cpp.o
 
 .PHONY : morpheus/gba/gfx/sprite.o
@@ -676,33 +703,6 @@ morpheus/gba/gfx/tiled_background.s: morpheus/gba/gfx/tiled_background.cpp.s
 morpheus/gba/gfx/tiled_background.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.s
 .PHONY : morpheus/gba/gfx/tiled_background.cpp.s
-
-morpheus/gba/gfx/window.o: morpheus/gba/gfx/window.cpp.o
-
-.PHONY : morpheus/gba/gfx/window.o
-
-# target to build an object file
-morpheus/gba/gfx/window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.o
-.PHONY : morpheus/gba/gfx/window.cpp.o
-
-morpheus/gba/gfx/window.i: morpheus/gba/gfx/window.cpp.i
-
-.PHONY : morpheus/gba/gfx/window.i
-
-# target to preprocess a source file
-morpheus/gba/gfx/window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.i
-.PHONY : morpheus/gba/gfx/window.cpp.i
-
-morpheus/gba/gfx/window.s: morpheus/gba/gfx/window.cpp.s
-
-.PHONY : morpheus/gba/gfx/window.s
-
-# target to generate assembly for a file
-morpheus/gba/gfx/window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/window.cpp.s
-.PHONY : morpheus/gba/gfx/window.cpp.s
 
 region_map.o: region_map.c.o
 
@@ -948,6 +948,9 @@ help:
 	@echo "... morpheus/gba/gba_main_loop.o"
 	@echo "... morpheus/gba/gba_main_loop.i"
 	@echo "... morpheus/gba/gba_main_loop.s"
+	@echo "... morpheus/gba/gfx/gba_window.o"
+	@echo "... morpheus/gba/gfx/gba_window.i"
+	@echo "... morpheus/gba/gfx/gba_window.s"
 	@echo "... morpheus/gba/gfx/sprite.o"
 	@echo "... morpheus/gba/gfx/sprite.i"
 	@echo "... morpheus/gba/gfx/sprite.s"
@@ -960,9 +963,6 @@ help:
 	@echo "... morpheus/gba/gfx/tiled_background.o"
 	@echo "... morpheus/gba/gfx/tiled_background.i"
 	@echo "... morpheus/gba/gfx/tiled_background.s"
-	@echo "... morpheus/gba/gfx/window.o"
-	@echo "... morpheus/gba/gfx/window.i"
-	@echo "... morpheus/gba/gfx/window.s"
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"

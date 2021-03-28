@@ -5,7 +5,8 @@
 #include "gba_main_loop.hpp"
 
 morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode) :
-                            morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController()) {
+                            morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController(),
+                                                     new morpheus::gba::gfx::GbaMosaicController()) {
     #ifdef NDEBUG
         bool debug = false;
     #else

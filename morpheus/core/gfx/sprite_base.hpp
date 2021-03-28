@@ -32,8 +32,9 @@ namespace morpheus {
 
             class SpriteBase : public morpheus::core::Node {
             public:
-                SpriteBase(BlendingController *blending_controller) {
+                SpriteBase(BlendingController *blending_controller, MosaicController *mosaic_controller) {
                     m_blending_controller = blending_controller;
+                    m_mosaic_
                 }
 
                 virtual ~SpriteBase() {}
@@ -81,7 +82,11 @@ namespace morpheus {
                     mosaic_state_updated();
                 }
 
-                virtual core::gfx::Vector2 get_mosaic_levels() const = 0;
+                core::gfx::Vector2 get_mosaic_levels() const {
+                    if(m_mosaic_controller != nullptr) {
+                        return m_mosaic_controller->get_sprite_mosaic_levels();
+                    }
+                }
                 virtual void set_mosaic_levels(const core::gfx::Vector2 position) = 0;
                 virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
             protected:
@@ -95,6 +100,7 @@ namespace morpheus {
                 virtual void set_sprite_size(SpriteSize size) = 0;
             private:
                 BlendingController *m_blending_controller;
+                MosaicController *m_mosaic_controller;
                 bool m_mosaic = false;
                 Vector2 m_position;
                 unsigned char m_priority = 0;

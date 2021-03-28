@@ -2,9 +2,9 @@
 // Created by bobby on 05/02/2021.
 //
 
-#include "window.hpp"
+#include "gba_window.hpp"
 
-void morpheus::gba::gfx::Window::toggle_window(bool on) {
+void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
     if(on) {
         std::vector<unsigned int> active_backgrounds = get_backgrounds();
         morpheus::core::gfx::WindowRect window_rect = get_window_rect();

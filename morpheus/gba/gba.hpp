@@ -15,7 +15,7 @@
 #include <gba/gfx/sprite_4_bpp.hpp>
 #include <gba/gfx/sprite_8_bpp.hpp>
 #include <gba/gfx/tiled_background.hpp>
-#include <gba/gfx/window.hpp>
+#include <gba/gfx/gba_window.hpp>
 
 #include <utils.hpp>
 

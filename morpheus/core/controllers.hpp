@@ -6,6 +6,7 @@
 #define MORPHEUS_GBA_TEST_CONTROLLERS_HPP
 
 #include <core/uncopyable.hpp>
+#include <core/gfx/vector_2.hpp>
 
 namespace morpheus {
     namespace core {
@@ -19,6 +20,8 @@ namespace morpheus {
 
             class BlendingController : Uncopyable {
             public:
+                virtual ~BlendingController() {}
+
                 virtual void disable_backdrop_blending() = 0;
                 virtual void enable_backdrop_blending(bool bottom) = 0;
 
@@ -57,6 +60,36 @@ namespace morpheus {
                 const unsigned char BG_3_BLENDING = 0x08;
                 const unsigned char OBJ_BLENDING = 0x10;
                 const unsigned char BD_BLENDING = 0x20;
+            };
+
+            class MosaicController : Uncopyable {
+            public:
+                virtual ~MosaicController() {}
+
+                Vector2 get_background_mosaic_levels() const {
+                    return m_background_mosaic_levels;
+                }
+
+                Vector2 get_sprite_mosaic_levels() const {
+                    return m_sprite_mosaic_levels;
+                }
+
+                void set_background_mosaic_levels(const Vector2 background_mosaic_levels) {
+                    m_background_mosaic_levels = background_mosaic_levels;
+
+                    update_mosaic_register();
+                }
+
+                void set_sprite_mosaic_levels(const Vector2 sprite_mosaic_levels) {
+                    m_sprite_mosaic_levels = sprite_mosaic_levels;
+
+                    update_mosaic_register();
+                }
+            protected:
+                virtual void update_mosaic_register() = 0;
+            private:
+                Vector2 m_background_mosaic_levels;
+                Vector2 m_sprite_mosaic_levels;
             };
         }
     }

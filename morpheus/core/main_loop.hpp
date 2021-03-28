@@ -30,14 +30,19 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
-            MainLoop(gfx::BlendingController *blending_controller) {
+            MainLoop(gfx::BlendingController *blending_controller, gfx::MosaicController *mosaic_controller) {
                 m_blending_controller.reset(blending_controller);
+                m_mosaic_controller.reset(mosaic_controller);
             }
 
             virtual ~MainLoop() = default;
 
             gfx::BlendingController *get_blending_controller() const {
                 return m_blending_controller.get();
+            }
+
+            gfx::MosaicController *get_mosaic_controller() const {
+                return m_mosaic_controller.get();
             }
 
             void set_root(std::shared_ptr<Node> root) {
@@ -74,6 +79,7 @@ namespace morpheus {
             //std::unique_ptr<PaletteManager> m_palette_manager(new );
         private:
             std::unique_ptr<gfx::BlendingController> m_blending_controller;
+            std::unique_ptr<gfx::MosaicController> m_mosaic_controller;
 
             bool m_mt_inited;
             unsigned short m_r256table[256];

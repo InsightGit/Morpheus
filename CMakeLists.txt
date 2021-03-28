@@ -59,8 +59,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_8_bpp.cpp
             morpheus/gba/gfx/tiled_background.hpp
             morpheus/gba/gfx/tiled_background.cpp
-            morpheus/gba/gfx/window.hpp
-            morpheus/gba/gfx/window.cpp)
+            morpheus/gba/gfx/gba_window.hpp
+            morpheus/gba/gfx/gba_window.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -99,8 +99,8 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/tiled_background_4_bpp.cpp
             morpheus/nds/gfx/tiled_background_8_bpp.hpp
             morpheus/nds/gfx/tiled_background_8_bpp.cpp
-            morpheus/nds/gfx/window.cpp
-            morpheus/nds/gfx/window.hpp)
+            morpheus/nds/gfx/nds_window.cpp
+            morpheus/nds/gfx/nds_window.hpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 

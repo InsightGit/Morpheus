@@ -210,3 +210,7 @@ void morpheus::nds::gfx::NdsBlendingController::set_blending_mode(morpheus::core
             break;
     }
 }
+
+void morpheus::nds::gfx::NdsMosaicController::update_mosaic_register() {
+    // TODO
+}

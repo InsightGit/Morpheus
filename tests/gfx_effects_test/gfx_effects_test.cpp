@@ -9,7 +9,7 @@
 #endif
 
 #include "region_map.h"
-#include "region_map_window.h"
+//#include "region_map_window.h"
 #include "test8.h"
 
 class InputNode : public morpheus::core::Node {
@@ -151,13 +151,25 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
             morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
-                                                               false, false));
+                                                               false, true));
+    std::shared_ptr<morpheus::core::gfx::Window> window;
     std::shared_ptr<InputNode> input_node;
+
+    /*morpheus::core::gfx::WindowRect window_rect;
+
+    window_rect.top = 36;
+    window_rect.bottom = 76;
+
+    window_rect.left = 20;
+    window_rect.right = 60;*/
 
     #ifdef _GBA
         background.reset(new morpheus::gba::gfx::TiledBackground(
                 0, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
                 static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 2));
+
+        window.reset(new morpheus::gba::gfx::GbaWindow(morpheus::core::gfx::WindowType::WINDOW_0,
+                                                       main_loop));
 
         static_cast<morpheus::gba::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(
                 reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
@@ -168,6 +180,10 @@ int main() {
                          false, 0,
                          static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
                          static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 5, 5));
+
+        window.reset(new morpheus::nds::gfx::NdsWindow(false,
+                                                       morpheus::core::gfx::WindowType::WINDOW_0,
+                                                       main_loop));
 
         static_cast<morpheus::nds::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(
                                                 reinterpret_cast<const unsigned short *>(&test8Tiles[0]), test8TilesLen,
@@ -192,6 +208,8 @@ int main() {
 
     background->enable_blending(true);
     sprite->enable_blending(false);
+
+    //window->set_window_rect()
 
     input_node->add_child(sprite.get());
 
