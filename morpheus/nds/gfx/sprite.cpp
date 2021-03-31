@@ -5,8 +5,9 @@
 #include "sprite.hpp"
 
 morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, NdsBlendingController *blending_controller,
+                                   NdsMosaicController *mosaic_controller,
                                    const SpriteMapping sprite_mapping, ExtendedPaletteStatus extended_palette) :
-                                   SpriteBase(blending_controller) {
+                                   SpriteBase(blending_controller, mosaic_controller) {
     if(use_sub_display) {
         m_current_oam = &oamSub;
 
@@ -61,11 +62,12 @@ morpheus::nds::gfx::Sprite::Sprite(const bool use_sub_display, NdsBlendingContro
 }
 
 morpheus::nds::gfx::Sprite::Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
-                                   SpriteMapping sprite_mapping,
+                                   NdsMosaicController *mosaic_controller, SpriteMapping sprite_mapping,
                                    morpheus::nds::gfx::ExtendedPaletteStatus external_palette,
                                    unsigned short *nds_oam_address,
                                    const morpheus::core::gfx::SpriteSize sprite_size) : Sprite(use_sub_display,
                                                                                                blending_controller,
+                                                                                               mosaic_controller,
                                                                                                sprite_mapping,
                                                                                                external_palette) {
     m_do_not_free_gfx_pointer = true;
@@ -144,4 +146,3 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(morpheus::core::gfx::SpriteSize
             break;
     }
 }
-

@@ -179,38 +179,53 @@ void morpheus::nds::gfx::NdsBlendingController::set_blending_mode(morpheus::core
         case core::gfx::BlendingMode::OFF:
             // BM bits: 00
             if(m_use_sub_display) {
-                REG_BLDCNT_SUB |= 0xFF3F;
+                REG_BLDCNT_SUB |= 0x0000;
             } else {
-                REG_BLDCNT |= 0xFF3F;
+                REG_BLDCNT |= 0x0000;
             }
             break;
         case core::gfx::BlendingMode::USE_WEIGHTS:
             // BM bits: 01
+            nocashMessage("Setting to use weights");
             if(m_use_sub_display) {
-                REG_BLDCNT_SUB |= 0xFF7F;
+                REG_BLDCNT_SUB |= 0x0040;
+                nocashMessage("on sub");
             } else {
-                REG_BLDCNT |= 0xFF7F;
+                REG_BLDCNT |= 0x0040;
+                nocashMessage("on main");
             }
             break;
         case core::gfx::BlendingMode::FADE_TO_WHITE:
             // BM bits: 10
+            // 0100 0000
             if(m_use_sub_display) {
-                REG_BLDCNT_SUB |= 0xFFBF;
+                REG_BLDCNT_SUB |= 0x0080;
             } else {
-                REG_BLDCNT |= 0xFFBF;
+                REG_BLDCNT |= 0x0080;
             }
             break;
         case core::gfx::BlendingMode::FADE_TO_BLACK:
             // BM bits: 11
+            // 0110 0000
             if(m_use_sub_display) {
-                REG_BLDCNT_SUB |= 0xFFFF;
+                REG_BLDCNT_SUB |= 0x00C0;
             } else {
-                REG_BLDCNT |= 0xFFFF;
+                REG_BLDCNT |= 0x00C0;
             }
             break;
     }
 }
 
 void morpheus::nds::gfx::NdsMosaicController::update_mosaic_register() {
-    // TODO
+    core::gfx::Vector2 background_mosaic_levels = get_background_mosaic_levels();
+    core::gfx::Vector2 sprite_mosaic_levels = get_sprite_mosaic_levels();
+
+    unsigned int mosaic_register_value = background_mosaic_levels.get_x() | background_mosaic_levels.get_y() << 4 |
+                                         sprite_mosaic_levels.get_x() << 8 | sprite_mosaic_levels.get_y() << 12;
+
+    if(m_use_sub_display) {
+        REG_MOSAIC_SUB = mosaic_register_value;
+    } else {
+        REG_MOSAIC = mosaic_register_value;
+    }
 }

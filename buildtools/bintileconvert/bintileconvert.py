@@ -157,10 +157,12 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             source_file_contents = source_file.read()
 
         with open(os.path.join(build_dir, file_name + ".h"), 'w') as header_file:
-            header_file.write(header_file_contents.replace(base_image_file_name, file_name))
+            header_file.write(header_file_contents.replace(base_image_file_name, file_name).
+                              replace(base_image_file_name.upper(), file_name.upper()))
 
         with open(os.path.join(build_dir, file_name + ".c"), 'w') as source_file:
-            source_file.write(source_file_contents.replace(base_image_file_name, file_name))
+            source_file.write(source_file_contents.replace(base_image_file_name, file_name).
+                              replace(base_image_file_name.upper(), file_name.upper()))
 
         if tmp_header_file is not None and tmp_source_file is not None:
             with open(os.path.join(build_dir, base_image_file_name + ".h"), 'w') as header_file:

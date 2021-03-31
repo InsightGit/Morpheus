@@ -25,27 +25,25 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
             return;
     }
 
-    if(get_window_type() == core::gfx::WindowType::WINDOW_OBJ) {
-        OamState *oam_engine;
+    OamState *oam_engine;
 
-        if(m_use_sub_display) {
-            oam_engine = &oamSub;
-        } else {
-            oam_engine = &oamMain;
-        }
-
-        if(on) {
-            oamWindowEnable(oam_engine, current_window);
-        } else {
-            oamWindowDisable(oam_engine, current_window);
-        }
+    if(m_use_sub_display) {
+        oam_engine = &oamSub;
     } else {
-        for(unsigned int &background : active_backgrounds) {
-            if(on) {
-                bgWindowEnable(static_cast<int>(background), current_window);
-            } else {
-                bgWindowDisable(static_cast<int>(background), current_window);
-            }
+        oam_engine = &oamMain;
+    }
+
+    if(is_objects_enabled()) {
+        oamWindowEnable(oam_engine, current_window);
+    } else {
+        oamWindowDisable(oam_engine, current_window);
+    }
+
+    for(unsigned int &background : active_backgrounds) {
+        if(on) {
+            bgWindowEnable(static_cast<int>(background), current_window);
+        } else {
+            bgWindowDisable(static_cast<int>(background), current_window);
         }
     }
 
@@ -59,11 +57,15 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
             windowSetBounds(current_window, window_rect.left, window_rect.top, window_rect.right,
                             window_rect.bottom);
         }
+
+        windowEnable(current_window);
     } else {
         if(m_use_sub_display) {
             windowSetBoundsSub(current_window, 0, 0, 0, 0);
         } else {
             windowSetBounds(current_window, 0, 0, 0, 0);
         }
+
+        windowDisable(current_window);
     }
 }

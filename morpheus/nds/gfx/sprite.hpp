@@ -35,8 +35,10 @@ namespace morpheus {
             class Sprite : public core::gfx::SpriteBase {
             public:
                 explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
-                                SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette);
+                                NdsMosaicController *mosaic_controller, SpriteMapping sprite_mapping,
+                                ExtendedPaletteStatus external_palette);
                 explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
+                                NdsMosaicController *mosaic_controller,
                                 SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette,
                                 unsigned short *nds_oam_address, const morpheus::core::gfx::SpriteSize sprite_size);
 
@@ -97,14 +99,15 @@ namespace morpheus {
                     }
                 }
 
-                // this morpheus::core::gfx::SpriteSize is morpheus'
-                void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
-
                 void on_visible_state_changed(bool hidden) override {
                     if(m_last_used_obj_attr_num != -1) {
                         oamSetHidden(m_current_oam, m_last_used_obj_attr_num, hidden);
                     }
                 }
+
+                void mosaic_state_updated() override {}
+                // this morpheus::core::gfx::SpriteSize is morpheus'
+                void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
 
                 virtual void update(unsigned char cycle_time) override {}
                 virtual void input(core::InputEvent input_event) override {}

@@ -16,10 +16,12 @@ class InputNode : public morpheus::core::Node {
 public:
     InputNode(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> &mosaic_background,
               const std::shared_ptr<morpheus::core::gfx::SpriteBase> &mosaic_sprite,
-              morpheus::core::gfx::BlendingController *blending_controller) {
+              morpheus::core::gfx::BlendingController *blending_controller,
+              morpheus::core::NoCashDebugController *no_cash_debug_controller) {
         m_blending_controller = blending_controller;
         m_mosaic_background = mosaic_background;
         m_mosaic_sprite = mosaic_sprite;
+        m_no_cash_debug_controller = no_cash_debug_controller;
     }
 protected:
     void input(morpheus::core::InputEvent input_event) override {
@@ -29,15 +31,15 @@ protected:
 
             switch (m_control_mode) {
                 case ControlMode::BACKGROUND_MOSAIC:
-                    nocash_puts("On background mosaic mode");
+                    m_no_cash_debug_controller->send_to_debug_window("On background mosaic mode");
                     mosaic_input(input_event, true);
                     break;
                 case ControlMode::SPRITE_MOSAIC:
-                    nocash_puts("On sprite mosaic mode");
+                    m_no_cash_debug_controller->send_to_debug_window("On sprite mosaic mode");
                     mosaic_input(input_event, false);
                     break;
                 case ControlMode::BLENDING:
-                    nocash_puts("On blending mosaic mode");
+                    m_no_cash_debug_controller->send_to_debug_window("On blending mosaic mode");
                     blending_input(input_event);
                     break;
             }
@@ -141,6 +143,7 @@ private:
 
     ControlMode m_control_mode = ControlMode::BACKGROUND_MOSAIC;
     morpheus::core::gfx::BlendingController *m_blending_controller;
+    morpheus::core::NoCashDebugController *m_no_cash_debug_controller;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_mosaic_background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> m_mosaic_sprite;
 };
@@ -151,7 +154,7 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
             morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
-                                                               main_loop->get_mosaic_controller(), false, true));
+                                                                  main_loop->get_mosaic_controller(), false, false));
     std::shared_ptr<morpheus::core::gfx::Window> window;
     std::shared_ptr<morpheus::core::gfx::Window> window_out;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> window_background;
@@ -186,13 +189,20 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
     #elif _NDS
         background.reset(new morpheus::nds::gfx::TiledBackground8Bpp(
-                         false, 0,
+                         false, 1,
                          static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
-                         static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 5, 5));
+                         static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
+                         static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 2, 2));
+        window_background.reset(new morpheus::nds::gfx::TiledBackground8Bpp(
+                false, 0, static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
+                static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
+                static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 2, 10));
 
         window.reset(new morpheus::nds::gfx::NdsWindow(false,
                                                        morpheus::core::gfx::WindowType::WINDOW_0,
                                                        main_loop));
+        window_out.reset(new morpheus::nds::gfx::NdsWindow(false, morpheus::core::gfx::WindowType::WINDOW_OUT,
+                                                           main_loop));
 
         static_cast<morpheus::nds::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(
                                                 reinterpret_cast<const unsigned short *>(&test8Tiles[0]), test8TilesLen,
@@ -202,7 +212,8 @@ int main() {
         nocashMessage("Loaded from array");
     #endif
 
-    input_node.reset(new InputNode(background, sprite, main_loop->get_blending_controller()));
+    input_node.reset(new InputNode(background, sprite, main_loop->get_blending_controller(),
+                                      main_loop->get_no_cash_debug_controller()));
 
     background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                                 region_mapMap, region_mapMapLen, morpheus::core::gfx::TiledBackgroundSize::BG_32x32);

@@ -48,10 +48,6 @@ namespace morpheus {
             void enable_background(unsigned int background_num)override;
             void enable_window(core::gfx::WindowType window_type)override;
 
-            void send_to_debug_window(std::string string) override {
-                nocash_puts(string.c_str());
-            }
-
             [[noreturn]] core::Error game_loop() override;
         protected:
             core::Error platform_init() override;

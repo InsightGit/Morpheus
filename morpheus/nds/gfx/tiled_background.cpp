@@ -6,10 +6,11 @@
 
 morpheus::nds::gfx::TiledBackground::TiledBackground(bool use_sub_display, unsigned int background_num,
                                                      NdsBlendingController *blending_controller,
+                                                     NdsMosaicController *mosaic_controller,
                                                      NdsMainLoop *main_loop,
                                                      unsigned int cbb_num, unsigned int sbb_num) :
                                      morpheus::core::gfx::TiledBackgroundBase(background_num, blending_controller,
-                                                                              cbb_num, sbb_num) {
+                                                                              mosaic_controller, cbb_num, sbb_num) {
     m_main_loop = main_loop;
     m_use_sub_display = use_sub_display;
 }
@@ -55,6 +56,16 @@ void morpheus::nds::gfx::TiledBackground::init_background_reference_num(BgType b
                            static_cast<int>(get_sbb_num()),static_cast<int>(get_cbb_num()));
         }
 
+        mosaic_state_updated();
+
         m_main_loop->enable_background(m_background_reference_num);
+    }
+}
+
+void morpheus::nds::gfx::TiledBackground::mosaic_state_updated() {
+    if(is_mosaic() && m_background_reference_num >= 0) {
+        bgMosaicEnable(m_background_reference_num);
+    } else if(m_background_reference_num >= 0) {
+        bgMosaicDisable(m_background_reference_num);
     }
 }

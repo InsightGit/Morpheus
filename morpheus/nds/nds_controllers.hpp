@@ -54,6 +54,13 @@ namespace morpheus {
                 bool m_use_sub_display;
             };
         }
+
+        class NdsNoCashDebugController : public core::NoCashDebugController {
+        public:
+            void send_to_debug_window(std::string message) override {
+                nocashMessage(message.c_str());
+            }
+        };
     }
 }
 

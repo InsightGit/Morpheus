@@ -56,5 +56,5 @@ void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *>& obj_attr_buf
     oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
            static_cast<int>(get_palette_id()), get_sprite_size(),
            SpriteColorFormat_16Color, get_gfx_pointer(), -1,
-           false, false, false, false, false);
+           false, false, false, false, is_mosaic());
 }

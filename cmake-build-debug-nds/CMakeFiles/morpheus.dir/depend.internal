@@ -12,6 +12,7 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o
  /opt/devkitpro/libnds/include/maxmod9.h
  /opt/devkitpro/libnds/include/mm_types.h
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o
+ ../morpheus/core/gfx/vector_2.hpp
  ../morpheus/core/uncopyable.hpp
  /home/bobby/morpheus/morpheus/core/controllers.cpp
  /home/bobby/morpheus/morpheus/core/controllers.hpp
@@ -37,6 +38,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
  /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
  ../morpheus/core/controllers.hpp
+ ../morpheus/core/gfx/vector_2.hpp
  ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
@@ -46,6 +48,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
  /home/bobby/morpheus/morpheus/core/gfx/window.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
  ../morpheus/core/controllers.hpp
+ ../morpheus/core/gfx/vector_2.hpp
  ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp
@@ -55,6 +58,7 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
  /home/bobby/morpheus/morpheus/core/main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
  ../morpheus/core/controllers.hpp
+ ../morpheus/core/gfx/vector_2.hpp
  ../morpheus/core/gfx/window.hpp
  ../morpheus/core/input_event.hpp
  ../morpheus/core/main_loop.hpp

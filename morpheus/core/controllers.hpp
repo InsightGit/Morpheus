@@ -96,6 +96,11 @@ namespace morpheus {
                 Vector2 m_sprite_mosaic_levels;
             };
         }
+
+        class NoCashDebugController {
+        public:
+            virtual void send_to_debug_window(std::string message) = 0;
+        };
     }
 }
 

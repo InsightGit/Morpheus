@@ -41,8 +41,12 @@ namespace morpheus {
                 }
             }
 
-            core::gfx::BlendingController &get_sub_blending_controller() const {
-                return *m_sub_blending_controller;
+            core::gfx::BlendingController *get_sub_blending_controller() const {
+                return m_sub_blending_controller.get();
+            }
+
+            core::gfx::MosaicController *get_sub_mosaic_controller() const {
+                return m_sub_mosaic_controller.get();
             }
 
             void clear_obj_vram()override;
@@ -51,10 +55,6 @@ namespace morpheus {
 
             void enable_background(unsigned int background_reference_num)override;
             void enable_window(core::gfx::WindowType window_type)override;
-
-            void send_to_debug_window(std::string string) override {
-                nocashMessage(string.c_str());
-            }
 
             [[noreturn]] core::Error game_loop() override;
         protected:
@@ -69,6 +69,7 @@ namespace morpheus {
 
             unsigned int m_last_input_size = 0;
             std::unique_ptr<gfx::NdsBlendingController> m_sub_blending_controller;
+            std::unique_ptr<gfx::NdsMosaicController> m_sub_mosaic_controller;
         };
     }
 }

@@ -877,6 +877,33 @@ region_map.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/region_map.c.s
 .PHONY : region_map.c.s
 
+region_map_window.o: region_map_window.c.o
+
+.PHONY : region_map_window.o
+
+# target to build an object file
+region_map_window.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map_window.c.o
+.PHONY : region_map_window.c.o
+
+region_map_window.i: region_map_window.c.i
+
+.PHONY : region_map_window.i
+
+# target to preprocess a source file
+region_map_window.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map_window.c.i
+.PHONY : region_map_window.c.i
+
+region_map_window.s: region_map_window.c.s
+
+.PHONY : region_map_window.s
+
+# target to generate assembly for a file
+region_map_window.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/region_map_window.c.s
+.PHONY : region_map_window.c.s
+
 tests/gfx_effects_test/gfx_effects_test.o: tests/gfx_effects_test/gfx_effects_test.cpp.o
 
 .PHONY : tests/gfx_effects_test/gfx_effects_test.o
@@ -1123,6 +1150,9 @@ help:
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
+	@echo "... region_map_window.o"
+	@echo "... region_map_window.i"
+	@echo "... region_map_window.s"
 	@echo "... tests/gfx_effects_test/gfx_effects_test.o"
 	@echo "... tests/gfx_effects_test/gfx_effects_test.i"
 	@echo "... tests/gfx_effects_test/gfx_effects_test.s"

@@ -160,8 +160,8 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_id,
-                                                       const unsigned int pal_len) {
+bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len,
+                                                       const unsigned int palette_id) {
     OamState *current_oam = get_current_oam();
     std::string oam_name;
 
@@ -171,13 +171,13 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
 
             vramSetBankI(VRAM_I_LCD);
 
-            dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], pal_len);
+            dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], palette_len);
         } else {
             oam_name = "oamMain";
 
             vramSetBankF(VRAM_F_LCD);
 
-            dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], pal_len);
+            dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], palette_len);
         }
 
         set_palette_id(palette_id);
@@ -191,12 +191,13 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
         }
     } else {
         if(current_oam == &oamSub) {
-            dmaCopy(palette, &SPRITE_PALETTE_SUB[0], pal_len);
+            dmaCopy(palette, &SPRITE_PALETTE_SUB[0], palette_len);
         } else {
-            dmaCopy(palette, &SPRITE_PALETTE[0], pal_len);
+            dmaCopy(palette, &SPRITE_PALETTE[0], palette_len);
         }
 
-        nocashMessage("loaded 8bpp palette (single palette mode)\n");
+        //nocashMessage("loaded 8bpp palette (single palette mode)\n");
+        //nocashMessage(std::string("palette len:" + std::to_string(palette_len)).c_str());
     }
 
     return true;
@@ -209,5 +210,6 @@ void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buf
 
     oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
            static_cast<int>(get_palette_id()),get_sprite_size(), SpriteColorFormat_256Color,
-           get_gfx_pointer(), -1, false, false, false, false, false);
+           get_gfx_pointer(), -1, false, false, false, false,
+           is_mosaic());
 }

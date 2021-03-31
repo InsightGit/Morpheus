@@ -401,9 +401,13 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
+        convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+
         add_executable(morpheus-nds-gfx-effects-test.elf
                 tests/gfx_effects_test/gfx_effects_test.cpp ${GFX_EFFECT_PNG8_OUTPUT_FILES}
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.h" "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.h")
         add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus GFX Effect Test" "Morpheus engine" "")
 

@@ -39,7 +39,7 @@ protected:
 
 class MoveableSprite8 : public morpheus::nds::gfx::Sprite8Bpp, SpriteInputBase {
 public:
-    MoveableSprite8(bool use_sub_display, bool use_extended_palette) : Sprite8Bpp(use_sub_display, nullptr,
+    MoveableSprite8(bool use_sub_display, bool use_extended_palette) : Sprite8Bpp(use_sub_display, nullptr, nullptr,
                                                                                   use_extended_palette) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
@@ -49,7 +49,7 @@ protected:
 
 class MoveableSprite4 : public morpheus::nds::gfx::Sprite4Bpp, SpriteInputBase {
 public:
-    explicit MoveableSprite4(bool use_sub_display) : Sprite4Bpp(use_sub_display, nullptr) {}
+    explicit MoveableSprite4(bool use_sub_display) : Sprite4Bpp(use_sub_display, nullptr, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(recieved_input(input_event, get_position()));

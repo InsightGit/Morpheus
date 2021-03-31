@@ -30,9 +30,11 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
-            MainLoop(gfx::BlendingController *blending_controller, gfx::MosaicController *mosaic_controller) {
+            MainLoop(gfx::BlendingController *blending_controller, gfx::MosaicController *mosaic_controller,
+                     NoCashDebugController *no_cash_debug_controller) {
                 m_blending_controller.reset(blending_controller);
                 m_mosaic_controller.reset(mosaic_controller);
+                m_no_cash_debug_controller.reset(no_cash_debug_controller);
             }
 
             virtual ~MainLoop() = default;
@@ -43,6 +45,10 @@ namespace morpheus {
 
             gfx::MosaicController *get_mosaic_controller() const {
                 return m_mosaic_controller.get();
+            }
+
+            NoCashDebugController *get_no_cash_debug_controller() const {
+                return m_no_cash_debug_controller.get();
             }
 
             void set_root(std::shared_ptr<Node> root) {
@@ -57,8 +63,6 @@ namespace morpheus {
 
             virtual void enable_background(unsigned int background_num) = 0;
             virtual void enable_window(gfx::WindowType window_type) = 0;
-
-            virtual void send_to_debug_window(std::string string) = 0;
 
             virtual Error game_loop() = 0;
         protected:
@@ -80,6 +84,7 @@ namespace morpheus {
         private:
             std::unique_ptr<gfx::BlendingController> m_blending_controller;
             std::unique_ptr<gfx::MosaicController> m_mosaic_controller;
+            std::unique_ptr<NoCashDebugController> m_no_cash_debug_controller;
 
             bool m_mt_inited;
             unsigned short m_r256table[256];
