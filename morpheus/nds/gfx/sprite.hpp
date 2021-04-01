@@ -85,19 +85,7 @@ namespace morpheus {
                     return m_extended_palette;
                 }
 
-                void toggle_blending(bool enable_blending, bool bottom_layer) override {
-                    // insures both top and bottom blending bits aren't set at the same time if blending is being
-                    // enabled
-                    m_blended = false;
-
-                    get_blending_controller()->disable_object_blending();
-
-                    if(enable_blending) {
-                        m_blended = true;
-
-                        get_blending_controller()->enable_object_blending(bottom_layer);
-                    }
-                }
+                void toggle_blending(bool enable_blending, bool bottom_layer)override;
 
                 void on_visible_state_changed(bool hidden) override {
                     if(m_last_used_obj_attr_num != -1) {

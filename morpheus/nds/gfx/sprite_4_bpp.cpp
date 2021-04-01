@@ -57,4 +57,10 @@ void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *>& obj_attr_buf
            static_cast<int>(get_palette_id()), get_sprite_size(),
            SpriteColorFormat_16Color, get_gfx_pointer(), -1,
            false, false, false, false, is_mosaic());
+
+    if(is_blended()) {
+        get_current_oam()->oamMemory[obj_attr_num].blendMode = OBJMODE_BLENDED;
+    } else {
+        get_current_oam()->oamMemory[obj_attr_num].blendMode = OBJMODE_NORMAL;
+    }
 }

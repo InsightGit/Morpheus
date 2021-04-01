@@ -146,3 +146,15 @@ void morpheus::nds::gfx::Sprite::set_sprite_size(morpheus::core::gfx::SpriteSize
             break;
     }
 }
+
+void morpheus::nds::gfx::Sprite::toggle_blending(bool enable_blending, bool bottom_layer) {
+    m_blended = false;
+
+    get_blending_controller()->disable_object_blending();
+
+    if(enable_blending) {
+        m_blended = true;
+
+        get_blending_controller()->enable_object_blending(bottom_layer);
+    }
+}

@@ -31,16 +31,21 @@ protected:
 
             switch (m_control_mode) {
                 case ControlMode::BACKGROUND_MOSAIC:
-                    m_no_cash_debug_controller->send_to_debug_window("On background mosaic mode");
+                    //nocash_puts("on background mosaic");
+                    //m_no_cash_debug_controller->send_to_debug_window("On background mosaic mode");
                     mosaic_input(input_event, true);
                     break;
                 case ControlMode::SPRITE_MOSAIC:
+                    //nocash_puts("on sprite mosaic");
                     m_no_cash_debug_controller->send_to_debug_window("On sprite mosaic mode");
                     mosaic_input(input_event, false);
                     break;
                 case ControlMode::BLENDING:
+                    //nocash_puts("on blending");
                     m_no_cash_debug_controller->send_to_debug_window("On blending mosaic mode");
                     blending_input(input_event);
+                    break;
+                case ControlMode::WINDOW:
                     break;
             }
         }
@@ -54,10 +59,11 @@ private:
     enum class ControlMode {
         BACKGROUND_MOSAIC = 0,
         SPRITE_MOSAIC = static_cast<int>(BACKGROUND_MOSAIC) + CONTROL_MODE_GAP,
-        BLENDING = static_cast<int>(SPRITE_MOSAIC) + CONTROL_MODE_GAP
+        BLENDING = static_cast<int>(SPRITE_MOSAIC) + CONTROL_MODE_GAP,
+        WINDOW = static_cast<int>(BLENDING) + CONTROL_MODE_GAP
     };
 
-    const static ControlMode FINAL_CONTROL_MODE = ControlMode::BLENDING;
+    const static ControlMode FINAL_CONTROL_MODE = ControlMode::WINDOW;
     const static ControlMode FIRST_CONTROL_MODE = ControlMode::BACKGROUND_MOSAIC;
 
     void blending_input(morpheus::core::InputEvent input_event) {
@@ -66,11 +72,11 @@ private:
                 m_blending_controller->set_blend_weight(true,
                                                         m_blending_controller->get_blend_weight(true) + 1);
                 m_blending_controller->set_blend_weight(false,
-                                                        m_blending_controller->get_blend_weight(false) - 1);
+                                                        std::max(m_blending_controller->get_blend_weight(false) - 1, 0));
                 break;
             case morpheus::core::InputButton::DPADRIGHT:
                 m_blending_controller->set_blend_weight(true,
-                                                        m_blending_controller->get_blend_weight(true) - 1);
+                                                        std::max(m_blending_controller->get_blend_weight(true) - 1, 0));
                 m_blending_controller->set_blend_weight(false,
                                                         m_blending_controller->get_blend_weight(false) + 1);
                 break;
@@ -243,6 +249,8 @@ int main() {
     input_node->add_child(sprite.get());
 
     main_loop->set_root(input_node);
+
+    main_loop->get_blending_controller()->enable_background_blending(true, 0);
 
     main_loop->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::USE_WEIGHTS);
     main_loop->get_blending_controller()->set_blend_weight(false, 8);

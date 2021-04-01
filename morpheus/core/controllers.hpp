@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_CONTROLLERS_HPP
 #define MORPHEUS_GBA_TEST_CONTROLLERS_HPP
 
+#include <array>
+
 #include <core/uncopyable.hpp>
 #include <core/gfx/vector_2.hpp>
 
@@ -18,29 +20,120 @@ namespace morpheus {
                 FADE_TO_BLACK
             };
 
+            enum class BlendingSetting {
+                OFF,
+                BOTTOM_ON,
+                TOP_ON
+            };
+
             class BlendingController : Uncopyable {
             public:
                 virtual ~BlendingController() {}
 
-                virtual void disable_backdrop_blending() = 0;
-                virtual void enable_backdrop_blending(bool bottom) = 0;
+                void disable_backdrop_blending() {
+                    m_backdrop_blending_setting = BlendingSetting::OFF;
 
-                virtual void disable_background_blending(unsigned int background) = 0;
-                virtual void enable_background_blending(bool bottom, unsigned int background) = 0;
+                    update_blending_registers();
+                }
 
-                virtual void disable_object_blending() = 0;
-                virtual void enable_object_blending(bool bottom) = 0;
+                void enable_backdrop_blending(bool bottom) {
+                    if(bottom) {
+                        m_backdrop_blending_setting = BlendingSetting::BOTTOM_ON;
+                    } else {
+                        m_backdrop_blending_setting = BlendingSetting::TOP_ON;
+                    }
 
-                virtual BlendingMode get_blending_mode() = 0;
-                virtual void set_blending_mode(BlendingMode blending_mode) = 0;
+                    update_blending_registers();
+                }
 
-                virtual unsigned char get_blend_weight(bool bottom) const = 0;
-                virtual void set_blend_weight(bool bottom, unsigned char weight) = 0;
+                void disable_background_blending(unsigned int background) {
+                    if(background < 4) {
+                        m_background_blending_settings[background] = BlendingSetting::OFF;
+                    }
 
-                virtual unsigned char get_blend_fade() const = 0;
-                virtual void set_blend_fade(unsigned char fade) = 0;
+                    update_blending_registers();
+                }
+
+                void enable_background_blending(bool bottom, unsigned int background) {
+                    if(background < 4) {
+                        if(bottom) {
+                            m_background_blending_settings[background] = BlendingSetting::BOTTOM_ON;
+                        } else {
+                            m_background_blending_settings[background] = BlendingSetting::TOP_ON;
+                        }
+                    }
+
+                    update_blending_registers();
+                }
+
+                void disable_object_blending() {
+                    m_object_blending_setting = BlendingSetting::OFF;
+
+                    update_blending_registers();
+                }
+
+                void enable_object_blending(bool bottom) {
+                    if(bottom) {
+                        m_object_blending_setting = BlendingSetting::BOTTOM_ON;
+                    } else {
+                        m_object_blending_setting = BlendingSetting::TOP_ON;
+                    }
+
+                    update_blending_registers();
+                }
+
+                BlendingMode get_blending_mode() const {
+                    return m_current_blending_mode;
+                }
+
+                void set_blending_mode(BlendingMode blending_mode) {
+                    m_current_blending_mode = blending_mode;
+
+                    update_blending_registers();
+                }
+
+                unsigned char get_blend_weight(bool bottom) const {
+                    if(bottom) {
+                        return m_bottom_blend_weight;
+                    } else {
+                        return m_top_blend_weight;
+                    }
+                }
+
+                void set_blend_weight(bool bottom, unsigned char weight) {
+                    if(bottom) {
+                        m_bottom_blend_weight = std::min(weight, static_cast<unsigned char>(16));
+                    } else {
+                        m_top_blend_weight = std::min(weight, static_cast<unsigned char>(16));
+                    }
+
+                    update_blending_registers();
+                }
+
+                unsigned char get_blend_fade() const {
+                    return m_blend_fade;
+                }
+
+                void set_blend_fade(unsigned char fade) {
+                    m_blend_fade = std::max(fade, static_cast<unsigned char>(16));
+
+                    update_blending_registers();
+                }
             protected:
+                BlendingSetting get_backdrop_blending_setting() const {
+                    return m_backdrop_blending_setting;
+                }
+
+                std::array<BlendingSetting, 4> get_background_blending_settings() const {
+                    return m_background_blending_settings;
+                }
+
+                BlendingSetting get_object_blending_setting() const {
+                    return m_object_blending_setting;
+                }
+
                 unsigned char get_blending_value(unsigned int background_num);
+                virtual void update_blending_registers() = 0;
 
                 const unsigned char TOP_BLEND_SHIFT = 0;
                 const unsigned char BOTTOM_BLEND_SHIFT = 8;
@@ -60,6 +153,14 @@ namespace morpheus {
                 const unsigned char BG_3_BLENDING = 0x08;
                 const unsigned char OBJ_BLENDING = 0x10;
                 const unsigned char BD_BLENDING = 0x20;
+            private:
+                BlendingSetting m_backdrop_blending_setting;
+                std::array<BlendingSetting, 4> m_background_blending_settings;
+                unsigned char m_blend_fade;
+                unsigned char m_bottom_blend_weight;
+                BlendingMode m_current_blending_mode;
+                BlendingSetting m_object_blending_setting;
+                unsigned char m_top_blend_weight;
             };
 
             class MosaicController : Uncopyable {
