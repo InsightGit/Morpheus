@@ -143,6 +143,19 @@ morpheus-gba-gfx-effects-test.gba/fast:
 .PHONY : morpheus-gba-gfx-effects-test.gba/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-serial-test.elf
+
+# Build rule for target.
+morpheus-gba-serial-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-serial-test.elf
+.PHONY : morpheus-gba-serial-test.elf
+
+# fast build rule for target.
+morpheus-gba-serial-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-serial-test.elf.dir/build.make CMakeFiles/morpheus-gba-serial-test.elf.dir/build
+.PHONY : morpheus-gba-serial-test.elf/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-gba-sram-test.elf
 
 # Build rule for target.
@@ -219,6 +232,19 @@ morpheus-gba-sram-test.gba: cmake_check_build_system
 morpheus-gba-sram-test.gba/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-sram-test.gba.dir/build.make CMakeFiles/morpheus-gba-sram-test.gba.dir/build
 .PHONY : morpheus-gba-sram-test.gba/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-serial-test.gba
+
+# Build rule for target.
+morpheus-gba-serial-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-serial-test.gba
+.PHONY : morpheus-gba-serial-test.gba
+
+# fast build rule for target.
+morpheus-gba-serial-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-serial-test.gba.dir/build.make CMakeFiles/morpheus-gba-serial-test.gba.dir/build
+.PHONY : morpheus-gba-serial-test.gba/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-gba-tileset-test.elf
@@ -353,6 +379,33 @@ morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
 
+morpheus/core/communication_channel.o: morpheus/core/communication_channel.cpp.o
+
+.PHONY : morpheus/core/communication_channel.o
+
+# target to build an object file
+morpheus/core/communication_channel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o
+.PHONY : morpheus/core/communication_channel.cpp.o
+
+morpheus/core/communication_channel.i: morpheus/core/communication_channel.cpp.i
+
+.PHONY : morpheus/core/communication_channel.i
+
+# target to preprocess a source file
+morpheus/core/communication_channel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.i
+.PHONY : morpheus/core/communication_channel.cpp.i
+
+morpheus/core/communication_channel.s: morpheus/core/communication_channel.cpp.s
+
+.PHONY : morpheus/core/communication_channel.s
+
+# target to generate assembly for a file
+morpheus/core/communication_channel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s
+.PHONY : morpheus/core/communication_channel.cpp.s
+
 morpheus/core/controllers.o: morpheus/core/controllers.cpp.o
 
 .PHONY : morpheus/core/controllers.o
@@ -406,6 +459,33 @@ morpheus/core/gfx/sprite_base.s: morpheus/core/gfx/sprite_base.cpp.s
 morpheus/core/gfx/sprite_base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.s
 .PHONY : morpheus/core/gfx/sprite_base.cpp.s
+
+morpheus/core/gfx/text_base.o: morpheus/core/gfx/text_base.cpp.o
+
+.PHONY : morpheus/core/gfx/text_base.o
+
+# target to build an object file
+morpheus/core/gfx/text_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o
+.PHONY : morpheus/core/gfx/text_base.cpp.o
+
+morpheus/core/gfx/text_base.i: morpheus/core/gfx/text_base.cpp.i
+
+.PHONY : morpheus/core/gfx/text_base.i
+
+# target to preprocess a source file
+morpheus/core/gfx/text_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.i
+.PHONY : morpheus/core/gfx/text_base.cpp.i
+
+morpheus/core/gfx/text_base.s: morpheus/core/gfx/text_base.cpp.s
+
+.PHONY : morpheus/core/gfx/text_base.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/text_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.s
+.PHONY : morpheus/core/gfx/text_base.cpp.s
 
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
@@ -704,6 +784,33 @@ morpheus/gba/gfx/tiled_background.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.s
 .PHONY : morpheus/gba/gfx/tiled_background.cpp.s
 
+morpheus/gba/serial_communication.o: morpheus/gba/serial_communication.cpp.o
+
+.PHONY : morpheus/gba/serial_communication.o
+
+# target to build an object file
+morpheus/gba/serial_communication.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o
+.PHONY : morpheus/gba/serial_communication.cpp.o
+
+morpheus/gba/serial_communication.i: morpheus/gba/serial_communication.cpp.i
+
+.PHONY : morpheus/gba/serial_communication.i
+
+# target to preprocess a source file
+morpheus/gba/serial_communication.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.i
+.PHONY : morpheus/gba/serial_communication.cpp.i
+
+morpheus/gba/serial_communication.s: morpheus/gba/serial_communication.cpp.s
+
+.PHONY : morpheus/gba/serial_communication.s
+
+# target to generate assembly for a file
+morpheus/gba/serial_communication.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.s
+.PHONY : morpheus/gba/serial_communication.cpp.s
+
 region_map.o: region_map.c.o
 
 .PHONY : region_map.o
@@ -787,6 +894,33 @@ tests/gba/input_test/gba_input_test.s: tests/gba/input_test/gba_input_test.cpp.s
 tests/gba/input_test/gba_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-input-test.elf.dir/build.make CMakeFiles/morpheus-gba-input-test.elf.dir/tests/gba/input_test/gba_input_test.cpp.s
 .PHONY : tests/gba/input_test/gba_input_test.cpp.s
+
+tests/gba/serial_test/gba_serial_test.o: tests/gba/serial_test/gba_serial_test.cpp.o
+
+.PHONY : tests/gba/serial_test/gba_serial_test.o
+
+# target to build an object file
+tests/gba/serial_test/gba_serial_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-serial-test.elf.dir/build.make CMakeFiles/morpheus-gba-serial-test.elf.dir/tests/gba/serial_test/gba_serial_test.cpp.o
+.PHONY : tests/gba/serial_test/gba_serial_test.cpp.o
+
+tests/gba/serial_test/gba_serial_test.i: tests/gba/serial_test/gba_serial_test.cpp.i
+
+.PHONY : tests/gba/serial_test/gba_serial_test.i
+
+# target to preprocess a source file
+tests/gba/serial_test/gba_serial_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-serial-test.elf.dir/build.make CMakeFiles/morpheus-gba-serial-test.elf.dir/tests/gba/serial_test/gba_serial_test.cpp.i
+.PHONY : tests/gba/serial_test/gba_serial_test.cpp.i
+
+tests/gba/serial_test/gba_serial_test.s: tests/gba/serial_test/gba_serial_test.cpp.s
+
+.PHONY : tests/gba/serial_test/gba_serial_test.s
+
+# target to generate assembly for a file
+tests/gba/serial_test/gba_serial_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-serial-test.elf.dir/build.make CMakeFiles/morpheus-gba-serial-test.elf.dir/tests/gba/serial_test/gba_serial_test.cpp.s
+.PHONY : tests/gba/serial_test/gba_serial_test.cpp.s
 
 tests/gba/sram_test/gba_sram_test.o: tests/gba/sram_test/gba_sram_test.cpp.o
 
@@ -907,12 +1041,14 @@ help:
 	@echo "... morpheus-gba-gfx-effects-test.gba"
 	@echo "... morpheus-gba-input-test.gba"
 	@echo "... morpheus-gba-maxmod-test.gba"
+	@echo "... morpheus-gba-serial-test.gba"
 	@echo "... morpheus-gba-sram-test.gba"
 	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
 	@echo "... morpheus-gba-gfx-effects-test.elf"
 	@echo "... morpheus-gba-input-test.elf"
 	@echo "... morpheus-gba-maxmod-test.elf"
+	@echo "... morpheus-gba-serial-test.elf"
 	@echo "... morpheus-gba-sram-test.elf"
 	@echo "... morpheus-gba-tileset-test.elf"
 	@echo "... brin.o"
@@ -924,12 +1060,18 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
+	@echo "... morpheus/core/communication_channel.o"
+	@echo "... morpheus/core/communication_channel.i"
+	@echo "... morpheus/core/communication_channel.s"
 	@echo "... morpheus/core/controllers.o"
 	@echo "... morpheus/core/controllers.i"
 	@echo "... morpheus/core/controllers.s"
 	@echo "... morpheus/core/gfx/sprite_base.o"
 	@echo "... morpheus/core/gfx/sprite_base.i"
 	@echo "... morpheus/core/gfx/sprite_base.s"
+	@echo "... morpheus/core/gfx/text_base.o"
+	@echo "... morpheus/core/gfx/text_base.i"
+	@echo "... morpheus/core/gfx/text_base.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"
@@ -963,6 +1105,9 @@ help:
 	@echo "... morpheus/gba/gfx/tiled_background.o"
 	@echo "... morpheus/gba/gfx/tiled_background.i"
 	@echo "... morpheus/gba/gfx/tiled_background.s"
+	@echo "... morpheus/gba/serial_communication.o"
+	@echo "... morpheus/gba/serial_communication.i"
+	@echo "... morpheus/gba/serial_communication.s"
 	@echo "... region_map.o"
 	@echo "... region_map.i"
 	@echo "... region_map.s"
@@ -972,6 +1117,9 @@ help:
 	@echo "... tests/gba/input_test/gba_input_test.o"
 	@echo "... tests/gba/input_test/gba_input_test.i"
 	@echo "... tests/gba/input_test/gba_input_test.s"
+	@echo "... tests/gba/serial_test/gba_serial_test.o"
+	@echo "... tests/gba/serial_test/gba_serial_test.i"
+	@echo "... tests/gba/serial_test/gba_serial_test.s"
 	@echo "... tests/gba/sram_test/gba_sram_test.o"
 	@echo "... tests/gba/sram_test/gba_sram_test.i"
 	@echo "... tests/gba/sram_test/gba_sram_test.s"

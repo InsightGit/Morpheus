@@ -45,6 +45,10 @@ namespace morpheus {
 
                 void set_window_rect(const WindowRect window_rect) {
                     m_window_rect = window_rect;
+
+                    if(is_window_enabled()) {
+                        toggle_window(true);
+                    }
                 }
 
                 bool is_objects_enabled() const {

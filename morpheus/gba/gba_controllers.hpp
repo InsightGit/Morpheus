@@ -30,7 +30,7 @@ namespace morpheus {
             };
         }
 
-        class NdsNoCashDebugController : public core::NoCashDebugController {
+        class GbaNoCashDebugController : public core::NoCashDebugController {
         public:
             void send_to_debug_window(std::string message) override {
                 nocash_puts(message.c_str());

@@ -200,6 +200,8 @@ namespace morpheus {
 
         class NoCashDebugController {
         public:
+            virtual ~NoCashDebugController() = default;
+
             virtual void send_to_debug_window(std::string message) = 0;
         };
     }

@@ -51,12 +51,14 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-gba-serial-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-sram-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-tileset-test.gba.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-maxmod-test.gba.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-input-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-input-test.gba.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-sram-test.gba.dir/DependInfo.cmake"
+  "CMakeFiles/morpheus-gba-serial-test.gba.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-tileset-test.elf.dir/DependInfo.cmake"
   "CMakeFiles/morpheus.dir/DependInfo.cmake"
   "CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/DependInfo.cmake"

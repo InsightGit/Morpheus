@@ -13,11 +13,13 @@
 #include <maxmod.h>
 #include <tonc.h>
 
+
 #include <core/main_loop.hpp>
 #include <core/gfx/window.hpp>
 
 #include <gba/gba_controllers.hpp>
 #include <gba/gba_main_loop.hpp>
+#include <gba/serial_communication.hpp>
 
 namespace morpheus {
     namespace gba {

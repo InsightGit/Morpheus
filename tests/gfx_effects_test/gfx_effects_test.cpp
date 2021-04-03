@@ -16,12 +16,14 @@ class InputNode : public morpheus::core::Node {
 public:
     InputNode(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> &mosaic_background,
               const std::shared_ptr<morpheus::core::gfx::SpriteBase> &mosaic_sprite,
+              const std::shared_ptr<morpheus::core::gfx::Window> &window,
               morpheus::core::gfx::BlendingController *blending_controller,
               morpheus::core::NoCashDebugController *no_cash_debug_controller) {
         m_blending_controller = blending_controller;
         m_mosaic_background = mosaic_background;
         m_mosaic_sprite = mosaic_sprite;
         m_no_cash_debug_controller = no_cash_debug_controller;
+        m_window = window;
     }
 protected:
     void input(morpheus::core::InputEvent input_event) override {
@@ -46,6 +48,8 @@ protected:
                     blending_input(input_event);
                     break;
                 case ControlMode::WINDOW:
+                    m_no_cash_debug_controller->send_to_debug_window("On window mode");
+                    window_input(input_event);
                     break;
             }
         }
@@ -147,11 +151,39 @@ private:
         }
     }
 
+    void window_input(morpheus::core::InputEvent input_event) {
+        morpheus::core::gfx::WindowRect window_rect = m_window->get_window_rect();
+
+        switch(input_event.button) {
+            case morpheus::core::InputButton::DPADUP:
+                window_rect.top -= 5;
+                window_rect.bottom -= 5;
+                break;
+            case morpheus::core::InputButton::DPADDOWN:
+                window_rect.top += 5;
+                window_rect.bottom += 5;
+                break;
+            case morpheus::core::InputButton::DPADLEFT:
+                window_rect.left -= 5;
+                window_rect.right -= 5;
+                break;
+            case morpheus::core::InputButton::DPADRIGHT:
+                window_rect.left += 5;
+                window_rect.right += 5;
+                break;
+            default:
+                break;
+        }
+
+        m_window->set_window_rect(window_rect);
+    }
+
     ControlMode m_control_mode = ControlMode::BACKGROUND_MOSAIC;
     morpheus::core::gfx::BlendingController *m_blending_controller;
     morpheus::core::NoCashDebugController *m_no_cash_debug_controller;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_mosaic_background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> m_mosaic_sprite;
+    std::shared_ptr<morpheus::core::gfx::Window> m_window;
 };
 
 int main() {
@@ -218,7 +250,7 @@ int main() {
         nocashMessage("Loaded from array");
     #endif
 
-    input_node.reset(new InputNode(background, sprite, main_loop->get_blending_controller(),
+    input_node.reset(new InputNode(background, sprite, window, main_loop->get_blending_controller(),
                                       main_loop->get_no_cash_debug_controller()));
 
     background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,

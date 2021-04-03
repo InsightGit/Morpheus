@@ -25,7 +25,13 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/window.hpp
         morpheus/core/gfx/window.cpp
-        morpheus/utils.hpp morpheus/core/gfx/sprite_base.cpp morpheus/core/gfx/sprite_base.hpp)
+        morpheus/utils.hpp
+        morpheus/core/gfx/sprite_base.cpp
+        morpheus/core/gfx/sprite_base.hpp
+        morpheus/core/gfx/text_base.cpp
+        morpheus/core/gfx/text_base.hpp
+        morpheus/core/communication_channel.cpp
+        morpheus/core/communication_channel.hpp)
 
 
 project(morpheus)
@@ -60,7 +66,9 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/tiled_background.hpp
             morpheus/gba/gfx/tiled_background.cpp
             morpheus/gba/gfx/gba_window.hpp
-            morpheus/gba/gfx/gba_window.cpp)
+            morpheus/gba/gfx/gba_window.cpp
+            morpheus/gba/serial_communication.cpp
+            morpheus/gba/serial_communication.hpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -269,6 +277,15 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-gfx-effects-test.elf)
 
         target_link_libraries(morpheus-gba-gfx-effects-test.elf morpheus mm tonc)
+
+        project(morpheus-gba-serial-test)
+
+        link_directories(morpheus-gba-serial-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-gba-serial-test.elf tests/gba/serial_test/gba_serial_test.cpp)
+        add_gba_executable(morpheus-gba-serial-test.elf)
+
+        target_link_libraries(morpheus-gba-serial-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
         list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
 

@@ -10,6 +10,7 @@
 
 #include <core/gfx/window.hpp>
 #include <core/controllers.hpp>
+#include <core/communication_channel.hpp>
 #include <core/input_event.hpp>
 #include <core/node.hpp>
 #include <core/uncopyable.hpp>
@@ -30,12 +31,8 @@ namespace morpheus {
 
         class MainLoop : Uncopyable {
         public:
-            MainLoop(gfx::BlendingController *blending_controller, gfx::MosaicController *mosaic_controller,
-                     NoCashDebugController *no_cash_debug_controller) {
-                m_blending_controller.reset(blending_controller);
-                m_mosaic_controller.reset(mosaic_controller);
-                m_no_cash_debug_controller.reset(no_cash_debug_controller);
-            }
+            MainLoop(gfx::BlendingController *blending_controller, CommunicationChannel *communication_channel,
+                     gfx::MosaicController *mosaic_controller, NoCashDebugController *no_cash_debug_controller);
 
             virtual ~MainLoop() = default;
 
@@ -49,6 +46,10 @@ namespace morpheus {
 
             NoCashDebugController *get_no_cash_debug_controller() const {
                 return m_no_cash_debug_controller.get();
+            }
+
+            CommunicationChannel *get_default_communication_channel() const {
+                return m_communication_channel.get();
             }
 
             void set_root(std::shared_ptr<Node> root) {
@@ -83,8 +84,10 @@ namespace morpheus {
             //std::unique_ptr<PaletteManager> m_palette_manager(new );
         private:
             std::unique_ptr<gfx::BlendingController> m_blending_controller;
+            std::unique_ptr<CommunicationChannel> m_communication_channel;
             std::unique_ptr<gfx::MosaicController> m_mosaic_controller;
             std::unique_ptr<NoCashDebugController> m_no_cash_debug_controller;
+
 
             bool m_mt_inited;
             unsigned short m_r256table[256];

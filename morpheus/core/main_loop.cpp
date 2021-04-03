@@ -4,6 +4,16 @@
 
 #include "main_loop.hpp"
 
+morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blending_controller,
+                                   morpheus::core::CommunicationChannel *communication_channel,
+                                   morpheus::core::gfx::MosaicController *mosaic_controller,
+                                   morpheus::core::NoCashDebugController *no_cash_debug_controller) {
+    m_blending_controller.reset(blending_controller);
+    m_communication_channel.reset(communication_channel);
+    m_mosaic_controller.reset(mosaic_controller);
+    m_no_cash_debug_controller.reset(no_cash_debug_controller);
+}
+
 std::vector<morpheus::core::InputEvent>
 morpheus::core::MainLoop::to_input_events(const uint32_t inputs, const uint16_t input_bits[],
                                           int input_bits_size, const morpheus::core::InputState input_state) {

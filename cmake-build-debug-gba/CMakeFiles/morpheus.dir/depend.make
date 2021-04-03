@@ -11,11 +11,15 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: ../morpheus/core/
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o: /opt/devkitpro/libgba/include/mm_types.h
 
+CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o: ../morpheus/core/communication_channel.cpp
+CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o: ../morpheus/core/communication_channel.hpp
+
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.cpp
 CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o: ../morpheus/core/controllers.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -26,6 +30,10 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/un
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/sprite_base.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o: ../morpheus/core/gfx/text_base.cpp
+CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o: ../morpheus/core/gfx/text_base.hpp
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -36,6 +44,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morphe
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -46,6 +55,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/uncopya
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.cpp
 CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -56,6 +66,7 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/uncopyab
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.cpp
 CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o: ../morpheus/core/main_loop.hpp
 
+CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -87,6 +98,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.o: /opt/devkitpro/libto
 CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gba_controllers.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/gfx/vector_2.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/gfx/window.hpp
@@ -96,6 +108,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/node.
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/gba/gba_main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/gba/serial_communication.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/gba/gba_main_loop.cpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: ../morpheus/gba/gba_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
@@ -117,6 +130,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libtonc
 CMakeFiles/morpheus.dir/morpheus/gba/gba_main_loop.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
@@ -148,6 +162,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: /opt/devkitpro/libton
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/gba_window.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
@@ -160,6 +175,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/node.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/gba/gba_main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/gba/serial_communication.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/gba/gfx/sprite.cpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: ../morpheus/gba/gfx/sprite.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
@@ -181,6 +197,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/in
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
@@ -194,6 +211,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/core/un
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gba_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gfx/sprite.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/serial_communication.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: ../morpheus/gba/gfx/sprite_4_bpp.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
@@ -215,6 +233,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libt
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/audio/max_mod_music.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/core.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/gfx/sprite_base.hpp
@@ -228,6 +247,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/core/un
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gba_main_loop.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gfx/sprite.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/serial_communication.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gfx/sprite_8_bpp.cpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: ../morpheus/gba/gfx/sprite_8_bpp.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
@@ -248,6 +268,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libt
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/communication_channel.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/tiled_background_base.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/gfx/vector_2.hpp
@@ -258,6 +279,7 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/cor
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/core/uncopyable.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/gba/gba_controllers.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/gba/gba_main_loop.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/gba/serial_communication.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/gba/gfx/tiled_background.cpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: ../morpheus/gba/gfx/tiled_background.hpp
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/libgba/include/maxmod.h
@@ -277,4 +299,23 @@ CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/libtonc/include/tonc_tte.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
 CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
+
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: ../morpheus/core/communication_channel.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: ../morpheus/gba/serial_communication.cpp
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: ../morpheus/gba/serial_communication.hpp
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_bios.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_core.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_input.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_irq.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_math.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_memdef.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_memmap.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_nocash.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_oam.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_surface.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_text.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_tte.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_types.h
+CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o: /opt/devkitpro/libtonc/include/tonc_video.h
 

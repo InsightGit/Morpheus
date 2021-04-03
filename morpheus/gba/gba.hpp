@@ -8,6 +8,7 @@
 #include <core/core.hpp>
 
 #include <gba/gba_main_loop.hpp>
+#include <gba/serial_communication.hpp>
 
 #include <gba/audio/gba_max_mod_music.hpp>
 #include <gba/audio/gba_max_mod_sfx.hpp>

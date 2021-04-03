@@ -412,6 +412,33 @@ morpheus/core/audio/max_mod_sfx.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 .PHONY : morpheus/core/audio/max_mod_sfx.cpp.s
 
+morpheus/core/communication_channel.o: morpheus/core/communication_channel.cpp.o
+
+.PHONY : morpheus/core/communication_channel.o
+
+# target to build an object file
+morpheus/core/communication_channel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o
+.PHONY : morpheus/core/communication_channel.cpp.o
+
+morpheus/core/communication_channel.i: morpheus/core/communication_channel.cpp.i
+
+.PHONY : morpheus/core/communication_channel.i
+
+# target to preprocess a source file
+morpheus/core/communication_channel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.i
+.PHONY : morpheus/core/communication_channel.cpp.i
+
+morpheus/core/communication_channel.s: morpheus/core/communication_channel.cpp.s
+
+.PHONY : morpheus/core/communication_channel.s
+
+# target to generate assembly for a file
+morpheus/core/communication_channel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s
+.PHONY : morpheus/core/communication_channel.cpp.s
+
 morpheus/core/controllers.o: morpheus/core/controllers.cpp.o
 
 .PHONY : morpheus/core/controllers.o
@@ -465,6 +492,33 @@ morpheus/core/gfx/sprite_base.s: morpheus/core/gfx/sprite_base.cpp.s
 morpheus/core/gfx/sprite_base.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.s
 .PHONY : morpheus/core/gfx/sprite_base.cpp.s
+
+morpheus/core/gfx/text_base.o: morpheus/core/gfx/text_base.cpp.o
+
+.PHONY : morpheus/core/gfx/text_base.o
+
+# target to build an object file
+morpheus/core/gfx/text_base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o
+.PHONY : morpheus/core/gfx/text_base.cpp.o
+
+morpheus/core/gfx/text_base.i: morpheus/core/gfx/text_base.cpp.i
+
+.PHONY : morpheus/core/gfx/text_base.i
+
+# target to preprocess a source file
+morpheus/core/gfx/text_base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.i
+.PHONY : morpheus/core/gfx/text_base.cpp.i
+
+morpheus/core/gfx/text_base.s: morpheus/core/gfx/text_base.cpp.s
+
+.PHONY : morpheus/core/gfx/text_base.s
+
+# target to generate assembly for a file
+morpheus/core/gfx/text_base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.s
+.PHONY : morpheus/core/gfx/text_base.cpp.s
 
 morpheus/core/gfx/tiled_background_base.o: morpheus/core/gfx/tiled_background_base.cpp.o
 
@@ -1099,12 +1153,18 @@ help:
 	@echo "... morpheus/core/audio/max_mod_sfx.o"
 	@echo "... morpheus/core/audio/max_mod_sfx.i"
 	@echo "... morpheus/core/audio/max_mod_sfx.s"
+	@echo "... morpheus/core/communication_channel.o"
+	@echo "... morpheus/core/communication_channel.i"
+	@echo "... morpheus/core/communication_channel.s"
 	@echo "... morpheus/core/controllers.o"
 	@echo "... morpheus/core/controllers.i"
 	@echo "... morpheus/core/controllers.s"
 	@echo "... morpheus/core/gfx/sprite_base.o"
 	@echo "... morpheus/core/gfx/sprite_base.i"
 	@echo "... morpheus/core/gfx/sprite_base.s"
+	@echo "... morpheus/core/gfx/text_base.o"
+	@echo "... morpheus/core/gfx/text_base.i"
+	@echo "... morpheus/core/gfx/text_base.s"
 	@echo "... morpheus/core/gfx/tiled_background_base.o"
 	@echo "... morpheus/core/gfx/tiled_background_base.i"
 	@echo "... morpheus/core/gfx/tiled_background_base.s"

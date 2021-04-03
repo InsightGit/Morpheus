@@ -6,8 +6,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/core/audio/max_mod_music.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o"
   "/home/bobby/morpheus/morpheus/core/audio/max_mod_sfx.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/communication_channel.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o"
   "/home/bobby/morpheus/morpheus/core/controllers.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/sprite_base.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o"
+  "/home/bobby/morpheus/morpheus/core/gfx/text_base.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/window.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
@@ -19,6 +21,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/serial_communication.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
