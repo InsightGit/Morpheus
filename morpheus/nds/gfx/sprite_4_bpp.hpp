@@ -36,7 +36,7 @@ namespace morpheus {
 
                 bool load_into_palette(const unsigned short *palette, const unsigned int pal_len)override;
 
-                void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
+                void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num)override;
             protected:
                 virtual void input(core::InputEvent input_event)override {}
             };

@@ -6,8 +6,9 @@
 
 PrintConsole *morpheus::nds::NdsMainLoop::debug_print_console = nullptr;
 
+
 morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) :
-            morpheus::core::MainLoop(new gfx::NdsBlendingController(false),
+            morpheus::core::MainLoop(new gfx::NdsBlendingController(false), nullptr,
                                      new gfx::NdsMosaicController(false),
                                      new NdsNoCashDebugController()) {
     #ifdef NDEBUG
@@ -68,43 +69,54 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
     while(true) {
         reset_to_debug_print_console();
 
-        if(m_root != nullptr) {
-            scanKeys();
+        scanKeys();
 
-            std::vector<morpheus::core::InputEvent> down_events = to_input_events(keysDown(),
-                                                                                  NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                                  morpheus::core::InputState::DOWN);
-            std::vector<morpheus::core::InputEvent> held_events = to_input_events(keysHeld(),
-                                                                                  NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                                  morpheus::core::InputState::HELD);
-            std::vector<morpheus::core::InputEvent> up_events = to_input_events(keysUp(),
-                                                                                NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
-                                                                                morpheus::core::InputState::UP);
+        std::vector<morpheus::core::InputEvent> down_events = to_input_events(keysDown(),
+                                                                              NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                              morpheus::core::InputState::DOWN);
+        std::vector<morpheus::core::InputEvent> held_events = to_input_events(keysHeld(),
+                                                                              NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                              morpheus::core::InputState::HELD);
+        std::vector<morpheus::core::InputEvent> up_events = to_input_events(keysUp(),
+                                                                            NDS_KEYPAD_BITS, NDS_KEYPAD_BITS_SIZE,
+                                                                            morpheus::core::InputState::UP);
 
-            std::vector<core::InputEvent> input_events;
+        std::vector<core::InputEvent> input_events;
 
-            input_events.insert(input_events.end(), down_events.begin(), down_events.end());
-            input_events.insert(input_events.end(), held_events.begin(), held_events.end());
-            input_events.insert(input_events.end(), up_events.begin(), up_events.end());
+        input_events.insert(input_events.end(), down_events.begin(), down_events.end());
+        input_events.insert(input_events.end(), held_events.begin(), held_events.end());
+        input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
-            if(!input_events.empty()) {
-                m_last_input_size = input_events.size() * m_cycle_time;
+        if(!input_events.empty()) {
+            m_last_input_size = input_events.size() * m_cycle_time;
+        }
+
+        for(std::shared_ptr<core::ControlReciever> &control_reciever : m_control_recievers) {
+            for(core::InputEvent &input_event : input_events) {
+                control_reciever->input(input_event);
             }
 
-            for(core::InputEvent input_event : input_events) {
-                m_root->received_input(input_event);
+            control_reciever->update(m_cycle_time);
+        }
+
+        for(std::shared_ptr<core::gfx::SpriteBase> &sprite : m_sprites) {
+            for(core::InputEvent &input_event : input_events) {
+                sprite->input(input_event);
             }
 
-            m_root->received_update(m_cycle_time);
+            sprite->update(m_cycle_time);
+        }
 
-            oamClear(&oamMain, 0, 0);
-            oamClear(&oamSub, 0, 0);
+        oamClear(&oamMain, 0, 0);
+        oamClear(&oamSub, 0, 0);
 
-            // TODO(Bobby): Fix unneeded argument 1 problem
-            std::vector<void*> filler;
+        // TODO(Bobby): Fix unneeded argument 1 problem
+        std::vector<void*> filler;
 
-            set_supplementary_seed(static_cast<int>(m_cycle_time) +
-                                    m_root->draw(filler, 0) + m_last_input_size);
+        for(unsigned int i = 0; m_sprites.size() > i;++i) {
+            m_sprites[i]->draw(filler, i);
+
+            set_supplementary_seed(static_cast<int>(m_cycle_time) + i + m_last_input_size);
         }
 
         ++iteration;

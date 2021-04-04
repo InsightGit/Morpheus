@@ -15,7 +15,7 @@
 #include <core/controllers.hpp>
 #include <core/input_event.hpp>
 #include <core/main_loop.hpp>
-#include <core/node.hpp>
+#include <core/control_reciever.hpp>
 #include <core/uncopyable.hpp>
 
 #endif //MORPHEUS_CORE_HPP

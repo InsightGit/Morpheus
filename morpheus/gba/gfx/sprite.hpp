@@ -51,7 +51,7 @@ namespace morpheus {
                         m_attr2 = ATTR2_BUILD(tile_id, palette_id, 0);
                     }
 
-                    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override;
+                    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num)override;
                     void mosaic_state_updated()override;
                     void on_visible_state_changed(bool hidden)override;
                     void set_sprite_size(core::gfx::SpriteSize size)override;
@@ -69,7 +69,6 @@ namespace morpheus {
                     bool m_blended = false;
                     bool m_is_4bpp;
                     int m_last_obj_attr_num;
-                    unsigned int m_priority = 0;
 
                     unsigned short m_attr0;
                     unsigned short m_attr1;

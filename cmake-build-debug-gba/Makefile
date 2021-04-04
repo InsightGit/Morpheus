@@ -58,10 +58,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = /home/bobby/morpheus/cmake-build-debug-gba
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -89,7 +89,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -406,6 +406,33 @@ morpheus/core/communication_channel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s
 .PHONY : morpheus/core/communication_channel.cpp.s
 
+morpheus/core/control_reciever.o: morpheus/core/control_reciever.cpp.o
+
+.PHONY : morpheus/core/control_reciever.o
+
+# target to build an object file
+morpheus/core/control_reciever.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o
+.PHONY : morpheus/core/control_reciever.cpp.o
+
+morpheus/core/control_reciever.i: morpheus/core/control_reciever.cpp.i
+
+.PHONY : morpheus/core/control_reciever.i
+
+# target to preprocess a source file
+morpheus/core/control_reciever.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.i
+.PHONY : morpheus/core/control_reciever.cpp.i
+
+morpheus/core/control_reciever.s: morpheus/core/control_reciever.cpp.s
+
+.PHONY : morpheus/core/control_reciever.s
+
+# target to generate assembly for a file
+morpheus/core/control_reciever.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.s
+.PHONY : morpheus/core/control_reciever.cpp.s
+
 morpheus/core/controllers.o: morpheus/core/controllers.cpp.o
 
 .PHONY : morpheus/core/controllers.o
@@ -567,33 +594,6 @@ morpheus/core/main_loop.s: morpheus/core/main_loop.cpp.s
 morpheus/core/main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
 .PHONY : morpheus/core/main_loop.cpp.s
-
-morpheus/core/node.o: morpheus/core/node.cpp.o
-
-.PHONY : morpheus/core/node.o
-
-# target to build an object file
-morpheus/core/node.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
-.PHONY : morpheus/core/node.cpp.o
-
-morpheus/core/node.i: morpheus/core/node.cpp.i
-
-.PHONY : morpheus/core/node.i
-
-# target to preprocess a source file
-morpheus/core/node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.i
-.PHONY : morpheus/core/node.cpp.i
-
-morpheus/core/node.s: morpheus/core/node.cpp.s
-
-.PHONY : morpheus/core/node.s
-
-# target to generate assembly for a file
-morpheus/core/node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s
-.PHONY : morpheus/core/node.cpp.s
 
 morpheus/gba/gba_controllers.o: morpheus/gba/gba_controllers.cpp.o
 
@@ -1063,6 +1063,9 @@ help:
 	@echo "... morpheus/core/communication_channel.o"
 	@echo "... morpheus/core/communication_channel.i"
 	@echo "... morpheus/core/communication_channel.s"
+	@echo "... morpheus/core/control_reciever.o"
+	@echo "... morpheus/core/control_reciever.i"
+	@echo "... morpheus/core/control_reciever.s"
 	@echo "... morpheus/core/controllers.o"
 	@echo "... morpheus/core/controllers.i"
 	@echo "... morpheus/core/controllers.s"
@@ -1081,9 +1084,6 @@ help:
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
-	@echo "... morpheus/core/node.o"
-	@echo "... morpheus/core/node.i"
-	@echo "... morpheus/core/node.s"
 	@echo "... morpheus/gba/gba_controllers.o"
 	@echo "... morpheus/gba/gba_controllers.i"
 	@echo "... morpheus/gba/gba_controllers.s"

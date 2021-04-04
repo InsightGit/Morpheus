@@ -4,11 +4,11 @@
 
 #include "sprite.hpp"
 
-void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
+void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num) {
     auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
     core::gfx::Vector2 position = get_position();
 
-    m_attr2 |= ATTR2_PRIO(m_priority);
+    m_attr2 |= ATTR2_PRIO(get_priority());
 
     if(m_is_4bpp) {
         m_attr0 |= ATTR0_4BPP;

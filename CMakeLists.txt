@@ -12,8 +12,8 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/controllers.cpp
         morpheus/core/main_loop.hpp
         morpheus/core/main_loop.cpp
-        morpheus/core/node.hpp
-        morpheus/core/node.cpp
+        morpheus/core/control_reciever.hpp
+        morpheus/core/control_reciever.cpp
         morpheus/core/save_manager.hpp
         morpheus/core/uncopyable.hpp
         morpheus/core/audio/max_mod_music.hpp

@@ -17,22 +17,19 @@
 
 namespace morpheus {
     namespace utils {
-        class BackgroundTestControls : public morpheus::core::Node {
+        class BackgroundTestControls : public morpheus::core::ControlReciever {
         public:
             BackgroundTestControls(std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background) {
                 m_background = background;
             }
 
-            void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority)override {}
-
-            virtual void input(morpheus::core::InputEvent input_event)override {
+            void input(morpheus::core::InputEvent input_event)override {
                 scroll_background(input_event);
             }
 
             void change_background(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> new_background) {
                 m_background = new_background;
             }
-
         protected:
             void scroll_background(morpheus::core::InputEvent input_event) {
                 if(input_event.state == morpheus::core::InputState::DOWN ||

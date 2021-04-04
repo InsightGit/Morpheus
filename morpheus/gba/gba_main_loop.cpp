@@ -103,42 +103,46 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
     platform_init();
 
     while(true) {
-        int attr_num = 0;
+        key_poll();
 
-        if(m_root != nullptr) {
-            key_poll();
+        std::vector<core::InputEvent> down_events = to_input_events(key_hit(KEY_FULL), GBA_KEYPAD_BITS,
+                                                                    GBA_KEYPAD_BITS_SIZE, core::InputState::DOWN);
+        std::vector<core::InputEvent> held_events = to_input_events(key_is_down(KEY_FULL), GBA_KEYPAD_BITS,
+                                                                    GBA_KEYPAD_BITS_SIZE, core::InputState::HELD);
+        std::vector<core::InputEvent> up_events = to_input_events(key_released(KEY_FULL), GBA_KEYPAD_BITS,
+                                                                  GBA_KEYPAD_BITS_SIZE, core::InputState::UP);
 
-            std::vector<morpheus::core::InputEvent> down_events = to_input_events(key_hit(KEY_FULL),
-                                                                                  GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
-                                                                                  morpheus::core::InputState::DOWN);
-            std::vector<morpheus::core::InputEvent> held_events = to_input_events(key_is_down(KEY_FULL),
-                                                                                  GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
-                                                                                  morpheus::core::InputState::HELD);
-            std::vector<morpheus::core::InputEvent> up_events = to_input_events(key_released(KEY_FULL),
-                                                                                GBA_KEYPAD_BITS, GBA_KEYPAD_BITS_SIZE,
-                                                                                morpheus::core::InputState::UP);
-
-            std::vector<core::InputEvent> input_events;
+        std::vector<core::InputEvent> input_events;
 
 
-            input_events.insert(input_events.end(), down_events.begin(), down_events.end());
-            input_events.insert(input_events.end(), held_events.begin(), held_events.end());
-            input_events.insert(input_events.end(), up_events.begin(), up_events.end());
+        input_events.insert(input_events.end(), down_events.begin(), down_events.end());
+        input_events.insert(input_events.end(), held_events.begin(), held_events.end());
+        input_events.insert(input_events.end(), up_events.begin(), up_events.end());
 
-            if(input_events.size() > 0) {
-                m_last_input_size = input_events.size() * m_cycle_time;
-            }
-
-            for(core::InputEvent input_event : input_events){
-                m_root->received_input(input_event);
-            }
-
-            m_root->received_update(m_cycle_time);
-
-            attr_num = m_root->draw(m_obj_buffer, 0);
+        if(input_events.size() > 0) {
+            m_last_input_size = input_events.size() * m_cycle_time;
         }
 
-        for(int i = 0; attr_num > i; ++i) {
+
+        for(std::shared_ptr<core::ControlReciever> &control_reciever : m_control_recievers) {
+            for(core::InputEvent &event : input_events) {
+                control_reciever->input(event);
+            }
+
+            control_reciever->update(m_cycle_time);
+        }
+
+        for(std::shared_ptr<core::gfx::SpriteBase> &sprite : m_sprites) {
+            for(core::InputEvent input_event : input_events) {
+                sprite->input(input_event);
+            }
+
+            sprite->update(m_cycle_time);
+        }
+
+        for(unsigned int i = 0; m_sprites.size() > i; ++i) {
+            m_sprites[i]->draw(m_obj_buffer, i);
+
             oam_copy(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 1);
         }
 

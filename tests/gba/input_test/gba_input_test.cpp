@@ -38,7 +38,7 @@ protected:
 
 class MoveableSprite8 : public morpheus::gba::gfx::Sprite8Bpp, InputBase {
 public:
-    MoveableSprite8() : morpheus::gba::gfx::Sprite8Bpp(nullptr) {}
+    MoveableSprite8() : morpheus::gba::gfx::Sprite8Bpp(nullptr, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(input_routine(input_event, get_position()));
@@ -47,7 +47,7 @@ protected:
 
 class MoveableSprite4 : public morpheus::gba::gfx::Sprite4Bpp, InputBase {
 public:
-    MoveableSprite4() : morpheus::gba::gfx::Sprite4Bpp(nullptr) {}
+    MoveableSprite4() : morpheus::gba::gfx::Sprite4Bpp(nullptr, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(input_routine(input_event, get_position()));
@@ -80,11 +80,15 @@ int main() {
     test_sprite4.set_position(96, 96);
     test_sprite4_2.set_position(112, 112);
 
-    test_sprite8.add_child(&test_sprite8_2);
-    test_sprite8_2.add_child(&test_sprite4);
-    test_sprite4.add_child(&test_sprite4_2);
+    gba_main_loop->add_sprite(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite8));
+    gba_main_loop->add_sprite(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite8_2));
+    gba_main_loop->add_sprite(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite4));
+    gba_main_loop->add_sprite(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite4_2));
 
-    gba_main_loop->set_root(std::shared_ptr<morpheus::gba::gfx::Sprite>(&test_sprite8));
+    test_sprite8.set_priority(3);
+    test_sprite8_2.set_priority(2);
+    test_sprite4.set_priority(1);
+    test_sprite4_2.set_priority(0);
 
     gba_main_loop->game_loop();
 }

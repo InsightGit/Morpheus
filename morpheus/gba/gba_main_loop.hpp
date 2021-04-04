@@ -13,8 +13,8 @@
 #include <maxmod.h>
 #include <tonc.h>
 
-
 #include <core/main_loop.hpp>
+#include <core/gfx/sprite_base.hpp>
 #include <core/gfx/window.hpp>
 
 #include <gba/gba_controllers.hpp>

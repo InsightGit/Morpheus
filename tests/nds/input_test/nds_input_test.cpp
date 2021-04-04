@@ -83,11 +83,15 @@ int main() {
     test3_sprite.set_position(35, 35);
     test4_sprite.set_position(50, 50);
 
-    test_sprite.add_child(&test2_sprite);
-    test2_sprite.add_child(&test3_sprite);
-    test3_sprite.add_child(&test4_sprite);
+    nds_main_loop->add_sprite(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test_sprite));
+    nds_main_loop->add_sprite(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test2_sprite));
+    nds_main_loop->add_sprite(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test3_sprite));
+    nds_main_loop->add_sprite(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test4_sprite));
 
-    nds_main_loop->set_root(std::shared_ptr<morpheus::nds::gfx::Sprite>(&test_sprite));
+    test_sprite.set_priority(3);
+    test2_sprite.set_priority(2);
+    test3_sprite.set_priority(1);
+    test4_sprite.set_priority(0);
 
     nds_main_loop->game_loop();
 }

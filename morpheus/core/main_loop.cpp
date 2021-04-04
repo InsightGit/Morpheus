@@ -12,6 +12,8 @@ morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blen
     m_communication_channel.reset(communication_channel);
     m_mosaic_controller.reset(mosaic_controller);
     m_no_cash_debug_controller.reset(no_cash_debug_controller);
+
+    m_sprites.reserve(MAX_SPRITE_NUM);
 }
 
 std::vector<morpheus::core::InputEvent>

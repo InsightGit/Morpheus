@@ -53,10 +53,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6556.10/bin/cmake/linux/bin/cmake -E rm -f
+RM = /home/bobby/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.6693.66/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -102,18 +102,18 @@ CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/main_loop.cpp -o CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
 
-CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: CMakeFiles/morpheus.dir/flags.make
-CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o: ../morpheus/core/node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o -c /home/bobby/morpheus/morpheus/core/node.cpp
+CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o: ../morpheus/core/control_reciever.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o -c /home/bobby/morpheus/morpheus/core/control_reciever.cpp
 
-CMakeFiles/morpheus.dir/morpheus/core/node.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/node.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/node.cpp > CMakeFiles/morpheus.dir/morpheus/core/node.cpp.i
+CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/control_reciever.cpp > CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.i
 
-CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/node.cpp -o CMakeFiles/morpheus.dir/morpheus/core/node.cpp.s
+CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/control_reciever.cpp -o CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.s
 
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o: ../morpheus/core/audio/max_mod_music.cpp
@@ -340,7 +340,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.s: cmake_force
 morpheus_OBJECTS = \
 "CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o" \
-"CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o" \
@@ -364,7 +364,7 @@ morpheus_EXTERNAL_OBJECTS =
 
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
-libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/node.cpp.o
+libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o

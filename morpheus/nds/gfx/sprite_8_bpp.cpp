@@ -203,12 +203,12 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
     return true;
 }
 
-void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) {
+void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num) {
     core::gfx::Vector2 position = get_position();
 
     set_last_used_obj_attr_num(obj_attr_num);
 
-    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), priority,
+    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), static_cast<int>(get_priority()),
            static_cast<int>(get_palette_id()),get_sprite_size(), SpriteColorFormat_256Color,
            get_gfx_pointer(), -1, false, false, false, false,
            is_mosaic());

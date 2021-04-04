@@ -5,14 +5,16 @@
 #ifndef MORPHEUS_MAIN_LOOP_HPP
 #define MORPHEUS_MAIN_LOOP_HPP
 
+#include <algorithm>
 #include <random>
 #include <vector>
 
+#include <core/gfx/sprite_base.hpp>
 #include <core/gfx/window.hpp>
-#include <core/controllers.hpp>
 #include <core/communication_channel.hpp>
+#include <core/controllers.hpp>
 #include <core/input_event.hpp>
-#include <core/node.hpp>
+#include <core/control_reciever.hpp>
 #include <core/uncopyable.hpp>
 
 namespace morpheus {
@@ -23,10 +25,12 @@ namespace morpheus {
 
         namespace gfx {
             enum class WindowType;
+            class SpriteBase;
         }
 
-        class Node;
+        class ControlReciever;
 
+        const int MAX_SPRITE_NUM = 128;
         const int VBLANK_CYCLE_TIME = 60;
 
         class MainLoop : Uncopyable {
@@ -35,6 +39,21 @@ namespace morpheus {
                      gfx::MosaicController *mosaic_controller, NoCashDebugController *no_cash_debug_controller);
 
             virtual ~MainLoop() = default;
+
+            void add_control_reciever(std::shared_ptr<ControlReciever> control_reciever) {
+                m_control_recievers.push_back(control_reciever);
+            }
+
+            bool add_sprite(std::shared_ptr<gfx::SpriteBase> sprite) {
+                if(m_sprites.size() < MAX_SPRITE_NUM &&
+                   std::find(m_sprites.begin(), m_sprites.end(), sprite) == m_sprites.end()) {
+                    m_sprites.push_back(sprite);
+
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
             gfx::BlendingController *get_blending_controller() const {
                 return m_blending_controller.get();
@@ -52,8 +71,26 @@ namespace morpheus {
                 return m_communication_channel.get();
             }
 
-            void set_root(std::shared_ptr<Node> root) {
-                m_root = root;
+            void remove_control_reciever(ControlReciever *control_reciever) {
+                std::remove_if(m_control_recievers.begin(), m_control_recievers.end(),
+                               [this, control_reciever](std::shared_ptr<ControlReciever> other) {
+                    return other.get() == control_reciever;
+                });
+            }
+
+            void remove_control_reciever(std::shared_ptr<ControlReciever> control_reciever) {
+                remove_control_reciever(control_reciever.get());
+            }
+
+            void remove_sprite(gfx::SpriteBase *sprite) {
+                std::remove_if(m_sprites.begin(), m_sprites.end(),
+                               [this, sprite](std::shared_ptr<gfx::SpriteBase> other) {
+                   return other.get() == sprite;
+               });
+            }
+
+            void remove_sprite(std::shared_ptr<gfx::SpriteBase> sprite) {
+                remove_sprite(sprite.get());
             }
 
             int get_random_number(int max, int min, int supplementary_seed = 1, bool use_mt = true);
@@ -80,19 +117,20 @@ namespace morpheus {
             virtual Error platform_init() = 0;
 
             unsigned char m_cycle_time;
-            std::shared_ptr<Node> m_root;
-            //std::unique_ptr<PaletteManager> m_palette_manager(new );
+
+            std::vector<std::shared_ptr<ControlReciever>> m_control_recievers;
+            std::vector<std::shared_ptr<gfx::SpriteBase>> m_sprites;
         private:
             std::unique_ptr<gfx::BlendingController> m_blending_controller;
             std::unique_ptr<CommunicationChannel> m_communication_channel;
             std::unique_ptr<gfx::MosaicController> m_mosaic_controller;
             std::unique_ptr<NoCashDebugController> m_no_cash_debug_controller;
 
-
             bool m_mt_inited;
             unsigned short m_r256table[256];
             unsigned char m_r256index;
             int m_past_random_number;
+            unsigned int m_sprite_count = 0;
             int m_supplementary_seed;
         };
     }
