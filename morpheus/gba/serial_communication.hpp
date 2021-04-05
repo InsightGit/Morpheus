@@ -48,9 +48,15 @@ namespace morpheus {
             }
 
             core::RecievePacket get_next_recieved_packet() override {
-                core::RecievePacket return_value = m_recieved_buffer[0];
+                core::RecievePacket return_value;
 
-                m_recieved_buffer.pop_front();
+                if(m_recieved_buffer.empty()) {
+                    return_value.valid = false;
+                } else {
+                    return_value = m_recieved_buffer[0];
+
+                    m_recieved_buffer.pop_front();
+                }
 
                 return return_value;
             }

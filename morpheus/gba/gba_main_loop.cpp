@@ -158,6 +158,8 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
 
         set_supplementary_seed(static_cast<int>(m_cycle_time) + m_obj_buffer.size() + m_last_input_size);
 
+        get_default_communication_channel()->update();
+
         mmFrame();
 
         VBlankIntrWait();

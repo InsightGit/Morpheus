@@ -5,6 +5,10 @@
 #include "serial_communication.hpp"
 
 void morpheus::gba::on_serial_interrupt() {
+    // TODO(Bobby): Either get this interrupt working or get rid of it
+
+    nocash_puts("Serial interrupt called");
+
     if(active_multiplayer_serial_connection != nullptr) {
         active_multiplayer_serial_connection->update();
     }
@@ -32,17 +36,20 @@ morpheus::gba::MultiplayerSerialCommunication::MultiplayerSerialCommunication(Ba
             break;
     }
 
-    // Set bits 12 and 13 to turn on Multiplayer mode in SIOCNT (while enabling serial interrupt in bit 14)
-    REG_SIOCNT |= 0x7000;
+    // Set bits 12 (to 0) and 13 (to 1) to turn on Multiplayer mode
+    // in SIOCNT (while enabling serial interrupt in bit 14)
+    // 0110 0000 0000 0000
+    REG_SIOCNT |= 0x6000;
 
-    // and bits 14 and 15 in RCNT
-    REG_RCNT |= 0xC000;
+    // and bits 14 and 15 (both to 0) in RCNT
+    REG_RCNT &= 0x3FFF;
 
+    irq_init(isr_master);
     irq_add(II_SERIAL, on_serial_interrupt);
 }
 
 bool morpheus::gba::MultiplayerSerialCommunication::transmit_data(unsigned short data) {
-    if(is_connected() && is_master()) {
+    if(is_connected()) {
         m_send_buffer.push_back(data);
 
         return true;
@@ -52,7 +59,7 @@ bool morpheus::gba::MultiplayerSerialCommunication::transmit_data(unsigned short
 }
 
 void morpheus::gba::MultiplayerSerialCommunication::update() {
-    if(is_connected() && is_master()) {
+    if(is_connected()) {
         core::ClientId our_client_id = get_client_id();
 
         for(int i = core::CLIENT_ID_START; core::CLIENT_ID_END >= i; i += core::CLIENT_ID_GAP) {
@@ -132,7 +139,7 @@ void morpheus::gba::MultiplayerSerialCommunication::update() {
 }
 
 bool morpheus::gba::MultiplayerSerialCommunication::send_data_from_queue() {
-    if(!m_send_buffer.empty() && is_connected() && is_master()) {
+    if(!m_send_buffer.empty() && is_connected()) {
         // Set Start bit to zero to mark as inactive
         REG_SIOCNT &= ~BUSY_BIT_MASK;
 

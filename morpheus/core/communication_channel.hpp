@@ -23,6 +23,7 @@ namespace morpheus {
         struct RecievePacket {
             unsigned int data;
             ClientId from;
+            bool valid = true;
         };
 
         class CommunicationChannel {
