@@ -14,6 +14,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
   "/home/bobby/morpheus/morpheus/core/gfx/window.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
   "/home/bobby/morpheus/morpheus/core/main_loop.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/gfx/text.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o"
+  "/home/bobby/morpheus/morpheus/nds/dsi_sd_save_manager.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/nds_window.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
   "/home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"

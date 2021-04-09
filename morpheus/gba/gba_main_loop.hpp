@@ -45,8 +45,10 @@ namespace morpheus {
 
             void clear_obj_vram()override;
 
+            void disable_affine()override;
             void disable_window(core::gfx::WindowType window_type)override;
 
+            void enable_affine(core::gfx::AffineMode affine_mode)override;
             void enable_background(unsigned int background_num)override;
             void enable_window(core::gfx::WindowType window_type)override;
 

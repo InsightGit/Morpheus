@@ -143,6 +143,14 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 }
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
+    if(isDSiMode()) {
+        char *string;
+
+        nitroFSInit(&string);
+
+        set_save_manager(new DsiSdSaveManager(string));
+    }
+
     return morpheus::core::Error::OK;
 }
 

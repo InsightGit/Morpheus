@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include <core/gfx/affine_interface.hpp>
 #include <core/controllers.hpp>
 #include <core/control_reciever.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -34,7 +35,8 @@ namespace morpheus {
 
             class SpriteBase : public core::ControlReciever {
             public:
-                SpriteBase(BlendingController *blending_controller, MosaicController *mosaic_controller) {
+                SpriteBase(bool affine, BlendingController *blending_controller, MosaicController *mosaic_controller) {
+                    m_affine = affine;
                     m_blending_controller = blending_controller;
                     m_mosaic_controller = mosaic_controller;
                 }
@@ -108,6 +110,10 @@ namespace morpheus {
                     on_visible_state_changed(m_hidden);
                 }
 
+                bool is_affine() const {
+                    return m_affine;
+                }
+
                 bool is_drawn_node() const {
                     return m_drawn_node;
                 }
@@ -122,11 +128,39 @@ namespace morpheus {
                     on_visible_state_changed(m_hidden);
                 }
 
+                int get_rotation() const {
+                    if(m_affine) {
+                        return m_rotation;
+                    } else {
+                        return 0;
+                    }
+                }
+
+                Vector2 get_scale() const {
+                    if(m_affine) {
+                        return m_scale;
+                    } else {
+                        return Vector2(1, 1);
+                    }
+                }
+
+                void set_rotation(const int rotation) {
+                    if(m_affine) {
+                        m_rotation = rotation;
+                    }
+                }
+
+                void set_scale(const core::gfx::Vector2 scale) {
+                    if(m_affine) {
+                        m_scale = scale;
+                    }
+                }
+
                 void draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num);
 
                 virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
             protected:
-                virtual void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num) = 0;
+                virtual void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) = 0;
                 virtual void mosaic_state_updated() = 0;
                 virtual void on_visible_state_changed(bool new_visible_state) = 0;
                 virtual void toggle_blending(bool enable_blending, bool bottom_layer = true) = 0;
@@ -137,6 +171,7 @@ namespace morpheus {
 
                 virtual void set_sprite_size(SpriteSize size) = 0;
             private:
+                bool m_affine = false;
                 BlendingController *m_blending_controller;
                 bool m_drawn_node = true;
                 bool m_hidden = false;
@@ -144,6 +179,8 @@ namespace morpheus {
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;
                 unsigned char m_priority = 0;
+                Vector2 m_scale = Vector2(1, 1);
+                int m_rotation = 0;
             };
         }
     }

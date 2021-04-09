@@ -6,6 +6,7 @@ cmake_minimum_required(VERSION 3.16)
 include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
+
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
         morpheus/core/controllers.hpp
@@ -20,18 +21,18 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/audio/max_mod_music.cpp
         morpheus/core/audio/max_mod_sfx.hpp
         morpheus/core/audio/max_mod_sfx.cpp
+        morpheus/core/gfx/sprite_base.cpp
+        morpheus/core/gfx/sprite_base.hpp
+        morpheus/core/gfx/text_base.cpp
+        morpheus/core/gfx/text_base.hpp
         morpheus/core/gfx/tiled_background_base.hpp
         morpheus/core/gfx/tiled_background_base.cpp
         morpheus/core/gfx/vector_2.hpp
         morpheus/core/gfx/window.hpp
         morpheus/core/gfx/window.cpp
         morpheus/utils.hpp
-        morpheus/core/gfx/sprite_base.cpp
-        morpheus/core/gfx/sprite_base.hpp
-        morpheus/core/gfx/text_base.cpp
-        morpheus/core/gfx/text_base.hpp
         morpheus/core/communication_channel.cpp
-        morpheus/core/communication_channel.hpp)
+        morpheus/core/communication_channel.hpp morpheus/gba/gfx/text.cpp morpheus/gba/gfx/text.hpp)
 
 
 project(morpheus)
@@ -108,7 +109,9 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/tiled_background_8_bpp.hpp
             morpheus/nds/gfx/tiled_background_8_bpp.cpp
             morpheus/nds/gfx/nds_window.cpp
-            morpheus/nds/gfx/nds_window.hpp)
+            morpheus/nds/gfx/nds_window.hpp
+            morpheus/nds/dsi_sd_save_manager.hpp
+            morpheus/nds/dsi_sd_save_manager.cpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 
@@ -237,7 +240,6 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
 
-
         project(morpheus-gba-maxmod-test)
 
         message(STATUS ${maxmod_soundbank_list})
@@ -251,7 +253,6 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-maxmod-test.elf)
 
         target_link_libraries(morpheus-gba-maxmod-test.elf morpheus mm tonc)
-
 
         project(morpheus-gba-gfx-effects-test)
 
@@ -286,6 +287,15 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-serial-test.elf)
 
         target_link_libraries(morpheus-gba-serial-test.elf morpheus mm tonc)
+
+        project(morpheus-gba-affine-test)
+
+        link_directories(morpheus-gba-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-gba-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES})
+        add_gba_executable(morpheus-gba-affine-test.elf)
+
+        target_link_libraries(morpheus-gba-affine-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
         list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
 
@@ -378,16 +388,15 @@ if("$ENV{BUILD_TESTS}")
         target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
 
 
-        project(morpheus-nds-flash-test)
+        project(morpheus-nds-save-test)
 
-        link_directories(morpheus-nds-flash-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+        link_directories(morpheus-nds-save-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        add_executable(morpheus-nds-flash-test.elf tests/nds/flash_test/nds_flash_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
-        add_nds_executable(morpheus-nds-flash-test.elf "tests/nds/input_test/ds_icon.bmp"
-                "Morpheus Flash Test" "Morpheus engine" "")
+        add_executable(morpheus-nds-save-test.elf tests/nds/save_test/nds_save_test.cpp)
+        add_nds_executable(morpheus-nds-save-test.elf "tests/nds/input_test/ds_icon.bmp"
+                           "Morpheus DS Save Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-flash-test.elf nds9 mm9 morpheus)
+        target_link_libraries(morpheus-nds-save-test.elf morpheus mm9 filesystem fat nds9)
 
 
         project(morpheus-nds-maxmod-test)

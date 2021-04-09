@@ -187,7 +187,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=morpheus-gba-serial-test
+CMAKE_PROJECT_NAME:STATIC=morpheus-gba-affine-test
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -275,6 +275,18 @@ ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 
 //Path to a program.
 ProcessorCount_cmd_sysctl:FILEPATH=/usr/sbin/sysctl
+
+//Value Computed by CMake
+morpheus-gba--test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
+
+//Value Computed by CMake
+morpheus-gba--test_SOURCE_DIR:STATIC=/home/bobby/morpheus
+
+//Value Computed by CMake
+morpheus-gba-affine-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba
+
+//Value Computed by CMake
+morpheus-gba-affine-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
 morpheus-gba-gfx-effects-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-gba

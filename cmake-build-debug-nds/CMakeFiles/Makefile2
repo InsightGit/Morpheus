@@ -76,14 +76,14 @@ all: CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/all
 all: CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/all
 all: CMakeFiles/morpheus-nds-maxmod-test.nds.dir/all
 all: CMakeFiles/morpheus-nds-tileset-test.elf.dir/all
-all: CMakeFiles/morpheus-nds-flash-test.elf.dir/all
 all: CMakeFiles/morpheus-nds-input-test.nds.dir/all
 all: CMakeFiles/morpheus-nds-tileset-test.nds.dir/all
 all: CMakeFiles/morpheus-nds-input-test.elf.dir/all
 all: CMakeFiles/morpheus.dir/all
+all: CMakeFiles/morpheus-nds-save-test.elf.dir/all
 all: CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/all
 all: CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/all
-all: CMakeFiles/morpheus-nds-flash-test.nds.dir/all
+all: CMakeFiles/morpheus-nds-save-test.nds.dir/all
 all: CMakeFiles/morpheus-nds-maxmod-test.elf.dir/all
 
 .PHONY : all
@@ -98,14 +98,14 @@ clean: CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/clean
 clean: CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/clean
 clean: CMakeFiles/morpheus-nds-maxmod-test.nds.dir/clean
 clean: CMakeFiles/morpheus-nds-tileset-test.elf.dir/clean
-clean: CMakeFiles/morpheus-nds-flash-test.elf.dir/clean
 clean: CMakeFiles/morpheus-nds-input-test.nds.dir/clean
 clean: CMakeFiles/morpheus-nds-tileset-test.nds.dir/clean
 clean: CMakeFiles/morpheus-nds-input-test.elf.dir/clean
 clean: CMakeFiles/morpheus.dir/clean
+clean: CMakeFiles/morpheus-nds-save-test.elf.dir/clean
 clean: CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/clean
 clean: CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/clean
-clean: CMakeFiles/morpheus-nds-flash-test.nds.dir/clean
+clean: CMakeFiles/morpheus-nds-save-test.nds.dir/clean
 clean: CMakeFiles/morpheus-nds-maxmod-test.elf.dir/clean
 
 .PHONY : clean
@@ -122,7 +122,7 @@ CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/all: CMakeFiles/morpheus-nds-gf
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 28
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 30
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/rule
@@ -144,12 +144,12 @@ CMakeFiles/morpheus-nds-gfx-effects-test.nds.dir/clean:
 CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=33,34,35,36,37,38,39 "Built target morpheus-nds-gfx-effects-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=32,33,34,35,36,37,38 "Built target morpheus-nds-gfx-effects-test.elf"
 .PHONY : CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 28
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 30
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-gfx-effects-test.elf.dir/rule
@@ -176,7 +176,7 @@ CMakeFiles/morpheus-nds-maxmod-test.nds.dir/all: CMakeFiles/morpheus-nds-maxmod-
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-maxmod-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 24
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 26
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-maxmod-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-maxmod-test.nds.dir/rule
@@ -198,12 +198,12 @@ CMakeFiles/morpheus-nds-maxmod-test.nds.dir/clean:
 CMakeFiles/morpheus-nds-tileset-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-tileset-test.elf.dir/build.make CMakeFiles/morpheus-nds-tileset-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=49,50,51,52,53,54,55,56 "Built target morpheus-nds-tileset-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=50,51,52,53,54,55,56,57 "Built target morpheus-nds-tileset-test.elf"
 .PHONY : CMakeFiles/morpheus-nds-tileset-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-tileset-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-tileset-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-tileset-test.elf.dir/rule
@@ -219,33 +219,6 @@ CMakeFiles/morpheus-nds-tileset-test.elf.dir/clean:
 .PHONY : CMakeFiles/morpheus-nds-tileset-test.elf.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/morpheus-nds-flash-test.elf.dir
-
-# All Build rule for target.
-CMakeFiles/morpheus-nds-flash-test.elf.dir/all: CMakeFiles/morpheus.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=30,31,32 "Built target morpheus-nds-flash-test.elf"
-.PHONY : CMakeFiles/morpheus-nds-flash-test.elf.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/morpheus-nds-flash-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 24
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-flash-test.elf.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-nds-flash-test.elf.dir/rule
-
-# Convenience name for target.
-morpheus-nds-flash-test.elf: CMakeFiles/morpheus-nds-flash-test.elf.dir/rule
-
-.PHONY : morpheus-nds-flash-test.elf
-
-# clean rule for target.
-CMakeFiles/morpheus-nds-flash-test.elf.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/clean
-.PHONY : CMakeFiles/morpheus-nds-flash-test.elf.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/morpheus-nds-input-test.nds.dir
 
 # All Build rule for target.
@@ -257,7 +230,7 @@ CMakeFiles/morpheus-nds-input-test.nds.dir/all: CMakeFiles/morpheus-nds-input-te
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-input-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 27
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-input-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-input-test.nds.dir/rule
@@ -284,7 +257,7 @@ CMakeFiles/morpheus-nds-tileset-test.nds.dir/all: CMakeFiles/morpheus-nds-tilese
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-tileset-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-tileset-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-tileset-test.nds.dir/rule
@@ -306,12 +279,12 @@ CMakeFiles/morpheus-nds-tileset-test.nds.dir/clean:
 CMakeFiles/morpheus-nds-input-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=40,41,42,43,44,45 "Built target morpheus-nds-input-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=39,40,41,42,43,44 "Built target morpheus-nds-input-test.elf"
 .PHONY : CMakeFiles/morpheus-nds-input-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-input-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 27
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-input-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-input-test.elf.dir/rule
@@ -333,12 +306,12 @@ CMakeFiles/morpheus-nds-input-test.elf.dir/clean:
 CMakeFiles/morpheus.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 "Built target morpheus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 "Built target morpheus"
 .PHONY : CMakeFiles/morpheus.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 21
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 23
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus.dir/rule
@@ -354,18 +327,45 @@ CMakeFiles/morpheus.dir/clean:
 .PHONY : CMakeFiles/morpheus.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/morpheus-nds-save-test.elf.dir
+
+# All Build rule for target.
+CMakeFiles/morpheus-nds-save-test.elf.dir/all: CMakeFiles/morpheus.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=48,49 "Built target morpheus-nds-save-test.elf"
+.PHONY : CMakeFiles/morpheus-nds-save-test.elf.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/morpheus-nds-save-test.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 25
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-save-test.elf.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
+.PHONY : CMakeFiles/morpheus-nds-save-test.elf.dir/rule
+
+# Convenience name for target.
+morpheus-nds-save-test.elf: CMakeFiles/morpheus-nds-save-test.elf.dir/rule
+
+.PHONY : morpheus-nds-save-test.elf
+
+# clean rule for target.
+CMakeFiles/morpheus-nds-save-test.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/clean
+.PHONY : CMakeFiles/morpheus-nds-save-test.elf.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/morpheus-nds-extended-palette-test.elf.dir
 
 # All Build rule for target.
 CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=22,23,24,25,26,27,28,29 "Built target morpheus-nds-extended-palette-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=24,25,26,27,28,29,30,31 "Built target morpheus-nds-extended-palette-test.elf"
 .PHONY : CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/rule
@@ -392,7 +392,7 @@ CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/all: CMakeFiles/morpheus-n
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 31
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/rule
@@ -408,31 +408,31 @@ CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/clean:
 .PHONY : CMakeFiles/morpheus-nds-extended-palette-test.nds.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/morpheus-nds-flash-test.nds.dir
+# Target rules for target CMakeFiles/morpheus-nds-save-test.nds.dir
 
 # All Build rule for target.
-CMakeFiles/morpheus-nds-flash-test.nds.dir/all: CMakeFiles/morpheus-nds-flash-test.elf.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.nds.dir/build.make CMakeFiles/morpheus-nds-flash-test.nds.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.nds.dir/build.make CMakeFiles/morpheus-nds-flash-test.nds.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num= "Built target morpheus-nds-flash-test.nds"
-.PHONY : CMakeFiles/morpheus-nds-flash-test.nds.dir/all
+CMakeFiles/morpheus-nds-save-test.nds.dir/all: CMakeFiles/morpheus-nds-save-test.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.nds.dir/build.make CMakeFiles/morpheus-nds-save-test.nds.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.nds.dir/build.make CMakeFiles/morpheus-nds-save-test.nds.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num= "Built target morpheus-nds-save-test.nds"
+.PHONY : CMakeFiles/morpheus-nds-save-test.nds.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/morpheus-nds-flash-test.nds.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 24
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-flash-test.nds.dir/all
+CMakeFiles/morpheus-nds-save-test.nds.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 25
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-save-test.nds.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
-.PHONY : CMakeFiles/morpheus-nds-flash-test.nds.dir/rule
+.PHONY : CMakeFiles/morpheus-nds-save-test.nds.dir/rule
 
 # Convenience name for target.
-morpheus-nds-flash-test.nds: CMakeFiles/morpheus-nds-flash-test.nds.dir/rule
+morpheus-nds-save-test.nds: CMakeFiles/morpheus-nds-save-test.nds.dir/rule
 
-.PHONY : morpheus-nds-flash-test.nds
+.PHONY : morpheus-nds-save-test.nds
 
 # clean rule for target.
-CMakeFiles/morpheus-nds-flash-test.nds.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.nds.dir/build.make CMakeFiles/morpheus-nds-flash-test.nds.dir/clean
-.PHONY : CMakeFiles/morpheus-nds-flash-test.nds.dir/clean
+CMakeFiles/morpheus-nds-save-test.nds.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.nds.dir/build.make CMakeFiles/morpheus-nds-save-test.nds.dir/clean
+.PHONY : CMakeFiles/morpheus-nds-save-test.nds.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/morpheus-nds-maxmod-test.elf.dir
@@ -441,12 +441,12 @@ CMakeFiles/morpheus-nds-flash-test.nds.dir/clean:
 CMakeFiles/morpheus-nds-maxmod-test.elf.dir/all: CMakeFiles/morpheus.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build.make CMakeFiles/morpheus-nds-maxmod-test.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=46,47,48 "Built target morpheus-nds-maxmod-test.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=45,46,47 "Built target morpheus-nds-maxmod-test.elf"
 .PHONY : CMakeFiles/morpheus-nds-maxmod-test.elf.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/morpheus-nds-maxmod-test.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 24
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 26
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/morpheus-nds-maxmod-test.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles 0
 .PHONY : CMakeFiles/morpheus-nds-maxmod-test.elf.dir/rule

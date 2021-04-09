@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/morpheus-gba-input-test.gba"
-  "morpheus-gba-serial-test.gba"
+  "morpheus-gba-affine-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

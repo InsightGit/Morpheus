@@ -13,10 +13,11 @@
 #include <gba/audio/gba_max_mod_music.hpp>
 #include <gba/audio/gba_max_mod_sfx.hpp>
 
+#include <gba/gfx/gba_window.hpp>
 #include <gba/gfx/sprite_4_bpp.hpp>
 #include <gba/gfx/sprite_8_bpp.hpp>
+#include <gba/gfx/text.hpp>
 #include <gba/gfx/tiled_background.hpp>
-#include <gba/gfx/gba_window.hpp>
 
 #include <utils.hpp>
 

@@ -20,6 +20,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite_4_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/sprite_8_bpp.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
+  "/home/bobby/morpheus/morpheus/gba/gfx/text.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/gfx/tiled_background.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o"
   "/home/bobby/morpheus/morpheus/gba/serial_communication.cpp" "/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o"
   )

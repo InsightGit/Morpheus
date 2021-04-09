@@ -4,7 +4,7 @@
 
 #include "sprite.hpp"
 
-void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num) {
+void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) {
     auto *obj = static_cast<OBJ_ATTR *>(obj_attr_buffer[obj_attr_num]);
     core::gfx::Vector2 position = get_position();
 
@@ -18,8 +18,22 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
 
     m_last_obj_attr_num = obj_attr_num;
 
+    if(is_affine()) {
+        m_attr0 |= ATTR0_AFF | ATTR0_AFF_DBL;
+        m_attr1 |= ATTR1_AFF_ID(obj_attr_num);
+    }
+
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
     obj_set_pos(obj, position.get_x(), position.get_y());
+
+    if(is_affine()) {
+        auto *affine_obj = reinterpret_cast<OBJ_AFFINE *>(obj);
+
+        obj_aff_identity(affine_obj);
+
+        obj_aff_rotate(affine_obj, get_rotation());
+        obj_aff_scale_inv(affine_obj, (1<<8)-get_scale().get_x(), (1<<8)-get_scale().get_y());
+    }
 }
 
 void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {

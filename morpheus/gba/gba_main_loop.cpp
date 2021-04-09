@@ -114,7 +114,6 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
 
         std::vector<core::InputEvent> input_events;
 
-
         input_events.insert(input_events.end(), down_events.begin(), down_events.end());
         input_events.insert(input_events.end(), held_events.begin(), held_events.end());
         input_events.insert(input_events.end(), up_events.begin(), up_events.end());
@@ -122,7 +121,6 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
         if(input_events.size() > 0) {
             m_last_input_size = input_events.size() * m_cycle_time;
         }
-
 
         for(std::shared_ptr<core::ControlReciever> &control_reciever : m_control_recievers) {
             for(core::InputEvent &event : input_events) {
@@ -139,6 +137,11 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
 
             sprite->update(m_cycle_time);
         }
+
+        /*m_sprites.erase(std::remove_if(m_sprites.begin(), m_sprites.end(),
+                                               [](const std::shared_ptr<core::gfx::SpriteBase> &sprite) {
+            return sprite.get() == nullptr;
+        }), m_sprites.end());*/
 
         for(unsigned int i = 0; m_sprites.size() > i; ++i) {
             m_sprites[i]->draw(m_obj_buffer, i);
@@ -171,8 +174,21 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     irq_init(nullptr);
     irq_enable(eIrqIndex::II_VBLANK);
 
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable | m_windows_to_enable;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | m_backgrounds_to_enable | m_windows_to_enable;
     REG_IME = 1;
+
+    if(is_affine()) {
+        switch(get_affine_mode()) {
+            case morpheus::core::gfx::AffineMode::MIXED_AFFINE:
+                REG_DISPCNT |= DCNT_MODE1;
+                break;
+            case morpheus::core::gfx::AffineMode::FULL_AFFINE:
+                REG_DISPCNT |= DCNT_MODE2;
+                break;
+        }
+    } else {
+        REG_DISPCNT |= DCNT_MODE0;
+    }
 
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
         m_obj_buffer.push_back(new OBJ_ATTR());
@@ -271,6 +287,30 @@ void morpheus::gba::GbaMainLoop::clear_obj_vram() {
     //memcpy16(oam_mem, 0, 256);
 
     memset16(reinterpret_cast<void *>(MEM_VRAM), 0, 98304);
+}
+
+void morpheus::gba::GbaMainLoop::disable_affine() {
+    set_affine(false);
+
+    if(m_platform_inited) {
+        REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE0 | m_backgrounds_to_enable | m_windows_to_enable;
+    }
+}
+
+void morpheus::gba::GbaMainLoop::enable_affine(morpheus::core::gfx::AffineMode affine_mode) {
+    set_affine(true);
+    set_affine_mode(affine_mode);
+
+    if(m_platform_inited) {
+        switch(affine_mode) {
+            case morpheus::core::gfx::AffineMode::MIXED_AFFINE:
+                REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE1 | m_backgrounds_to_enable | m_windows_to_enable;
+                break;
+            case morpheus::core::gfx::AffineMode::FULL_AFFINE:
+                REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_MODE2 | m_backgrounds_to_enable | m_windows_to_enable;
+                break;
+        }
+    }
 }
 
 /*void morpheus::gba::GbaMainLoop::clear_vram() {

@@ -45,11 +45,13 @@ core/gfx/window.hpp
 -
 core/controllers.hpp
 -
+core/control_reciever.hpp
+-
 core/input_event.hpp
 -
 core/main_loop.hpp
 -
-core/control_reciever.hpp
+core/save_manager.hpp
 -
 core/uncopyable.hpp
 -
@@ -99,14 +101,34 @@ core/communication_channel.hpp
 -
 core/controllers.hpp
 -
+core/control_reciever.hpp
+-
 core/input_event.hpp
 -
-core/control_reciever.hpp
+core/save_manager.hpp
 -
 core/uncopyable.hpp
 -
 
+../morpheus/core/save_manager.hpp
+string
+-
+vector
+-
+
 ../morpheus/core/uncopyable.hpp
+
+../morpheus/nds/dsi_sd_save_manager.hpp
+iostream
+-
+fat.h
+-
+filesystem.h
+-
+nds.h
+-
+core/save_manager.hpp
+-
 
 ../morpheus/nds/nds_controllers.hpp
 nds.h
@@ -129,6 +151,24 @@ core/gfx/window.hpp
 -
 nds/nds_controllers.hpp
 -
+nds/dsi_sd_save_manager.hpp
+-
+
+/opt/devkitpro/libnds/include/fat.h
+libfatversion.h
+/opt/devkitpro/libnds/include/libfatversion.h
+stdint.h
+-
+ogc/disc_io.h
+-
+nds/disc_io.h
+-
+disc_io.h
+-
+
+/opt/devkitpro/libnds/include/filesystem.h
+
+/opt/devkitpro/libnds/include/libfatversion.h
 
 /opt/devkitpro/libnds/include/maxmod9.h
 mm_types.h
@@ -435,6 +475,10 @@ ndstypes.h
 /opt/devkitpro/libnds/include/nds/ndstypes.h
 
 /opt/devkitpro/libnds/include/nds/debug.h
+
+/opt/devkitpro/libnds/include/nds/disc_io.h
+ndstypes.h
+/opt/devkitpro/libnds/include/nds/ndstypes.h
 
 /opt/devkitpro/libnds/include/nds/dma.h
 nds/ndstypes.h

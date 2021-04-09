@@ -42,6 +42,10 @@ namespace morpheus {
                 bool operator!=(const Vector2 &other) const {
                     return (m_x != other.m_x) || (m_y != other.m_y);
                 }
+
+                Vector2 operator+(const Vector2 &other) const {
+                    return Vector2(m_x + other.m_x, m_y + other.m_y);
+                }
             private:
                 int m_x;
                 int m_y;

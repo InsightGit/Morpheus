@@ -308,6 +308,12 @@ morpheus-nds-maxmod-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debu
 morpheus-nds-maxmod-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
 
 //Value Computed by CMake
+morpheus-nds-save-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
+
+//Value Computed by CMake
+morpheus-nds-save-test_SOURCE_DIR:STATIC=/home/bobby/morpheus
+
+//Value Computed by CMake
 morpheus-nds-tileset-test_BINARY_DIR:STATIC=/home/bobby/morpheus/cmake-build-debug-nds
 
 //Value Computed by CMake

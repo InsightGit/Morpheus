@@ -182,19 +182,6 @@ morpheus-nds-tileset-test.elf/fast:
 .PHONY : morpheus-nds-tileset-test.elf/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-flash-test.elf
-
-# Build rule for target.
-morpheus-nds-flash-test.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-flash-test.elf
-.PHONY : morpheus-nds-flash-test.elf
-
-# fast build rule for target.
-morpheus-nds-flash-test.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/build
-.PHONY : morpheus-nds-flash-test.elf/fast
-
-#=============================================================================
 # Target rules for targets named morpheus-nds-input-test.nds
 
 # Build rule for target.
@@ -247,6 +234,19 @@ morpheus/fast:
 .PHONY : morpheus/fast
 
 #=============================================================================
+# Target rules for targets named morpheus-nds-save-test.elf
+
+# Build rule for target.
+morpheus-nds-save-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-save-test.elf
+.PHONY : morpheus-nds-save-test.elf
+
+# fast build rule for target.
+morpheus-nds-save-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/build
+.PHONY : morpheus-nds-save-test.elf/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-nds-extended-palette-test.elf
 
 # Build rule for target.
@@ -273,17 +273,17 @@ morpheus-nds-extended-palette-test.nds/fast:
 .PHONY : morpheus-nds-extended-palette-test.nds/fast
 
 #=============================================================================
-# Target rules for targets named morpheus-nds-flash-test.nds
+# Target rules for targets named morpheus-nds-save-test.nds
 
 # Build rule for target.
-morpheus-nds-flash-test.nds: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-flash-test.nds
-.PHONY : morpheus-nds-flash-test.nds
+morpheus-nds-save-test.nds: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-nds-save-test.nds
+.PHONY : morpheus-nds-save-test.nds
 
 # fast build rule for target.
-morpheus-nds-flash-test.nds/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.nds.dir/build.make CMakeFiles/morpheus-nds-flash-test.nds.dir/build
-.PHONY : morpheus-nds-flash-test.nds/fast
+morpheus-nds-save-test.nds/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.nds.dir/build.make CMakeFiles/morpheus-nds-save-test.nds.dir/build
+.PHONY : morpheus-nds-save-test.nds/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-nds-maxmod-test.elf
@@ -627,6 +627,60 @@ morpheus/core/main_loop.s: morpheus/core/main_loop.cpp.s
 morpheus/core/main_loop.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.s
 .PHONY : morpheus/core/main_loop.cpp.s
+
+morpheus/gba/gfx/text.o: morpheus/gba/gfx/text.cpp.o
+
+.PHONY : morpheus/gba/gfx/text.o
+
+# target to build an object file
+morpheus/gba/gfx/text.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o
+.PHONY : morpheus/gba/gfx/text.cpp.o
+
+morpheus/gba/gfx/text.i: morpheus/gba/gfx/text.cpp.i
+
+.PHONY : morpheus/gba/gfx/text.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/text.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.i
+.PHONY : morpheus/gba/gfx/text.cpp.i
+
+morpheus/gba/gfx/text.s: morpheus/gba/gfx/text.cpp.s
+
+.PHONY : morpheus/gba/gfx/text.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/text.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.s
+.PHONY : morpheus/gba/gfx/text.cpp.s
+
+morpheus/nds/dsi_sd_save_manager.o: morpheus/nds/dsi_sd_save_manager.cpp.o
+
+.PHONY : morpheus/nds/dsi_sd_save_manager.o
+
+# target to build an object file
+morpheus/nds/dsi_sd_save_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o
+.PHONY : morpheus/nds/dsi_sd_save_manager.cpp.o
+
+morpheus/nds/dsi_sd_save_manager.i: morpheus/nds/dsi_sd_save_manager.cpp.i
+
+.PHONY : morpheus/nds/dsi_sd_save_manager.i
+
+# target to preprocess a source file
+morpheus/nds/dsi_sd_save_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.i
+.PHONY : morpheus/nds/dsi_sd_save_manager.cpp.i
+
+morpheus/nds/dsi_sd_save_manager.s: morpheus/nds/dsi_sd_save_manager.cpp.s
+
+.PHONY : morpheus/nds/dsi_sd_save_manager.s
+
+# target to generate assembly for a file
+morpheus/nds/dsi_sd_save_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.s
+.PHONY : morpheus/nds/dsi_sd_save_manager.cpp.s
 
 morpheus/nds/gfx/nds_window.o: morpheus/nds/gfx/nds_window.cpp.o
 
@@ -1039,33 +1093,6 @@ tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/build.make CMakeFiles/morpheus-nds-extended-palette-test.elf.dir/tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s
 .PHONY : tests/nds/extended_palette_test/nds_extended_palette_test.cpp.s
 
-tests/nds/flash_test/nds_flash_test.o: tests/nds/flash_test/nds_flash_test.cpp.o
-
-.PHONY : tests/nds/flash_test/nds_flash_test.o
-
-# target to build an object file
-tests/nds/flash_test/nds_flash_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.o
-.PHONY : tests/nds/flash_test/nds_flash_test.cpp.o
-
-tests/nds/flash_test/nds_flash_test.i: tests/nds/flash_test/nds_flash_test.cpp.i
-
-.PHONY : tests/nds/flash_test/nds_flash_test.i
-
-# target to preprocess a source file
-tests/nds/flash_test/nds_flash_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.i
-.PHONY : tests/nds/flash_test/nds_flash_test.cpp.i
-
-tests/nds/flash_test/nds_flash_test.s: tests/nds/flash_test/nds_flash_test.cpp.s
-
-.PHONY : tests/nds/flash_test/nds_flash_test.s
-
-# target to generate assembly for a file
-tests/nds/flash_test/nds_flash_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-flash-test.elf.dir/build.make CMakeFiles/morpheus-nds-flash-test.elf.dir/tests/nds/flash_test/nds_flash_test.cpp.s
-.PHONY : tests/nds/flash_test/nds_flash_test.cpp.s
-
 tests/nds/input_test/nds_input_test.o: tests/nds/input_test/nds_input_test.cpp.o
 
 .PHONY : tests/nds/input_test/nds_input_test.o
@@ -1092,6 +1119,33 @@ tests/nds/input_test/nds_input_test.s: tests/nds/input_test/nds_input_test.cpp.s
 tests/nds/input_test/nds_input_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-input-test.elf.dir/build.make CMakeFiles/morpheus-nds-input-test.elf.dir/tests/nds/input_test/nds_input_test.cpp.s
 .PHONY : tests/nds/input_test/nds_input_test.cpp.s
+
+tests/nds/save_test/nds_save_test.o: tests/nds/save_test/nds_save_test.cpp.o
+
+.PHONY : tests/nds/save_test/nds_save_test.o
+
+# target to build an object file
+tests/nds/save_test/nds_save_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/tests/nds/save_test/nds_save_test.cpp.o
+.PHONY : tests/nds/save_test/nds_save_test.cpp.o
+
+tests/nds/save_test/nds_save_test.i: tests/nds/save_test/nds_save_test.cpp.i
+
+.PHONY : tests/nds/save_test/nds_save_test.i
+
+# target to preprocess a source file
+tests/nds/save_test/nds_save_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/tests/nds/save_test/nds_save_test.cpp.i
+.PHONY : tests/nds/save_test/nds_save_test.cpp.i
+
+tests/nds/save_test/nds_save_test.s: tests/nds/save_test/nds_save_test.cpp.s
+
+.PHONY : tests/nds/save_test/nds_save_test.s
+
+# target to generate assembly for a file
+tests/nds/save_test/nds_save_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-nds-save-test.elf.dir/build.make CMakeFiles/morpheus-nds-save-test.elf.dir/tests/nds/save_test/nds_save_test.cpp.s
+.PHONY : tests/nds/save_test/nds_save_test.cpp.s
 
 tests/tileset_test/tileset_test.o: tests/tileset_test/tileset_test.cpp.o
 
@@ -1129,17 +1183,17 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... morpheus-nds-extended-palette-test.nds"
-	@echo "... morpheus-nds-flash-test.nds"
 	@echo "... morpheus-nds-gfx-effects-test.nds"
 	@echo "... morpheus-nds-input-test.nds"
 	@echo "... morpheus-nds-maxmod-test.nds"
+	@echo "... morpheus-nds-save-test.nds"
 	@echo "... morpheus-nds-tileset-test.nds"
 	@echo "... morpheus"
 	@echo "... morpheus-nds-extended-palette-test.elf"
-	@echo "... morpheus-nds-flash-test.elf"
 	@echo "... morpheus-nds-gfx-effects-test.elf"
 	@echo "... morpheus-nds-input-test.elf"
 	@echo "... morpheus-nds-maxmod-test.elf"
+	@echo "... morpheus-nds-save-test.elf"
 	@echo "... morpheus-nds-tileset-test.elf"
 	@echo "... brin.o"
 	@echo "... brin.i"
@@ -1177,6 +1231,12 @@ help:
 	@echo "... morpheus/core/main_loop.o"
 	@echo "... morpheus/core/main_loop.i"
 	@echo "... morpheus/core/main_loop.s"
+	@echo "... morpheus/gba/gfx/text.o"
+	@echo "... morpheus/gba/gfx/text.i"
+	@echo "... morpheus/gba/gfx/text.s"
+	@echo "... morpheus/nds/dsi_sd_save_manager.o"
+	@echo "... morpheus/nds/dsi_sd_save_manager.i"
+	@echo "... morpheus/nds/dsi_sd_save_manager.s"
 	@echo "... morpheus/nds/gfx/nds_window.o"
 	@echo "... morpheus/nds/gfx/nds_window.i"
 	@echo "... morpheus/nds/gfx/nds_window.s"
@@ -1222,12 +1282,12 @@ help:
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.o"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.i"
 	@echo "... tests/nds/extended_palette_test/nds_extended_palette_test.s"
-	@echo "... tests/nds/flash_test/nds_flash_test.o"
-	@echo "... tests/nds/flash_test/nds_flash_test.i"
-	@echo "... tests/nds/flash_test/nds_flash_test.s"
 	@echo "... tests/nds/input_test/nds_input_test.o"
 	@echo "... tests/nds/input_test/nds_input_test.i"
 	@echo "... tests/nds/input_test/nds_input_test.s"
+	@echo "... tests/nds/save_test/nds_save_test.o"
+	@echo "... tests/nds/save_test/nds_save_test.i"
+	@echo "... tests/nds/save_test/nds_save_test.s"
 	@echo "... tests/tileset_test/tileset_test.o"
 	@echo "... tests/tileset_test/tileset_test.i"
 	@echo "... tests/tileset_test/tileset_test.s"

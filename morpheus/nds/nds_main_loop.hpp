@@ -13,6 +13,8 @@
 #include <core/gfx/window.hpp>
 
 #include <nds/nds_controllers.hpp>
+#include <nds/dsi_sd_save_manager.hpp>
+
 
 namespace morpheus {
     namespace nds {
@@ -68,6 +70,8 @@ namespace morpheus {
             static PrintConsole *debug_print_console;
 
             unsigned int m_last_input_size = 0;
+
+            std::unique_ptr<core::SaveManager> m_save_manager;
             std::unique_ptr<gfx::NdsBlendingController> m_sub_blending_controller;
             std::unique_ptr<gfx::NdsMosaicController> m_sub_mosaic_controller;
         };

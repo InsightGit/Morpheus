@@ -15,11 +15,12 @@ file(REMOVE_RECURSE
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_4_bpp.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.o"
+  "CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/gfx/tiled_background.cpp.o"
   "CMakeFiles/morpheus.dir/morpheus/gba/serial_communication.cpp.o"
   "libgba_morpheus.a"
   "libgba_morpheus.pdb"
-  "morpheus-gba-serial-test.gba"
+  "morpheus-gba-affine-test.gba"
 )
 
 # Per-language clean rules from dependency scanning.

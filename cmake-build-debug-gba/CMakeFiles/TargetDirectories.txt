@@ -1,6 +1,8 @@
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/rebuild_cache.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/edit_cache.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-affine-test.gba.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir
+/home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-affine-test.elf.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-serial-test.elf.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-sram-test.elf.dir
 /home/bobby/morpheus/cmake-build-debug-gba/CMakeFiles/morpheus-gba-tileset-test.gba.dir

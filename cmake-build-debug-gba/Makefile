@@ -130,6 +130,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named morpheus-gba-affine-test.gba
+
+# Build rule for target.
+morpheus-gba-affine-test.gba: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-affine-test.gba
+.PHONY : morpheus-gba-affine-test.gba
+
+# fast build rule for target.
+morpheus-gba-affine-test.gba/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-affine-test.gba.dir/build.make CMakeFiles/morpheus-gba-affine-test.gba.dir/build
+.PHONY : morpheus-gba-affine-test.gba/fast
+
+#=============================================================================
 # Target rules for targets named morpheus-gba-gfx-effects-test.gba
 
 # Build rule for target.
@@ -141,6 +154,19 @@ morpheus-gba-gfx-effects-test.gba: cmake_check_build_system
 morpheus-gba-gfx-effects-test.gba/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.gba.dir/build
 .PHONY : morpheus-gba-gfx-effects-test.gba/fast
+
+#=============================================================================
+# Target rules for targets named morpheus-gba-affine-test.elf
+
+# Build rule for target.
+morpheus-gba-affine-test.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 morpheus-gba-affine-test.elf
+.PHONY : morpheus-gba-affine-test.elf
+
+# fast build rule for target.
+morpheus-gba-affine-test.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-affine-test.elf.dir/build.make CMakeFiles/morpheus-gba-affine-test.elf.dir/build
+.PHONY : morpheus-gba-affine-test.elf/fast
 
 #=============================================================================
 # Target rules for targets named morpheus-gba-serial-test.elf
@@ -757,6 +783,33 @@ morpheus/gba/gfx/sprite_8_bpp.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/sprite_8_bpp.cpp.s
 .PHONY : morpheus/gba/gfx/sprite_8_bpp.cpp.s
 
+morpheus/gba/gfx/text.o: morpheus/gba/gfx/text.cpp.o
+
+.PHONY : morpheus/gba/gfx/text.o
+
+# target to build an object file
+morpheus/gba/gfx/text.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o
+.PHONY : morpheus/gba/gfx/text.cpp.o
+
+morpheus/gba/gfx/text.i: morpheus/gba/gfx/text.cpp.i
+
+.PHONY : morpheus/gba/gfx/text.i
+
+# target to preprocess a source file
+morpheus/gba/gfx/text.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.i
+.PHONY : morpheus/gba/gfx/text.cpp.i
+
+morpheus/gba/gfx/text.s: morpheus/gba/gfx/text.cpp.s
+
+.PHONY : morpheus/gba/gfx/text.s
+
+# target to generate assembly for a file
+morpheus/gba/gfx/text.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus.dir/build.make CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.s
+.PHONY : morpheus/gba/gfx/text.cpp.s
+
 morpheus/gba/gfx/tiled_background.o: morpheus/gba/gfx/tiled_background.cpp.o
 
 .PHONY : morpheus/gba/gfx/tiled_background.o
@@ -867,6 +920,33 @@ region_map_window.s: region_map_window.c.s
 region_map_window.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/build.make CMakeFiles/morpheus-gba-gfx-effects-test.elf.dir/region_map_window.c.s
 .PHONY : region_map_window.c.s
+
+tests/affine_test/affine_test.o: tests/affine_test/affine_test.cpp.o
+
+.PHONY : tests/affine_test/affine_test.o
+
+# target to build an object file
+tests/affine_test/affine_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-affine-test.elf.dir/build.make CMakeFiles/morpheus-gba-affine-test.elf.dir/tests/affine_test/affine_test.cpp.o
+.PHONY : tests/affine_test/affine_test.cpp.o
+
+tests/affine_test/affine_test.i: tests/affine_test/affine_test.cpp.i
+
+.PHONY : tests/affine_test/affine_test.i
+
+# target to preprocess a source file
+tests/affine_test/affine_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-affine-test.elf.dir/build.make CMakeFiles/morpheus-gba-affine-test.elf.dir/tests/affine_test/affine_test.cpp.i
+.PHONY : tests/affine_test/affine_test.cpp.i
+
+tests/affine_test/affine_test.s: tests/affine_test/affine_test.cpp.s
+
+.PHONY : tests/affine_test/affine_test.s
+
+# target to generate assembly for a file
+tests/affine_test/affine_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/morpheus-gba-affine-test.elf.dir/build.make CMakeFiles/morpheus-gba-affine-test.elf.dir/tests/affine_test/affine_test.cpp.s
+.PHONY : tests/affine_test/affine_test.cpp.s
 
 tests/gba/input_test/gba_input_test.o: tests/gba/input_test/gba_input_test.cpp.o
 
@@ -1038,6 +1118,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... morpheus-gba-affine-test.gba"
 	@echo "... morpheus-gba-gfx-effects-test.gba"
 	@echo "... morpheus-gba-input-test.gba"
 	@echo "... morpheus-gba-maxmod-test.gba"
@@ -1045,6 +1126,7 @@ help:
 	@echo "... morpheus-gba-sram-test.gba"
 	@echo "... morpheus-gba-tileset-test.gba"
 	@echo "... morpheus"
+	@echo "... morpheus-gba-affine-test.elf"
 	@echo "... morpheus-gba-gfx-effects-test.elf"
 	@echo "... morpheus-gba-input-test.elf"
 	@echo "... morpheus-gba-maxmod-test.elf"
@@ -1102,6 +1184,9 @@ help:
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.o"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.i"
 	@echo "... morpheus/gba/gfx/sprite_8_bpp.s"
+	@echo "... morpheus/gba/gfx/text.o"
+	@echo "... morpheus/gba/gfx/text.i"
+	@echo "... morpheus/gba/gfx/text.s"
 	@echo "... morpheus/gba/gfx/tiled_background.o"
 	@echo "... morpheus/gba/gfx/tiled_background.i"
 	@echo "... morpheus/gba/gfx/tiled_background.s"
@@ -1114,6 +1199,9 @@ help:
 	@echo "... region_map_window.o"
 	@echo "... region_map_window.i"
 	@echo "... region_map_window.s"
+	@echo "... tests/affine_test/affine_test.o"
+	@echo "... tests/affine_test/affine_test.i"
+	@echo "... tests/affine_test/affine_test.s"
 	@echo "... tests/gba/input_test/gba_input_test.o"
 	@echo "... tests/gba/input_test/gba_input_test.i"
 	@echo "... tests/gba/input_test/gba_input_test.s"

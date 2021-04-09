@@ -12,11 +12,11 @@ namespace morpheus {
         namespace gfx {
             class Sprite4Bpp : public morpheus::gba::gfx::Sprite {
             public:
-                explicit Sprite4Bpp(GbaBlendingController *blending_controller, GbaMosaicController *mosaic_controller,
-                                    const unsigned int palette_id = 0);
-                explicit Sprite4Bpp(GbaBlendingController *blending_controller, GbaMosaicController *mosaic_controller,
-                                    const unsigned int tile_id, const unsigned int palette_id,
-                                    const core::gfx::SpriteSize size);
+                explicit Sprite4Bpp(bool affine, GbaBlendingController *blending_controller,
+                                    GbaMosaicController *mosaic_controller, const unsigned int palette_id = 0);
+                explicit Sprite4Bpp(bool affine, GbaBlendingController *blending_controller,
+                                    GbaMosaicController *mosaic_controller, const unsigned int tile_id,
+                                    const unsigned int palette_id, const core::gfx::SpriteSize size);
 
                 virtual ~Sprite4Bpp() = default;
 

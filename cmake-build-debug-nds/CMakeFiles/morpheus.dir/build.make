@@ -141,35 +141,9 @@ CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/audio/max_mod_sfx.cpp -o CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.s
 
-CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: CMakeFiles/morpheus.dir/flags.make
-CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp
-
-CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i
-
-CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
-
-CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: CMakeFiles/morpheus.dir/flags.make
-CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/window.cpp
-
-CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/gfx/window.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i
-
-CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s"
-	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/window.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s
-
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o: ../morpheus/core/gfx/sprite_base.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/sprite_base.cpp
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.i: cmake_force
@@ -182,7 +156,7 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o: ../morpheus/core/gfx/text_base.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/text_base.cpp
 
 CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.i: cmake_force
@@ -192,6 +166,32 @@ CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.i: cmake_force
 CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/text_base.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.s
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o: ../morpheus/core/gfx/tiled_background_base.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/tiled_background_base.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.s
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o: ../morpheus/core/gfx/window.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o -c /home/bobby/morpheus/morpheus/core/gfx/window.cpp
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/core/gfx/window.cpp > CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/gfx/window.cpp -o CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.s
 
 CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o: ../morpheus/core/communication_channel.cpp
@@ -206,9 +206,22 @@ CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/core/communication_channel.cpp -o CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.s
 
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o: ../morpheus/gba/gfx/text.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o -c /home/bobby/morpheus/morpheus/gba/gfx/text.cpp
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/gba/gfx/text.cpp > CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/gba/gfx/text.cpp -o CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.s
+
 CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o: ../morpheus/nds/nds_controllers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o -c /home/bobby/morpheus/morpheus/nds/nds_controllers.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.i: cmake_force
@@ -221,7 +234,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o: ../morpheus/nds/nds_main_loop.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o -c /home/bobby/morpheus/morpheus/nds/nds_main_loop.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.i: cmake_force
@@ -234,7 +247,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o: ../morpheus/nds/gfx/sprite.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/sprite.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.i: cmake_force
@@ -247,7 +260,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o: ../morpheus/nds/gfx/sprite_4_bpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/sprite_4_bpp.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.i: cmake_force
@@ -260,7 +273,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_4_bpp.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o: ../morpheus/nds/gfx/sprite_8_bpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/sprite_8_bpp.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.i: cmake_force
@@ -273,7 +286,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite_8_bpp.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o: ../morpheus/nds/gfx/text.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/text.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.i: cmake_force
@@ -286,7 +299,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/text.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o: ../morpheus/nds/gfx/tiled_background.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/tiled_background.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.i: cmake_force
@@ -299,7 +312,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.s: cmake_force
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_4_bpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/tiled_background_4_bpp.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.i: cmake_force
@@ -312,7 +325,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.s: cmake_for
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o: ../morpheus/nds/gfx/tiled_background_8_bpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/tiled_background_8_bpp.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.i: cmake_force
@@ -325,7 +338,7 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.s: cmake_for
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o: CMakeFiles/morpheus.dir/flags.make
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o: ../morpheus/nds/gfx/nds_window.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o -c /home/bobby/morpheus/morpheus/nds/gfx/nds_window.cpp
 
 CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.i: cmake_force
@@ -336,6 +349,19 @@ CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.s"
 	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/nds/gfx/nds_window.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.s
 
+CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o: CMakeFiles/morpheus.dir/flags.make
+CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o: ../morpheus/nds/dsi_sd_save_manager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o -c /home/bobby/morpheus/morpheus/nds/dsi_sd_save_manager.cpp
+
+CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.i"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bobby/morpheus/morpheus/nds/dsi_sd_save_manager.cpp > CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.i
+
+CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.s"
+	/opt/devkitpro/devkitARM/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bobby/morpheus/morpheus/nds/dsi_sd_save_manager.cpp -o CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.s
+
 # Object files for target morpheus
 morpheus_OBJECTS = \
 "CMakeFiles/morpheus.dir/morpheus/core/controllers.cpp.o" \
@@ -343,11 +369,12 @@ morpheus_OBJECTS = \
 "CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o" \
-"CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o" \
-"CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o" \
@@ -357,7 +384,8 @@ morpheus_OBJECTS = \
 "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o" \
 "CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o" \
-"CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o"
+"CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o" \
+"CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o"
 
 # External object files for target morpheus
 morpheus_EXTERNAL_OBJECTS =
@@ -367,11 +395,12 @@ libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/main_loop.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/control_reciever.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_music.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/audio/max_mod_sfx.cpp.o
-libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
-libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/sprite_base.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/text_base.cpp.o
+libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/tiled_background_base.cpp.o
+libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/gfx/window.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/core/communication_channel.cpp.o
+libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/gba/gfx/text.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/nds_controllers.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/nds_main_loop.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/sprite.cpp.o
@@ -382,9 +411,10 @@ libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background.cpp
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_4_bpp.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/tiled_background_8_bpp.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/gfx/nds_window.cpp.o
+libnds_morpheus.a: CMakeFiles/morpheus.dir/morpheus/nds/dsi_sd_save_manager.cpp.o
 libnds_morpheus.a: CMakeFiles/morpheus.dir/build.make
 libnds_morpheus.a: CMakeFiles/morpheus.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX static library libnds_morpheus.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bobby/morpheus/cmake-build-debug-nds/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking CXX static library libnds_morpheus.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/morpheus.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/morpheus.dir/link.txt --verbose=$(VERBOSE)
 

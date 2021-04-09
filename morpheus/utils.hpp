@@ -107,10 +107,11 @@ namespace morpheus {
 
         // BlendingController should be platform specific blending controller
         static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_4bpp(
+                bool affine,
                 morpheus::core::gfx::BlendingController *blending_controller,
                 morpheus::core::gfx::MosaicController *mosaic_controller, bool nds_use_sub_display = false) {
             #ifdef _GBA
-                return new morpheus::gba::gfx::Sprite4Bpp(
+                return new morpheus::gba::gfx::Sprite4Bpp(affine,
                         static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),
                         static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller));
             #elif _NDS
@@ -122,11 +123,12 @@ namespace morpheus {
         }
 
         static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_8bpp(
+                bool affine,
                 morpheus::core::gfx::BlendingController *blending_controller,
                 morpheus::core::gfx::MosaicController *mosaic_controller,
                 bool nds_use_sub_display = false, bool nds_use_extended_palettes = true) {
             #ifdef _GBA
-                return new morpheus::gba::gfx::Sprite8Bpp(
+                return new morpheus::gba::gfx::Sprite8Bpp(affine,
                         static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),
                         static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller));
             #elif _NDS
@@ -135,6 +137,15 @@ namespace morpheus {
                         static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
                         static_cast<morpheus::nds::gfx::NdsMosaicController*>(mosaic_controller),
                         nds_use_extended_palettes);
+            #endif
+        }
+
+        static morpheus::core::gfx::TextBase *construct_appropriate_text(bool affine, unsigned int background_num,
+                                                                         unsigned int cbb, unsigned int sbb) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::Text(affine, background_num, cbb, sbb);
+            #elif _NDS
+                // TODO
             #endif
         }
 
