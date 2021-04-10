@@ -146,6 +146,7 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
     if(isDSiMode()) {
         char *string;
 
+        // TODO(Bobby): Log bool return value and add fatInit or fatMount call
         nitroFSInit(&string);
 
         set_save_manager(new DsiSdSaveManager(string));
