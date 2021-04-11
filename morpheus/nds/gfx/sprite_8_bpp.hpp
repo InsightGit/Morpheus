@@ -17,11 +17,12 @@ namespace morpheus {
         namespace gfx {
             class Sprite8Bpp : public nds::gfx::Sprite {
                 public:
-                    explicit Sprite8Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
+                    explicit Sprite8Bpp(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                         NdsMosaicController *mosaic_controller, bool use_extended_palette = true) :
-                        nds::gfx::Sprite(use_sub_display, blending_controller, mosaic_controller, SpriteMapping_1D_32,
-                                        use_extended_palette ? ExtendedPaletteStatus::NEEDED :
-                                                               ExtendedPaletteStatus::NEEDOFF) {}
+                        nds::gfx::Sprite(affine, use_sub_display, blending_controller, mosaic_controller,
+                                         SpriteMapping_1D_32,
+                                         use_extended_palette ? ExtendedPaletteStatus::NEEDED :
+                                                                ExtendedPaletteStatus::NEEDOFF) {}
 
                     ~Sprite8Bpp() override = default;
 
@@ -49,7 +50,7 @@ namespace morpheus {
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
                                        bool copy_palette = true);
                 protected:
-                    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num)override;
+                    void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num)override;
                 private:
                     std::unique_ptr<sImage> m_sprite_image;
             };

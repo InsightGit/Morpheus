@@ -22,7 +22,7 @@ namespace morpheus {
 
             class TiledBackgroundBase {
             public:
-                TiledBackgroundBase(unsigned int background_num, BlendingController *blending_controller,
+                TiledBackgroundBase(bool affine, unsigned int background_num, BlendingController *blending_controller,
                                     MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num);
 
                 virtual ~TiledBackgroundBase() = default;
@@ -46,8 +46,62 @@ namespace morpheus {
                     m_blending_controller->enable_background_blending(bottom, get_background_num());
                 }
 
+                unsigned int get_affine_index() const {
+                    if(m_affine) {
+                        return m_affine_index;
+                    } else {
+                        return 32u;
+                    }
+                }
+
+                Vector2 get_mosaic_levels() const {
+                    return m_mosaic_controller->get_background_mosaic_levels();
+                }
+
+                int get_rotation() const {
+                    return m_rotation;
+                }
+
+                Vector2 get_scale() const {
+                    return m_scale;
+                }
+
                 Vector2 get_scroll() const {
                     return m_scroll_position;
+                }
+
+                bool is_affine() const {
+                    return m_affine;
+                }
+
+                bool is_mosaic() const {
+                    return m_mosaic;
+                }
+
+                void set_affine_index(const unsigned int affine_index) {
+                    if(m_affine) {
+                        m_affine_index = std::min(31u, affine_index);
+                    }
+                }
+
+                void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) {
+                    m_mosaic_controller->set_background_mosaic_levels(mosaic_levels);
+                }
+
+                void set_rotation(const int rotation) {
+                    if(m_affine) {
+                        m_rotation = rotation;
+
+                        affine_state_updated();
+                    }
+                }
+
+                void set_scale(const core::gfx::Vector2 scale) {
+                    if(m_affine) {
+                        m_scale = scale;
+
+                        affine_state_updated();
+                    }
                 }
 
                 void set_scroll(Vector2 scroll_position) {
@@ -56,21 +110,10 @@ namespace morpheus {
                     update_scroll();
                 }
 
-                bool is_mosaic() const {
-                    return m_mosaic;
-                }
-
                 void toggle_mosaic() {
                     m_mosaic = !m_mosaic;
 
                     mosaic_state_updated();
-                }
-
-                Vector2 get_mosaic_levels() const {
-                    return m_mosaic_controller->get_background_mosaic_levels();
-                }
-                void set_mosaic_levels(morpheus::core::gfx::Vector2 mosaic_levels) {
-                    m_mosaic_controller->set_background_mosaic_levels(mosaic_levels);
                 }
 
                 virtual unsigned int get_priority() const = 0;
@@ -88,14 +131,19 @@ namespace morpheus {
                     return m_sbb_num;
                 }
 
+                virtual void affine_state_updated() = 0;
                 virtual void mosaic_state_updated() = 0;
                 virtual void update_scroll() = 0;
             private:
+                bool m_affine;
+                unsigned int m_affine_index;
                 gfx::BlendingController *m_blending_controller;
                 unsigned int m_background_num;
                 unsigned int m_cbb_num;
                 bool m_mosaic = false;
                 gfx::MosaicController *m_mosaic_controller;
+                int m_rotation = 0;
+                Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 Vector2 m_scroll_position;
                 unsigned int m_sbb_num;
             };

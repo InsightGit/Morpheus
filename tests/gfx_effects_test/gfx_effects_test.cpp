@@ -12,7 +12,7 @@
 #include "region_map_window.h"
 #include "test8.h"
 
-class InputNode : public morpheus::core::Node {
+class InputNode : public morpheus::core::ControlReciever {
 public:
     InputNode(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> &mosaic_background,
               const std::shared_ptr<morpheus::core::gfx::SpriteBase> &mosaic_sprite,
@@ -25,7 +25,7 @@ public:
         m_no_cash_debug_controller = no_cash_debug_controller;
         m_window = window;
     }
-protected:
+
     void input(morpheus::core::InputEvent input_event) override {
         if(input_event.state == morpheus::core::InputState::HELD || \
                input_event.state == morpheus::core::InputState::DOWN) {
@@ -54,8 +54,6 @@ protected:
             }
         }
     }
-    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
-    void on_visible_state_changed(bool new_visible_state) override {}
     void update(unsigned char cycle_time) override {}
 private:
     const static int CONTROL_MODE_GAP = 1;
@@ -191,7 +189,7 @@ int main() {
 
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
-            morpheus::utils::construct_appropriate_sprite_8bpp(main_loop->get_blending_controller(),
+            morpheus::utils::construct_appropriate_sprite_8bpp(false, main_loop->get_blending_controller(),
                                                                   main_loop->get_mosaic_controller(), false, false));
     std::shared_ptr<morpheus::core::gfx::Window> window;
     std::shared_ptr<morpheus::core::gfx::Window> window_out;
@@ -227,12 +225,12 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
     #elif _NDS
         background.reset(new morpheus::nds::gfx::TiledBackground8Bpp(
-                         false, 1,
+                         false, false, 1,
                          static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
                          static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
                          static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 2, 2));
         window_background.reset(new morpheus::nds::gfx::TiledBackground8Bpp(
-                false, 0, static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
+                false, false, 0, static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
                 static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
                 static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()), 2, 10));
 
@@ -278,9 +276,9 @@ int main() {
     window->enable_window();
     window_out->enable_window();
 
-    input_node->add_child(sprite.get());
+    main_loop->add_sprite(sprite);
 
-    main_loop->set_root(input_node);
+    main_loop->add_control_reciever(input_node);
 
     main_loop->get_blending_controller()->enable_background_blending(true, 0);
 

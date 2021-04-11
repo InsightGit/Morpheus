@@ -55,6 +55,17 @@ namespace morpheus {
 
             void disable_window(core::gfx::WindowType window_type)override;
 
+            void disable_affine() override {
+                disable_affine(false);
+            }
+
+            void enable_affine(core::gfx::AffineMode affine_mode) override {
+                enable_affine(affine_mode, false);
+            }
+
+            void disable_affine(bool use_sub_display);
+            void enable_affine(core::gfx::AffineMode affine_mode, bool use_sub_display);
+
             void enable_background(unsigned int background_reference_num)override;
             void enable_window(core::gfx::WindowType window_type)override;
 

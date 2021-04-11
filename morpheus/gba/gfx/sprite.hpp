@@ -70,6 +70,7 @@ namespace morpheus {
                     void on_visible_state_changed(bool hidden)override;
                     void set_sprite_size(core::gfx::SpriteSize size)override;
                     void toggle_blending(bool enable_blending, bool bottom_layer)override;
+                    void update_affine_state()override;
 
                     virtual void input(core::InputEvent input_event)override {}
                     virtual void update(unsigned char cycle_time)override {}

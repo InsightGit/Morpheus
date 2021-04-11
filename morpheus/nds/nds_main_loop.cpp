@@ -54,7 +54,7 @@ void morpheus::nds::NdsMainLoop::disable_window(morpheus::core::gfx::WindowType 
 void morpheus::nds::NdsMainLoop::enable_background(unsigned int background_reference_num) {
     //std::cout << "Showing " << background_reference_num << "\n";
 
-    bgShow(background_reference_num);
+    bgShow(static_cast<int>(background_reference_num));
 }
 
 void morpheus::nds::NdsMainLoop::enable_window(morpheus::core::gfx::WindowType window_type) {
@@ -120,10 +120,6 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
         }
 
         ++iteration;
-
-        /*iprintf("\x1b[21;0H      Morpheus Debug");
-        iprintf("\x1b[22;0HIterations = %d", iteration);*/
-
         ++m_cycle_time;
 
         if(m_cycle_time >= 60) {
@@ -144,12 +140,11 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
     if(isDSiMode()) {
-        char *string;
-
         // TODO(Bobby): Log bool return value and add fatInit or fatMount call
-        nitroFSInit(&string);
+        fatInitDefault();
+        fatMountSimple("sd", get_io_dsisd());
 
-        set_save_manager(new DsiSdSaveManager(string));
+        set_save_manager(new DsiSdSaveManager("sd:/"));
     }
 
     return morpheus::core::Error::OK;
@@ -234,6 +229,38 @@ morpheus::nds::NdsMainLoop::to_input_event(uint32_t inputs,
 void morpheus::nds::NdsMainLoop::clear_obj_vram() {
     oamClear(&oamMain, 0, 0);
     oamClear(&oamSub, 0, 0);
+}
+
+void morpheus::nds::NdsMainLoop::enable_affine(morpheus::core::gfx::AffineMode affine_mode, bool use_sub_display) {
+    VideoMode video_mode = MODE_0_2D;
+
+    switch(affine_mode) {
+        case core::gfx::AffineMode::MIXED_AFFINE:
+            video_mode = MODE_1_2D;
+            break;
+        case core::gfx::AffineMode::FULL_AFFINE:
+            video_mode = MODE_2_2D;
+            break;
+    }
+
+    if(use_sub_display) {
+        // 1000
+        REG_DISPCNT_SUB &= 0xFFFF8;
+        REG_DISPCNT_SUB |= video_mode;
+    } else {
+        REG_DISPCNT &= 0xFFFF8;
+        REG_DISPCNT |= video_mode;
+    }
+}
+
+void morpheus::nds::NdsMainLoop::disable_affine(bool use_sub_display) {
+    if(use_sub_display) {
+        REG_DISPCNT_SUB &= 0xFFFF8;
+        REG_DISPCNT_SUB |= MODE_0_2D;
+    } else {
+        REG_DISPCNT_SUB &= 0xFFFF8;
+        REG_DISPCNT_SUB |= MODE_0_2D;
+    }
 }
 
 /*void morpheus::nds::NdsMainLoop::clear_vram() {

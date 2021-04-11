@@ -17,7 +17,6 @@ namespace morpheus {
     namespace nds {
         class DsiSdSaveManager : public core::SaveManager {
         public:
-            // to be given from libfilesystem
             explicit DsiSdSaveManager(std::string file_system_base_path) {
                 m_file_system_base_path = file_system_base_path;
             }
@@ -28,16 +27,16 @@ namespace morpheus {
                 return m_file_system_base_path;
             }
 
-            unsigned int load(void *data, unsigned int len) override {
+            int load(void *data, unsigned int len) override {
                 return load("morpheus.sav", data, len);
             }
 
-            unsigned int save(void *data, unsigned int len) override {
+            int save(void *data, unsigned int len) override {
                 return save("morpheus.sav", data, len);
             }
 
-            unsigned int load(std::string file_name, void *data, unsigned int len);
-            unsigned int save(std::string file_name, void *data, unsigned int len);
+            int load(std::string file_name, void *data, unsigned int len);
+            int save(std::string file_name, void *data, unsigned int len);
         private:
             std::string m_file_system_base_path;
             FILE *m_save_file_pointer;

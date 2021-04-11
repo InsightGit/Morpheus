@@ -15,7 +15,7 @@ namespace morpheus {
         namespace gfx {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
-                explicit TiledBackground(bool use_sub_display, unsigned int background_num,
+                explicit TiledBackground(bool affine, bool use_sub_display, unsigned int background_num,
                                          NdsBlendingController *blending_controller,
                                          NdsMosaicController *mosaic_controller,
                                          NdsMainLoop *main_loop,
@@ -50,6 +50,7 @@ namespace morpheus {
                     return m_use_sub_display;
                 }
 
+                void affine_state_updated()override;
                 void mosaic_state_updated()override;
 
                 void init_background_reference_num(BgType background_type);

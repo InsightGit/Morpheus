@@ -14,16 +14,15 @@ namespace morpheus {
         namespace gfx {
         class Sprite4Bpp : public nds::gfx::Sprite {
             public:
-                explicit Sprite4Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
+                explicit Sprite4Bpp(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                     NdsMosaicController *mosaic_controller) :
-                    nds::gfx::Sprite(use_sub_display, blending_controller, mosaic_controller, SpriteMapping_1D_32,
-                                     ExtendedPaletteStatus::NOTNEEDED) {}
-                explicit Sprite4Bpp(bool use_sub_display, NdsBlendingController *blending_controller,
+                    nds::gfx::Sprite(affine, use_sub_display, blending_controller, mosaic_controller,
+                                     SpriteMapping_1D_32,ExtendedPaletteStatus::NOTNEEDED) {}
+                explicit Sprite4Bpp(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                     NdsMosaicController *mosaic_controller, unsigned short *nds_oam_address,
                                     core::gfx::SpriteSize size) :
-                    nds::gfx::Sprite(use_sub_display, blending_controller, mosaic_controller, SpriteMapping_1D_32,
-                                     ExtendedPaletteStatus::NOTNEEDED,
-                                     nds_oam_address, size) {}
+                    nds::gfx::Sprite(affine, use_sub_display, blending_controller, mosaic_controller,
+                                     SpriteMapping_1D_32, ExtendedPaletteStatus::NOTNEEDED, nds_oam_address, size) {}
 
                 ~Sprite4Bpp() override = default;
 
@@ -36,7 +35,7 @@ namespace morpheus {
 
                 bool load_into_palette(const unsigned short *palette, const unsigned int pal_len)override;
 
-                void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num)override;
+                void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num)override;
             protected:
                 virtual void input(core::InputEvent input_event)override {}
             };

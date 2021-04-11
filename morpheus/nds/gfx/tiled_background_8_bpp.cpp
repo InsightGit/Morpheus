@@ -56,6 +56,11 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
                                                               morpheus::core::gfx::TiledBackgroundSize size) {
     set_background_size(size);
 
+    if(is_affine()) {
+        bgSetRotateScale(get_background_reference_num(), get_rotation(), get_scale().get_x(),
+                         get_scale().get_y());
+    }
+
     dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
     dmaCopy(tile_map, bgGetMapPtr(get_background_reference_num()), tile_map_len);
 }

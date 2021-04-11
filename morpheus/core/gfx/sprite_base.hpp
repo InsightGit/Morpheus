@@ -43,51 +43,12 @@ namespace morpheus {
 
                 virtual ~SpriteBase() {}
 
-                unsigned int get_priority() const {
-                    return m_priority;
-                }
-
-                core::gfx::Vector2 get_position() const {
-                    return m_position;
-                }
-
-                void set_position(const core::gfx::Vector2 position) {
-                    m_position = position;
-                }
-
-                void set_position(const int x, const int y) {
-                    set_position(core::gfx::Vector2(x, y));
-                }
-
-                void set_priority(unsigned int priority) {
-                    m_priority = std::min(3u, priority);
-                }
-
-                virtual bool is_blended() const = 0;
-
-                void disable_blending() {
-                    if(m_blending_controller != nullptr) {
-                        toggle_blending(false);
+                unsigned int get_affine_index() const {
+                    if(m_affine) {
+                        return m_affine_index;
+                    } else {
+                        return 32u;
                     }
-                }
-                void enable_blending(bool bottom_layer) {
-                    if(m_blending_controller != nullptr) {
-                        toggle_blending(true, bottom_layer);
-                    }
-                }
-
-                bool is_hidden() {
-                    return m_hidden;
-                }
-
-                bool is_mosaic() const {
-                    return m_mosaic;
-                }
-
-                void toggle_mosaic() {
-                    m_mosaic = !m_mosaic;
-
-                    mosaic_state_updated();
                 }
 
                 core::gfx::Vector2 get_mosaic_levels() const {
@@ -98,34 +59,12 @@ namespace morpheus {
                     }
                 }
 
-                void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) {
-                    if(m_mosaic_controller != nullptr) {
-                        return m_mosaic_controller->set_sprite_mosaic_levels(mosaic_levels);
-                    }
+                unsigned int get_priority() const {
+                    return m_priority;
                 }
 
-                void hide() {
-                    m_hidden = true;
-
-                    on_visible_state_changed(m_hidden);
-                }
-
-                bool is_affine() const {
-                    return m_affine;
-                }
-
-                bool is_drawn_node() const {
-                    return m_drawn_node;
-                }
-
-                void set_drawn_node(const bool drawn_node) {
-                    m_drawn_node = drawn_node;
-                }
-
-                void show() {
-                    m_hidden = false;
-
-                    on_visible_state_changed(m_hidden);
+                core::gfx::Vector2 get_position() const {
+                    return m_position;
                 }
 
                 int get_rotation() const {
@@ -142,6 +81,82 @@ namespace morpheus {
                     } else {
                         return Vector2(1, 1);
                     }
+                }
+
+                virtual bool is_blended() const = 0;
+
+                void disable_blending() {
+                    if(m_blending_controller != nullptr) {
+                        toggle_blending(false);
+                    }
+                }
+
+                void enable_blending(bool bottom_layer) {
+                    if(m_blending_controller != nullptr) {
+                        toggle_blending(true, bottom_layer);
+                    }
+                }
+
+                bool is_mosaic() const {
+                    return m_mosaic;
+                }
+
+                void set_affine_index(const unsigned int affine_index) {
+                    if(m_affine) {
+                        m_affine_index = std::min(31u, affine_index);
+                    }
+                }
+
+                void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) {
+                    if(m_mosaic_controller != nullptr) {
+                        return m_mosaic_controller->set_sprite_mosaic_levels(mosaic_levels);
+                    }
+                }
+
+                void set_position(const core::gfx::Vector2 position) {
+                    m_position = position;
+                }
+
+                void set_position(const int x, const int y) {
+                    set_position(core::gfx::Vector2(x, y));
+                }
+
+                void set_priority(unsigned int priority) {
+                    m_priority = std::min(3u, priority);
+                }
+
+                void toggle_mosaic() {
+                    m_mosaic = !m_mosaic;
+
+                    mosaic_state_updated();
+                }
+
+                void hide() {
+                    m_hidden = true;
+
+                    on_visible_state_changed(m_hidden);
+                }
+
+                bool is_affine() const {
+                    return m_affine;
+                }
+
+                bool is_drawn_node() const {
+                    return m_drawn_node;
+                }
+
+                bool is_hidden() const {
+                    return m_hidden;
+                }
+
+                void set_drawn_node(const bool drawn_node) {
+                    m_drawn_node = drawn_node;
+                }
+
+                void show() {
+                    m_hidden = false;
+
+                    on_visible_state_changed(m_hidden);
                 }
 
                 void set_rotation(const int rotation) {
@@ -172,6 +187,7 @@ namespace morpheus {
                 virtual void set_sprite_size(SpriteSize size) = 0;
             private:
                 bool m_affine = false;
+                unsigned int m_affine_index = 32;
                 BlendingController *m_blending_controller;
                 bool m_drawn_node = true;
                 bool m_hidden = false;
@@ -179,7 +195,7 @@ namespace morpheus {
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;
                 unsigned char m_priority = 0;
-                Vector2 m_scale = Vector2(1, 1);
+                Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 int m_rotation = 0;
             };
         }

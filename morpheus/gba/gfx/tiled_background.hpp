@@ -20,10 +20,10 @@ namespace morpheus {
         namespace gfx {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
-                explicit TiledBackground(unsigned int background_num, GbaBlendingController *blending_controller,
-                                         GbaMosaicController *mosaic_controller,
-                                         GbaMainLoop *main_loop, bool is_8bpp, unsigned int cbb_num,
-                                         unsigned int sbb_num);
+                explicit TiledBackground(bool affine, unsigned int background_num,
+                                         GbaBlendingController *blending_controller,
+                                         GbaMosaicController *mosaic_controller, GbaMainLoop *main_loop,
+                                         bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num);
 
                 virtual ~TiledBackground() = default;
 

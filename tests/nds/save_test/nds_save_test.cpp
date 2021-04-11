@@ -14,6 +14,8 @@ int main() {
         char string[8];
 
         unsigned int bytes_read = main_loop->get_save_manager()->load(&string[0], 8);
+        std::string file_system_base_path = static_cast<morpheus::nds::DsiSdSaveManager*>(
+                main_loop->get_save_manager())->get_file_system_base_path();
 
         if(bytes_read == 0) {
             unsigned int bytes_written;
@@ -21,11 +23,9 @@ int main() {
 
             bytes_written = main_loop->get_save_manager()->save(&save_string[0], 8);
 
-            std::cout << "saved " << bytes_written << " bytes to dsi\n";
+            std::cout << "saved " << bytes_written << " bytes to dsi\n on " << file_system_base_path;
         } else {
-            std::cout << "read " << bytes_read << " bytes from dsi on " <<
-                static_cast<morpheus::nds::DsiSdSaveManager*>(main_loop->get_save_manager())->
-                get_file_system_base_path();
+            std::cout << "read " << bytes_read << " bytes from dsi\n on " << file_system_base_path;
         }
     } else {
         std::cout << "This is not DSi mode!";

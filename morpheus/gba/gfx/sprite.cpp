@@ -143,3 +143,4 @@ void morpheus::gba::gfx::Sprite::toggle_blending(bool enable_blending, bool bott
         m_blended = false;
     }
 }
+

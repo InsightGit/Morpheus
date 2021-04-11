@@ -32,7 +32,7 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/window.cpp
         morpheus/utils.hpp
         morpheus/core/communication_channel.cpp
-        morpheus/core/communication_channel.hpp morpheus/gba/gfx/text.cpp morpheus/gba/gfx/text.hpp)
+        morpheus/core/communication_channel.hpp)
 
 
 project(morpheus)
@@ -64,6 +64,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_4_bpp.cpp
             morpheus/gba/gfx/sprite_8_bpp.hpp
             morpheus/gba/gfx/sprite_8_bpp.cpp
+            morpheus/gba/gfx/text.cpp
+            morpheus/gba/gfx/text.hpp
             morpheus/gba/gfx/tiled_background.hpp
             morpheus/gba/gfx/tiled_background.cpp
             morpheus/gba/gfx/gba_window.hpp
@@ -348,8 +350,7 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-input-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Input Test"
                            "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-input-test.elf morpheus nds9)
-
+        target_link_libraries(morpheus-nds-input-test.elf morpheus nds9 fat)
 
         project(morpheus-nds-tileset-test)
 
@@ -437,7 +438,18 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus GFX Effect Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus nds9 mm9)
+        target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus nds9 mm9 fat)
+
+        project(morpheus-nds-affine-test)
+
+        link_directories(morpheus-nds-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-nds-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES}
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h")
+        add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus Affine Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-affine-test.elf morpheus nds9 mm9 fat)
     endif()
 endif()
 

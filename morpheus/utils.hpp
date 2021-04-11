@@ -116,6 +116,7 @@ namespace morpheus {
                         static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller));
             #elif _NDS
                 return new morpheus::nds::gfx::Sprite4Bpp(
+                        affine,
                         nds_use_sub_display,
                         static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
                         static_cast<morpheus::nds::gfx::NdsMosaicController*>(mosaic_controller));
@@ -133,6 +134,7 @@ namespace morpheus {
                         static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller));
             #elif _NDS
                 return new morpheus::nds::gfx::Sprite8Bpp(
+                        affine,
                         nds_use_sub_display,
                         static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
                         static_cast<morpheus::nds::gfx::NdsMosaicController*>(mosaic_controller),
@@ -145,11 +147,49 @@ namespace morpheus {
             #ifdef _GBA
                 return new morpheus::gba::gfx::Text(affine, background_num, cbb, sbb);
             #elif _NDS
-                // TODO
+                return new morpheus::nds::gfx::Text(affine, background_num, cbb, sbb);
             #endif
         }
 
-        //static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background()
+        static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background_4bpp(
+                                    bool affine, unsigned int background_num,
+                                    morpheus::core::gfx::BlendingController *blending_controller,
+                                    morpheus::core::gfx::MosaicController *mosaic_controller,
+                                    morpheus::core::MainLoop *main_loop, unsigned int cbb_num, unsigned int sbb_num,
+                                    bool nds_use_sub_display = false) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::TiledBackground(affine, background_num,
+                            static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),
+                            static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller),
+                            static_cast<morpheus::gba::GbaMainLoop*>(main_loop), false, cbb_num, sbb_num);
+            #elif _NDS
+                return new morpheus::nds::gfx::TiledBackground4Bpp(
+                        affine, nds_use_sub_display, background_num,
+                        static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
+                        static_cast<morpheus::nds::gfx::NdsMosaicController*>(mosaic_controller),
+                        static_cast<morpheus::nds::NdsMainLoop*>(main_loop), cbb_num, sbb_num);
+            #endif
+        }
+
+        static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background_8bpp(
+                bool affine, unsigned int background_num,
+                morpheus::core::gfx::BlendingController *blending_controller,
+                morpheus::core::gfx::MosaicController *mosaic_controller,
+                morpheus::core::MainLoop *main_loop, unsigned int cbb_num, unsigned int sbb_num,
+                bool nds_use_sub_display = false) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::TiledBackground(affine, background_num,
+                                static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),
+                                static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller),
+                                static_cast<morpheus::gba::GbaMainLoop*>(main_loop), false, cbb_num, sbb_num);
+            #elif _NDS
+                return new morpheus::nds::gfx::TiledBackground8Bpp(
+                        affine, nds_use_sub_display, background_num,
+                        static_cast<morpheus::nds::gfx::NdsBlendingController*>(blending_controller),
+                        static_cast<morpheus::nds::gfx::NdsMosaicController*>(mosaic_controller),
+                        static_cast<morpheus::nds::NdsMainLoop*>(main_loop), cbb_num, sbb_num);
+            #endif
+        }
     }
 }
 

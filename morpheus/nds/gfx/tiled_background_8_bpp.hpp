@@ -12,12 +12,12 @@ namespace morpheus {
         namespace gfx {
             class TiledBackground8Bpp : public TiledBackground {
             public:
-                explicit TiledBackground8Bpp(bool use_sub_display, unsigned int background_num,
+                explicit TiledBackground8Bpp(bool affine, bool use_sub_display, unsigned int background_num,
                                              NdsBlendingController *blending_controller,
                                              NdsMosaicController *mosaic_controller,
                                              NdsMainLoop *main_loop,
                                              unsigned int cbb_num, unsigned int sbb_num) :
-                        TiledBackground(use_sub_display, background_num, blending_controller, mosaic_controller,
+                        TiledBackground(affine, use_sub_display, background_num, blending_controller, mosaic_controller,
                                         main_loop, cbb_num, sbb_num) {
                     init_background_reference_num(BgType_Text8bpp);
                 }

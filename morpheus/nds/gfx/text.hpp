@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_TEXT_HPP
 #define MORPHEUS_GBA_TEST_TEXT_HPP
 
+#include <iostream>
+
 #include <nds.h>
 
 #include <core/gfx/text_base.hpp>
@@ -39,13 +41,13 @@ namespace morpheus {
                 void set_background_size(const BackgroundSize background_size) {
                     m_background_size = background_size;
                 }
-
-                void print(std::string string)override;
             protected:
                 void change_print_position(core::gfx::Vector2 print_pos) override {
-                    // TODO
-                    //tte_set_pos(print_pos.get_x(), print_pos.get_y());
+                    std::cout << "\x1b[" << div32(print_pos.get_y(), 8) << ";" <<
+                                 div32(print_pos.get_x(), 8) << "H";
                 }
+
+                void print_chars(std::string string, bool init)override;
             private:
                 BackgroundSize m_background_size;
                 bool m_font_loaded = false;

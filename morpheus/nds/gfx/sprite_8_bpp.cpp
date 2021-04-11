@@ -203,15 +203,20 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
     return true;
 }
 
-void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num) {
+void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) {
     core::gfx::Vector2 position = get_position();
 
-    set_last_used_obj_attr_num(obj_attr_num);
+    set_last_used_obj_attr_num(static_cast<int>(obj_attr_num));
 
-    oamSet(get_current_oam(), obj_attr_num, position.get_x(), position.get_y(), static_cast<int>(get_priority()),
-           static_cast<int>(get_palette_id()),get_sprite_size(), SpriteColorFormat_256Color,
-           get_gfx_pointer(), -1, false, false, false, false,
-           is_mosaic());
+    if(is_affine()) {
+        oamRotateScale(get_current_oam(), static_cast<int>(get_affine_index()), get_rotation(),
+                       (1>>8) - get_scale().get_x(), (1>>8) - get_scale().get_y());
+    }
+
+    oamSet(get_current_oam(), static_cast<int>(obj_attr_num), position.get_x(), position.get_y(),
+           static_cast<int>(get_priority()),static_cast<int>(get_palette_id()),get_sprite_size(),
+           SpriteColorFormat_256Color,get_gfx_pointer(), static_cast<int>(get_affine_index()), is_affine(), is_hidden(),
+           false, false, is_mosaic());
 
     if(is_blended()) {
         get_current_oam()->oamMemory[obj_attr_num].blendMode = OBJMODE_BLENDED;

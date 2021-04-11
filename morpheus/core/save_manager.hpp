@@ -12,8 +12,8 @@ namespace morpheus {
     namespace core {
         class SaveManager {
         public:
-            virtual unsigned int load(void *data, unsigned int len) = 0;
-            virtual unsigned int save(void *data, unsigned int len) = 0;
+            virtual int load(void *data, unsigned int len) = 0;
+            virtual int save(void *data, unsigned int len) = 0;
         };
     }
 }

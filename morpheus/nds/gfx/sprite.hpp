@@ -34,10 +34,10 @@ namespace morpheus {
 
             class Sprite : public core::gfx::SpriteBase {
             public:
-                explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
+                explicit Sprite(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                 NdsMosaicController *mosaic_controller, SpriteMapping sprite_mapping,
                                 ExtendedPaletteStatus external_palette);
-                explicit Sprite(bool use_sub_display, NdsBlendingController *blending_controller,
+                explicit Sprite(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                 NdsMosaicController *mosaic_controller,
                                 SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette,
                                 unsigned short *nds_oam_address, const morpheus::core::gfx::SpriteSize sprite_size);
