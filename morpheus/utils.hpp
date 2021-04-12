@@ -143,11 +143,12 @@ namespace morpheus {
         }
 
         static morpheus::core::gfx::TextBase *construct_appropriate_text(bool affine, unsigned int background_num,
-                                                                         unsigned int cbb, unsigned int sbb) {
+                                                                         unsigned int cbb, unsigned int sbb,
+                                                                         bool nds_use_sub_display = false) {
             #ifdef _GBA
                 return new morpheus::gba::gfx::Text(affine, background_num, cbb, sbb);
             #elif _NDS
-                return new morpheus::nds::gfx::Text(affine, background_num, cbb, sbb);
+                return new morpheus::nds::gfx::Text(nds_use_sub_display, affine, background_num, cbb, sbb);
             #endif
         }
 

@@ -44,7 +44,7 @@ namespace morpheus {
             protected:
                 void change_print_position(core::gfx::Vector2 print_pos) override {
                     std::cout << "\x1b[" << div32(print_pos.get_y(), 8) << ";" <<
-                                 div32(print_pos.get_x(), 8) << "H";
+                                 div32(print_pos.get_x(), 8) << "H a";
                 }
 
                 void print_chars(std::string string, bool init)override;

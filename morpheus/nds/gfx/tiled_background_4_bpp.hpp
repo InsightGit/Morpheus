@@ -19,7 +19,11 @@ namespace morpheus {
                                              TiledBackground(affine, use_sub_display, background_num,
                                                              blending_controller, mosaic_controller, main_loop, cbb_num,
                                                              sbb_num) {
-                    init_background_reference_num(BgType_Text4bpp);
+                    if(affine) {
+                        init_background_reference_num(BgType_Rotation);
+                    } else {
+                        init_background_reference_num(BgType_Text4bpp);
+                    }
                 }
 
                 virtual ~TiledBackground4Bpp() = default;

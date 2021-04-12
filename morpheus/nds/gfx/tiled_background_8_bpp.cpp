@@ -59,6 +59,9 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
     if(is_affine()) {
         bgSetRotateScale(get_background_reference_num(), get_rotation(), get_scale().get_x(),
                          get_scale().get_y());
+
+        // triggers 8bpp color mode
+        *get_background_register() |= (1 << 7);
     }
 
     dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);

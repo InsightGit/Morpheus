@@ -25,9 +25,13 @@ void morpheus::nds::gfx::Text::print_chars(std::string string, bool init) {
 
         consoleInit(&m_print_console, static_cast<int>(get_background_num()), BgType_Text8bpp, bg_size,
                     static_cast<int>(get_sbb()), static_cast<int>(get_cbb()), m_use_sub_display, m_font_loaded);
+
+        if(!m_font_loaded) {
+            m_font_loaded = true;
+        }
+    } else {
+        consoleSelect(&m_print_console);
     }
 
-    if(!m_font_loaded) {
-        m_font_loaded = true;
-    }
+    std::cout << string;
 }

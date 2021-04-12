@@ -13,17 +13,18 @@
 
 class InputNode : public morpheus::core::ControlReciever {
 public:
-    InputNode(std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite_base,
+    InputNode(morpheus::core::NoCashDebugController *no_cash_debug_controller,
+              std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite_base,
               std::shared_ptr<morpheus::core::gfx::TextBase> text_base,
               std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> tiled_background_base) {
+        m_no_cash_debug_controller = no_cash_debug_controller;
         m_sprite_base = sprite_base;
         m_text_base = text_base;
         m_tiled_background_base = tiled_background_base;
     }
 
     void input(const morpheus::core::InputEvent input_event) {
-        if(input_event.state == morpheus::core::InputState::DOWN ||
-           input_event.state == morpheus::core::InputState::HELD) {
+        if(input_event.state == morpheus::core::InputState::DOWN) {
             switch (input_event.button) {
                 case morpheus::core::InputButton::SELECT:
                     if(m_input_mode != FIRST_INPUT_MODE) {
@@ -38,18 +39,29 @@ public:
                 default:
                     break;
             }
+        }
 
+        if(input_event.state == morpheus::core::InputState::DOWN ||
+           input_event.state == morpheus::core::InputState::HELD) {
             switch(m_input_mode) {
                 case InputMode::SPRITE_ROTATION:
+                    m_no_cash_debug_controller->send_to_debug_window("doing sprite rotation");
+
                     rotation_input(input_event, true);
                     break;
                 case InputMode::SPRITE_SCALE:
+                    m_no_cash_debug_controller->send_to_debug_window("doing sprite scale");
+
                     scale_input(input_event, true);
                     break;
                 case InputMode::BACKGROUND_ROTATION:
+                    m_no_cash_debug_controller->send_to_debug_window("doing background rotation");
+
                     rotation_input(input_event, false);
                     break;
                 case InputMode::BACKGROUND_SCALE:
+                    m_no_cash_debug_controller->send_to_debug_window("doing background scale");
+
                     scale_input(input_event, false);
                     break;
             }
@@ -57,9 +69,9 @@ public:
     }
 
     void update(const unsigned char cycle_time) {
-        /*morpheus::core::gfx::Vector2 base_position = m_sprite_base->get_position();
+        morpheus::core::gfx::Vector2 base_position = m_sprite_base->get_position();
 
-        m_text_base->print_at_pos("               ",
+        /*m_text_base->print_at_pos("               ",
                                   morpheus::core::gfx::Vector2(64, 0));
         m_text_base->print_at_pos("rotation: " + std::to_string(m_sprite_base->get_rotation()),
                                   morpheus::core::gfx::Vector2(64, 0));
@@ -129,7 +141,8 @@ private:
     const static InputMode FIRST_INPUT_MODE = InputMode::SPRITE_ROTATION;
     const static InputMode LAST_INPUT_MODE = InputMode::BACKGROUND_SCALE;
 
-    InputMode m_input_mode = FIRST_INPUT_MODE;
+    InputMode m_input_mode = InputMode::BACKGROUND_ROTATION;
+    morpheus::core::NoCashDebugController *m_no_cash_debug_controller;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
     std::shared_ptr<morpheus::core::gfx::TextBase> m_text_base;
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_tiled_background_base;
@@ -139,18 +152,17 @@ int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
     morpheus::core::NoCashDebugController *no_cash_controller = main_loop->get_no_cash_debug_controller();
 
-    no_cash_controller->send_to_debug_window("affine init started");
-
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background(morpheus::utils::
-                            construct_appropriate_tiled_background_8bpp(true, 2, nullptr, nullptr, main_loop.get(),
-                                                                        2, 2));
+                            construct_appropriate_tiled_background_8bpp(true, 3, nullptr, nullptr, main_loop.get(),
+                                                                        6, 6));
     std::shared_ptr<morpheus::core::gfx::SpriteBase> base_sprite(morpheus::utils::construct_appropriate_sprite_4bpp(
                                                           true, nullptr, nullptr));
     std::shared_ptr<morpheus::core::gfx::TextBase> info_text(morpheus::utils::construct_appropriate_text(false,
-                                                                                                         1, 25, 28));
-    std::shared_ptr<InputNode> input_node(new InputNode(base_sprite, info_text, base_background));
+                                                                                                         1, 25, 28,
+                                                                                                         true));
+    std::shared_ptr<InputNode> input_node(new InputNode(main_loop->get_no_cash_debug_controller(),
+                                                        base_sprite, info_text, base_background));
 
-    no_cash_controller->send_to_debug_window("affine init finish");
 
     #ifdef _GBA
         static_cast<morpheus::gba::gfx::Sprite4Bpp*>(base_sprite.get())->load_from_array(
@@ -165,7 +177,7 @@ int main() {
 
     base_background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                                      region_mapMap, region_mapMapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);
 
     base_sprite->set_position(64, 64);
     base_sprite->set_affine_index(1);
@@ -177,8 +189,9 @@ int main() {
 
     main_loop->add_control_reciever(input_node);
 
-    no_cash_controller->send_to_debug_window(std::string("Sprite addition result: " +
-                                             std::to_string(main_loop->add_sprite(base_sprite))));
+    main_loop->add_sprite(base_sprite);
+
+    //info_text->print_at_pos("hello", morpheus::core::gfx::Vector2(32, 32));
 
     main_loop->game_loop();
 }

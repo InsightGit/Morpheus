@@ -38,6 +38,10 @@ namespace morpheus {
                 }
 
             protected:
+                volatile unsigned short *get_background_register() const {
+                    return m_background_register;
+                }
+
                 int get_background_reference_num() const {
                     return m_background_reference_num;
                 }
@@ -57,6 +61,7 @@ namespace morpheus {
                 void set_background_size(core::gfx::TiledBackgroundSize size);
                 void update_scroll()override;
             private:
+                volatile unsigned short *m_background_register;
                 bool m_use_sub_display;
                 NdsMainLoop *m_main_loop;
 

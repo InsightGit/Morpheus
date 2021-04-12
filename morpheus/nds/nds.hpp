@@ -14,6 +14,7 @@
 #include <nds/gfx/nds_window.hpp>
 #include <nds/gfx/sprite_8_bpp.hpp>
 #include <nds/gfx/sprite_4_bpp.hpp>
+#include <nds/gfx/text.hpp>
 #include <nds/gfx/tiled_background_4_bpp.hpp>
 #include <nds/gfx/tiled_background_8_bpp.hpp>
 

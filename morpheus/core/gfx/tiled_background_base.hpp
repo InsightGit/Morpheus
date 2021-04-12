@@ -17,7 +17,12 @@ namespace morpheus {
                 BG_32x32,
                 BG_64x32,
                 BG_32x64,
-                BG_64x64
+                BG_64x64,
+
+                BG_AFFINE_16x16,
+                BG_AFFINE_32x32,
+                BG_AFFINE_64x64,
+                BG_AFFINE_128x128
             };
 
             class TiledBackgroundBase {
