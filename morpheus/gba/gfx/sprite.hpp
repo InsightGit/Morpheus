@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <iomanip>
 
 #include <tonc.h>
 
@@ -24,6 +25,12 @@ namespace morpheus {
                                     GbaMosaicController *mosaic_controller) :
                                     core::gfx::SpriteBase(affine, blending_controller, mosaic_controller) {
                         m_is_4bpp = is_4bpp;
+
+                        if(is_affine()) {
+                            obj_aff_identity(&m_affine_current);
+
+                            update_affine_state(core::gfx::AffineTransformation::Identity, true);
+                        }
                     }
 
                     explicit Sprite(const bool affine, const bool is_4bpp, const unsigned short palette_id,
@@ -70,7 +77,8 @@ namespace morpheus {
                     void on_visible_state_changed(bool hidden)override;
                     void set_sprite_size(core::gfx::SpriteSize size)override;
                     void toggle_blending(bool enable_blending, bool bottom_layer)override;
-                    void update_affine_state()override;
+                    void update_affine_state(core::gfx::AffineTransformation affine_transformation,
+                                             bool new_transformation)override;
 
                     virtual void input(core::InputEvent input_event)override {}
                     virtual void update(unsigned char cycle_time)override {}
@@ -84,6 +92,10 @@ namespace morpheus {
                     bool m_blended = false;
                     bool m_is_4bpp;
                     int m_last_obj_attr_num;
+
+                    OBJ_AFFINE m_affine_base;
+                    OBJ_AFFINE m_affine_current;
+                    OBJ_AFFINE m_affine_new;
 
                     unsigned int m_attr0;
                     unsigned int m_attr1;

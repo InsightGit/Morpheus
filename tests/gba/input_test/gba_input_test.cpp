@@ -38,7 +38,7 @@ protected:
 
 class MoveableSprite8 : public morpheus::gba::gfx::Sprite8Bpp, InputBase {
 public:
-    MoveableSprite8() : morpheus::gba::gfx::Sprite8Bpp(nullptr, nullptr) {}
+    MoveableSprite8() : morpheus::gba::gfx::Sprite8Bpp(false, nullptr, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(input_routine(input_event, get_position()));
@@ -47,7 +47,7 @@ protected:
 
 class MoveableSprite4 : public morpheus::gba::gfx::Sprite4Bpp, InputBase {
 public:
-    MoveableSprite4() : morpheus::gba::gfx::Sprite4Bpp(nullptr, nullptr) {}
+    MoveableSprite4() : morpheus::gba::gfx::Sprite4Bpp(false, nullptr, nullptr) {}
 protected:
     void input(morpheus::core::InputEvent input_event)override {
         set_position(input_routine(input_event, get_position()));

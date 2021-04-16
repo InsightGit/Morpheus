@@ -13,7 +13,7 @@
 #include <core/gfx/window.hpp>
 
 #include <nds/nds_controllers.hpp>
-#include <nds/dsi_sd_save_manager.hpp>
+#include <nds/ds_flashcard_save_manager.hpp>
 
 
 namespace morpheus {
@@ -76,6 +76,8 @@ namespace morpheus {
             core::InputEvent to_input_event(uint32_t inputs, uint16_t keypad_bit,
                                             morpheus::core::InputState input_state)override;
         private:
+            static core::SaveManager *select_appropriate_save_manager();
+
             void setup_debug_console(bool use_main_display);
 
             static PrintConsole *debug_print_console;

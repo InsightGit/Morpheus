@@ -6,9 +6,6 @@
 
 #include <gba/gba.hpp>
 
-#include "soundbank.h"
-#include "soundbank_bin.h"
-
 int main() {
     std::shared_ptr<morpheus::gba::GbaMainLoop> main_loop(
                                                 new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::ON));

@@ -42,7 +42,8 @@ namespace morpheus {
         class MainLoop : Uncopyable {
         public:
             MainLoop(gfx::BlendingController *blending_controller, CommunicationChannel *communication_channel,
-                     gfx::MosaicController *mosaic_controller, NoCashDebugController *no_cash_debug_controller);
+                     gfx::MosaicController *mosaic_controller, NoCashDebugController *no_cash_debug_controller,
+                     SaveManager *save_manager);
 
             virtual ~MainLoop() = default;
 

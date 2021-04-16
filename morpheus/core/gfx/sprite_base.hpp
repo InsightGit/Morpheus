@@ -33,6 +33,12 @@ namespace morpheus {
                 SIZE_32X64
             };
 
+            enum class AffineTransformation {
+                Rotation,
+                Scaling,
+                Identity
+            };
+
             class SpriteBase : public core::ControlReciever {
             public:
                 SpriteBase(bool affine, BlendingController *blending_controller, MosaicController *mosaic_controller) {
@@ -159,15 +165,25 @@ namespace morpheus {
                     on_visible_state_changed(m_hidden);
                 }
 
-                void set_rotation(const int rotation) {
-                    if(m_affine) {
+                void set_rotation(const unsigned short rotation) {
+                    if(m_affine && m_rotation != rotation) {
                         m_rotation = rotation;
+
+                        update_affine_state(AffineTransformation::Rotation,
+                                            m_last_affine_transformation != AffineTransformation::Rotation);
+
+                        m_last_affine_transformation = AffineTransformation::Rotation;
                     }
                 }
 
                 void set_scale(const core::gfx::Vector2 scale) {
-                    if(m_affine) {
+                    if(m_affine && m_scale != scale) {
                         m_scale = scale;
+
+                        update_affine_state(AffineTransformation::Scaling,
+                                            m_last_affine_transformation != AffineTransformation::Scaling);
+
+                        m_last_affine_transformation = AffineTransformation::Scaling;
                     }
                 }
 
@@ -179,6 +195,8 @@ namespace morpheus {
                 virtual void mosaic_state_updated() = 0;
                 virtual void on_visible_state_changed(bool new_visible_state) = 0;
                 virtual void toggle_blending(bool enable_blending, bool bottom_layer = true) = 0;
+                virtual void update_affine_state(AffineTransformation affine_transformation,
+                                                 bool new_transformation) = 0;
 
                 BlendingController *get_blending_controller() const {
                     return m_blending_controller;
@@ -191,12 +209,13 @@ namespace morpheus {
                 BlendingController *m_blending_controller;
                 bool m_drawn_node = true;
                 bool m_hidden = false;
+                AffineTransformation m_last_affine_transformation = AffineTransformation::Identity;
                 bool m_mosaic = false;
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;
                 unsigned char m_priority = 0;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
-                int m_rotation = 0;
+                unsigned int m_rotation = 0;
             };
         }
     }

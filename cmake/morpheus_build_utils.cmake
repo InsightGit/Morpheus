@@ -22,6 +22,18 @@ function(add_nds_executable target game_icon title subtitle1 subtitle2)
     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
 endfunction()
 
+function(add_nds_executable_with_nitrofs_dir target game_icon title subtitle1 subtitle2 nitrofs_dir)
+    get_filename_component(target_name ${target} NAME_WE)
+    add_custom_target(${target_name}.nds ALL SOURCES
+            COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_SOURCE_DIR}/${game_icon}
+            "${title};${subtitle1};${subtitle2}" -d ${nitrofs_dir}
+            DEPENDS ${target}
+            VERBATIM
+            )
+    #set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+    set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
+endfunction()
+
 function(execute_grit_sprites png_files png_image_sizes is_4bpp)
     set(png_files ${${png_files}})
     set(png_image_sizes ${${png_image_sizes}})

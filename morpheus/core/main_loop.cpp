@@ -7,11 +7,13 @@
 morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blending_controller,
                                    morpheus::core::CommunicationChannel *communication_channel,
                                    morpheus::core::gfx::MosaicController *mosaic_controller,
-                                   morpheus::core::NoCashDebugController *no_cash_debug_controller) {
+                                   morpheus::core::NoCashDebugController *no_cash_debug_controller,
+                                   SaveManager *save_manager) {
     m_blending_controller.reset(blending_controller);
     m_communication_channel.reset(communication_channel);
     m_mosaic_controller.reset(mosaic_controller);
     m_no_cash_debug_controller.reset(no_cash_debug_controller);
+    m_save_manager.reset(save_manager);
 
     m_sprites.reserve(MAX_SPRITE_NUM);
 }

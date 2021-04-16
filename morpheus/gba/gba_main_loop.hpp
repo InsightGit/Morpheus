@@ -20,6 +20,7 @@
 #include <gba/gba_controllers.hpp>
 #include <gba/gba_main_loop.hpp>
 #include <gba/serial_communication.hpp>
+#include <gba/gba_sram_save_manager.hpp>
 
 namespace morpheus {
     namespace gba {
@@ -72,6 +73,8 @@ namespace morpheus {
             private:
                 GbaMainLoop *m_main_loop;
             };
+
+            static core::SaveManager *select_appropriate_save_manager();
 
             std::unique_ptr<DebugStream> m_debug_stream;
             std::vector<void *> m_obj_buffer;

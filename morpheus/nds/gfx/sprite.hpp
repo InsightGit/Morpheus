@@ -103,6 +103,9 @@ namespace morpheus {
                 void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
                     m_last_used_obj_attr_num = last_used_obj_attr_num;
                 }
+
+                virtual void update_affine_state(core::gfx::AffineTransformation affine_transformation,
+                                                 bool new_transformation) override {}
             private:
                 bool m_blended;
                 bool m_do_not_free_gfx_pointer;

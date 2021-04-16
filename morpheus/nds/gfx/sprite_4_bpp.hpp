@@ -37,7 +37,7 @@ namespace morpheus {
 
                 void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num)override;
             protected:
-                virtual void input(core::InputEvent input_event)override {}
+                virtual void input(core::InputEvent input_event) override {}
             };
         }
     }

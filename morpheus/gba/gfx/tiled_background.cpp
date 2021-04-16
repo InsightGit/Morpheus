@@ -39,6 +39,7 @@ void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *ti
                                                           const unsigned int tile_map_len,
                                                           core::gfx::TiledBackgroundSize size) {
     switch(size) {
+        default:
         case core::gfx::TiledBackgroundSize::BG_32x32:
             m_background_register |= BG_REG_32x32;
             break;

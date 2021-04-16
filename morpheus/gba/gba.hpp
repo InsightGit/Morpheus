@@ -14,6 +14,7 @@
 #include <gba/audio/gba_max_mod_sfx.hpp>
 
 #include <gba/gfx/gba_window.hpp>
+#include <gba/gba_sram_save_manager.hpp>
 #include <gba/gfx/sprite_4_bpp.hpp>
 #include <gba/gfx/sprite_8_bpp.hpp>
 #include <gba/gfx/text.hpp>

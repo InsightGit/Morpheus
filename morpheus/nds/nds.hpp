@@ -6,7 +6,7 @@
 #define MORPHEUS_NDS_HPP
 
 #include <nds/nds_main_loop.hpp>
-#include <nds/dsi_sd_save_manager.hpp>
+#include <nds/ds_flashcard_save_manager.hpp>
 
 #include <nds/audio/nds_max_mod_music.hpp>
 #include <nds/audio/nds_max_mod_sfx.hpp>

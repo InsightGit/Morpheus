@@ -8,7 +8,8 @@ morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_co
                             morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController(),
                                                      new MultiplayerSerialCommunication(),
                                                      new morpheus::gba::gfx::GbaMosaicController(),
-                                                     new GbaNoCashDebugController()) {
+                                                     new GbaNoCashDebugController(),
+                                                     select_appropriate_save_manager()) {
     #ifdef NDEBUG
         bool debug = false;
     #else
@@ -311,6 +312,15 @@ void morpheus::gba::GbaMainLoop::enable_affine(morpheus::core::gfx::AffineMode a
                 break;
         }
     }
+}
+
+morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save_manager() {
+#ifdef GBA_EEPROM_SAVE
+    // TODO(Bobby): Implement EEPROM save manager
+    return nullptr;
+#else
+    return new morpheus::gba::GbaSramSaveManager();
+#endif
 }
 
 /*void morpheus::gba::GbaMainLoop::clear_vram() {

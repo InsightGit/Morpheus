@@ -10,7 +10,7 @@ PrintConsole *morpheus::nds::NdsMainLoop::debug_print_console = nullptr;
 morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) :
             morpheus::core::MainLoop(new gfx::NdsBlendingController(false), nullptr,
                                      new gfx::NdsMosaicController(false),
-                                     new NdsNoCashDebugController()) {
+                                     new NdsNoCashDebugController(), select_appropriate_save_manager()) {
     #ifdef NDEBUG
         bool debug = false;
     #else
@@ -139,14 +139,6 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
 }
 
 morpheus::core::Error morpheus::nds::NdsMainLoop::platform_init() {
-    if(isDSiMode()) {
-        // TODO(Bobby): Log bool return value and add fatInit or fatMount call
-        fatInitDefault();
-        fatMountSimple("sd", get_io_dsisd());
-
-        set_save_manager(new DsiSdSaveManager("sd:/"));
-    }
-
     return morpheus::core::Error::OK;
 }
 
@@ -261,6 +253,21 @@ void morpheus::nds::NdsMainLoop::disable_affine(bool use_sub_display) {
         REG_DISPCNT_SUB &= 0xFFFF8;
         REG_DISPCNT_SUB |= MODE_0_2D;
     }
+}
+
+morpheus::core::SaveManager *morpheus::nds::NdsMainLoop::select_appropriate_save_manager() {
+    char *base_path;
+    bool mounted = nitroFSInit(&base_path);
+
+    fatInitDefault();
+
+    nocashMessage(std::string("mount process:" + std::to_string(mounted)).c_str());
+
+    if(!mounted) {
+        base_path = strdup("nitro:/");
+    }
+
+    return new DsFlashcardSaveManager(base_path, mounted);
 }
 
 /*void morpheus::nds::NdsMainLoop::clear_vram() {

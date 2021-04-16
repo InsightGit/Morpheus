@@ -29,10 +29,7 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
     if(is_affine()) {
         auto *affine_obj = reinterpret_cast<OBJ_AFFINE *>(obj);
 
-        obj_aff_identity(affine_obj);
-
-        obj_aff_rotate(affine_obj, get_rotation());
-        obj_aff_scale_inv(affine_obj, (1<<8)-get_scale().get_x(), (1<<8)-get_scale().get_y());
+        obj_aff_copy(affine_obj, &m_affine_current, 1);
     }
 }
 
@@ -142,5 +139,52 @@ void morpheus::gba::gfx::Sprite::toggle_blending(bool enable_blending, bool bott
         m_attr0 &= ~ATTR0_BLEND;
         m_blended = false;
     }
+}
+
+void morpheus::gba::gfx::Sprite::update_affine_state(core::gfx::AffineTransformation affine_transformation,
+                                                     bool new_transformation) {
+    /*if(new_transformation) {
+        obj_aff_identity(&m_affine_new);
+    } else {
+        obj_aff_copy(&m_affine_base, &m_affine_current, 1);
+    }
+
+    switch (affine_transformation) {
+        case core::gfx::AffineTransformation::Rotation:
+            obj_aff_rotate(&m_affine_new, get_rotation());
+            break;
+        case core::gfx::AffineTransformation::Scaling:
+            obj_aff_scale_inv(&m_affine_new, get_scale().get_x(), get_scale().get_y());
+            break;
+        case core::gfx::AffineTransformation::Identity:
+            obj_aff_identity(&m_affine_current);
+            obj_aff_identity(&m_affine_base);
+            return;
+    }
+
+    if(new_transformation) {
+        obj_aff_copy(&m_affine_current, &m_affine_base, 1);
+    }
+
+    obj_aff_postmul(&m_affine_current, &m_affine_new);*/
+
+    int cosine_value = lu_cos(get_rotation());
+    int sin_value = lu_sin(get_rotation());
+
+    obj_aff_copy(&m_affine_current, &m_affine_base, 1);
+
+    obj_aff_set(&m_affine_current, (cosine_value*get_scale().get_x()) >> 12, (-sin_value*get_scale().get_x()) >> 12,
+                (sin_value*get_scale().get_y()) >> 12, (cosine_value*get_scale().get_y()) >> 12);
+
+    //obj_aff_rotate(&m_affine_current, get_rotation());
+    //obj_aff_rotscale(&m_affine_current, get_scale().get_x(), get_scale().get_y(),get_rotation());
+
+    std::stringstream nocash_string_stream;
+
+    nocash_string_stream << "Affine matrix:" << std::hex << m_affine_current.pa << ":" << std::hex
+                         << m_affine_current.pb << ":" << std::hex << m_affine_current.pc << ":" << std::hex
+                         << m_affine_current.pd;
+
+    nocash_puts(nocash_string_stream.str().c_str());
 }
 

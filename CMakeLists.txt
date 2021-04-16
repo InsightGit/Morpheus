@@ -68,10 +68,14 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/text.hpp
             morpheus/gba/gfx/tiled_background.hpp
             morpheus/gba/gfx/tiled_background.cpp
+            morpheus/gba/gba_eeprom_save_manager.hpp
+            morpheus/gba/gba_eeprom_save_manager.cpp
             morpheus/gba/gfx/gba_window.hpp
             morpheus/gba/gfx/gba_window.cpp
             morpheus/gba/serial_communication.cpp
-            morpheus/gba/serial_communication.hpp)
+            morpheus/gba/serial_communication.hpp
+            morpheus/gba/gba_sram_save_manager.hpp
+            morpheus/gba/gba_sram_save_manager.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -112,8 +116,8 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/gfx/tiled_background_8_bpp.cpp
             morpheus/nds/gfx/nds_window.cpp
             morpheus/nds/gfx/nds_window.hpp
-            morpheus/nds/dsi_sd_save_manager.hpp
-            morpheus/nds/dsi_sd_save_manager.cpp)
+            morpheus/nds/ds_flashcard_save_manager.hpp
+            morpheus/nds/ds_flashcard_save_manager.cpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 
@@ -216,15 +220,14 @@ if("$ENV{BUILD_TESTS}")
         target_link_libraries(morpheus-gba-input-test.elf morpheus mm tonc)
 
 
-        project(morpheus-gba-sram-test)
+        project(morpheus-gba-save-test)
 
-        link_directories(morpheus-gba-sram-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+        link_directories(morpheus-gba-save-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-sram-test.elf tests/gba/sram_test/gba_sram_test.cpp
-                       ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
-        add_gba_executable(morpheus-gba-sram-test.elf)
+        add_executable(morpheus-gba-save-test.elf tests/save_test/save_test.cpp)
+        add_gba_executable(morpheus-gba-save-test.elf)
 
-        target_link_libraries(morpheus-gba-sram-test.elf morpheus mm tonc)
+        target_link_libraries(morpheus-gba-save-test.elf morpheus mm tonc)
 
 
         project(morpheus-gba-tileset-test)
@@ -294,7 +297,9 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES})
+        add_executable(morpheus-gba-affine-test.elf tests/affine_test/affine_test.cpp
+                       "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
+                        ${PNG4_OUTPUT_FILES})
         add_gba_executable(morpheus-gba-affine-test.elf)
 
         target_link_libraries(morpheus-gba-affine-test.elf morpheus mm tonc)
@@ -393,9 +398,10 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-save-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        add_executable(morpheus-nds-save-test.elf tests/nds/save_test/nds_save_test.cpp)
-        add_nds_executable(morpheus-nds-save-test.elf "tests/nds/input_test/ds_icon.bmp"
-                           "Morpheus DS Save Test" "Morpheus engine" "")
+        add_executable(morpheus-nds-save-test.elf tests/save_test/save_test.cpp)
+        add_nds_executable_with_nitrofs_dir(morpheus-nds-save-test.elf "tests/nds/input_test/ds_icon.bmp"
+                                            "Morpheus DS Save Test" "Morpheus engine" ""
+                                            "${CMAKE_CURRENT_SOURCE_DIR}/tests/nds/save_test/nitrofs/")
 
         target_link_libraries(morpheus-nds-save-test.elf morpheus mm9 filesystem fat nds9)
 
