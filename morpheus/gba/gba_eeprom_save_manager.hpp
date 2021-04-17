@@ -28,11 +28,12 @@ namespace morpheus {
             unsigned int load(unsigned char *data, unsigned int len)override;
             unsigned int save(const unsigned char *data, unsigned int len)override;
         private:
-            volatile unsigned char *EEPROM_START = reinterpret_cast<unsigned char*>(0xDFFFF00);
+            unsigned char *EEPROM_START = reinterpret_cast<unsigned char*>(0xDFFFF00);
 
-            const unsigned char EEPROM_READ_REQUEST = 0x0011;
+            const unsigned char EEPROM_READ_REQUEST = 0x0003;
+            const unsigned char EEPROM_WRITE_REQUEST = 0x0002;
 
-            bool seek_to_eeprom_address(const unsigned int block_number);
+            bool read_seek_to_eeprom_address(const unsigned int block_number);
 
             EepromSize m_eeprom_size;
         };
