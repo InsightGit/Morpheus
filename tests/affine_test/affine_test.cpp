@@ -152,9 +152,9 @@ private:
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
 
-    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background/*(morpheus::utils::
+    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background(morpheus::utils::
                             construct_appropriate_tiled_background_8bpp(true, 1, nullptr, nullptr, main_loop.get(),
-                                                                        6, 6))*/;
+                                                                        6, 6));
     std::shared_ptr<morpheus::core::gfx::SpriteBase> base_sprite(morpheus::utils::construct_appropriate_sprite_4bpp(
                                                           true, nullptr, nullptr));
     std::shared_ptr<morpheus::core::gfx::TextBase> info_text(morpheus::utils::construct_appropriate_text(false,
@@ -176,14 +176,14 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    /*base_background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
+    base_background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
                                      region_mapMap, region_mapMapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_64x64);*/
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_64x64);
 
     base_sprite->set_position(64, 64);
     base_sprite->set_affine_index(1);
 
-    //base_background->set_affine_index(2);
+    base_background->set_affine_index(2);
 
     main_loop->enable_affine(morpheus::core::gfx::AffineMode::MIXED_AFFINE);
     main_loop->enable_background(0);

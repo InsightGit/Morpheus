@@ -91,11 +91,10 @@ namespace morpheus {
                 private:
                     bool m_blended = false;
                     bool m_is_4bpp;
-                    int m_last_obj_attr_num;
+                    unsigned int m_last_obj_attr_num;
 
                     OBJ_AFFINE m_affine_base;
                     OBJ_AFFINE m_affine_current;
-                    OBJ_AFFINE m_affine_new;
 
                     unsigned int m_attr0;
                     unsigned int m_attr1;

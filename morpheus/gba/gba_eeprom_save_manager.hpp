@@ -9,7 +9,6 @@
 
 #include <core/save_manager.hpp>
 
-
 namespace morpheus {
     namespace gba {
         enum class EepromSize {
@@ -32,6 +31,10 @@ namespace morpheus {
 
             const unsigned char EEPROM_READ_REQUEST = 0x0003;
             const unsigned char EEPROM_WRITE_REQUEST = 0x0002;
+
+            static unsigned int lsb_short_to_msb_short(unsigned int lsb_short) {
+                return ((lsb_short & 0xFF00) >> 8) | ((lsb_short & 0x00FF) << 8);
+            }
 
             bool read_seek_to_eeprom_address(const unsigned int block_number);
 

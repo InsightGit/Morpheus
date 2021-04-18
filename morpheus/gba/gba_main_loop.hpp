@@ -20,6 +20,7 @@
 #include <gba/gba_controllers.hpp>
 #include <gba/gba_main_loop.hpp>
 #include <gba/serial_communication.hpp>
+#include <gba/gba_eeprom_save_manager.hpp>
 #include <gba/gba_sram_save_manager.hpp>
 
 namespace morpheus {
@@ -40,7 +41,7 @@ namespace morpheus {
         public:
             const static int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
 
-            explicit GbaMainLoop(DebugConsoleMode debug_console_mode);
+            explicit GbaMainLoop(DebugConsoleMode debug_console_mode, core::GbaSaveType save_type);
 
             virtual ~GbaMainLoop();
 
@@ -74,7 +75,7 @@ namespace morpheus {
                 GbaMainLoop *m_main_loop;
             };
 
-            static core::SaveManager *select_appropriate_save_manager();
+            static core::SaveManager *select_appropriate_save_manager(core::GbaSaveType save_type);
 
             std::unique_ptr<DebugStream> m_debug_stream;
             std::vector<void *> m_obj_buffer;

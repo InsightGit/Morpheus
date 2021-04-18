@@ -9,7 +9,13 @@
 #endif
 
 int main() {
-    std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
+    #ifdef GBA_EEPROM_SAVE
+        std::shared_ptr<morpheus::core::MainLoop> main_loop(
+                morpheus::utils::construct_appropriate_main_loop(false, false,
+                                                                 morpheus::core::GbaSaveType::EEPROM_8KB));
+    #else
+        std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
+    #endif
 
     #ifdef _GBA
         tte_init_se(1, BG_CBB(5) | BG_SBB(5) | BG_PRIO(0), 0, CLR_WHITE, 14, nullptr, nullptr);

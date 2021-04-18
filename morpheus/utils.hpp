@@ -60,13 +60,15 @@ namespace morpheus {
             std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
         };
 
-        static morpheus::core::MainLoop* construct_appropriate_main_loop(bool enable_screen_debug_gba = false,
-                                                                         bool enable_screen_debug_nds = true) {
+        static morpheus::core::MainLoop* construct_appropriate_main_loop(
+                                bool enable_screen_debug_gba = false,
+                                bool enable_screen_debug_nds = true,
+                                morpheus::core::GbaSaveType gba_save_type = morpheus::core::GbaSaveType::SRAM_32KB) {
             #ifdef _GBA
                 if(enable_screen_debug_gba) {
-                    return new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::ON);
+                    return new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::ON, gba_save_type);
                 } else {
-                    return new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::NOCASH_ONLY);
+                    return new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::NOCASH_ONLY, gba_save_type);
                 }
             #elif _NDS
                 if(enable_screen_debug_nds) {

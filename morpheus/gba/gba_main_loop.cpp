@@ -4,12 +4,13 @@
 
 #include "gba_main_loop.hpp"
 
-morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode) :
+morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode,
+                                        core::GbaSaveType save_type) :
                             morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController(),
                                                      new MultiplayerSerialCommunication(),
                                                      new morpheus::gba::gfx::GbaMosaicController(),
                                                      new GbaNoCashDebugController(),
-                                                     select_appropriate_save_manager()) {
+                                                     select_appropriate_save_manager(save_type)) {
     #ifdef NDEBUG
         bool debug = false;
     #else
@@ -147,7 +148,7 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
         for(unsigned int i = 0; m_sprites.size() > i; ++i) {
             m_sprites[i]->draw(m_obj_buffer, i);
 
-            oam_copy(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 1);
+            memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
         }
 
         if(m_debug_stream != nullptr) {
@@ -314,13 +315,18 @@ void morpheus::gba::GbaMainLoop::enable_affine(morpheus::core::gfx::AffineMode a
     }
 }
 
-morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save_manager() {
-#ifdef GBA_EEPROM_SAVE
-    // TODO(Bobby): Implement EEPROM save manager
+morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save_manager(core::GbaSaveType save_type) {
+    switch(save_type) {
+        case core::GbaSaveType::EEPROM_8KB:
+            return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_8_KILOBYTES);
+        case core::GbaSaveType::EEPROM_512B:
+            return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_8_KILOBYTES);
+        case core::GbaSaveType::SRAM_32KB:
+            return new morpheus::gba::GbaSramSaveManager();
+    }
+
+    // should never happen
     return nullptr;
-#else
-    return new morpheus::gba::GbaSramSaveManager();
-#endif
 }
 
 /*void morpheus::gba::GbaMainLoop::clear_vram() {

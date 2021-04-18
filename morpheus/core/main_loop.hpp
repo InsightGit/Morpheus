@@ -34,6 +34,12 @@ namespace morpheus {
             class SpriteBase;
         }
 
+        enum class GbaSaveType {
+            EEPROM_8KB,
+            EEPROM_512B,
+            SRAM_32KB
+        };
+
         class ControlReciever;
 
         const int MAX_SPRITE_NUM = 128;

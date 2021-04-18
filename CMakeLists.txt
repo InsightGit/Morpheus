@@ -7,6 +7,7 @@ include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
 
+
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
         morpheus/core/controllers.hpp
@@ -220,15 +221,25 @@ if("$ENV{BUILD_TESTS}")
         target_link_libraries(morpheus-gba-input-test.elf morpheus mm tonc)
 
 
-        project(morpheus-gba-save-test)
+        project(morpheus-gba-sram-test)
 
-        link_directories(morpheus-gba-save-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+        link_directories(morpheus-gba-sram-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-save-test.elf tests/save_test/save_test.cpp)
-        add_gba_executable(morpheus-gba-save-test.elf)
+        add_executable(morpheus-gba-sram-test.elf tests/save_test/save_test.cpp)
+        add_gba_executable(morpheus-gba-sram-test.elf)
 
-        target_link_libraries(morpheus-gba-save-test.elf morpheus mm tonc)
+        target_link_libraries(morpheus-gba-sram-test.elf morpheus mm tonc)
 
+        project(morpheus-gba-sram-test)
+
+        link_directories(morpheus-gba-eeprom-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-gba-eeprom-test.elf tests/save_test/save_test.cpp)
+        add_gba_executable(morpheus-gba-eeprom-test.elf)
+
+        target_link_libraries(morpheus-gba-eeprom-test.elf morpheus mm tonc)
+
+        target_compile_definitions(morpheus-gba-eeprom-test.elf PUBLIC GBA_EEPROM_SAVE)
 
         project(morpheus-gba-tileset-test)
 

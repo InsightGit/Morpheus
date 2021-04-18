@@ -64,7 +64,7 @@ unsigned int morpheus::gba::GbaEepromSaveManager::load(unsigned char *data, unsi
         ++current_block_num;
     }
     
-    return len;
+    return current_byte;
 }
 
 unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data, unsigned int len) {
@@ -87,16 +87,16 @@ unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data
             break;
     }
 
+    nocash_puts(std::string("actual len to be read from EEPROM: " + std::to_string(actual_len)).c_str());
+
     // uses the EEPROM write process as detailed in GBATEK here(https://problemkaputt.de/gbatek.htm#gbacartbackupeeprom)
     while(current_byte < actual_len) {
         // preparing the write request bit stream
         unsigned int write_request_header[3];
 
-        write_request_header[0] = EEPROM_WRITE_REQUEST | (current_block_num << 2);
-        write_request_header[1] = 0x00000000;
-        write_request_header[2] = 0x00000000;
+        write_request_header[0] = EEPROM_WRITE_REQUEST | (lsb_short_to_msb_short(current_block_num) << 2);
 
-        if(current_byte + 8 >= actual_len) {
+        if(current_byte + 8 > actual_len) {
             return current_byte;
         }
 
@@ -113,16 +113,31 @@ unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data
         }
 
         // copying over the write request bit stream
-        dma_cpy(EEPROM_START, write_request_header, 3, 3, DMA_CPY32);
+        dma_cpy(EEPROM_START, write_request_header, 6, 3, DMA_CPY16);
 
-        while() {
-            //
+        unsigned int cycle_counter = 0;
+        unsigned int ready_cache = 0;
+
+        // wait until ready bit is set or return if cycle_counter has exceeded 10 ms (based off of the GBA's 16.78Mhz
+        // CPU instruction speed)
+        while((ready_cache & 0x0001) == 0) {
+            ++cycle_counter;
+
+            dma_cpy(&ready_cache, EEPROM_START, 1, 3, DMA_CPY16);
+
+            nocash_puts(std::to_string(ready_cache).c_str());
+
+            if(cycle_counter >= 167800) {
+                tte_write(std::string("EEPROM timeout on byte " + std::to_string(current_byte) + "\n").c_str());
+
+                return current_byte;
+            }
         }
 
         current_byte += 8;
     }
 
-    return 0;
+    return current_byte;
 }
 
 bool morpheus::gba::GbaEepromSaveManager::read_seek_to_eeprom_address(const unsigned int block_number) {
@@ -135,14 +150,14 @@ bool morpheus::gba::GbaEepromSaveManager::read_seek_to_eeprom_address(const unsi
                 return false;
             }
 
-            seek_bit_stream = EEPROM_READ_REQUEST | (block_number << 2) | (0 << 7);
+            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (block_number << 2) | (0 << 7);
             break;
         case EepromSize::EEPROM_8_KILOBYTES:
             if(block_number > 1023) {
                 return false;
             }
 
-            seek_bit_stream = EEPROM_READ_REQUEST | (block_number << 2) | (0 << 15);
+            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (block_number << 2) | (0 << 15);
             break;
     }
 

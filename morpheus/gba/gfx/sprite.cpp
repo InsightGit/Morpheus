@@ -20,16 +20,16 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
 
     if(is_affine()) {
         m_attr0 |= ATTR0_AFF | ATTR0_AFF_DBL;
-        m_attr1 |= ATTR1_AFF_ID(obj_attr_num);
+        m_attr1 |= ATTR1_AFF_ID(get_affine_index());
     }
 
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
     obj_set_pos(obj, position.get_x(), position.get_y());
 
-    if(is_affine()) {
-        auto *affine_obj = reinterpret_cast<OBJ_AFFINE *>(obj);
+    obj->fill = m_affine_current.pa;
 
-        obj_aff_copy(affine_obj, &m_affine_current, 1);
+    if(is_affine()) {
+        obj_aff_copy(&obj_aff_mem[get_affine_index()], &m_affine_current, 1);
     }
 }
 
@@ -143,41 +143,31 @@ void morpheus::gba::gfx::Sprite::toggle_blending(bool enable_blending, bool bott
 
 void morpheus::gba::gfx::Sprite::update_affine_state(core::gfx::AffineTransformation affine_transformation,
                                                      bool new_transformation) {
-    /*if(new_transformation) {
-        obj_aff_identity(&m_affine_new);
-    } else {
-        obj_aff_copy(&m_affine_base, &m_affine_current, 1);
-    }
+    OBJ_AFFINE affine_new;
 
-    switch (affine_transformation) {
-        case core::gfx::AffineTransformation::Rotation:
-            obj_aff_rotate(&m_affine_new, get_rotation());
-            break;
-        case core::gfx::AffineTransformation::Scaling:
-            obj_aff_scale_inv(&m_affine_new, get_scale().get_x(), get_scale().get_y());
-            break;
-        case core::gfx::AffineTransformation::Identity:
-            obj_aff_identity(&m_affine_current);
-            obj_aff_identity(&m_affine_base);
-            return;
-    }
+    obj_aff_identity(&affine_new);
 
     if(new_transformation) {
+        obj_aff_copy(&m_affine_base, &m_affine_current, 1);
+    } else {
         obj_aff_copy(&m_affine_current, &m_affine_base, 1);
     }
 
-    obj_aff_postmul(&m_affine_current, &m_affine_new);*/
+    switch(affine_transformation) {
+        case core::gfx::AffineTransformation::Rotation:
+            obj_aff_rotate_inv(&m_affine_current, get_rotation());
+            break;
+        case core::gfx::AffineTransformation::Scaling:
+            obj_aff_scale_inv(&m_affine_current, get_scale().get_x(), get_scale().get_y());
+            break;
+        case core::gfx::AffineTransformation::Identity:
+            obj_aff_identity(&m_affine_base);
+            obj_aff_identity(&m_affine_current);
 
-    int cosine_value = lu_cos(get_rotation());
-    int sin_value = lu_sin(get_rotation());
+            break;
+    };
 
-    obj_aff_copy(&m_affine_current, &m_affine_base, 1);
-
-    obj_aff_set(&m_affine_current, (cosine_value*get_scale().get_x()) >> 12, (-sin_value*get_scale().get_x()) >> 12,
-                (sin_value*get_scale().get_y()) >> 12, (cosine_value*get_scale().get_y()) >> 12);
-
-    //obj_aff_rotate(&m_affine_current, get_rotation());
-    //obj_aff_rotscale(&m_affine_current, get_scale().get_x(), get_scale().get_y(),get_rotation());
+    obj_aff_postmul(&m_affine_current, &affine_new);
 
     std::stringstream nocash_string_stream;
 

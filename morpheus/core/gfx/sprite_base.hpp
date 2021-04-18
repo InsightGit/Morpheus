@@ -165,7 +165,7 @@ namespace morpheus {
                     on_visible_state_changed(m_hidden);
                 }
 
-                void set_rotation(const unsigned short rotation) {
+                void set_rotation(const short rotation) {
                     if(m_affine && m_rotation != rotation) {
                         m_rotation = rotation;
 
@@ -178,7 +178,8 @@ namespace morpheus {
 
                 void set_scale(const core::gfx::Vector2 scale) {
                     if(m_affine && m_scale != scale) {
-                        m_scale = scale;
+                        m_scale = core::gfx::Vector2(static_cast<short>(scale.get_x()),
+                                                     static_cast<short>(scale.get_y()));
 
                         update_affine_state(AffineTransformation::Scaling,
                                             m_last_affine_transformation != AffineTransformation::Scaling);
@@ -215,7 +216,7 @@ namespace morpheus {
                 Vector2 m_position;
                 unsigned char m_priority = 0;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
-                unsigned int m_rotation = 0;
+                int m_rotation = 0;
             };
         }
     }
