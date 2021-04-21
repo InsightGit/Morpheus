@@ -37,7 +37,10 @@ namespace morpheus {
         enum class GbaSaveType {
             EEPROM_8KB,
             EEPROM_512B,
-            SRAM_32KB
+            SRAM_32KB,
+            FLASH_AUTO_DETECT,
+            FLASH_64KB,
+            FLASH_128KB
         };
 
         class ControlReciever;

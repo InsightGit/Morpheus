@@ -71,6 +71,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/tiled_background.cpp
             morpheus/gba/gba_eeprom_save_manager.hpp
             morpheus/gba/gba_eeprom_save_manager.cpp
+            morpheus/gba/gba_flash_save_manager.hpp
+            morpheus/gba/gba_flash_save_manager.cpp
             morpheus/gba/gfx/gba_window.hpp
             morpheus/gba/gfx/gba_window.cpp
             morpheus/gba/serial_communication.cpp
@@ -230,7 +232,7 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-gba-sram-test.elf morpheus mm tonc)
 
-        project(morpheus-gba-sram-test)
+        project(morpheus-gba-eeprom-test)
 
         link_directories(morpheus-gba-eeprom-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
@@ -240,6 +242,17 @@ if("$ENV{BUILD_TESTS}")
         target_link_libraries(morpheus-gba-eeprom-test.elf morpheus mm tonc)
 
         target_compile_definitions(morpheus-gba-eeprom-test.elf PUBLIC GBA_EEPROM_SAVE)
+
+        project(morpheus-gba-eeprom-test)
+
+        link_directories(morpheus-gba-flash-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        add_executable(morpheus-gba-flash-test.elf tests/save_test/save_test.cpp)
+        add_gba_executable(morpheus-gba-flash-test.elf)
+
+        target_link_libraries(morpheus-gba-flash-test.elf morpheus mm tonc)
+
+        target_compile_definitions(morpheus-gba-flash-test.elf PUBLIC GBA_FLASH_SAVE)
 
         project(morpheus-gba-tileset-test)
 

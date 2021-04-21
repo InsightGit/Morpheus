@@ -320,9 +320,15 @@ morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save
         case core::GbaSaveType::EEPROM_8KB:
             return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_8_KILOBYTES);
         case core::GbaSaveType::EEPROM_512B:
-            return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_8_KILOBYTES);
+            return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_512_BYTES);
         case core::GbaSaveType::SRAM_32KB:
             return new morpheus::gba::GbaSramSaveManager();
+        case core::GbaSaveType::FLASH_AUTO_DETECT:
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_AUTO_DETECT);
+        case core::GbaSaveType::FLASH_64KB:
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_64_KB);
+        case core::GbaSaveType::FLASH_128KB:
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_128_KB);
     }
 
     // should never happen

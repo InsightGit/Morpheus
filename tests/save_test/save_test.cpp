@@ -13,6 +13,10 @@ int main() {
         std::shared_ptr<morpheus::core::MainLoop> main_loop(
                 morpheus::utils::construct_appropriate_main_loop(false, false,
                                                                  morpheus::core::GbaSaveType::EEPROM_8KB));
+    #elif GBA_FLASH_SAVE
+        std::shared_ptr<morpheus::core::MainLoop> main_loop(
+                morpheus::utils::construct_appropriate_main_loop(false, false,
+                                                                 morpheus::core::GbaSaveType::FLASH_128KB));
     #else
         std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
     #endif
@@ -24,11 +28,14 @@ int main() {
                 true, true);
     #endif
 
+    nocash_puts("main loop loaded");
+
     if(main_loop->get_save_manager()->is_successfully_mounted()) {
-        unsigned char string[8];
         unsigned char save_string[8] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', '\0'};
+        unsigned char string[8];
 
         unsigned int bytes_read = main_loop->get_save_manager()->load(&string[0], 8);
+        unsigned int bytes_written;
 
         std::string platform_detail_string;
 
@@ -36,33 +43,35 @@ int main() {
             platform_detail_string = "on " + platform_detail_string + " path";
         #elif GBA_EEPROM_SAVE
             platform_detail_string = "on GBA EEPROM";
+        #elif GBA_FLASH_SAVE
+            platform_detail_string = "on GBA FLASH";
         #else
             platform_detail_string = "on GBA SRAM";
         #endif
 
-        if (bytes_read == 0 || string[0] != save_string[0]) {
-            unsigned int bytes_written;
-
-            bytes_written = main_loop->get_save_manager()->save(&save_string[0], 8);
-
-            #ifdef _GBA
-                tte_write(std::string("saved " + std::to_string(bytes_written) + " bytes to non volatile mem\n" +
-                                      platform_detail_string + "\n").c_str());
-            #else
-                std::cout << "saved " << bytes_written << " bytes to non volatile mem\n" << platform_detail_string <<
-                             "\n";
-            #endif
-        } else {
+        if(bytes_read > 0) {
             #ifdef _GBA
                 tte_write(std::string("read " + std::to_string(bytes_read) + " bytes from non volatile mem\n" +
-                                           platform_detail_string + "\ninit byte is " +
-                                           std::to_string(static_cast<uint8_t>(string[0])) +
-                                           std::string("\nbytes are ") + reinterpret_cast<char*>(string)).c_str());
+                                      platform_detail_string + "\ninit byte is " +
+                                      std::to_string(static_cast<uint8_t>(string[0])) +
+                                      std::string("\nbytes are ") + reinterpret_cast<char*>(string) +
+                                      " strlen is " + std::to_string(strlen(reinterpret_cast<char*>(string))) +
+                                      "\n").c_str());
             #else
                 std::cout << "read " << bytes_read << " bytes from non volatile mem\n" << platform_detail_string <<
-                             "\n" << "bytes are " << string;
+                                 "\n" << "bytes are " << string;
             #endif
         }
+
+        bytes_written = main_loop->get_save_manager()->save(&save_string[0], 8);
+
+        #ifdef _GBA
+            tte_write(std::string("saved " + std::to_string(bytes_written) + " bytes to non volatile mem\n" +
+                                  platform_detail_string + "\n").c_str());
+        #else
+            std::cout << "saved " << bytes_written << " bytes to non volatile mem\n" << platform_detail_string <<
+                                 "\n";
+        #endif
     } else {
         #ifdef _GBA
             tte_write("The save manager wasn't successfully mounted!\n");

@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_GBA_EEPROM_SAVE_MANAGER_HPP
 #define MORPHEUS_GBA_TEST_GBA_EEPROM_SAVE_MANAGER_HPP
 
+#include <bitset>
+
 #include <tonc.h>
 
 #include <core/save_manager.hpp>
@@ -27,10 +29,10 @@ namespace morpheus {
             unsigned int load(unsigned char *data, unsigned int len)override;
             unsigned int save(const unsigned char *data, unsigned int len)override;
         private:
-            unsigned char *EEPROM_START = reinterpret_cast<unsigned char*>(0xDFFFF00);
+            unsigned short *EEPROM_START = reinterpret_cast<unsigned short*>(0x0D000000);
 
-            const unsigned char EEPROM_READ_REQUEST = 0x0003;
-            const unsigned char EEPROM_WRITE_REQUEST = 0x0002;
+            const unsigned char EEPROM_READ_REQUEST = 0x03;
+            const unsigned char EEPROM_WRITE_REQUEST = 0x02;
 
             static unsigned int lsb_short_to_msb_short(unsigned int lsb_short) {
                 return ((lsb_short & 0xFF00) >> 8) | ((lsb_short & 0x00FF) << 8);

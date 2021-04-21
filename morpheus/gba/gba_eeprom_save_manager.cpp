@@ -17,7 +17,7 @@ unsigned int morpheus::gba::GbaEepromSaveManager::load(unsigned char *data, unsi
     unsigned int actual_len = 0;
     unsigned int current_block_num = 0;
     unsigned int current_byte = 0;
-    unsigned int tmp_eeprom_read_buffer[3];
+    unsigned short tmp_eeprom_read_buffer[5];
 
     switch(m_eeprom_size){
         case EepromSize::EEPROM_512_BYTES:
@@ -37,11 +37,24 @@ unsigned int morpheus::gba::GbaEepromSaveManager::load(unsigned char *data, unsi
         // 68 bit data appropriately and discard the first four bits to get the 64 bit (or 8 byte) data stored
         // on EEPROM
         // TODO(Bobby): Verify bit-twiddling on these two DMA transfers
-        dma_cpy(tmp_eeprom_read_buffer, EEPROM_START, 2, 3, DMA_CPY32);
-        dma_cpy(&tmp_eeprom_read_buffer[2], EEPROM_START, 1, 3, DMA_CPY16);
+        dma_cpy(tmp_eeprom_read_buffer, EEPROM_START, 5, 3, DMA_CPY16 | DMA_NOW | DMA_ENABLE );
+        //dma_cpy(&tmp_eeprom_read_buffer[2], EEPROM_START, 1, 3, DMA_CPY16);
 
-        tmp_eeprom_read_buffer[0] = (tmp_eeprom_read_buffer[0] << 4) | ((tmp_eeprom_read_buffer[1] & 0xF000) >> 12);
-        tmp_eeprom_read_buffer[1] = (tmp_eeprom_read_buffer[1] & 0x0FFF) | ((tmp_eeprom_read_buffer[2] & 0xF000) >> 12);
+        tte_write("read buffer bitstreams:\n");
+
+        for(int i = 0; 3 > i; ++i) {
+            tte_write(std::bitset<32>(tmp_eeprom_read_buffer[0]).to_string().c_str());
+            tte_write("\n");
+        }
+
+        /*tmp_eeprom_read_buffer[0] = (tmp_eeprom_read_buffer[0] >> 4) | ((tmp_eeprom_read_buffer[1] & 0x000F) << 12);
+        tmp_eeprom_read_buffer[1] = (tmp_eeprom_read_buffer[1] & 0xFFF0 >> 4) |
+                                    ((tmp_eeprom_read_buffer[2] & 0x000F) << 12);*/
+
+        for(int i = 0; 4 > i; ++i) {
+            tmp_eeprom_read_buffer[i] = (tmp_eeprom_read_buffer[i] >> 4) |
+                                        ((tmp_eeprom_read_buffer[i + 1] & 0x000F) << 12);
+        }
 
         for (int i = 0; 8 > i; ++i) {
             unsigned int eeprom_value;
@@ -50,13 +63,25 @@ unsigned int morpheus::gba::GbaEepromSaveManager::load(unsigned char *data, unsi
                 break;
             }
 
-            if (i > 4) {
+            if (i > 5) {
+                eeprom_value = tmp_eeprom_read_buffer[3];
+            } else if (i > 3) {
+                eeprom_value = tmp_eeprom_read_buffer[2];
+            } else if (i > 1) {
                 eeprom_value = tmp_eeprom_read_buffer[1];
             } else {
                 eeprom_value = tmp_eeprom_read_buffer[0];
             }
 
-            data[i] = (eeprom_value >> (i * 8)) & 0x000000FF;
+            if((i & 0x0001) == 1) {
+                // odd index
+
+                data[i] = (eeprom_value >> 8) & 0x000000FF;
+            } else {
+                // even index
+
+                data[i] = (eeprom_value >> 0) & 0x000000FF;
+            }
 
             ++current_byte;
         }
@@ -94,7 +119,7 @@ unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data
         // preparing the write request bit stream
         unsigned int write_request_header[3];
 
-        write_request_header[0] = EEPROM_WRITE_REQUEST | (lsb_short_to_msb_short(current_block_num) << 2);
+        write_request_header[0] = (EEPROM_WRITE_REQUEST << 0) | (lsb_short_to_msb_short(current_block_num) << 2);
 
         if(current_byte + 8 > actual_len) {
             return current_byte;
@@ -112,8 +137,14 @@ unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data
             }
         }
 
+        nocash_puts("write request bitsets:");
+
+        for(int i = 0; 3 > i; ++i) {
+            nocash_puts(std::bitset<32>(write_request_header[i]).to_string().c_str());
+        }
+
         // copying over the write request bit stream
-        dma_cpy(EEPROM_START, write_request_header, 6, 3, DMA_CPY16);
+        dma_cpy(EEPROM_START, write_request_header, 6, 3, DMA_CPY16 | DMA_NOW | DMA_ENABLE);
 
         unsigned int cycle_counter = 0;
         unsigned int ready_cache = 0;
@@ -123,9 +154,7 @@ unsigned int morpheus::gba::GbaEepromSaveManager::save(const unsigned char *data
         while((ready_cache & 0x0001) == 0) {
             ++cycle_counter;
 
-            dma_cpy(&ready_cache, EEPROM_START, 1, 3, DMA_CPY16);
-
-            nocash_puts(std::to_string(ready_cache).c_str());
+            dma_cpy(&ready_cache, EEPROM_START, 1, 3, DMA_CPY16 | DMA_NOW | DMA_ENABLE);
 
             if(cycle_counter >= 167800) {
                 tte_write(std::string("EEPROM timeout on byte " + std::to_string(current_byte) + "\n").c_str());
@@ -150,18 +179,21 @@ bool morpheus::gba::GbaEepromSaveManager::read_seek_to_eeprom_address(const unsi
                 return false;
             }
 
-            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (block_number << 2) | (0 << 7);
+            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (lsb_short_to_msb_short(block_number) << 2) | (0 << 7);
             break;
         case EepromSize::EEPROM_8_KILOBYTES:
             if(block_number > 1023) {
                 return false;
             }
 
-            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (block_number << 2) | (0 << 15);
+            seek_bit_stream = (EEPROM_READ_REQUEST << 0) | (lsb_short_to_msb_short(block_number) << 2) | (0 << 15);
             break;
     }
 
-    dma_cpy(EEPROM_START, &seek_bit_stream, 1, 3, DMA_CPY16);
+    nocash_puts("read seek bitstream: ");
+    nocash_puts(std::bitset<16>(seek_bit_stream).to_string().c_str());
+
+    dma_cpy(EEPROM_START, &seek_bit_stream, 1, 3, DMA_CPY16 | DMA_NOW | DMA_ENABLE);
 
     return true;
 }
