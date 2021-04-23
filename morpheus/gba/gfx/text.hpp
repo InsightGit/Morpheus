@@ -8,14 +8,15 @@
 #include <tonc.h>
 
 #include <core/gfx/text_base.hpp>
+#include <gba/gba_main_loop.hpp>
 
 namespace morpheus {
     namespace gba {
         namespace gfx {
             class Text : public core::gfx::TextBase {
             public:
-                Text(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb) :
-                    core::gfx::TextBase(affine, background_num, cbb, sbb) {}
+                Text(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb, GbaMainLoop *gba_main_loop) :
+                    core::gfx::TextBase(affine, background_num, cbb, sbb, gba_main_loop) {}
 
                 virtual ~Text() = default;
             protected:

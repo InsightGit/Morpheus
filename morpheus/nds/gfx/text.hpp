@@ -9,12 +9,13 @@
 
 #include <nds.h>
 
+#include <nds/nds_main_loop.hpp>
 #include <core/gfx/text_base.hpp>
 
 namespace morpheus {
     namespace nds {
         namespace gfx {
-            enum class BackgroundSize {
+            enum class TextBackgroundSize {
                 BGSIZE_32_X_32,
                 BGSIZE_64_X_32,
                 BGSIZE_32_X_64,
@@ -24,13 +25,17 @@ namespace morpheus {
             class Text : public core::gfx::TextBase {
             public:
                 Text(bool use_sub_display, bool affine, unsigned int background_num, unsigned int cbb,
-                     unsigned int sbb) : core::gfx::TextBase(affine, background_num, cbb, sbb) {
+                     unsigned int sbb, TextBackgroundSize background_size, NdsMainLoop *main_loop) :
+                     core::gfx::TextBase(affine, background_num, cbb, sbb, main_loop) {
+                    m_background_size = background_size;
                     m_use_sub_display = use_sub_display;
+
+                    m_print_console = *consoleGetDefault();
                 }
 
                 virtual ~Text() = default;
 
-                BackgroundSize get_background_size() const {
+                TextBackgroundSize get_background_size() const {
                     return m_background_size;
                 }
 
@@ -38,7 +43,7 @@ namespace morpheus {
                     return m_use_sub_display;
                 }
 
-                void set_background_size(const BackgroundSize background_size) {
+                void set_background_size(const TextBackgroundSize background_size) {
                     m_background_size = background_size;
                 }
             protected:
@@ -49,8 +54,9 @@ namespace morpheus {
 
                 void print_chars(std::string string, bool init)override;
             private:
-                BackgroundSize m_background_size;
+                TextBackgroundSize m_background_size;
                 bool m_font_loaded = false;
+                nds::NdsMainLoop *m_main_loop;
                 PrintConsole m_print_console;
                 bool m_use_sub_display;
             };

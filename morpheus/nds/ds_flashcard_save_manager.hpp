@@ -24,7 +24,7 @@ namespace morpheus {
 
             virtual ~DsFlashcardSaveManager() = default;
 
-            bool is_succesfully_mounted() const override {
+            bool is_successfully_mounted() const override {
                 return m_successfully_mounted;
             }
 
@@ -32,16 +32,16 @@ namespace morpheus {
                 return m_file_system_base_path;
             }
 
-            unsigned int load(void *data, unsigned int len) override {
+            unsigned int load(unsigned char *data, unsigned int len) override {
                 return load("morpheus.sav", data, len);
             }
 
-            unsigned int save(void *data, unsigned int len) override {
+            unsigned int save(const unsigned char *data, unsigned int len) override {
                 return save("morpheus.sav", data, len);
             }
 
-            unsigned int load(std::string file_name, void *data, unsigned int len);
-            unsigned int save(std::string file_name, void *data, unsigned int len);
+            unsigned int load(std::string file_name, unsigned char *data, unsigned int len);
+            unsigned int save(std::string file_name, const unsigned char *data, unsigned int len);
         private:
             std::string m_file_system_base_path;
             FILE *m_save_file_pointer;

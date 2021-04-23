@@ -5,6 +5,7 @@
 #ifndef MORPHEUS_GBA_TEST_TEXT_BASE_HPP
 #define MORPHEUS_GBA_TEST_TEXT_BASE_HPP
 
+#include <core/main_loop.hpp>
 #include <core/gfx/vector_2.hpp>
 
 namespace morpheus {
@@ -13,7 +14,8 @@ namespace morpheus {
             class TextBase {
             public:
                 // TODO(Bobby): Add custom font support maybe?
-                TextBase(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb);
+                TextBase(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb,
+                         morpheus::core::MainLoop *main_loop);
 
                 virtual ~TextBase() = default;
 
@@ -52,7 +54,13 @@ namespace morpheus {
                 }
 
                 void print(std::string string, bool reinit = false) {
-                    print_chars(string, reinit || !m_inited);
+                    if(reinit || !m_inited) {
+                        m_main_loop->enable_background(m_background_num);
+
+                        print_chars(string, true);
+                    } else {
+                        print_chars(string, false);
+                    }
 
                     m_inited = true;
                 }
@@ -65,6 +73,7 @@ namespace morpheus {
                 unsigned int m_cbb;
                 bool m_inited;
                 Vector2 m_print_position;
+                core::MainLoop *m_main_loop;
                 unsigned int m_sbb;
             };
         }

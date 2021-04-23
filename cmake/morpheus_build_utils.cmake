@@ -95,6 +95,16 @@ function(execute_grit_tilemaps png_files is_4bpp palette_bank_num)
     endforeach()
 endfunction()
 
+
+function(execute_grit_1bpp_tilemap png_file palette_bank_num)
+    get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+    add_custom_command(OUTPUT ${png_file_name_path}.o
+            COMMAND ${GRIT} ${png_file} -gB1 -mRtpf -mp${palette_bank_num}
+            COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+            VERBATIM)
+endfunction()
+
 function(execute_grit_tilemap png_file is_4bpp palette_bank_num)
     if(is_4bpp)
         set(bpp_flag "4")

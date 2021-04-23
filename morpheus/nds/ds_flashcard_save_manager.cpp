@@ -4,7 +4,7 @@
 
 #include "ds_flashcard_save_manager.hpp"
 
-unsigned int morpheus::nds::DsFlashcardSaveManager::load(std::string file_name, void *data, unsigned int len) {
+unsigned int morpheus::nds::DsFlashcardSaveManager::load(std::string file_name, unsigned char *data, unsigned int len) {
     unsigned int return_value;
 
     m_save_file_pointer = fopen(std::string(m_file_system_base_path + file_name).c_str(), "rb");
@@ -25,7 +25,8 @@ unsigned int morpheus::nds::DsFlashcardSaveManager::load(std::string file_name, 
 }
 
 
-unsigned int morpheus::nds::DsFlashcardSaveManager::save(std::string file_name, void *data, unsigned int len) {
+unsigned int morpheus::nds::DsFlashcardSaveManager::save(std::string file_name, const unsigned char *data,
+                                                         unsigned int len) {
     unsigned int return_value;
 
     m_save_file_pointer = fopen(std::string(m_file_system_base_path + file_name).c_str(), "wb");

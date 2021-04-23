@@ -151,7 +151,7 @@ void morpheus::nds::NdsMainLoop::setup_debug_console(bool use_main_display) {
         videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
     }
 
-    debug_print_console = consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);
+    //debug_print_console = consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256, 22, 3, use_main_display, true);
 }
 
 morpheus::core::InputEvent

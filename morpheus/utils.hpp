@@ -146,11 +146,15 @@ namespace morpheus {
 
         static morpheus::core::gfx::TextBase *construct_appropriate_text(bool affine, unsigned int background_num,
                                                                          unsigned int cbb, unsigned int sbb,
+                                                                         morpheus::core::MainLoop *main_loop,
                                                                          bool nds_use_sub_display = false) {
             #ifdef _GBA
-                return new morpheus::gba::gfx::Text(affine, background_num, cbb, sbb);
+                return new morpheus::gba::gfx::Text(affine, background_num, cbb, sbb,
+                                                    static_cast<morpheus::gba::GbaMainLoop*>(main_loop));
             #elif _NDS
-                return new morpheus::nds::gfx::Text(nds_use_sub_display, affine, background_num, cbb, sbb);
+                return new morpheus::nds::gfx::Text(nds_use_sub_display, affine, background_num, cbb, sbb,
+                                                    morpheus::nds::gfx::TextBackgroundSize::BGSIZE_32_X_32,
+                                                    static_cast<morpheus::nds::NdsMainLoop*>(main_loop));
             #endif
         }
 

@@ -425,7 +425,7 @@ if("$ENV{BUILD_TESTS}")
         add_executable(morpheus-nds-save-test.elf tests/save_test/save_test.cpp)
         add_nds_executable_with_nitrofs_dir(morpheus-nds-save-test.elf "tests/nds/input_test/ds_icon.bmp"
                                             "Morpheus DS Save Test" "Morpheus engine" ""
-                                            "${CMAKE_CURRENT_SOURCE_DIR}/tests/nds/save_test/nitrofs/")
+                                            "${CMAKE_CURRENT_SOURCE_DIR}/tests/save_test/nitrofs/")
 
         target_link_libraries(morpheus-nds-save-test.elf morpheus mm9 filesystem fat nds9)
 
