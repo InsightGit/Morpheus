@@ -2,20 +2,39 @@
 // Created by bobby on 01/04/2021.
 //
 
-#ifndef MORPHEUS_GBA_TEST_TEXT_BASE_HPP
-#define MORPHEUS_GBA_TEST_TEXT_BASE_HPP
+#ifndef MORPHEUS_TEXT_BASE_HPP
+#define MORPHEUS_TEXT_BASE_HPP
 
 #include <core/main_loop.hpp>
+#include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
+
+#include "sys8.h"
 
 namespace morpheus {
     namespace core {
         namespace gfx {
+            enum class FontBpp {
+                FONT_4BPP,
+                FONT_8BPP
+            };
+
+            struct Font {
+                const unsigned int *font_tiles;
+                unsigned int font_tiles_len;
+                const unsigned short *font_palette;
+
+                unsigned int ascii_offset;
+                Vector2 char_size;
+                Vector2 cursor_position;
+                FontBpp font_bpp;
+            };
+
             class TextBase {
             public:
                 // TODO(Bobby): Add custom font support maybe?
                 TextBase(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb,
-                         morpheus::core::MainLoop *main_loop);
+                         morpheus::core::MainLoop *main_loop, bool use_native_text_api);
 
                 virtual ~TextBase() = default;
 
@@ -67,14 +86,34 @@ namespace morpheus {
             protected:
                 virtual void change_print_position(Vector2 print_pos) = 0;
                 virtual void print_chars(std::string string, bool init) = 0;
+
+                static Font get_default_font() {
+                    Font font;
+
+                    font.ascii_offset = 32;
+                    font.char_size = Vector2(8, 8);
+                    font.cursor_position = Vector2(0, 0);
+                    font.font_bpp = FontBpp::FONT_4BPP;
+                    font.font_tiles = sys8Tiles;
+                    font.font_tiles_len = sys8TilesLen;
+                    font.font_palette = nullptr;
+
+                    return font;
+                }
+
+                void expression_print_chars(std::string string);
+                bool init_expression_text_api();
             private:
                 bool m_affine;
                 unsigned int m_background_num;
                 unsigned int m_cbb;
+                std::shared_ptr<core::gfx::TiledBackgroundBase> m_expression_background;
+                Font m_font = get_default_font();
                 bool m_inited;
                 Vector2 m_print_position;
                 core::MainLoop *m_main_loop;
                 unsigned int m_sbb;
+                bool m_use_native_text_api;
             };
         }
     }

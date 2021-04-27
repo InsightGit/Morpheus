@@ -2,8 +2,8 @@
 // Created by bobby on 20/03/2021.
 //
 
-#ifndef MORPHEUS_GBA_TEST_NDS_CONTROLLERS_HPP
-#define MORPHEUS_GBA_TEST_NDS_CONTROLLERS_HPP
+#ifndef MORPHEUS_NDS_TEST_NDS_CONTROLLERS_HPP
+#define MORPHEUS_NDS_TEST_NDS_CONTROLLERS_HPP
 
 #include <nds.h>
 
@@ -14,11 +14,11 @@ namespace morpheus {
         namespace gfx {
             class NdsBlendingController : public morpheus::core::gfx::BlendingController {
             public:
-                NdsBlendingController(bool use_sub_display) {
+                explicit NdsBlendingController(bool use_sub_display) {
                     m_use_sub_display = use_sub_display;
                 }
 
-                virtual ~NdsBlendingController() {}
+                virtual ~NdsBlendingController() = default;
             protected:
                 void update_blending_registers()override;
             private:
@@ -27,11 +27,11 @@ namespace morpheus {
 
             class NdsMosaicController : public morpheus::core::gfx::MosaicController {
             public:
-                NdsMosaicController(bool use_sub_display) {
+                explicit NdsMosaicController(bool use_sub_display) {
                     m_use_sub_display = use_sub_display;
                 }
 
-                virtual ~NdsMosaicController() {}
+                virtual ~NdsMosaicController() = default;
             protected:
                 void update_mosaic_register()override;
             private:

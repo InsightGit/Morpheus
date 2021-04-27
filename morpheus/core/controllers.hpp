@@ -46,6 +46,10 @@ namespace morpheus {
                     update_blending_registers();
                 }
 
+                BlendingSetting get_backdrop_blending_setting() const {
+                    return m_backdrop_blending_setting;
+                }
+
                 void disable_background_blending(unsigned int background) {
                     if(background < 4) {
                         m_background_blending_settings[background] = BlendingSetting::OFF;
@@ -66,6 +70,10 @@ namespace morpheus {
                     update_blending_registers();
                 }
 
+                BlendingSetting get_background_blending_setting(unsigned int background) const {
+                    return m_background_blending_settings[background];
+                }
+
                 void disable_object_blending() {
                     m_object_blending_setting = BlendingSetting::OFF;
 
@@ -80,6 +88,10 @@ namespace morpheus {
                     }
 
                     update_blending_registers();
+                }
+
+                BlendingSetting get_object_blending_setting() const {
+                    return m_object_blending_setting;
                 }
 
                 BlendingMode get_blending_mode() const {
@@ -120,16 +132,8 @@ namespace morpheus {
                     update_blending_registers();
                 }
             protected:
-                BlendingSetting get_backdrop_blending_setting() const {
-                    return m_backdrop_blending_setting;
-                }
-
                 std::array<BlendingSetting, 4> get_background_blending_settings() const {
                     return m_background_blending_settings;
-                }
-
-                BlendingSetting get_object_blending_setting() const {
-                    return m_object_blending_setting;
                 }
 
                 unsigned char get_blending_value(unsigned int background_num);

@@ -60,7 +60,19 @@ namespace morpheus {
             std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
         };
 
-        static morpheus::core::MainLoop* construct_appropriate_main_loop(
+        static morpheus::core::gfx::AnimationFrame *construct_appropriate_animation_frame(
+                core::gfx::SpriteBase *sprite_base, core::gfx::AnimationFrame *from_animation_frame = nullptr) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::GbaAnimationFrame(
+                                                    static_cast<gba::gfx::Sprite*>(sprite_base),
+                                                    static_cast<gba::gfx::GbaAnimationFrame*>(from_animation_frame));
+            #elif _NDS
+            #endif
+
+            return nullptr;
+        }
+
+        static morpheus::core::MainLoop *construct_appropriate_main_loop(
                                 bool enable_screen_debug_gba = false,
                                 bool enable_screen_debug_nds = true,
                                 morpheus::core::GbaSaveType gba_save_type = morpheus::core::GbaSaveType::SRAM_32KB) {

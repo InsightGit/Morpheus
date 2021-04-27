@@ -2,8 +2,8 @@
 // Created by bobby on 19/02/2021.
 //
 
-#ifndef MORPHEUS_GBA_TEST_TEXT_HPP
-#define MORPHEUS_GBA_TEST_TEXT_HPP
+#ifndef MORPHEUS_NDS_TEST_TEXT_HPP
+#define MORPHEUS_NDS_TEST_TEXT_HPP
 
 #include <iostream>
 
@@ -26,7 +26,7 @@ namespace morpheus {
             public:
                 Text(bool use_sub_display, bool affine, unsigned int background_num, unsigned int cbb,
                      unsigned int sbb, TextBackgroundSize background_size, NdsMainLoop *main_loop) :
-                     core::gfx::TextBase(affine, background_num, cbb, sbb, main_loop) {
+                     core::gfx::TextBase(affine, background_num, cbb, sbb, main_loop, true) {
                     m_background_size = background_size;
                     m_use_sub_display = use_sub_display;
 

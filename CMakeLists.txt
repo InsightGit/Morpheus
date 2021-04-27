@@ -6,7 +6,13 @@ cmake_minimum_required(VERSION 3.16)
 include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
+if(WIN32)
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+else()
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+endif()
 
+execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.png)
 
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
@@ -33,7 +39,11 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/window.cpp
         morpheus/utils.hpp
         morpheus/core/communication_channel.cpp
-        morpheus/core/communication_channel.hpp)
+        morpheus/core/communication_channel.hpp
+        ${CMAKE_CURRENT_BINARY_DIR}/sys8.h
+        ${CMAKE_CURRENT_BINARY_DIR}/sys8.o
+        morpheus/core/gfx/animation_frame.cpp
+        morpheus/core/gfx/animation_frame.hpp)
 
 
 project(morpheus)
@@ -78,7 +88,9 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/serial_communication.cpp
             morpheus/gba/serial_communication.hpp
             morpheus/gba/gba_sram_save_manager.hpp
-            morpheus/gba/gba_sram_save_manager.cpp)
+            morpheus/gba/gba_sram_save_manager.cpp
+            morpheus/gba/gfx/gba_animation_frame.hpp
+            morpheus/gba/gfx/gba_animation_frame.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -134,12 +146,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 add_library(morpheus ${MORPHEUS_SOURCE_FILES})
-
-if(WIN32)
-    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
-else()
-    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
-endif()
 
 if("$ENV{BUILD_TESTS}")
     if(platform_lower STREQUAL "gba")
@@ -308,6 +314,31 @@ if("$ENV{BUILD_TESTS}")
 
         target_link_libraries(morpheus-gba-gfx-effects-test.elf morpheus mm tonc)
 
+        project(morpheus-gba-animation-test)
+
+        set(GFX_EFFECT_PNG8_FILES "../tests/gba/input_test/test8.png")
+
+        # skipping the grit step cause the .o rule for test8 already exists
+        # skipping the tilemap conversion step cause the .o rule for region_map already exists
+
+        foreach(png8_file ${GFX_EFFECT_PNG8_FILES})
+            get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+            list(APPEND GFX_EFFECT_PNG8_OUTPUT_FILES ${png8_file}.o)
+        endforeach()
+
+        link_directories(morpheus-gba-animation-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+
+        convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+
+        add_executable(morpheus-gba-animation-test.elf tests/animation_test/animation_test.cpp
+                ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c" tests/animation_test/test_animation.h)
+        add_gba_executable(morpheus-gba-animation-test.elf)
+
+        target_link_libraries(morpheus-gba-animation-test.elf morpheus mm tonc)
+
         project(morpheus-gba-serial-test)
 
         link_directories(morpheus-gba-serial-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
@@ -327,6 +358,18 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-affine-test.elf)
 
         target_link_libraries(morpheus-gba-affine-test.elf morpheus mm tonc)
+
+        project(morpheus-gba-custom-font-test)
+
+        link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
+
+        add_executable(morpheus-gba-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
+                "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.o" "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.h")
+        add_gba_executable(morpheus-gba-custom-font-test.elf)
+
+        target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc)
     elseif(platform_lower STREQUAL "nds")
         list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
 
@@ -480,6 +523,20 @@ if("$ENV{BUILD_TESTS}")
                 "Morpheus Affine Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-affine-test.elf morpheus nds9 mm9 fat)
+
+        project(morpheus-nds-custom-font-test)
+
+        link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+        #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
+        execute_grit_4bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
+
+        add_executable(morpheus-nds-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
+                "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.o" "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.h")
+        add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus Custom Font Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-custom-font-test.elf morpheus fat filesystem nds9 mm9)
     endif()
 endif()
 

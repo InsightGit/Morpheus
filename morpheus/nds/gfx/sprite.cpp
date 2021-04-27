@@ -159,3 +159,19 @@ void morpheus::nds::gfx::Sprite::toggle_blending(bool enable_blending, bool bott
         get_blending_controller()->enable_object_blending(bottom_layer);
     }
 }
+
+void morpheus::nds::gfx::Sprite::update(unsigned char cycle_time) {
+    if(is_playing()) {
+        set_current_delay(get_current_delay() + 1);
+
+        if(get_current_delay() >= m_frames[get_current_frame()].vblank_delays) {
+            if(get_current_frame() + 1 >= m_frames.size()) {
+                set_current_frame(0);
+            } else {
+                set_current_frame(get_current_frame() + 1);
+            }
+
+            build_attr2(m_frames[get_current_frame()].palette_id, m_frames[get_current_frame()].tile_id);
+        }
+    }
+}

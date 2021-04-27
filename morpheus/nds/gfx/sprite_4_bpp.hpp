@@ -12,7 +12,7 @@
 namespace morpheus {
     namespace nds {
         namespace gfx {
-        class Sprite4Bpp : public nds::gfx::Sprite {
+            class Sprite4Bpp : public nds::gfx::Sprite {
             public:
                 explicit Sprite4Bpp(bool affine, bool use_sub_display, NdsBlendingController *blending_controller,
                                     NdsMosaicController *mosaic_controller) :

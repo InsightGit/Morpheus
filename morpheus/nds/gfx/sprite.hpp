@@ -2,8 +2,8 @@
 // Created by bobby on 16/12/2020.
 //
 
-#ifndef MORPHEUS_GBA_TEST_SPRITE_HPP
-#define MORPHEUS_GBA_TEST_SPRITE_HPP
+#ifndef MORPHEUS_NDS_TEST_SPRITE_HPP
+#define MORPHEUS_NDS_TEST_SPRITE_HPP
 
 #include <nds.h>
 
@@ -30,6 +30,12 @@ namespace morpheus {
                 NEEDOFF
             };
 
+            struct NdsAnimationFrame {
+                unsigned short *gfx_pointer;
+                unsigned short palette_id;
+                unsigned short vblank_delays;
+            };
+
             static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
             class Sprite : public core::gfx::SpriteBase {
@@ -43,6 +49,9 @@ namespace morpheus {
                                 unsigned short *nds_oam_address, const morpheus::core::gfx::SpriteSize sprite_size);
 
                 virtual ~Sprite();
+
+                void allocate_gfx_pointer(const SpriteColorFormat color_format,
+                                          const morpheus::core::gfx::SpriteSize size);
 
                 uint16_t *get_gfx_pointer() const {
                     return m_gfx_pointer;
@@ -69,9 +78,6 @@ namespace morpheus {
                                              const unsigned int palette_id,
                                              const morpheus::core::gfx::SpriteSize size) = 0;
             protected:
-                void allocate_gfx_pointer(const SpriteColorFormat color_format,
-                                          const morpheus::core::gfx::SpriteSize size);
-
                 OamState *get_current_oam() const {
                     return m_current_oam;
                 }
@@ -97,11 +103,15 @@ namespace morpheus {
                 // this morpheus::core::gfx::SpriteSize is morpheus'
                 void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
 
-                virtual void update(unsigned char cycle_time) override {}
+                virtual void update(unsigned char cycle_time)override;
                 virtual void input(core::InputEvent input_event) override {}
             protected:
                 void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
                     m_last_used_obj_attr_num = last_used_obj_attr_num;
+                }
+
+                NdsAnimationFrame get_current_nds_animation_frame() const {
+                    return m_frames[get_current_frame()];
                 }
 
                 virtual void update_affine_state(core::gfx::AffineTransformation affine_transformation,
@@ -111,6 +121,7 @@ namespace morpheus {
                 bool m_do_not_free_gfx_pointer;
                 bool m_extended_palette;
                 bool m_enabled = false;
+                std::vector<NdsAnimationFrame> m_frames;
                 int m_last_used_obj_attr_num = -1;
                 unsigned int m_palette_id;
 

@@ -34,7 +34,9 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
 }
 
 void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {
-    switch(size) {
+    m_sprite_size = size;
+
+    switch(m_sprite_size) {
         case core::gfx::SpriteSize::SIZE_8X8:
         case core::gfx::SpriteSize::SIZE_16X16:
         case core::gfx::SpriteSize::SIZE_32X32:
@@ -53,7 +55,7 @@ void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {
             break;
     }
 
-    switch(size) {
+    switch(m_sprite_size) {
         case core::gfx::SpriteSize::SIZE_8X8:
             m_attr1 = ATTR1_SIZE_8;
             break;
@@ -177,4 +179,23 @@ void morpheus::gba::gfx::Sprite::update_affine_state(core::gfx::AffineTransforma
 
     nocash_puts(nocash_string_stream.str().c_str());
 }
+
+void morpheus::gba::gfx::Sprite::update(unsigned char cycle_time) {
+    if(is_playing()) {
+        std::vector<std::shared_ptr<core::gfx::AnimationFrame>> animation_frames = get_frames();
+
+        set_current_delay(get_current_delay() + 1);
+
+        if(get_current_delay() >= animation_frames[get_current_frame()]->get_vblank_delays()) {
+            if(get_current_frame() + 1 >= animation_frames.size()) {
+                set_current_frame(0);
+            } else {
+                set_current_frame(get_current_frame() + 1);
+            }
+
+            animation_frames[get_current_frame()]->activate_on_target_sprite_base();
+        }
+    }
+}
+
 

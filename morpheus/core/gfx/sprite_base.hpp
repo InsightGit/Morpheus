@@ -15,6 +15,8 @@
 namespace morpheus {
     namespace core {
         namespace gfx {
+            class AnimationFrame;
+
             enum class SpriteSize {
                 // square sprite sizes (x == y)
                 SIZE_8X8,
@@ -55,6 +57,10 @@ namespace morpheus {
                     } else {
                         return 32u;
                     }
+                }
+
+                unsigned int get_current_frame() const {
+                    return m_current_frame;
                 }
 
                 core::gfx::Vector2 get_mosaic_levels() const {
@@ -107,10 +113,26 @@ namespace morpheus {
                     return m_mosaic;
                 }
 
+                BlendingController *get_blending_controller() const {
+                    return m_blending_controller;
+                }
+
+                std::vector<std::shared_ptr<AnimationFrame>> get_frames() const {
+                    return m_frames;
+                }
+
+                MosaicController *get_mosaic_controller() const {
+                    return m_mosaic_controller;
+                }
+
                 void set_affine_index(const unsigned int affine_index) {
                     if(m_affine) {
                         m_affine_index = std::min(31u, affine_index);
                     }
+                }
+
+                void set_frames(const std::vector<std::shared_ptr<AnimationFrame>> frames) {
+                    m_frames = frames;
                 }
 
                 void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) {
@@ -155,6 +177,14 @@ namespace morpheus {
                     return m_hidden;
                 }
 
+                bool is_paused() const {
+                    return m_paused;
+                }
+
+                bool is_playing() const {
+                    return m_playing;
+                }
+
                 void set_drawn_node(const bool drawn_node) {
                     m_drawn_node = drawn_node;
                 }
@@ -190,7 +220,35 @@ namespace morpheus {
 
                 void draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num);
 
+                virtual SpriteSize get_sprite_size() const = 0;
                 virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
+
+                void pause() {
+                    if(is_playing()) {
+                        stop_animation(true);
+
+                        m_playing = false;
+                        m_paused = true;
+                    }
+                }
+
+                void play() {
+                    if(!is_playing()) {
+                        resume_animation();
+
+                        m_playing = true;
+                        m_paused = false;
+                    }
+                }
+
+                void stop() {
+                    stop_animation(false);
+
+                    m_playing = false;
+                    m_paused = false;
+                }
+
+                virtual void set_sprite_size(SpriteSize size) = 0;
             protected:
                 virtual void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) = 0;
                 virtual void mosaic_state_updated() = 0;
@@ -199,22 +257,36 @@ namespace morpheus {
                 virtual void update_affine_state(AffineTransformation affine_transformation,
                                                  bool new_transformation) = 0;
 
-                BlendingController *get_blending_controller() const {
-                    return m_blending_controller;
+                virtual void resume_animation() = 0;
+                virtual void stop_animation(bool pause) = 0;
+
+                unsigned int get_current_delay() const {
+                    return m_current_delay;
                 }
 
-                virtual void set_sprite_size(SpriteSize size) = 0;
+                void set_current_delay(const unsigned int current_delay) {
+                    m_current_delay = current_delay;
+                }
+
+                void set_current_frame(const unsigned int current_frame) {
+                    m_current_frame = current_frame;
+                }
             private:
                 bool m_affine = false;
                 unsigned int m_affine_index = 32;
                 BlendingController *m_blending_controller;
+                unsigned int m_current_delay;
+                unsigned int m_current_frame;
                 bool m_drawn_node = true;
+                std::vector<std::shared_ptr<AnimationFrame>> m_frames;
                 bool m_hidden = false;
                 AffineTransformation m_last_affine_transformation = AffineTransformation::Identity;
                 bool m_mosaic = false;
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;
                 unsigned char m_priority = 0;
+                bool m_paused = false;
+                bool m_playing = false;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 int m_rotation = 0;
             };

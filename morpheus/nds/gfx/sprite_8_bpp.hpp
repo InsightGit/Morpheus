@@ -9,7 +9,7 @@
 
 #include <nds.h>
 
-#include <core/core.hpp>
+
 #include <nds/gfx/sprite.hpp>
 
 namespace morpheus {

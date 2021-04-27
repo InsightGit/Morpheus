@@ -124,7 +124,8 @@ unsigned int morpheus::gba::GbaFlashSaveManager::save(const unsigned char *data,
 
             REG_IME = old_ime;
 
-            while(FLASH_START[i] != data[i]) {}
+            // TODO(Bobby): Some sort of assert to assume that all FLASH 128 bytes sector is written
+            while(FLASH_START[std::min(actual_len, i + 128)] != data[std::min(actual_len, i + 128)]) {}
         }
 
         if(actual_len > 65536) {
@@ -143,7 +144,7 @@ unsigned int morpheus::gba::GbaFlashSaveManager::save(const unsigned char *data,
 
                 REG_IME = old_ime;
 
-                while(FLASH_START[i - 65536] != data[i]) {}
+                while(FLASH_START[std::min(actual_len, i + 128) - 65536] != data[std::min(actual_len, i + 128)]) {}
             }
         }
 
