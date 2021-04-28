@@ -134,6 +134,8 @@ namespace morpheus {
                     return m_animation_frame_copy_options.find(copy_option) != m_animation_frame_copy_options.end();
                 }
 
+                std::string to_string();
+
                 void activate_on_target_sprite_base();
             protected:
                 core::gfx::SpriteBase *get_target_sprite() const {
@@ -153,7 +155,7 @@ namespace morpheus {
                 core::gfx::SpriteBase *m_target_sprite;
                 bool m_visible = true;
 
-                unsigned int m_vblank_delays;
+                unsigned int m_vblank_delays = 0;
             };
         }
     }

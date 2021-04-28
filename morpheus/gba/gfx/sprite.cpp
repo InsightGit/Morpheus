@@ -184,14 +184,23 @@ void morpheus::gba::gfx::Sprite::update(unsigned char cycle_time) {
     if(is_playing()) {
         std::vector<std::shared_ptr<core::gfx::AnimationFrame>> animation_frames = get_frames();
 
+        nocash_puts(std::string("Animation size:" + std::to_string(animation_frames.size())).c_str());
+        nocash_puts(animation_frames[get_current_frame()]->to_string().c_str());
+
         set_current_delay(get_current_delay() + 1);
 
-        if(get_current_delay() >= animation_frames[get_current_frame()]->get_vblank_delays()) {
+        if(!animation_frames.empty() &&
+           get_current_delay() >= animation_frames[get_current_frame()]->get_vblank_delays()) {
             if(get_current_frame() + 1 >= animation_frames.size()) {
                 set_current_frame(0);
             } else {
                 set_current_frame(get_current_frame() + 1);
             }
+
+            set_current_delay(0);
+
+            nocash_puts(std::string("Activating current frame " + std::to_string(get_current_frame())).c_str());
+            nocash_puts(animation_frames[get_current_frame()]->to_string().c_str());
 
             animation_frames[get_current_frame()]->activate_on_target_sprite_base();
         }

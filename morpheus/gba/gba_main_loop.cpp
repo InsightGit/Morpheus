@@ -193,10 +193,12 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     }
 
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
+        OBJ_ATTR new_attr;
+
+        new_attr.attr0 |= ATTR0_HIDE;
+
         m_obj_buffer.push_back(new OBJ_ATTR());
     }
-
-    oam_init(static_cast<OBJ_ATTR *>(m_obj_buffer[0]), 128);
 
     m_platform_inited = true;
 

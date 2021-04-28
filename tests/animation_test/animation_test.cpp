@@ -25,7 +25,11 @@ int main() {
     #elif _NDS
     #endif
 
-    sprite->set_frames(get_animations(sprite.get()));
+    std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> animation_frames = get_animations(sprite.get());
+
+    sprite->toggle_mosaic();
+
+    sprite->set_frames(animation_frames);
 
     sprite->play();
 

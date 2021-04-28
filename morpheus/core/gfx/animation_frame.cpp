@@ -80,3 +80,9 @@ void morpheus::core::gfx::AnimationFrame::activate_on_target_sprite_base() {
         }
     }
 }
+
+std::string morpheus::core::gfx::AnimationFrame::to_string() {
+    return std::string("Animation Frame:\n") + "Number of enabled copy options:" +
+           std::to_string(m_animation_frame_copy_options.size()) +
+           "\nTriggers after " + std::to_string(m_vblank_delays) + " VBlanks from the last frame";
+}

@@ -132,7 +132,12 @@ namespace morpheus {
                 }
 
                 void set_frames(const std::vector<std::shared_ptr<AnimationFrame>> frames) {
-                    m_frames = frames;
+                    m_frames.clear();
+
+                    // deep vector copy
+                    for(std::shared_ptr<AnimationFrame> frame : frames) {
+                        m_frames.push_back(frame);
+                    }
                 }
 
                 void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) {
@@ -276,7 +281,7 @@ namespace morpheus {
                 unsigned int m_affine_index = 32;
                 BlendingController *m_blending_controller;
                 unsigned int m_current_delay;
-                unsigned int m_current_frame;
+                unsigned int m_current_frame = 0;
                 bool m_drawn_node = true;
                 std::vector<std::shared_ptr<AnimationFrame>> m_frames;
                 bool m_hidden = false;
