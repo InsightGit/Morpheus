@@ -98,7 +98,9 @@ namespace morpheus {
 
                     virtual void input(core::InputEvent input_event)override {}
 
-                    void update(unsigned char cycle_time)override;
+                    void update(unsigned char cycle_time)override {
+                        update_animation();
+                    }
 
                     virtual void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
                                             const core::gfx::SpriteSize size, const unsigned int tile_id) = 0;

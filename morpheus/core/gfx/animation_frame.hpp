@@ -5,6 +5,7 @@
 #ifndef MORPHEUS_GBA_TEST_ANIMATION_FRAME_HPP
 #define MORPHEUS_GBA_TEST_ANIMATION_FRAME_HPP
 
+#include <map>
 #include <unordered_set>
 
 #include <core/gfx/sprite_base.hpp>
@@ -24,6 +25,11 @@ namespace morpheus {
                 VISIBLE,
                 // for psuedo-inheritance purposes
                 LAST
+            };
+
+            enum class AnimationSmoothingMode {
+                NONE,
+                LINEAR
             };
 
             class AnimationFrame {
@@ -60,53 +66,61 @@ namespace morpheus {
                     return m_visible;
                 }
 
-                void set_blending_value(unsigned int blending_value, bool enable_copy = true) {
+                void set_blending_value(unsigned int blending_value, bool enable_copy = true,
+                                        AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_blending_value = blending_value;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::BLENDING);
+                        enable_copy_option(AnimationFrameCopyOption::BLENDING, smoothing_mode);
                     }
                 }
 
-                void set_mosaic_levels(core::gfx::Vector2 mosaic_levels, bool enable_copy = true) {
+                void set_mosaic_levels(core::gfx::Vector2 mosaic_levels, bool enable_copy = true,
+                                       AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_mosaic_levels = mosaic_levels;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::MOSAIC);
+                        enable_copy_option(AnimationFrameCopyOption::MOSAIC, smoothing_mode);
                     }
                 }
 
                 // TODO(Bobby): Implement Palette functions with Palette support
 
-                void set_position(core::gfx::Vector2 position, bool enable_copy = true) {
+                void set_position(core::gfx::Vector2 position, bool enable_copy = true,
+                                  AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_position = position;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::POSITION);
+                        enable_copy_option(AnimationFrameCopyOption::POSITION, smoothing_mode);
                     }
                 }
 
-                void set_rotation(int rotation, bool enable_copy = true) {
+                void set_rotation(int rotation, bool enable_copy = true,
+                                  AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_rotation = rotation;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::ROTATION);
+                        enable_copy_option(AnimationFrameCopyOption::ROTATION, smoothing_mode);
                     }
                 }
 
-                void set_scale(core::gfx::Vector2 scale, bool enable_copy = true) {
+                void set_scale(core::gfx::Vector2 scale,
+                               AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE,
+                               bool enable_copy = true) {
                     m_scale = scale;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::SCALE);
+                        enable_copy_option(AnimationFrameCopyOption::SCALE, smoothing_mode);
                     }
                 }
 
-                void set_sprite_size(core::gfx::SpriteSize sprite_size, bool enable_copy = true) {
+                void set_sprite_size(core::gfx::SpriteSize sprite_size,
+                                     AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE,
+                                     bool enable_copy = true) {
                     m_sprite_size = sprite_size;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::SPRITE_SIZE);
+                        enable_copy_option(AnimationFrameCopyOption::SPRITE_SIZE, smoothing_mode);
                     }
                 }
 
@@ -118,20 +132,36 @@ namespace morpheus {
                     m_visible = visible;
 
                     if(enable_copy) {
-                        enable_copy_option(AnimationFrameCopyOption::VISIBLE);
+                        enable_copy_option(AnimationFrameCopyOption::VISIBLE,
+                                           AnimationSmoothingMode::NONE);
                     }
                 }
 
-                void enable_copy_option(AnimationFrameCopyOption copy_option) {
+                void enable_copy_option(AnimationFrameCopyOption copy_option, AnimationSmoothingMode smoothing_mode) {
                     m_animation_frame_copy_options.emplace(copy_option);
+                    m_animation_smoothing_modes[copy_option] = smoothing_mode;
                 }
 
                 void disable_copy_option(AnimationFrameCopyOption copy_option) {
                     m_animation_frame_copy_options.erase(copy_option);
+                    m_animation_smoothing_modes.erase(copy_option);
                 }
 
-                bool is_copy_option_active(AnimationFrameCopyOption copy_option) {
+                bool is_copy_option_active(AnimationFrameCopyOption copy_option) const {
                     return m_animation_frame_copy_options.find(copy_option) != m_animation_frame_copy_options.end();
+                }
+
+                std::unordered_set<AnimationFrameCopyOption> get_copy_options_with_smoothing_mode(
+                                                                        AnimationSmoothingMode smoothing_mode)  {
+                    std::unordered_set<AnimationFrameCopyOption> return_value;
+
+                    for(AnimationFrameCopyOption copy_option : m_animation_frame_copy_options) {
+                        if(m_animation_smoothing_modes[copy_option] == smoothing_mode) {
+                            return_value.emplace(copy_option);
+                        }
+                    }
+
+                    return return_value;
                 }
 
                 std::string to_string();
@@ -145,6 +175,7 @@ namespace morpheus {
                 virtual void activate_on_target_sprite(AnimationFrameCopyOption copy_option) = 0;
             private:
                 std::unordered_set<AnimationFrameCopyOption> m_animation_frame_copy_options;
+                std::map<AnimationFrameCopyOption, AnimationSmoothingMode> m_animation_smoothing_modes;
                 unsigned int m_blending_value;
                 core::gfx::Vector2 m_mosaic_levels = core::gfx::Vector2(1, 1);
                 unsigned int m_palette_id;

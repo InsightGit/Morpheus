@@ -43,7 +43,7 @@ set(MORPHEUS_SOURCE_FILES
         ${CMAKE_CURRENT_BINARY_DIR}/sys8.h
         ${CMAKE_CURRENT_BINARY_DIR}/sys8.o
         morpheus/core/gfx/animation_frame.cpp
-        morpheus/core/gfx/animation_frame.hpp)
+        morpheus/core/gfx/animation_frame.hpp morpheus/core/gfx/animation_smoothing_attributes.cpp morpheus/core/gfx/animation_smoothing_attributes.hpp)
 
 
 project(morpheus)
@@ -334,7 +334,7 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-gba-animation-test.elf tests/animation_test/animation_test.cpp
                 ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c" tests/animation_test/test_animation.h)
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c" tests/animation_test/test_animation.hpp)
         add_gba_executable(morpheus-gba-animation-test.elf)
 
         target_link_libraries(morpheus-gba-animation-test.elf morpheus mm tonc)

@@ -27,12 +27,16 @@ namespace morpheus {
                     return m_tile_id;
                 }
 
-                void set_tile_id(const unsigned int tile_id, bool enable_copy = true) {
+                void set_tile_id(const unsigned int tile_id,
+                                 core::gfx::AnimationSmoothingMode smoothing_mode =
+                                                                                core::gfx::AnimationSmoothingMode::NONE,
+                                 bool enable_copy = true) {
                     m_tile_id = tile_id;
 
                     if(enable_copy) {
                         enable_copy_option(
-                                static_cast<core::gfx::AnimationFrameCopyOption>(GbaAnimationFrameCopyOption::TILE_ID));
+                                static_cast<core::gfx::AnimationFrameCopyOption>(GbaAnimationFrameCopyOption::TILE_ID),
+                                smoothing_mode);
                     }
                 }
 

@@ -16,6 +16,11 @@ namespace morpheus {
     namespace core {
         namespace gfx {
             class AnimationFrame;
+            class IntegerAnimationSmoothingAttribute;
+
+            struct IntegerAnimationSmoothingAttributeDeleter {
+                void operator()(IntegerAnimationSmoothingAttribute *ptr);
+            };
 
             enum class SpriteSize {
                 // square sprite sizes (x == y)
@@ -265,17 +270,8 @@ namespace morpheus {
                 virtual void resume_animation() = 0;
                 virtual void stop_animation(bool pause) = 0;
 
-                unsigned int get_current_delay() const {
-                    return m_current_delay;
-                }
-
-                void set_current_delay(const unsigned int current_delay) {
-                    m_current_delay = current_delay;
-                }
-
-                void set_current_frame(const unsigned int current_frame) {
-                    m_current_frame = current_frame;
-                }
+                // should only be called once per VBlank
+                void update_animation();
             private:
                 bool m_affine = false;
                 unsigned int m_affine_index = 32;
@@ -286,6 +282,8 @@ namespace morpheus {
                 std::vector<std::shared_ptr<AnimationFrame>> m_frames;
                 bool m_hidden = false;
                 AffineTransformation m_last_affine_transformation = AffineTransformation::Identity;
+                std::vector<std::unique_ptr<IntegerAnimationSmoothingAttribute,
+                                            IntegerAnimationSmoothingAttributeDeleter>> m_linear_smoothing_attributes;
                 bool m_mosaic = false;
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;
@@ -293,6 +291,8 @@ namespace morpheus {
                 bool m_paused = false;
                 bool m_playing = false;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
+                bool m_smoothing_started = false;
+                int m_smoothing_trend;
                 int m_rotation = 0;
             };
         }
