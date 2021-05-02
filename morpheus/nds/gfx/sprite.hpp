@@ -10,6 +10,7 @@
 #include <core/core.hpp>
 
 #include <nds/nds_controllers.hpp>
+#include <nds/gfx/nds_animation_frame.hpp>
 
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
@@ -30,11 +31,11 @@ namespace morpheus {
                 NEEDOFF
             };
 
-            struct NdsAnimationFrame {
+            /*struct NdsAnimationFrame {
                 unsigned short *gfx_pointer;
                 unsigned short palette_id;
                 unsigned short vblank_delays;
-            };
+            };*/
 
             static OamStatus OAM_STATUS = OamStatus::DISABLED;
 
@@ -50,8 +51,16 @@ namespace morpheus {
 
                 virtual ~Sprite();
 
-                void allocate_gfx_pointer(const SpriteColorFormat color_format,
-                                          const morpheus::core::gfx::SpriteSize size);
+                uint16_t *create_gfx_pointer(const SpriteColorFormat color_format,
+                                             const morpheus::core::gfx::SpriteSize size);
+
+                void disable_gfx_pointer_frees() {
+                    m_do_not_free_gfx_pointer = false;
+                }
+
+                void enable_gfx_pointer_frees() {
+                    m_do_not_free_gfx_pointer = true;
+                }
 
                 uint16_t *get_gfx_pointer() const {
                     return m_gfx_pointer;
@@ -61,6 +70,20 @@ namespace morpheus {
                     return m_palette_id;
                 }
 
+                core::gfx::SpriteSize get_sprite_size() const override {
+                    return m_sprite_size;
+                }
+
+                void set_gfx_pointer(uint16_t *pointer) {
+                    if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
+                        //std::cout << "freeing gfx\n";
+
+                        oamFreeGfx(m_current_oam, m_gfx_pointer);
+                    }
+
+                    m_gfx_pointer = pointer;
+                }
+
                 void set_palette_id(const unsigned int palette_id) {
                     m_palette_id = palette_id;
                 }
@@ -68,6 +91,9 @@ namespace morpheus {
                 bool is_blended() const override {
                     return m_blended;
                 }
+
+                // this morpheus::core::gfx::SpriteSize is morpheus'
+                void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
 
                 // Extended palette load functions
                 virtual bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
@@ -83,7 +109,7 @@ namespace morpheus {
                 }
 
                 // This SpriteSize is from libnds
-                SpriteSize get_sprite_size() const {
+                SpriteSize get_nds_sprite_size() const {
                     return m_sprite_size;
                 }
 
@@ -100,8 +126,6 @@ namespace morpheus {
                 }
 
                 void mosaic_state_updated() override {}
-                // this morpheus::core::gfx::SpriteSize is morpheus'
-                void set_sprite_size(morpheus::core::gfx::SpriteSize size)override;
 
                 virtual void update(unsigned char cycle_time)override;
                 virtual void input(core::InputEvent input_event) override {}
@@ -127,7 +151,8 @@ namespace morpheus {
 
                 OamState *m_current_oam;
                 uint16_t *m_gfx_pointer = nullptr;
-                SpriteSize m_sprite_size;
+                core::gfx::SpriteSize m_sprite_size;
+                SpriteSize m_nds_sprite_size;
             };
         }
     }

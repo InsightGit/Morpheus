@@ -100,50 +100,53 @@ morpheus::nds::gfx::Sprite::~Sprite() {
     nocashMessage("destructed");
 }
 
-void morpheus::nds::gfx::Sprite::allocate_gfx_pointer(const SpriteColorFormat color_format,
-                                                      const morpheus::core::gfx::SpriteSize size) {
+uint16_t *morpheus::nds::gfx::Sprite::create_gfx_pointer(const SpriteColorFormat color_format,
+                                                         const morpheus::core::gfx::SpriteSize size) {
+    core::gfx::SpriteSize old_sprite_size = get_sprite_size();
+    uint16_t *return_value;
+
     set_sprite_size(size);
 
-    if(m_gfx_pointer != nullptr && m_do_not_free_gfx_pointer) {
-        //std::cout << "freeing gfx\n";
+    return_value = oamAllocateGfx(m_current_oam, m_nds_sprite_size, color_format);
 
-        oamFreeGfx(m_current_oam, m_gfx_pointer);
-    }
+    set_sprite_size(old_sprite_size);
 
-    m_gfx_pointer = oamAllocateGfx(m_current_oam, m_sprite_size, color_format);
+    return return_value;
 }
 
 void morpheus::nds::gfx::Sprite::set_sprite_size(morpheus::core::gfx::SpriteSize size) {
-    switch(size) {
+    m_sprite_size = size;
+
+    switch(m_sprite_size) {
         case core::gfx::SpriteSize::SIZE_8X8:
-            m_sprite_size = SpriteSize_8x8;
+            m_nds_sprite_size = SpriteSize_8x8;
             break;
         case core::gfx::SpriteSize::SIZE_16X16:
-            m_sprite_size = SpriteSize_16x16;
+            m_nds_sprite_size = SpriteSize_16x16;
             break;
         case core::gfx::SpriteSize::SIZE_32X32:
-            m_sprite_size = SpriteSize_32x32;
+            m_nds_sprite_size = SpriteSize_32x32;
             break;
         case core::gfx::SpriteSize::SIZE_64X64:
-            m_sprite_size = SpriteSize_64x64;
+            m_nds_sprite_size = SpriteSize_64x64;
             break;
         case core::gfx::SpriteSize::SIZE_16X8:
-            m_sprite_size = SpriteSize_16x8;
+            m_nds_sprite_size = SpriteSize_16x8;
             break;
         case core::gfx::SpriteSize::SIZE_32X16:
-            m_sprite_size = SpriteSize_32x16;
+            m_nds_sprite_size = SpriteSize_32x16;
             break;
         case core::gfx::SpriteSize::SIZE_64X32:
-            m_sprite_size = SpriteSize_64x32;
+            m_nds_sprite_size = SpriteSize_64x32;
             break;
         case core::gfx::SpriteSize::SIZE_8X16:
-            m_sprite_size = SpriteSize_8x16;
+            m_nds_sprite_size = SpriteSize_8x16;
             break;
         case core::gfx::SpriteSize::SIZE_16X32:
-            m_sprite_size = SpriteSize_16x32;
+            m_nds_sprite_size = SpriteSize_16x32;
             break;
         case core::gfx::SpriteSize::SIZE_32X64:
-            m_sprite_size = SpriteSize_32x64;
+            m_nds_sprite_size = SpriteSize_32x64;
             break;
     }
 }

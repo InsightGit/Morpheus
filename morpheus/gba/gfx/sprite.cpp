@@ -36,43 +36,46 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
 void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {
     m_sprite_size = size;
 
+    m_attr0 &= ~ATTR0_SHAPE_MASK;
+    m_attr1 &= ~ATTR1_SIZE_MASK;
+
     switch(m_sprite_size) {
         case core::gfx::SpriteSize::SIZE_8X8:
         case core::gfx::SpriteSize::SIZE_16X16:
         case core::gfx::SpriteSize::SIZE_32X32:
         case core::gfx::SpriteSize::SIZE_64X64:
-            m_attr0 = ATTR0_SQUARE;
+            m_attr0 |= ATTR0_SQUARE;
             break;
         case core::gfx::SpriteSize::SIZE_16X8:
         case core::gfx::SpriteSize::SIZE_32X16:
         case core::gfx::SpriteSize::SIZE_64X32:
-            m_attr0 = ATTR0_WIDE;
+            m_attr0 |= ATTR0_WIDE;
             break;
         case core::gfx::SpriteSize::SIZE_8X16:
         case core::gfx::SpriteSize::SIZE_16X32:
         case core::gfx::SpriteSize::SIZE_32X64:
-            m_attr0 = ATTR0_TALL;
+            m_attr0 |= ATTR0_TALL;
             break;
     }
 
     switch(m_sprite_size) {
         case core::gfx::SpriteSize::SIZE_8X8:
-            m_attr1 = ATTR1_SIZE_8;
+            m_attr1 |= ATTR1_SIZE_8;
             break;
         case core::gfx::SpriteSize::SIZE_8X16:
         case core::gfx::SpriteSize::SIZE_16X8:
         case core::gfx::SpriteSize::SIZE_16X16:
-            m_attr1 = ATTR1_SIZE_16;
+            m_attr1 |= ATTR1_SIZE_16;
             break;
         case core::gfx::SpriteSize::SIZE_16X32:
         case core::gfx::SpriteSize::SIZE_32X16:
         case core::gfx::SpriteSize::SIZE_32X32:
-            m_attr1 = ATTR1_SIZE_32;
+            m_attr1 |= ATTR1_SIZE_32;
             break;
         case core::gfx::SpriteSize::SIZE_32X64:
         case core::gfx::SpriteSize::SIZE_64X32:
         case core::gfx::SpriteSize::SIZE_64X64:
-            m_attr1 = ATTR1_SIZE_64;
+            m_attr1 |= ATTR1_SIZE_64;
             break;
     }
 }
@@ -80,9 +83,9 @@ void morpheus::gba::gfx::Sprite::set_sprite_size(core::gfx::SpriteSize size) {
 void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
                                                  const unsigned short *palette, const unsigned int palette_len,
                                                  const core::gfx::SpriteSize size, const unsigned int tile_id) {
-    /*m_attr0 = 0x0;
+    m_attr0 = 0x0;
     m_attr1 = 0x0;
-    m_attr2 = 0x0;*/
+    m_attr2 = 0x0;
 
     set_sprite_size(size);
 
@@ -170,12 +173,4 @@ void morpheus::gba::gfx::Sprite::update_affine_state(core::gfx::AffineTransforma
     };
 
     obj_aff_postmul(&m_affine_current, &affine_new);
-
-    std::stringstream nocash_string_stream;
-
-    nocash_string_stream << "Affine matrix:" << std::hex << m_affine_current.pa << ":" << std::hex
-                         << m_affine_current.pb << ":" << std::hex << m_affine_current.pc << ":" << std::hex
-                         << m_affine_current.pd;
-
-    nocash_puts(nocash_string_stream.str().c_str());
 }

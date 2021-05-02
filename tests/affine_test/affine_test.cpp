@@ -154,12 +154,13 @@ int main() {
 
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background(morpheus::utils::
                             construct_appropriate_tiled_background_8bpp(true, 1, nullptr, nullptr, main_loop.get(),
-                                                                        6, 6));
+                                                                        1, 1));
     std::shared_ptr<morpheus::core::gfx::SpriteBase> base_sprite(morpheus::utils::construct_appropriate_sprite_4bpp(
                                                           true, nullptr, nullptr));
     std::shared_ptr<morpheus::core::gfx::TextBase> info_text(morpheus::utils::construct_appropriate_text(false,
-                                                                                                         0, 15, 15,
-                                                                                                         true));
+                                                                                                     0, 15, 15,
+                                                                                                     main_loop.get(),
+                                                                                                     true));
     std::shared_ptr<InputNode> input_node(new InputNode(main_loop->get_no_cash_debug_controller(),
                                                         base_sprite, info_text, base_background));
 

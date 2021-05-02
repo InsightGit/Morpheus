@@ -29,8 +29,13 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
         if(!m_frames.empty() && m_current_delay >= m_frames[m_current_frame]->get_vblank_delays()) {
             if(m_current_frame + 1 >= m_frames.size()) {
                 m_current_frame = 0;
+                m_first_animation_cycle = false;
+
+                //nocash_puts("playing frame 0");
             } else {
-                m_current_frame = get_current_frame() + 1;
+                ++m_current_frame;
+
+                //nocash_puts(std::string("playing frame " + std::to_string(m_current_frame)).c_str());
             }
 
             m_current_delay = 0;
@@ -50,14 +55,18 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
                 smoothing_attribute->smooth();
             }
         } else if(m_frames.size() > 1) {
-            std::shared_ptr<AnimationFrame> current_frame = m_frames[get_current_frame()];
+            std::shared_ptr<AnimationFrame> current_frame = m_frames[m_current_frame];
             std::shared_ptr<AnimationFrame> next_frame;
             unsigned int num_of_vblanks;
 
-            if(m_current_frame >= m_frames.size()) {
+            if(m_current_frame + 1 >= m_frames.size()) {
                 next_frame = m_frames[0];
+
+                //nocash_puts("next frame is frame 0");
             } else {
                 next_frame = m_frames[m_current_frame + 1];
+
+                //nocash_puts(std::string("next frame is frame " + std::to_string(m_current_frame + 1)).c_str());
             }
 
             num_of_vblanks = current_frame->get_vblank_delays();

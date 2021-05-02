@@ -14,9 +14,12 @@
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
     std::shared_ptr<morpheus::core::gfx::SpriteBase> sprite(
-            morpheus::utils::construct_appropriate_sprite_8bpp(false, main_loop->get_blending_controller(),
+            morpheus::utils::construct_appropriate_sprite_8bpp(true, main_loop->get_blending_controller(),
                                                                   main_loop->get_mosaic_controller(),
                                                                   false, false));
+
+    main_loop->enable_affine(morpheus::core::gfx::AffineMode::MIXED_AFFINE);
+    //main_loop->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::USE_WEIGHTS);
 
     #ifdef _GBA
         static_cast<morpheus::gba::gfx::Sprite8Bpp*>(sprite.get())->load_from_array(

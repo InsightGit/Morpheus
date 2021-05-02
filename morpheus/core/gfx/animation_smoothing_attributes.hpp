@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_ANIMATION_SMOOTHING_ATTRIBUTES_HPP
 #define MORPHEUS_GBA_TEST_ANIMATION_SMOOTHING_ATTRIBUTES_HPP
 
+//#include <tonc.h>
+
 #include <core/gfx/animation_frame.hpp>
 #include <core/gfx/vector_2.hpp>
 
@@ -15,20 +17,7 @@ namespace morpheus {
             public:
                 IntegerAnimationSmoothingAttribute(core::gfx::SpriteBase *target_sprite,
                                                    core::gfx::AnimationFrameCopyOption copy_option,
-                                                   int from, int to, unsigned int in_vblanks) {
-                    m_copy_option = copy_option;
-                    m_target_sprite = target_sprite;
-
-                    if(to - from != 0) {
-                        while(m_trend == 0) {
-                            m_trend = (m_trend_per_frames * (to - from)) / static_cast<int>(in_vblanks);
-
-                            if(m_trend == 0) {
-                                m_trend_per_frames *= 2;
-                            }
-                        }
-                    }
-                }
+                                                   int from, int to, unsigned int in_vblanks);
 
                 virtual ~IntegerAnimationSmoothingAttribute() = default;
 
@@ -43,49 +32,43 @@ namespace morpheus {
                     return m_target_sprite;
                 }
             private:
+                int get_min_value(int value) const {
+                    if(m_decreasing) {
+                        return std::max(m_goal, value);
+                    } else {
+                        return std::min(m_goal, value);
+                    }
+                }
+
                 core::gfx::AnimationFrameCopyOption m_copy_option;
-                int m_frame_count = 0;
+                bool m_decreasing;
+                int m_compensation;
+                int m_frame_counter = 0;
+                int m_goal;
                 core::gfx::SpriteBase *m_target_sprite;
                 int m_trend = 0;
-                int m_trend_per_frames = 1;
             };
 
             class Vector2SmoothingAttribute : public IntegerAnimationSmoothingAttribute {
             public:
                 Vector2SmoothingAttribute(core::gfx::SpriteBase *target_sprite,
                                           core::gfx::AnimationFrameCopyOption copy_option,
-                                          core::gfx::Vector2 from, core::gfx::Vector2 to, unsigned int in_vblanks) :
-                        IntegerAnimationSmoothingAttribute(target_sprite, copy_option, 0, 0, 0) {
-                    while(m_vector_trend.get_x() == 0 || m_vector_trend.get_y() == 0) {
-                        if(m_vector_trend.get_x() == 0) {
-                            m_vector_trend = core::gfx::Vector2(
-                                    (m_vector_trend_per_frames.get_x() * (to.get_x() - from.get_x())) /
-                                        static_cast<int>(in_vblanks), m_vector_trend.get_y());
-
-                            m_vector_trend_per_frames = core::gfx::Vector2(m_vector_trend_per_frames.get_x() * 2,
-                                                                           m_vector_trend_per_frames.get_y());
-                        }
-
-                        if(m_vector_trend.get_y() == 0) {
-                            m_vector_trend = core::gfx::Vector2(
-                                    m_vector_trend.get_x(),
-                                    (m_vector_trend_per_frames.get_y() * (to.get_y() - from.get_y())) /
-                                    static_cast<int>(in_vblanks));
-
-                            m_vector_trend_per_frames = core::gfx::Vector2(m_vector_trend_per_frames.get_x(),
-                                                                           m_vector_trend_per_frames.get_y() * 2);
-                        }
-                    }
-                }
+                                          core::gfx::Vector2 from, core::gfx::Vector2 to, unsigned int in_vblanks);
 
                 ~Vector2SmoothingAttribute() override = default;
 
                 bool smooth()override;
             private:
+                core::gfx::Vector2 get_min_vector(core::gfx::Vector2 vector);
+
                 // explicit is better than implicit
-                core::gfx::Vector2 m_vector_frame_count = core::gfx::Vector2(0, 0);
-                core::gfx::Vector2 m_vector_trend = core::gfx::Vector2(0, 0);
-                core::gfx::Vector2 m_vector_trend_per_frames = core::gfx::Vector2(1, 1);
+                bool m_decreasing_x;
+                bool m_decreasing_y;
+                core::gfx::Vector2 m_vector_frame_counter;
+                core::gfx::Vector2 m_vector_goal;
+                core::gfx::Vector2 m_vector_trend;
+                //core::gfx::Vector2 m_vector_trend_per_frames = core::gfx::Vector2(1, 1);
+                core::gfx::Vector2 m_vector_compensation;
             };
         }
     }

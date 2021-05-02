@@ -115,6 +115,8 @@ elseif(platform_lower STREQUAL "nds")
             morpheus/nds/nds_main_loop.cpp
             morpheus/nds/audio/nds_max_mod_music.hpp
             morpheus/nds/audio/nds_max_mod_sfx.hpp
+            morpheus/nds/gfx/nds_animation_frame.hpp
+            morpheus/nds/gfx/nds_animation_frame.cpp
             morpheus/nds/gfx/sprite.hpp
             morpheus/nds/gfx/sprite.cpp
             morpheus/nds/gfx/sprite_4_bpp.hpp
@@ -391,6 +393,32 @@ if("$ENV{BUILD_TESTS}")
                 message(FATAL_ERROR "bin2s - not found")
             endif()
         endif()
+
+        project(morpheus-nds-animation-test)
+
+        set(GFX_EFFECT_PNG8_FILES "../tests/gba/input_test/test8.png")
+
+        # skipping the grit step cause the .o rule for test8 already exists
+        # skipping the tilemap conversion step cause the .o rule for region_map already exists
+
+        foreach(png8_file ${GFX_EFFECT_PNG8_FILES})
+            get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+            list(APPEND GFX_EFFECT_PNG8_OUTPUT_FILES ${png8_file}.o)
+        endforeach()
+
+        link_directories(morpheus-nds-animation-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+
+        convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+
+        add_executable(morpheus-nds-animation-test.elf tests/animation_test/animation_test.cpp
+                ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c" tests/animation_test/test_animation.hpp)
+        add_nds_executable(morpheus-nds-animation-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Animation Test"
+                           "Morpheus' Ani animation engine" "")
+
+        target_link_libraries(morpheus-nds-animation-test.elf morpheus mm tonc)
 
         project(morpheus-nds-input-test)
 

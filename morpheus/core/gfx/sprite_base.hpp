@@ -7,6 +7,8 @@
 
 #include <vector>
 
+//#include <tonc.h>
+
 #include <core/gfx/affine_interface.hpp>
 #include <core/controllers.hpp>
 #include <core/control_reciever.hpp>
@@ -244,6 +246,10 @@ namespace morpheus {
 
                 void play() {
                     if(!is_playing()) {
+                        if(m_current_frame == 0) {
+                            m_first_animation_cycle = true;
+                        }
+
                         resume_animation();
 
                         m_playing = true;
@@ -279,6 +285,7 @@ namespace morpheus {
                 unsigned int m_current_delay;
                 unsigned int m_current_frame = 0;
                 bool m_drawn_node = true;
+                bool m_first_animation_cycle = true;
                 std::vector<std::shared_ptr<AnimationFrame>> m_frames;
                 bool m_hidden = false;
                 AffineTransformation m_last_affine_transformation = AffineTransformation::Identity;
