@@ -67,6 +67,9 @@ namespace morpheus {
                                                     static_cast<gba::gfx::Sprite*>(sprite_base),
                                                     static_cast<gba::gfx::GbaAnimationFrame*>(from_animation_frame));
             #elif _NDS
+                return new morpheus::nds::gfx::NdsAnimationFrame(
+                                                     static_cast<nds::gfx::Sprite*>(sprite_base),
+                                                     static_cast<nds::gfx::NdsAnimationFrame*>(from_animation_frame));
             #endif
 
             return nullptr;

@@ -1,0 +1,188 @@
+cmake_minimum_required(VERSION 3.19)
+include("cmake/morpheus_build_utils.cmake")
+
+if(WIN32)
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+else()
+    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+endif()
+
+if(NOT GRIT)
+    # message(STATUS "Looking for bin2s...")
+    find_program(GRIT grit ${DEVKITPRO}/tools)
+    if(GRIT)
+        message(STATUS "grit: ${GRIT} - found")
+    else()
+        message(FATAL_ERROR "grit - not found")
+    endif()
+endif()
+
+#set(CMAKE_VERBOSE_MAKEFILE TRUE)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "-g -Wall -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
+
+set(MAIN_SRC_FILES "src/main.cpp" src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp)
+
+
+string(TOLOWER $ENV{PLATFORM} platform_lower)
+
+#if(platform_lower STREQUAL "gba")
+#    set(PNG4_FILES "../tests/gba/test4.png")
+#elseif(platform_lower STREQUAL "nds")
+#    set(PNG4_FILES "../tests/nds/test4.png")
+#endif()
+
+set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms0.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms1.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms2.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms0.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms1.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms2.png")
+
+#if(platform_lower STREQUAL "gba")
+#    set(PNG8_FILES "../tests/gba/test8.png" CACHE STRING
+#            "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+#elseif(platform_lower STREQUAL "nds")
+#    set(PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
+#            "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
+#endif()
+
+set(PNG4_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32")
+#set(PNG8_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" CACHE STRING
+#        "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
+
+execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
+#execute_grit(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
+
+foreach(png4_file ${PNG4_FILES})
+    get_filename_component(png4_file ${png4_file} NAME_WLE)
+
+    list(APPEND PNG4_OUTPUT_FILES ${png4_file}.o)
+endforeach()
+
+#foreach(png8_file ${PNG8_FILES})
+#    get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+#    list(APPEND PNG8_OUTPUT_FILES ${png8_file}.o)
+#endforeach()
+
+#message(STATUS "${PNG8_OUTPUT_FILES}")
+
+project(hayai)
+
+include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus ..)
+
+convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
+                               FALSE)
+list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
+
+if(platform_lower STREQUAL "gba")
+    add_compile_definitions(_GBA)
+
+    message(STATUS "building hayai for Gameboy Advance")
+
+    if(NOT GBAFIX)
+        find_program(GBAFIX gbafix $ENV{DEVKITPRO}/tools/bin/)
+        if(GBAFIX)
+            message(STATUS "gbafix: ${GBAFIX} - found")
+        else()
+            message(FATAL_ERROR "gbafix - not found")
+        endif()
+    endif()
+
+    if(NOT OBJCOPY)
+        find_program(OBJCOPY arm-none-eabi-objcopy $ENV{DEVKITARM}/bin)
+        if(OBJCOPY)
+            message(STATUS "objcopy: ${OBJCOPY} - found")
+        else()
+            message(FATAL_ERROR "objcopy - not found")
+        endif()
+    endif()
+
+    function(add_gba_executable target)
+        get_filename_component(target_name ${target} NAME_WE)
+        add_custom_target(${target_name}.gba ALL SOURCES
+                COMMAND ${OBJCOPY} -v -O binary ${target} ${target_name}.gba
+                COMMAND ${GBAFIX} ${target_name}.gba
+                DEPENDS ${target}
+                VERBATIM
+                )
+        set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+        set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.gba)
+    endfunction()
+
+    include_directories(hayai PRIVATE $ENV{DEVKITPRO}/libtonc/include $ENV{DEVKITPRO}/libgba/include)
+    link_directories(hayai PRIVATE ../../cmake-build-debug-gba $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+
+    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
+    add_gba_executable(hayai.elf)
+
+    target_link_libraries(hayai.elf morpheus mm tonc)
+elseif(platform_lower STREQUAL "nds")
+    add_compile_definitions(_NDS)
+
+    message(STATUS "building hayai for Nintendo DS")
+
+    set(NDS_GAME_ICON  "tests/nds/ds_icon.bmp" CACHE STRING "NDS game icon location realitve to project location")
+    set(NDS_TITLE "Hayai" CACHE STRING "NDS game title")
+    set(NDS_SUBTITLE1 "Powered by Morpheus" CACHE STRING "NDS game subtitle #1")
+    set(NDS_SUBTITLE2 "" CACHE STRING "NDS game subtitle #2")
+
+    if(NOT NDSTOOL)
+        find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
+        if(NDSTOOL)
+            message(STATUS "ndstool: ${NDSTOOL} - found")
+        else()
+            message(FATAL_ERROR "ndstool - not found")
+        endif()
+    endif()
+
+    if(NOT BIN2S)
+        # message(STATUS "Looking for bin2s...")
+        find_program(BIN2S bin2s ${DEVKITARM}/bin)
+        if(BIN2S)
+            message(STATUS "bin2s: ${BIN2S} - found")
+        else()
+            message(FATAL_ERROR "bin2s - not found")
+        endif()
+    endif()
+
+    function(add_nds_executable target)
+        get_filename_component(target_name ${target} NAME_WE)
+        add_custom_target(${target_name}.nds ALL SOURCES
+                COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON}
+                "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
+                DEPENDS ${target}
+                VERBATIM
+                )
+        #set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+        set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
+    endfunction()
+
+    link_directories(hayai PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
+
+    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
+    add_nds_executable(hayai.elf)
+
+    target_link_libraries(hayai.elf morpheus nds9)
+endif()
+
+if(WIN32)
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
+else()
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
+endif()
+
+set(CMAKE_AS ASSEMBLER_TO_USE CACHE STRING "")
+
+enable_language(ASM)

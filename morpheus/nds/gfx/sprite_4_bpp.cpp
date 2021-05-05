@@ -11,7 +11,7 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
 
     set_sprite_size(size);
 
-    allocate_gfx_pointer(SpriteColorFormat_16Color, size);
+    set_gfx_pointer(create_gfx_pointer(SpriteColorFormat_16Color, size));
 
     //std::cout << "loading 4bpp tiled array to palette #" << palette_id << "\n";
 
@@ -60,7 +60,7 @@ void morpheus::nds::gfx::Sprite4Bpp::draw_node(std::vector<void *>& obj_attr_buf
 
     oamSet(get_current_oam(), static_cast<int>(obj_attr_num), position.get_x(), position.get_y(),
            static_cast<int>(get_priority()), static_cast<int>(get_palette_id()),
-           get_sprite_size(),SpriteColorFormat_16Color, get_gfx_pointer(), static_cast<int>(get_affine_index()),
+           get_nds_sprite_size(), SpriteColorFormat_16Color, get_gfx_pointer(), static_cast<int>(get_affine_index()),
            is_affine(), false, false, false, is_mosaic());
 
     if(is_blended()) {

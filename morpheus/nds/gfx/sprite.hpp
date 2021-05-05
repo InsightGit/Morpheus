@@ -49,7 +49,7 @@ namespace morpheus {
                                 SpriteMapping sprite_mapping, ExtendedPaletteStatus external_palette,
                                 unsigned short *nds_oam_address, const morpheus::core::gfx::SpriteSize sprite_size);
 
-                virtual ~Sprite();
+                ~Sprite() override;
 
                 uint16_t *create_gfx_pointer(const SpriteColorFormat color_format,
                                              const morpheus::core::gfx::SpriteSize size);
@@ -110,7 +110,7 @@ namespace morpheus {
 
                 // This SpriteSize is from libnds
                 SpriteSize get_nds_sprite_size() const {
-                    return m_sprite_size;
+                    return m_nds_sprite_size;
                 }
 
                 bool is_in_extended_palette_mode() const {
@@ -127,7 +127,9 @@ namespace morpheus {
 
                 void mosaic_state_updated() override {}
 
-                virtual void update(unsigned char cycle_time)override;
+                virtual void update(unsigned char cycle_time) override {
+                    update_animation();
+                }
                 virtual void input(core::InputEvent input_event) override {}
             protected:
                 void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
@@ -137,6 +139,9 @@ namespace morpheus {
                 NdsAnimationFrame get_current_nds_animation_frame() const {
                     return m_frames[get_current_frame()];
                 }
+
+                void resume_animation()override {}
+                void stop_animation(bool pause)override {}
 
                 virtual void update_affine_state(core::gfx::AffineTransformation affine_transformation,
                                                  bool new_transformation) override {}

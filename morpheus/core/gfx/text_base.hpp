@@ -9,7 +9,7 @@
 #include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
 
-#include "sys8.h"
+//#include "sys8.h"
 
 namespace morpheus {
     namespace core {
@@ -94,8 +94,8 @@ namespace morpheus {
                     font.char_size = Vector2(8, 8);
                     font.cursor_position = Vector2(0, 0);
                     font.font_bpp = FontBpp::FONT_4BPP;
-                    font.font_tiles = sys8Tiles;
-                    font.font_tiles_len = sys8TilesLen;
+                    //font.font_tiles = sys8Tiles;
+                    //font.font_tiles_len = sys8TilesLen;
                     font.font_palette = nullptr;
 
                     return font;

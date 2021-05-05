@@ -11,6 +11,7 @@
 #include <nds/audio/nds_max_mod_music.hpp>
 #include <nds/audio/nds_max_mod_sfx.hpp>
 
+#include <nds/gfx/nds_animation_frame.hpp>
 #include <nds/gfx/nds_window.hpp>
 #include <nds/gfx/sprite_8_bpp.hpp>
 #include <nds/gfx/sprite_4_bpp.hpp>

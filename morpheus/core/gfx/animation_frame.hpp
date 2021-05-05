@@ -104,9 +104,8 @@ namespace morpheus {
                     }
                 }
 
-                void set_scale(core::gfx::Vector2 scale,
-                               AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE,
-                               bool enable_copy = true) {
+                void set_scale(core::gfx::Vector2 scale, bool enable_copy = true,
+                               AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_scale = scale;
 
                     if(enable_copy) {
@@ -114,9 +113,8 @@ namespace morpheus {
                     }
                 }
 
-                void set_sprite_size(core::gfx::SpriteSize sprite_size,
-                                     AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE,
-                                     bool enable_copy = true) {
+                void set_sprite_size(core::gfx::SpriteSize sprite_size, bool enable_copy = true,
+                                     AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_sprite_size = sprite_size;
 
                     if(enable_copy) {

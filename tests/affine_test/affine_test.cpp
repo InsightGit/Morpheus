@@ -8,7 +8,7 @@
 #include <nds/nds.hpp>
 #endif
 
-#include "region_map.h"
+#include "region_map_affine2.h"
 #include "test4.h"
 
 class InputNode : public morpheus::core::ControlReciever {
@@ -153,7 +153,7 @@ int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
 
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background(morpheus::utils::
-                            construct_appropriate_tiled_background_8bpp(true, 1, nullptr, nullptr, main_loop.get(),
+                            construct_appropriate_tiled_background_8bpp(true, 3, nullptr, nullptr, main_loop.get(),
                                                                         1, 1));
     std::shared_ptr<morpheus::core::gfx::SpriteBase> base_sprite(morpheus::utils::construct_appropriate_sprite_4bpp(
                                                           true, nullptr, nullptr));
@@ -177,8 +177,8 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    base_background->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
-                                     region_mapMap, region_mapMapLen,
+    base_background->load_from_array(region_map_affine2Tiles, region_map_affine2TilesLen, region_map_affine2Pal,
+                                     region_map_affine2PalLen, region_map_affine2Map, region_map_affine2MapLen,
                                      morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_64x64);
 
     base_sprite->set_position(64, 64);

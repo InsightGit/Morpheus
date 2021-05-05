@@ -180,7 +180,7 @@ if("$ENV{BUILD_TESTS}")
 
     execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
     execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
-    execute_grit_tilemap("../tests/tileset_test/region_map2.png" FALSE 3)
+    execute_grit_tilemap("../tests/tileset_test/region_map2.png" FALSE 3 FALSE)
 
     foreach(png4_file ${PNG4_FILES})
         get_filename_component(png4_file ${png4_file} NAME_WLE)
@@ -267,7 +267,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
         convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
-                                       "tests/tileset_test/region_map.png" 8)
+                                       "tests/tileset_test/region_map.png" 8 false)
 
         add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
@@ -307,7 +307,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
         convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
-                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8 false)
 
         add_executable(morpheus-gba-gfx-effects-test.elf tests/gfx_effects_test/gfx_effects_test.cpp
                        ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
@@ -332,7 +332,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-animation-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
         convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
-                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8 false)
 
         add_executable(morpheus-gba-animation-test.elf tests/animation_test/animation_test.cpp
                 ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
@@ -407,10 +407,10 @@ if("$ENV{BUILD_TESTS}")
             list(APPEND GFX_EFFECT_PNG8_OUTPUT_FILES ${png8_file}.o)
         endforeach()
 
-        link_directories(morpheus-nds-animation-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+        link_directories(morpheus-nds-animation-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
-                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8 false)
 
         add_executable(morpheus-nds-animation-test.elf tests/animation_test/animation_test.cpp
                 ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
@@ -418,7 +418,7 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-animation-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Animation Test"
                            "Morpheus' Ani animation engine" "")
 
-        target_link_libraries(morpheus-nds-animation-test.elf morpheus mm tonc)
+        target_link_libraries(morpheus-nds-animation-test.elf morpheus fat filesystem nds9 mm9)
 
         project(morpheus-nds-input-test)
 
@@ -457,7 +457,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-nds-tileset-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib)
 
         convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
-                "tests/tileset_test/region_map.png" 8)
+                "tests/tileset_test/region_map.png" 8 false)
 
         add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
@@ -473,7 +473,7 @@ if("$ENV{BUILD_TESTS}")
         project(morpheus-nds-extended-palette-test)
 
         convert_tilemap_bin_image_file("tests/nds/extended_palette_test/custom1map.bin" ${CMAKE_CURRENT_BINARY_DIR}
-                64 64 10 "tests/nds/extended_palette_test/custom1map.png" 8)
+                64 64 10 "tests/nds/extended_palette_test/custom1map.png" 8 false)
 
         link_directories(morpheus-nds-extended-palette-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
@@ -530,7 +530,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-nds-gfx-effects-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         convert_tilemap_bin_image_file("tests/gfx_effects_test/region_map_window.bin" ${CMAKE_CURRENT_BINARY_DIR}
-                32 32 0 "tests/gfx_effects_test/region_map.png" 8)
+                32 32 0 "tests/gfx_effects_test/region_map.png" 8 false)
 
         add_executable(morpheus-nds-gfx-effects-test.elf
                 tests/gfx_effects_test/gfx_effects_test.cpp ${GFX_EFFECT_PNG8_OUTPUT_FILES}
@@ -543,14 +543,18 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-nds-affine-test)
 
+        execute_grit_tilemap("../tests/affine_test/region_map_affine2.png" FALSE 3 TRUE)
+        #convert_tilemap_bin_image_file("tests/affine_test/region_map_affine.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
+        #        "tests/affine_test/region_map_affine.png" 8 true)
+
         link_directories(morpheus-nds-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         add_executable(morpheus-nds-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES}
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine2.o")
         add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Affine Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-affine-test.elf morpheus nds9 mm9 fat)
+        target_link_libraries(morpheus-nds-affine-test.elf morpheus fat filesystem nds9 mm9)
 
         project(morpheus-nds-custom-font-test)
 

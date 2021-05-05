@@ -30,7 +30,7 @@ bool morpheus::core::gfx::TextBase::init_expression_text_api() {
             break;
     }
 
-    pal_bg_mem[15] = 0x7FFF;
+    //pal_bg_mem[15] = 0x7FFF;
 
     m_expression_background->load_from_array(m_font.font_tiles, m_font.font_tiles_len, nullptr, 0, nullptr, 0,
                                              TiledBackgroundSize::BG_64x64);

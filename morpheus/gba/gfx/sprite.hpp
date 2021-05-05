@@ -44,7 +44,7 @@ namespace morpheus {
                         set_sprite_size(size);
                     }
 
-                    virtual ~Sprite();
+                    ~Sprite() override;
 
                     void build_attr2(const unsigned short palette_id, const unsigned short tile_id) {
                         m_attr2 = ATTR2_BUILD(tile_id, palette_id, 0);

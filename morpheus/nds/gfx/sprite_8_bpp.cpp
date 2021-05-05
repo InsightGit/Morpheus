@@ -16,7 +16,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
 
     set_sprite_size(size);
 
-    allocate_gfx_pointer(SpriteColorFormat_256Color, size);
+    set_gfx_pointer(create_gfx_pointer(SpriteColorFormat_256Color, size));
 
     dmaCopy(tile_array, get_gfx_pointer(), tile_array_len);
 
@@ -48,7 +48,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
 
     set_sprite_size(size);
 
-    allocate_gfx_pointer(SpriteColorFormat_256Color, size);
+    set_gfx_pointer(create_gfx_pointer(SpriteColorFormat_256Color, size));
 
     //std::cout << "loading tiled array in extended palette mode\n";
 
@@ -142,7 +142,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
 
     //std::cout << "allocating gfx\n";
 
-    allocate_gfx_pointer(SpriteColorFormat_256Color, sprite_size);
+    set_gfx_pointer(create_gfx_pointer(SpriteColorFormat_256Color, sprite_size));
 
     //std::cout << "copying into gfx\n";
 
@@ -210,11 +210,11 @@ void morpheus::nds::gfx::Sprite8Bpp::draw_node(std::vector<void *> &obj_attr_buf
 
     if(is_affine()) {
         oamRotateScale(get_current_oam(), static_cast<int>(get_affine_index()), get_rotation(),
-                       (1>>8) - get_scale().get_x(), (1>>8) - get_scale().get_y());
+                       get_scale().get_x(), get_scale().get_y());
     }
 
     oamSet(get_current_oam(), static_cast<int>(obj_attr_num), position.get_x(), position.get_y(),
-           static_cast<int>(get_priority()),static_cast<int>(get_palette_id()),get_sprite_size(),
+           static_cast<int>(get_priority()),static_cast<int>(get_palette_id()), get_nds_sprite_size(),
            SpriteColorFormat_256Color,get_gfx_pointer(), static_cast<int>(get_affine_index()), is_affine(), is_hidden(),
            false, false, is_mosaic());
 
