@@ -38,7 +38,8 @@ namespace morpheus {
                                      const unsigned int palette_id, const core::gfx::SpriteSize size,
                                      const unsigned int tile_id);
 
-                bool load_into_palette(const unsigned short *palette, const unsigned int palette_len)override;
+                bool load_into_palette(const unsigned short *palette, const unsigned int palette_len,
+                                       const unsigned int pal_offset = 256)override;
             protected:
                 void array_load(const unsigned short *tile_array, const unsigned int tile_array_len,
                                 const core::gfx::SpriteSize size, const unsigned int tile_id)override;

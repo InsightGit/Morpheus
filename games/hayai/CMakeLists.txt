@@ -7,6 +7,23 @@ else()
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
 endif()
 
+string(TOLOWER $ENV{PLATFORM} platform_lower)
+
+if(platform_lower STREQUAL "gba")
+    set(CMAKE_SYSTEM_NAME Generic)
+    set(CMAKE_SYSTEM_VERSION DKA-GBA-52)
+    set(CMAKE_SYSTEM_PROCESSOR armv4t)
+
+    set(ARCH_FLAGS "-mcpu=arm7tdmi -mtune=arm7tdmi -specs=gba.specs")
+elseif(platform_lower STREQUAL "nds")
+    set(CMAKE_SYSTEM_NAME Generic)
+    set(CMAKE_SYSTEM_VERSION DKA-NDS-52)
+    set(CMAKE_SYSTEM_PROCESSOR armv5te)
+
+    set(ARCH_FLAGS "-marm -mthumb-interwork -march=armv5te -mtune=arm946e-s -DARM9")
+    set(CMAKE_EXE_LINKER_FLAGS "-specs=ds_arm9.specs -g")
+endif()
+
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
     find_program(GRIT grit ${DEVKITPRO}/tools)
@@ -19,12 +36,9 @@ endif()
 
 #set(CMAKE_VERBOSE_MAKEFILE TRUE)
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "-g -Wall -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
+set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 set(MAIN_SRC_FILES "src/main.cpp" src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp)
-
-
-string(TOLOWER $ENV{PLATFORM} platform_lower)
 
 #if(platform_lower STREQUAL "gba")
 #    set(PNG4_FILES "../tests/gba/test4.png")
@@ -99,25 +113,13 @@ if(platform_lower STREQUAL "gba")
         endif()
     endif()
 
-    function(add_gba_executable target)
-        get_filename_component(target_name ${target} NAME_WE)
-        add_custom_target(${target_name}.gba ALL SOURCES
-                COMMAND ${OBJCOPY} -v -O binary ${target} ${target_name}.gba
-                COMMAND ${GBAFIX} ${target_name}.gba
-                DEPENDS ${target}
-                VERBATIM
-                )
-        set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
-        set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.gba)
-    endfunction()
-
     include_directories(hayai PRIVATE $ENV{DEVKITPRO}/libtonc/include $ENV{DEVKITPRO}/libgba/include)
     link_directories(hayai PRIVATE ../../cmake-build-debug-gba $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
     add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
     add_gba_executable(hayai.elf)
 
-    target_link_libraries(hayai.elf morpheus mm tonc)
+    target_link_libraries(hayai.elf gba_morpheus mm tonc)
 elseif(platform_lower STREQUAL "nds")
     add_compile_definitions(_NDS)
 
@@ -147,22 +149,10 @@ elseif(platform_lower STREQUAL "nds")
         endif()
     endif()
 
-    function(add_nds_executable target)
-        get_filename_component(target_name ${target} NAME_WE)
-        add_custom_target(${target_name}.nds ALL SOURCES
-                COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_LIST_DIR}/${NDS_GAME_ICON}
-                "${NDS_TITLE};${NDS_SUBTITLE1};${NDS_SUBTITLE2}"
-                DEPENDS ${target}
-                VERBATIM
-                )
-        #set_target_properties(${target} PROPERTIES LINK_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
-        set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${target_name}.nds)
-    endfunction()
-
     link_directories(hayai PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
 
     add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
-    add_nds_executable(hayai.elf)
+    add_nds_executable(hayai.elf assets/ds_icon.bmp "Hayai" "an Acceleration-based platformer" "powered by Morpheus")
 
     target_link_libraries(hayai.elf morpheus nds9)
 endif()

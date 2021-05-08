@@ -233,7 +233,8 @@ namespace morpheus {
                 void draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num);
 
                 virtual SpriteSize get_sprite_size() const = 0;
-                virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len) = 0;
+                virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
+                                               const unsigned int pal_offset = 256) = 0;
 
                 void pause() {
                     if(is_playing()) {

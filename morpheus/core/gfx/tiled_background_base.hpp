@@ -32,13 +32,23 @@ namespace morpheus {
 
                 virtual ~TiledBackgroundBase() = default;
 
-                virtual void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                             const unsigned short *palette, const unsigned int pal_len,
-                                             const unsigned short *tile_map, const unsigned int tile_map_len,
-                                             TiledBackgroundSize size) = 0;
-                virtual void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                             const unsigned short *tile_map, const unsigned int tile_map_len,
-                                             TiledBackgroundSize size) = 0;
+                void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
+                                     const unsigned short *palette, const unsigned int pal_len,
+                                     const unsigned short *tile_map, const unsigned int tile_map_len,
+                                     TiledBackgroundSize size) {
+                    m_tile_map = tile_map;
+                    m_tile_map_size = size;
+
+                    array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size);
+                }
+                void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
+                                     const unsigned short *tile_map, const unsigned int tile_map_len,
+                                     TiledBackgroundSize size) {
+                    m_tile_map = tile_map;
+                    m_tile_map_size = size;
+
+                    array_load(tiles, tiles_len, tile_map, tile_map_len, size);
+                }
 
                 void disable_blending() {
                     m_blending_controller->disable_background_blending(get_background_num());
@@ -59,6 +69,14 @@ namespace morpheus {
                     }
                 }
 
+                unsigned int get_background_num() const {
+                    return m_background_num;
+                }
+
+                unsigned int get_cbb_num() const {
+                    return m_cbb_num;
+                }
+
                 Vector2 get_mosaic_levels() const {
                     return m_mosaic_controller->get_background_mosaic_levels();
                 }
@@ -69,6 +87,10 @@ namespace morpheus {
 
                 Vector2 get_scale() const {
                     return m_scale;
+                }
+
+                unsigned int get_sbb_num() const {
+                    return m_sbb_num;
                 }
 
                 Vector2 get_scroll() const {
@@ -121,22 +143,19 @@ namespace morpheus {
                     mosaic_state_updated();
                 }
 
+                int get_tile_id_at_position(core::gfx::Vector2 position, bool with_scrolling = true);
+
                 virtual unsigned int get_priority() const = 0;
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
-                unsigned int get_background_num() const {
-                    return m_background_num;
-                }
-
-                unsigned int get_cbb_num() const {
-                    return m_cbb_num;
-                }
-
-                unsigned int get_sbb_num() const {
-                    return m_sbb_num;
-                }
-
                 virtual void affine_state_updated() = 0;
+                virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                        const unsigned short *palette, const unsigned int pal_len,
+                                        const unsigned short *tile_map, const unsigned int tile_map_len,
+                                        TiledBackgroundSize size) = 0;
+                virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                        const unsigned short *tile_map, const unsigned int tile_map_len,
+                                        TiledBackgroundSize size) = 0;
                 virtual void mosaic_state_updated() = 0;
                 virtual void update_scroll() = 0;
             private:
@@ -151,6 +170,8 @@ namespace morpheus {
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 Vector2 m_scroll_position;
                 unsigned int m_sbb_num;
+                const unsigned short *m_tile_map;
+                TiledBackgroundSize m_tile_map_size;
             };
         }
     }

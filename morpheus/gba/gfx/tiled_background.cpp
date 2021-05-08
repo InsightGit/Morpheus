@@ -24,20 +24,18 @@ morpheus::gba::gfx::TiledBackground::TiledBackground(bool affine, unsigned int b
 }
 
 
-void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                          const unsigned short *palette, const unsigned int pal_len,
-                                                          const unsigned short *tile_map,
-                                                          const unsigned int tile_map_len,
-                                                          core::gfx::TiledBackgroundSize size) {
+void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                                     const unsigned short *palette, const unsigned int pal_len,
+                                                     const unsigned short *tile_map, const unsigned int tile_map_len,
+                                                     core::gfx::TiledBackgroundSize size) {
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
 
     memcpy16(pal_bg_mem, palette, pal_len / 2);
 }
 
-void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                          const unsigned short *tile_map,
-                                                          const unsigned int tile_map_len,
-                                                          core::gfx::TiledBackgroundSize size) {
+void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                                     const unsigned short *tile_map, const unsigned int tile_map_len,
+                                                     core::gfx::TiledBackgroundSize size) {
     switch(size) {
         default:
         case core::gfx::TiledBackgroundSize::BG_32x32:
@@ -66,18 +64,28 @@ void morpheus::gba::gfx::TiledBackground::load_from_array(const unsigned int *ti
 }
 
 void morpheus::gba::gfx::TiledBackground::update_background_register() {
+    nocash_puts(std::string("updating background register #" + std::to_string(get_background_num())).c_str());
+
     switch (get_background_num()) {
         case 0u:
             REG_BG0CNT = m_background_register | BG_PRIO(m_background_priority);
+
+            nocash_puts(std::string("new bg0cnt value:" + std::to_string(REG_BG0CNT)).c_str());
             break;
         case 1u:
             REG_BG1CNT = m_background_register | BG_PRIO(m_background_priority);
+
+            nocash_puts(std::string("new bg1cnt value:" + std::to_string(REG_BG1CNT)).c_str());
             break;
         case 2u:
             REG_BG2CNT = m_background_register | BG_PRIO(m_background_priority);
+
+            nocash_puts(std::string("new bg2cnt value:" + std::to_string(REG_BG2CNT)).c_str());
             break;
         case 3u:
             REG_BG3CNT = m_background_register | BG_PRIO(m_background_priority);
+
+            nocash_puts(std::string("new bg3cnt value:" + std::to_string(REG_BG3CNT)).c_str());
             break;
     }
 

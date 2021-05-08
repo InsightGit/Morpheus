@@ -16,3 +16,54 @@ morpheus::core::gfx::TiledBackgroundBase::TiledBackgroundBase(bool affine, unsig
     m_sbb_num = std::min(31u, sbb_num);
 }
 
+int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_position(morpheus::core::gfx::Vector2 position,
+                                                                      bool with_scrolling) {
+    int tile_id;
+    morpheus::core::gfx::Vector2 tile_position = position;
+
+    if(m_tile_map == nullptr) {
+        return -1;
+    }
+
+    if(with_scrolling) {
+        tile_position = position + m_scroll_position;
+    }
+    
+    tile_position = morpheus::core::gfx::Vector2(tile_position.get_x() / 8, tile_position.get_y() / 8);
+
+    switch (m_tile_map_size) {
+        case TiledBackgroundSize::BG_32x32:
+            if(tile_position.get_x() >= 32 || tile_position.get_y() >= 32) {
+                return -1;
+            }
+
+            tile_id = tile_position.get_x() + (tile_position.get_y() * 32);
+            break;
+        case TiledBackgroundSize::BG_64x32:
+            if(tile_position.get_x() >= 64 || tile_position.get_y() >= 32) {
+                return -1;
+            }
+
+            tile_id = tile_position.get_x() + (tile_position.get_y() * 32);
+            break;
+        case TiledBackgroundSize::BG_32x64:
+            if(tile_position.get_x() >= 32 || tile_position.get_y() >= 64) {
+                return -1;
+            }
+
+            tile_id = tile_position.get_x() + (tile_position.get_y() * 64);
+            break;
+        case TiledBackgroundSize::BG_64x64:
+            if(tile_position.get_x() >= 64 || tile_position.get_y() >= 64) {
+                return -1;
+            }
+
+            tile_id = tile_position.get_x() + (tile_position.get_y() * 64);
+            break;
+        default:
+            return -1;
+    }
+
+    return tile_id & 0x03FF;
+}
+

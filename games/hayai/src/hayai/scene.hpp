@@ -21,14 +21,18 @@ namespace hayai {
         }
 
         ~Scene() override = default;
-
-        virtual void draw() = 0;
     protected:
         std::shared_ptr<morpheus::core::MainLoop> get_main_loop() const {
             return m_main_loop;
         }
     private:
         std::shared_ptr<morpheus::core::MainLoop> m_main_loop;
+    };
+
+    struct SceneDeleter {
+        void operator()(Scene *scene){
+            delete scene;
+        };
     };
 }
 

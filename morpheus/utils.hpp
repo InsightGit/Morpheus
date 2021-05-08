@@ -203,7 +203,7 @@ namespace morpheus {
                 return new morpheus::gba::gfx::TiledBackground(affine, background_num,
                                 static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),
                                 static_cast<morpheus::gba::gfx::GbaMosaicController*>(mosaic_controller),
-                                static_cast<morpheus::gba::GbaMainLoop*>(main_loop), false, cbb_num, sbb_num);
+                                static_cast<morpheus::gba::GbaMainLoop*>(main_loop), true, cbb_num, sbb_num);
             #elif _NDS
                 return new morpheus::nds::gfx::TiledBackground8Bpp(
                         affine, nds_use_sub_display, background_num,
