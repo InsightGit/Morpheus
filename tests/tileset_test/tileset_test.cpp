@@ -25,11 +25,11 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background2;
 
     #ifdef _GBA
-        background0.reset(new morpheus::gba::gfx::TiledBackground(1,
+        background0.reset(new morpheus::gba::gfx::TiledBackground(false, 1, nullptr, nullptr,
                                                                     std::static_pointer_cast<
                                                                         morpheus::gba::GbaMainLoop>(main_loop),
                                                                  true, 1, 0));
-        background1.reset(new morpheus::gba::gfx::TiledBackground(2,
+        background1.reset(new morpheus::gba::gfx::TiledBackground(false, 2,
                                                               std::static_pointer_cast<
                                                                       morpheus::gba::GbaMainLoop>(main_loop),
                                                               false, 2, 1));

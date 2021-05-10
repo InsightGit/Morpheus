@@ -16,8 +16,8 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
                                                                          main_loop.get(), 2, 1));
     m_player = std::make_unique<Player>(main_loop, m_level_background, this);
 
-    m_level_background->load_from_array(test_map_1Tiles, test_map_1TilesLen, test_map_1Pal, test_map_1PalLen,
-                                        test_map_1Map, test_map_1MapLen,
+    m_level_background->load_from_array(test_map_1Tiles, test_map_1TilesLen, test_map_1Pal,
+                                        test_map_1PalLen, test_map_1Map, test_map_1MapLen,
                                         morpheus::core::gfx::TiledBackgroundSize::BG_64x64);
 
     for(int i = 1; 10 > i; ++i) {

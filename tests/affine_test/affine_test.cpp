@@ -8,7 +8,7 @@
 #include <nds/nds.hpp>
 #endif
 
-#include "region_map_affine2.h"
+//#include "region_map_affine2.h"
 #include "test4.h"
 
 class InputNode : public morpheus::core::ControlReciever {
@@ -177,9 +177,9 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    base_background->load_from_array(region_map_affine2Tiles, region_map_affine2TilesLen, region_map_affine2Pal,
+    /*base_background->load_from_array(region_map_affine2Tiles, region_map_affine2TilesLen, region_map_affine2Pal,
                                      region_map_affine2PalLen, region_map_affine2Map, region_map_affine2MapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_64x64);
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_64x64);*/
 
     base_sprite->set_position(64, 64);
     base_sprite->set_affine_index(1);

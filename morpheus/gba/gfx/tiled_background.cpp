@@ -53,9 +53,9 @@ void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, 
     }
 
     if(m_is_8bpp) {
-        memcpy16(&tile8_mem[get_cbb_num()][0], tiles, tiles_len);
+        memcpy16(&tile8_mem[get_cbb_num()][0], tiles, tiles_len / 2);
     } else {
-        memcpy16(&tile_mem[get_cbb_num()][0], tiles, tiles_len);
+        memcpy16(&tile_mem[get_cbb_num()][0], tiles, tiles_len / 2);
     }
 
     memcpy16(&se_mem[get_sbb_num()][0], tile_map, tile_map_len);

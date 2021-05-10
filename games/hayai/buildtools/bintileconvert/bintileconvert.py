@@ -57,7 +57,7 @@ def _generate_header_file(build_dir: str, file_name: str, with_image_file: bool,
 
 
 def _generate_source_file(build_dir: str, file_name: str, variable_name: str, hex_data: list,
-                          palette_bank: int, with_image_file: bool, total_tile_size: int) -> bool:
+                          palette_bank: int, with_image_file: bool, width: int, height: int) -> bool:
     file_path = os.path.join(build_dir, file_name)
 
     try:
@@ -67,14 +67,44 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
             file_mode = 'w'
 
         with open(file_path + ".c", file_mode) as file_obj:
-            file_obj.write("\nconst unsigned short " + variable_name + "[" + str(total_tile_size) + "] " +
+            file_obj.write("\nconst unsigned short " + variable_name + "[" + str(width * height) + "] " +
                            "__attribute__((aligned(4))) __attribute__((visibility(\"hidden\"))) =\n{\n     ")
 
-            for i in range(0, len(hex_data), 2):
-                file_obj.write(hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i] + ",")
+            if width == 32 and width == 32:
+                for i in range(0, len(hex_data), 2):
+                    file_obj.write(hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i] + ",")
 
-                if i % 16 == 0 and i > 0:
-                    file_obj.write("\n      ")
+                    if i % 16 == 0 and i > 0:
+                        file_obj.write("\n      ")
+            else:
+                converted_map = []
+
+                for i in range(width*height):
+                    converted_map.append("")
+
+                for tile_y in range(height):
+                    for tile_x in range(width):
+                        height = int(height)
+                        tile_x = int(tile_x)
+                        tile_y = int(tile_y)
+                        width = int(width)
+
+                        sbb = int(((tile_x>>5)+(tile_y>>5)*(width>>5)))#int(((tile_y / 32) * (width / 32)) + (tile_x / 32))
+                        unconverted_map_index = int((tile_x + (tile_y * width)) * 2)
+                        tile_id = int(sbb*1024 + ((tile_x&31)+(tile_y&31)*32))#int((sbb*1024) + ((tile_y % 32) * 32) + (tile_x % 32))
+
+                        print(f"{unconverted_map_index} (out of {len(hex_data)})-{tile_id} " +
+                              f"(out of {len(converted_map)})")
+
+                        converted_map[tile_id] = hex(palette_bank) + \
+                                                 str(int(hex_data[unconverted_map_index + 1], 16)) + \
+                                                 hex_data[unconverted_map_index] + ","
+
+                for i in range(len(converted_map)):
+                    file_obj.write(converted_map[i])
+
+                    if i % 16 == 0 and i > 0:
+                        file_obj.write("\n      ")
 
             file_obj.write("\n};\n")
 
@@ -137,12 +167,15 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             #grit_subprocess.append("-MRtpf")
         else:
             grit_subprocess.append("-gB8")
-            #grit_subprocess.append("-MRtf")
+            grit_subprocess.append("-MRtf")
 
         if is_affine:
             grit_subprocess.append("-mRt -mLa")
 
         grit_subprocess.append("-ftc")
+
+        #if width > 32 or height > 32:
+        #    grit_subprocess.append("-mLs")
 
         print(subprocess.run(["which", "grit"], capture_output=True))
         print(subprocess.run(grit_subprocess, capture_output=True))
@@ -189,7 +222,7 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         # Based of OneCricketeer's sample code: https://stackoverflow.com/a/35516257
         return_value = _generate_source_file(build_dir, file_name, variable_name,
                                              ["{:02x}".format(char).upper() for char in file_obj.read()], palette_bank,
-                                             len(image_file) > 0, width * height)
+                                             len(image_file) > 0, width, height)
 
         file_obj.close()
 

@@ -205,11 +205,11 @@ int main() {
     window_rect.right = 232;
 
     #ifdef _GBA
-        background.reset(new morpheus::gba::gfx::TiledBackground(
+        background.reset(new morpheus::gba::gfx::TiledBackground(false,
                 1, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
                 static_cast<morpheus::gba::gfx::GbaMosaicController*>(main_loop->get_mosaic_controller()),
                 static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 2));
-        window_background.reset(new morpheus::gba::gfx::TiledBackground(
+        window_background.reset(new morpheus::gba::gfx::TiledBackground(false,
                 0, static_cast<morpheus::gba::gfx::GbaBlendingController*>(main_loop->get_blending_controller()),
                 static_cast<morpheus::gba::gfx::GbaMosaicController*>(main_loop->get_mosaic_controller()),
                 static_cast<morpheus::gba::GbaMainLoop*>(main_loop.get()), true, 2, 10));

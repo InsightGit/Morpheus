@@ -49,9 +49,19 @@ namespace hayai {
         const std::array<unsigned int, 3> RIGHT_PALETTE_IDS = {3, 4, 5};
         const std::array<unsigned int, 3> RIGHT_TILE_IDS = {61, 81, 101};
 
-        const unsigned int MAX_SPEED = 50;
         const int ACCELERATION_STEP = 2;
+        const int FRICTION = 2;
+        const unsigned int MAX_SPEED = 50;
+        const morpheus::core::gfx::Vector2 PLAYER_SIZE = morpheus::core::gfx::Vector2(32, 32);
 
+        bool is_player_collided_with(morpheus::core::gfx::Vector2 point1, morpheus::core::gfx::Vector2 point2) const {
+            return point1.get_x() >= point2.get_x() &&
+                   point1.get_y() >= point2.get_y() &&
+                   point1.get_x() < point2.get_x() + PLAYER_SIZE.get_x() &&
+                   point1.get_y() < point2.get_y() + PLAYER_SIZE.get_y();
+        }
+
+        bool collision_tile_id(unsigned int tile_id);
         void restrict_velocity(bool x, bool pos);
         void update_animation(bool left, unsigned int animation_frame);
 
