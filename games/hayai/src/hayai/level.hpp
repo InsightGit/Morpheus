@@ -14,6 +14,20 @@ namespace hayai {
 
     class Level : public Scene {
     public:
+        static const std::vector<unsigned int> BLOCK_TILES;
+        static const std::vector<unsigned int> DARK_COIN_TILES;
+        static const std::vector<unsigned int> DIRT_TILES;
+        static const std::vector<unsigned int> GRASS_TILES;
+        static const std::vector<unsigned int> ICE_TILES;
+        static const std::vector<unsigned int> LIT_COIN_TILES;
+        static const std::vector<unsigned int> QUESTION_BLOCK_TILES;
+        static const std::vector<unsigned int> SLUSH_TILES;
+        static const std::vector<unsigned int> SPEED_DOWN_TILES;
+        static const std::vector<unsigned int> SPEED_UP_TILES;
+        static const std::vector<unsigned int> YELLOW_BLOCK_TILES;
+
+        static const std::vector<std::vector<unsigned int>> COLLISION_TILES;
+
         Level(std::shared_ptr<morpheus::core::MainLoop> main_loop);
 
         ~Level() override = default;

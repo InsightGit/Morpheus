@@ -4,6 +4,9 @@
 
 #include "tiled_background_base.hpp"
 
+const morpheus::core::gfx::Vector2 morpheus::core::gfx::TiledBackgroundBase::TILE_SCREEN_SIZE =
+        morpheus::core::gfx::Vector2(30, 20);
+
 morpheus::core::gfx::TiledBackgroundBase::TiledBackgroundBase(bool affine, unsigned int background_num,
                                                               BlendingController *blending_controller,
                                                               MosaicController *mosaic_controller,
@@ -31,6 +34,9 @@ int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_position(morpheus::
     }
     
     tile_position = morpheus::core::gfx::Vector2(tile_position.get_x() / 8, tile_position.get_y() / 8);
+
+    /*nocash_puts(("world tile position: " + tile_position.to_string() + " screen tile position: " +
+            (position / Vector2(8, 8)).to_string()).c_str());*/
 
     switch (m_tile_map_size) {
         case TiledBackgroundSize::BG_32x32:

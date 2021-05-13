@@ -49,9 +49,15 @@ namespace hayai {
         const std::array<unsigned int, 3> RIGHT_PALETTE_IDS = {3, 4, 5};
         const std::array<unsigned int, 3> RIGHT_TILE_IDS = {61, 81, 101};
 
-        const int ACCELERATION_STEP = 2;
-        const int FRICTION = 2;
-        const unsigned int MAX_SPEED = 50;
+        const int ACCELERATION_STEP = 6;
+        const int REGULAR_SPEED = 4;
+        //const int FRICTION = 2;
+        const int GRAVITY = 4;
+        const morpheus::core::gfx::Vector2 INITIAL_SCROLL_POSITION = morpheus::core::gfx::Vector2(32*8, 30*8);
+        const morpheus::core::gfx::Vector2 INITIAL_SPRITE_POSITION = morpheus::core::gfx::Vector2(88, 88);
+        const int JUMPING_ASCENT_TIME_FRAMES = 30;
+        const int JUMPING_SPEED = 8;
+        const unsigned int MAX_SPEED = 8;
         const morpheus::core::gfx::Vector2 PLAYER_SIZE = morpheus::core::gfx::Vector2(32, 32);
 
         bool is_player_collided_with(morpheus::core::gfx::Vector2 point1, morpheus::core::gfx::Vector2 point2) const {
@@ -61,15 +67,19 @@ namespace hayai {
                    point1.get_y() < point2.get_y() + PLAYER_SIZE.get_y();
         }
 
+        void apply_gravity();
         bool collision_tile_id(unsigned int tile_id);
-        void restrict_velocity(bool x, bool pos);
         void update_animation(bool left, unsigned int animation_frame);
 
         // explicit is better than implicit
-        morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
-        bool m_last_was_left = false;
+        //morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
         unsigned int m_current_animation_frame;
         Level *m_current_level;
+        bool m_last_was_left = false;
+        bool m_jumping = false;
+        int m_jumping_frame = 0;
+        int m_jumping_update_frame = 0;
+        bool m_left = false;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         bool m_moved_this_frame = false;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;

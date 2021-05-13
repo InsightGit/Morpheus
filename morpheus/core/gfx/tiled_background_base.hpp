@@ -134,7 +134,7 @@ namespace morpheus {
                 }
 
                 void set_scroll(Vector2 scroll_position) {
-                    m_scroll_position = scroll_position;
+                    m_scroll_position = scroll_position % ((get_size_vector() * Vector2(8, 8)) - TILE_SCREEN_SIZE);
 
                     update_scroll();
                 }
@@ -161,6 +161,31 @@ namespace morpheus {
                 virtual void mosaic_state_updated() = 0;
                 virtual void update_scroll() = 0;
             private:
+                const static Vector2 TILE_SCREEN_SIZE;
+
+                Vector2 get_size_vector() const {
+                    switch(m_tile_map_size) {
+                        case TiledBackgroundSize::BG_32x32:
+                            return Vector2(32, 32);
+                        case TiledBackgroundSize::BG_64x32:
+                            return Vector2(64, 32);
+                        case TiledBackgroundSize::BG_32x64:
+                            return Vector2(32, 64);
+                        case TiledBackgroundSize::BG_64x64:
+                            return Vector2(64, 64);
+                        case TiledBackgroundSize::BG_AFFINE_16x16:
+                            return Vector2(16, 16);
+                        case TiledBackgroundSize::BG_AFFINE_32x32:
+                            return Vector2(32, 32);
+                        case TiledBackgroundSize::BG_AFFINE_64x64:
+                            return Vector2(64, 64);
+                        case TiledBackgroundSize::BG_AFFINE_128x128:
+                            return Vector2(128, 128);
+                    }
+
+                    return Vector2(0, 0);
+                }
+
                 bool m_affine;
                 unsigned int m_affine_index;
                 gfx::BlendingController *m_blending_controller;

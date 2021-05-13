@@ -11,12 +11,11 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
                                                                            main_loop->get_blending_controller(),
                                                                            main_loop->get_mosaic_controller()));
 
-    level_background->set_scroll(morpheus::core::gfx::Vector2(32*8, 30*8));
-
     m_current_level = level;
     m_level_background = level_background;
 
-    m_sprite_base->set_position(88, 48);
+    m_level_background->set_scroll(INITIAL_SCROLL_POSITION);
+    m_sprite_base->set_position(INITIAL_SPRITE_POSITION);
 
     m_sprite_base->load_into_palette(playerleftarms0Pal, 32, LEFT_PALETTE_IDS[0]*16);
     m_sprite_base->load_into_palette(playerleftarms1Pal, 32, LEFT_PALETTE_IDS[1]*16);
@@ -66,31 +65,93 @@ void hayai::Player::draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_
 }
 
 void hayai::Player::input(const morpheus::core::InputEvent input_event) {
-    if(input_event.state == morpheus::core::InputState::DOWN || input_event.state == morpheus::core::InputState::UP) {
+    if(input_event.state == morpheus::core::InputState::DOWN || input_event.state == morpheus::core::InputState::HELD) {
         switch (input_event.button) {
             case morpheus::core::InputButton::A:
                 // if the player is not jumping or falling
-                if(m_velocity.get_y() == 0) {
-                    //
+                if (m_velocity.get_y() == 0 && !m_jumping) {
+                    nocash_puts("jumping triggered");
+
+                    m_jumping = true;
+                    m_jumping_frame = -1;
+                    m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), -JUMPING_SPEED);
                 }
 
                 m_moved_this_frame = true;
                 break;
             case morpheus::core::InputButton::DPADLEFT:
-                if(m_velocity.get_x() > -static_cast<int>(MAX_SPEED)) {
-                    m_acceleration = morpheus::core::gfx::Vector2(m_acceleration.get_x() - ACCELERATION_STEP,
-                                                                  m_acceleration.get_y());
+                if (m_velocity.get_x() > -static_cast<int>(MAX_SPEED)) {
+                    m_moved_this_frame = true;
+                    m_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, m_velocity.get_y());
+
+                    /*auto proposed_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, 0);
+
+                    if(!collision_tile_id(m_level_background->get_tile_id_at_position(
+                            m_sprite_base->get_position() + proposed_velocity))) {
+                        m_velocity = proposed_velocity;
+
+                        m_moved_this_frame = true;
+                    } else {
+                        nocash_puts(std::string("left collision at " +
+                                                    (m_sprite_base->get_position() + proposed_velocity).to_string()).
+                                                    c_str());
+
+                        while(m_velocity.get_x() < 0) {
+                            morpheus::core::gfx::Vector2 current_collision_position = m_sprite_base->get_position() +
+                                                                                      proposed_velocity;
+
+                            current_collision_position = current_collision_position +
+                                                         morpheus::core::gfx::Vector2(1, 0);
+
+                            if(collision_tile_id(m_level_background->
+                                    get_tile_id_at_position(current_collision_position))) {
+                                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x() + 1, m_velocity.get_y());
+                            } else {
+                                m_moved_this_frame = true;
+                                break;
+                            }
+                        }
+                    }*/
                 }
 
-                m_moved_this_frame = true;
+                m_left = true;
                 break;
             case morpheus::core::InputButton::DPADRIGHT:
-                if(m_velocity.get_x() < static_cast<int>(MAX_SPEED)) {
-                    m_acceleration = morpheus::core::gfx::Vector2(m_acceleration.get_x() + ACCELERATION_STEP,
-                                                                  m_acceleration.get_y());
+                if (m_velocity.get_x() < static_cast<int>(MAX_SPEED)) {
+                    m_moved_this_frame = true;
+                    m_velocity = morpheus::core::gfx::Vector2(REGULAR_SPEED, m_velocity.get_y());
+                    /*auto proposed_velocity = morpheus::core::gfx::Vector2(REGULAR_SPEED, 0);
+                    auto sprite_width_vector = morpheus::core::gfx::Vector2(PLAYER_SIZE.get_x(), 0);
+
+                    if(!collision_tile_id(m_level_background->get_tile_id_at_position(
+                            m_sprite_base->get_position() + sprite_width_vector + proposed_velocity))) {
+                        m_velocity = proposed_velocity;
+                        m_moved_this_frame = true;
+                    } else {
+                        morpheus::core::gfx::Vector2 current_collision_position = m_sprite_base->get_position() +
+                                                                                  sprite_width_vector +
+                                                                                  proposed_velocity;
+
+                        while(m_velocity.get_x() > 0) {
+                            current_collision_position = current_collision_position -
+                                                         morpheus::core::gfx::Vector2(1, 0);
+
+                            if(collision_tile_id(m_level_background->
+                                                 get_tile_id_at_position(current_collision_position))) {
+                                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x() - 1, m_velocity.get_y());
+                            } else {
+                                m_moved_this_frame = true;
+                                break;
+                            }
+                        }
+
+                        nocash_puts(std::string("right collision at " +
+                                                    (m_sprite_base->get_position() + sprite_width_vector + proposed_velocity).to_string()).
+                                                    c_str());
+                    }*/
                 }
 
-                m_moved_this_frame = true;
+                m_left = false;
                 break;
             default:
                 break;
@@ -99,84 +160,92 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
 }
 
 void hayai::Player::update(const unsigned char cycle_time) {
-    morpheus::core::gfx::Vector2 past_velocity = m_velocity;
+    if(m_jumping && m_jumping_frame < 0) {
+        m_jumping_frame = cycle_time;
+        m_jumping_update_frame = m_jumping_frame % 60;
+    } else if(m_jumping && m_jumping_update_frame == cycle_time) {
+        m_jumping_frame -= 60;
+
+        if(m_jumping_frame <= 0) {
+            m_jumping = false;
+
+            m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
+        }
+    }
 
     if(!m_moved_this_frame) {
-        if(m_velocity == morpheus::core::gfx::Vector2(0, 0)) {
-            m_acceleration = morpheus::core::gfx::Vector2(0, 0);
-        } else {
-            int new_x_accel = m_acceleration.get_x();
-            int new_y_accel = m_acceleration.get_y();
+        m_velocity = morpheus::core::gfx::Vector2(0, 0);
+    }
 
-            if(new_x_accel < 0) {
-                new_x_accel += FRICTION;
-            } else if(new_x_accel > 0) {
-                new_x_accel -= FRICTION;
+    if(m_sprite_base->get_position().get_y() + m_level_background->get_scroll().get_y() > 56 * 8) {
+        m_velocity = morpheus::core::gfx::Vector2(0, 0);
+
+        m_level_background->set_scroll(INITIAL_SCROLL_POSITION);
+        m_sprite_base->set_position(INITIAL_SPRITE_POSITION);
+    }
+
+    if(m_velocity.get_x() != 0) {
+        for(int y = 0; PLAYER_SIZE.get_y() > y; y += 8) {
+            morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position();
+
+            if(m_velocity.get_x() > 0) {
+                collision_position = collision_position + morpheus::core::gfx::Vector2(
+                                                PLAYER_SIZE.get_x() + m_velocity.get_x(), y);
+            } else if(m_velocity.get_x() < 0) {
+                collision_position = collision_position + morpheus::core::gfx::Vector2(
+                        -PLAYER_SIZE.get_x() + m_velocity.get_x(), -y);
             }
 
-            m_acceleration = morpheus::core::gfx::Vector2(new_x_accel, new_y_accel);
+            while(m_velocity.get_x() != 0) {
+                if(collision_tile_id(m_level_background->
+                        get_tile_id_at_position(collision_position))) {
+                    morpheus::core::gfx::Vector2 vector_difference;
+
+
+                    if(m_velocity.get_x() > 0) {
+                        vector_difference = morpheus::core::gfx::Vector2(-1, 0);
+                    } else if(m_velocity.get_x() < 0) {
+                       vector_difference = morpheus::core::gfx::Vector2(1, 0);
+                    }
+
+                    collision_position = collision_position + vector_difference;
+                    m_velocity = m_velocity + vector_difference;
+                } else {
+                    break;
+                }
+            }
+
+            /*if(collision_tile_id(m_level_background->get_tile_id_at_position(collision_position))) {
+                m_velocity = morpheus::core::gfx::Vector2(0, m_velocity.get_y());
+            }*/
         }
     }
 
-    m_velocity = morpheus::core::gfx::Vector2(std::max(std::min(m_velocity.get_x() + m_acceleration.get_x(),
-                                                          static_cast<int>(MAX_SPEED)), -static_cast<int>(MAX_SPEED)),
-                                              std::max(std::min(m_velocity.get_y() + m_acceleration.get_y(),
-                                                                static_cast<int>(MAX_SPEED)),
-                                                       -static_cast<int>(MAX_SPEED)));
-
-    if(!m_moved_this_frame) {
-        if((past_velocity.get_x() > 0 && m_velocity.get_x() < 0) ||
-           (past_velocity.get_x() < 0 && m_velocity.get_x() > 0)) {
-            m_velocity = morpheus::core::gfx::Vector2(0, past_velocity.get_y());
-        }
-
-        if((past_velocity.get_y() > 0 && m_velocity.get_y() < 0) ||
-           (past_velocity.get_y() < 0 && m_velocity.get_y() > 0)) {
-            m_velocity = morpheus::core::gfx::Vector2(past_velocity.get_x(), 0);
-        }
-    }
-
-    //if(m_velocity.get_y() + )
-
-    restrict_velocity(true, m_velocity.get_x() >= 0);
-    restrict_velocity(false, m_velocity.get_y() >= 0);
-
-    //m_sprite_base->set_position(m_sprite_base->get_position() + m_velocity);
-
-    if(m_velocity.get_x() > 0) {
-        if(cycle_time == 30 || cycle_time == 0) {
-            if (m_past_velocity.get_x() > 0) {
+    if(abs(m_velocity.get_x()) > 0) {
+        if(cycle_time == 0) {
+            if (m_last_was_left == m_left) {
                 if(m_current_animation_frame == 2) {
-                    m_current_animation_frame = 0;
+                    m_current_animation_frame = 1;
                 }
 
                 ++m_current_animation_frame;
             } else {
-                m_current_animation_frame = 0;
+                m_current_animation_frame = 1;
             }
         }
 
-        update_animation(false, m_current_animation_frame);
-    } else if(m_velocity.get_x() < 0) {
-        if(m_past_velocity.get_x() < 0) {
-            if(cycle_time == 30 || cycle_time == 0) {
-                if(m_current_animation_frame == 2) {
-                    m_current_animation_frame = 0;
-                }
-
-                ++m_current_animation_frame;
-            }
-        } else {
-            m_current_animation_frame = 0;
-        }
-
-        update_animation(true, m_current_animation_frame);
-    } else if(m_velocity.get_x() == 0) {
-        update_animation(m_last_was_left, 0);
+        update_animation(m_left, m_current_animation_frame);
+    } else if(abs(m_velocity.get_x()) == 0) {
+        update_animation(m_left, 0);
     }
 
-    m_last_was_left = m_velocity.get_x() < 0;
-    m_moved_this_frame = false;
+    if(cycle_time % 8 == 0) {
+        m_moved_this_frame = false;
+    }
+
+    apply_gravity();
+
+    m_last_was_left = m_left;
     m_past_velocity = m_velocity;
 }
 
@@ -206,109 +275,17 @@ bool hayai::Player::collision_tile_id(unsigned int tile_id) {
     return false;
 }
 
-void hayai::Player::restrict_velocity(bool x, bool pos) {
-    if(m_current_level != nullptr && m_level_background != nullptr) {
-        std::vector<unsigned int> tile_ids_to_check;
-        std::vector<morpheus::core::gfx::Vector2> positions;
+void hayai::Player::apply_gravity() {
+    auto player_position = m_sprite_base->get_position();
+    unsigned int tile_id_1 = m_level_background->get_tile_id_at_position(morpheus::core::gfx::Vector2(
+                                                                         player_position.get_x(),
+                                                                         player_position.get_y() +
+                                                                         PLAYER_SIZE.get_y()));
+    unsigned int tile_id_2 = m_level_background->get_tile_id_at_position(player_position + PLAYER_SIZE);
 
-        int velocity_value;
-
-        if(x) {
-            velocity_value = abs(m_velocity.get_x());
-        } else {
-            velocity_value = abs(m_velocity.get_y());
-        }
-
-        //nocash_puts(std::string("velocity value is: " + std::to_string(velocity_value)).c_str());
-
-        if(velocity_value == 0) {
-            return;
-        }
-
-        for(int i = 0; velocity_value > i; i += 8) {
-            morpheus::core::gfx::Vector2 position;
-
-            if(x) {
-                if(pos) {
-                    position = m_sprite_base->get_position() + morpheus::core::gfx::Vector2(i, 0);
-                } else {
-                    position = m_sprite_base->get_position() - morpheus::core::gfx::Vector2(i, 0);
-                }
-            } else {
-                if(pos) {
-                    position = m_sprite_base->get_position() + morpheus::core::gfx::Vector2(0, i);
-                } else {
-                    position = m_sprite_base->get_position() - morpheus::core::gfx::Vector2(0, i);
-                }
-            }
-
-
-            positions.push_back(position);
-            tile_ids_to_check.push_back(m_level_background->get_tile_id_at_position(position));
-        }
-
-        for(int i = 0; static_cast<int>(tile_ids_to_check.size()) > i; ++i) {
-            bool velocity_restricted = false;
-
-            if(collision_tile_id(tile_ids_to_check[i])) {
-                nocash_puts(std::string("tile id " + std::to_string(tile_ids_to_check[i]) +
-                                                                        " matches").c_str());
-                nocash_puts(std::string("at " +
-                                            (m_level_background->get_scroll() + positions[i]).to_string()).c_str());
-
-                if(x) {
-                    if(pos) {
-                        m_velocity = morpheus::core::gfx::Vector2(0,//std::min(8 * (i-1), m_velocity.get_x()),
-                                                                  m_velocity.get_y());
-                    } else {
-                        m_velocity = morpheus::core::gfx::Vector2(0,//std::max(-8 * (i-1), m_velocity.get_x()),
-                                                                  m_velocity.get_y());
-                    }
-                } else {
-                    if(pos) {
-                        if(is_player_collided_with(m_sprite_base->get_position(), positions[i])) {
-                            morpheus::core::gfx::Vector2 working_position = positions[i];
-                            morpheus::core::gfx::Vector2 last_collision_position = positions[i];
-
-                            while(true) {
-                                working_position = morpheus::core::gfx::Vector2(working_position.get_x(),
-                                                                                working_position.get_y() - 8);
-
-                                if(!is_player_collided_with(last_collision_position, working_position) &&
-                                   !collision_tile_id(m_level_background->get_tile_id_at_position(working_position))) {
-                                    nocash_puts(std::string("old position: " + positions[i].to_string()).c_str());
-                                    nocash_puts(std::string("new position: " + working_position.to_string()).c_str());
-
-                                    m_sprite_base->set_position(working_position);
-
-                                    break;
-                                } else if(collision_tile_id(m_level_background->
-                                          get_tile_id_at_position(working_position))) {
-                                    last_collision_position = working_position;
-                                }
-                            }
-                        }
-
-                        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
-                                                                  //std::min(8 * (i-1), m_velocity.get_y()));
-                    } else {
-                        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
-                                                                  //std::max(-8 * (i-1), m_velocity.get_y()));
-                    }
-                }
-
-                velocity_restricted = true;
-
-                break;
-            }
-
-
-            if(velocity_restricted) {
-                nocash_puts("velocity was restricted");
-                nocash_puts(std::string("new velocity is " + m_velocity.to_string()).c_str());
-
-                break;
-            }
-        }
+    if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
+        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
+    } else {
+        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), m_velocity.get_y() + GRAVITY);
     }
 }
