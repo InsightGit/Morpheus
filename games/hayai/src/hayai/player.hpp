@@ -56,8 +56,8 @@ namespace hayai {
         const morpheus::core::gfx::Vector2 INITIAL_SCROLL_POSITION = morpheus::core::gfx::Vector2(32*8, 30*8);
         const morpheus::core::gfx::Vector2 INITIAL_SPRITE_POSITION = morpheus::core::gfx::Vector2(88, 88);
         const int JUMPING_ASCENT_TIME_FRAMES = 30;
-        const int JUMPING_SPEED = 8;
-        const unsigned int MAX_SPEED = 8;
+        const int JUMPING_SPEED = 6;
+        const unsigned int MAX_SPEED = 7;
         const morpheus::core::gfx::Vector2 PLAYER_SIZE = morpheus::core::gfx::Vector2(32, 32);
 
         bool is_player_collided_with(morpheus::core::gfx::Vector2 point1, morpheus::core::gfx::Vector2 point2) const {
@@ -83,6 +83,7 @@ namespace hayai {
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         bool m_moved_this_frame = false;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
+        std::vector<uint16_t*> m_gfx_pointers;
         morpheus::core::gfx::Vector2 m_velocity = morpheus::core::gfx::Vector2(0, 8);
         morpheus::core::gfx::Vector2 m_past_velocity = morpheus::core::gfx::Vector2(0, 0);
     };

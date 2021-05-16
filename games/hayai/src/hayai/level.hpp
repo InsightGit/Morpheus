@@ -19,6 +19,7 @@ namespace hayai {
         static const std::vector<unsigned int> DIRT_TILES;
         static const std::vector<unsigned int> GRASS_TILES;
         static const std::vector<unsigned int> ICE_TILES;
+        static const std::vector<unsigned int> INVISIBLE_WALL_TILES;
         static const std::vector<unsigned int> LIT_COIN_TILES;
         static const std::vector<unsigned int> QUESTION_BLOCK_TILES;
         static const std::vector<unsigned int> SLUSH_TILES;
@@ -34,6 +35,10 @@ namespace hayai {
 
         std::vector<unsigned int> get_collision_tile_ids() const {
             return m_collision_tile_ids;
+        }
+
+        void nocash_message(std::string message) {
+            get_main_loop()->get_no_cash_debug_controller()->send_to_debug_window(message);
         }
 
         void input(const morpheus::core::InputEvent input_event)override;

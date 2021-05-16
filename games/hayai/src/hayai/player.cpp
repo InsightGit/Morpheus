@@ -25,38 +25,61 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
     m_sprite_base->load_into_palette(playerrightarms2Pal, 32, RIGHT_PALETTE_IDS[2]*16);
 
     #ifdef _GBA
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-                reinterpret_cast<const unsigned short *>(playerleftarms0Tiles),
-                playerleftarms0TilesLen,
-                morpheus::core::gfx::SpriteSize::SIZE_32X32,
-                LEFT_TILE_IDS[0]);
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-                reinterpret_cast<const unsigned short *>(playerleftarms1Tiles),
-                playerleftarms1TilesLen,
-                morpheus::core::gfx::SpriteSize::SIZE_32X32,
-                LEFT_TILE_IDS[1]);
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-            reinterpret_cast<const unsigned short *>(playerleftarms2Tiles),
-            playerleftarms2TilesLen,
-            morpheus::core::gfx::SpriteSize::SIZE_32X32,
-            LEFT_TILE_IDS[2]);
+        auto gba_sprite = static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get());
 
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-                reinterpret_cast<const unsigned short *>(playerrightarms2Tiles),
-                playerrightarms2TilesLen,
-                morpheus::core::gfx::SpriteSize::SIZE_32X32,
-                RIGHT_TILE_IDS[2]);
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-                reinterpret_cast<const unsigned short *>(playerrightarms1Tiles),
-                playerrightarms1TilesLen,
-                morpheus::core::gfx::SpriteSize::SIZE_32X32,
-                RIGHT_TILE_IDS[1]);
-        static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->load_from_array(
-                reinterpret_cast<const unsigned short *>(playerrightarms0Tiles),
-                playerrightarms0TilesLen,
-                morpheus::core::gfx::SpriteSize::SIZE_32X32,
-                RIGHT_TILE_IDS[0]);
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms0Tiles),
+                                    playerleftarms0TilesLen,
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32,
+                                    LEFT_TILE_IDS[0]);
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms1Tiles),
+                                    playerleftarms1TilesLen,
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32,
+                                    LEFT_TILE_IDS[1]);
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms2Tiles),
+                                    playerleftarms2TilesLen,morpheus::core::gfx::SpriteSize::SIZE_32X32,
+                                    LEFT_TILE_IDS[2]);
+
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms2Tiles),
+                                    playerrightarms2TilesLen,morpheus::core::gfx::SpriteSize::SIZE_32X32,
+                                    RIGHT_TILE_IDS[2]);
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms1Tiles),
+                                    playerrightarms1TilesLen,morpheus::core::gfx::SpriteSize::SIZE_32X32,
+                                    RIGHT_TILE_IDS[1]);
+        gba_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms0Tiles),
+                                    playerrightarms0TilesLen,
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32,RIGHT_TILE_IDS[0]);
     #elif _NDS
+        auto *nds_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_sprite_base.get());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms0Tiles),
+                                    playerleftarms0TilesLen, LEFT_PALETTE_IDS[0],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms1Tiles),
+                                    playerleftarms1TilesLen,LEFT_PALETTE_IDS[1],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerleftarms2Tiles),
+                                    playerleftarms2TilesLen,LEFT_PALETTE_IDS[2],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms2Tiles),
+                                    playerrightarms2TilesLen,RIGHT_PALETTE_IDS[2],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms1Tiles),
+                                    playerrightarms1TilesLen,RIGHT_PALETTE_IDS[1],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(playerrightarms0Tiles),
+                                    playerrightarms0TilesLen,RIGHT_PALETTE_IDS[0],
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+        m_gfx_pointers.push_back(nds_sprite->get_gfx_pointer());
     #endif
 }
 
@@ -70,7 +93,9 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
             case morpheus::core::InputButton::A:
                 // if the player is not jumping or falling
                 if (m_velocity.get_y() == 0 && !m_jumping) {
-                    nocash_puts("jumping triggered");
+                    if(m_current_level != nullptr) {
+                        m_current_level->nocash_message("jumping triggered");
+                    }
 
                     m_jumping = true;
                     m_jumping_frame = -1;
@@ -83,35 +108,6 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
                 if (m_velocity.get_x() > -static_cast<int>(MAX_SPEED)) {
                     m_moved_this_frame = true;
                     m_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, m_velocity.get_y());
-
-                    /*auto proposed_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, 0);
-
-                    if(!collision_tile_id(m_level_background->get_tile_id_at_position(
-                            m_sprite_base->get_position() + proposed_velocity))) {
-                        m_velocity = proposed_velocity;
-
-                        m_moved_this_frame = true;
-                    } else {
-                        nocash_puts(std::string("left collision at " +
-                                                    (m_sprite_base->get_position() + proposed_velocity).to_string()).
-                                                    c_str());
-
-                        while(m_velocity.get_x() < 0) {
-                            morpheus::core::gfx::Vector2 current_collision_position = m_sprite_base->get_position() +
-                                                                                      proposed_velocity;
-
-                            current_collision_position = current_collision_position +
-                                                         morpheus::core::gfx::Vector2(1, 0);
-
-                            if(collision_tile_id(m_level_background->
-                                    get_tile_id_at_position(current_collision_position))) {
-                                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x() + 1, m_velocity.get_y());
-                            } else {
-                                m_moved_this_frame = true;
-                                break;
-                            }
-                        }
-                    }*/
                 }
 
                 m_left = true;
@@ -120,35 +116,6 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
                 if (m_velocity.get_x() < static_cast<int>(MAX_SPEED)) {
                     m_moved_this_frame = true;
                     m_velocity = morpheus::core::gfx::Vector2(REGULAR_SPEED, m_velocity.get_y());
-                    /*auto proposed_velocity = morpheus::core::gfx::Vector2(REGULAR_SPEED, 0);
-                    auto sprite_width_vector = morpheus::core::gfx::Vector2(PLAYER_SIZE.get_x(), 0);
-
-                    if(!collision_tile_id(m_level_background->get_tile_id_at_position(
-                            m_sprite_base->get_position() + sprite_width_vector + proposed_velocity))) {
-                        m_velocity = proposed_velocity;
-                        m_moved_this_frame = true;
-                    } else {
-                        morpheus::core::gfx::Vector2 current_collision_position = m_sprite_base->get_position() +
-                                                                                  sprite_width_vector +
-                                                                                  proposed_velocity;
-
-                        while(m_velocity.get_x() > 0) {
-                            current_collision_position = current_collision_position -
-                                                         morpheus::core::gfx::Vector2(1, 0);
-
-                            if(collision_tile_id(m_level_background->
-                                                 get_tile_id_at_position(current_collision_position))) {
-                                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x() - 1, m_velocity.get_y());
-                            } else {
-                                m_moved_this_frame = true;
-                                break;
-                            }
-                        }
-
-                        nocash_puts(std::string("right collision at " +
-                                                    (m_sprite_base->get_position() + sprite_width_vector + proposed_velocity).to_string()).
-                                                    c_str());
-                    }*/
                 }
 
                 m_left = false;
@@ -161,7 +128,8 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
 
 void hayai::Player::update(const unsigned char cycle_time) {
     if(m_jumping && m_jumping_frame < 0) {
-        m_jumping_frame = cycle_time;
+        m_jumping_frame = cycle_time + 10;
+
         m_jumping_update_frame = m_jumping_frame % 60;
     } else if(m_jumping && m_jumping_update_frame == cycle_time) {
         m_jumping_frame -= 60;
@@ -173,7 +141,7 @@ void hayai::Player::update(const unsigned char cycle_time) {
         }
     }
 
-    if(!m_moved_this_frame) {
+    if(!m_moved_this_frame && !m_jumping) {
         m_velocity = morpheus::core::gfx::Vector2(0, 0);
     }
 
@@ -190,11 +158,11 @@ void hayai::Player::update(const unsigned char cycle_time) {
 
             if(m_velocity.get_x() > 0) {
                 collision_position = collision_position + morpheus::core::gfx::Vector2(
-                                                PLAYER_SIZE.get_x() + m_velocity.get_x(), y);
+                                                PLAYER_SIZE.get_x() + m_velocity.get_x(), m_velocity.get_y() + y);
             } else if(m_velocity.get_x() < 0) {
-                collision_position = collision_position + morpheus::core::gfx::Vector2(
-                        -PLAYER_SIZE.get_x() + m_velocity.get_x(), -y);
-            }
+                collision_position = collision_position + morpheus::core::gfx::Vector2(m_velocity.get_x(),
+                                                                                       m_velocity.get_y() + y);
+            }//
 
             while(m_velocity.get_x() != 0) {
                 if(collision_tile_id(m_level_background->
@@ -203,7 +171,7 @@ void hayai::Player::update(const unsigned char cycle_time) {
 
 
                     if(m_velocity.get_x() > 0) {
-                        vector_difference = morpheus::core::gfx::Vector2(-1, 0);
+                       vector_difference = morpheus::core::gfx::Vector2(-1, 0);
                     } else if(m_velocity.get_x() < 0) {
                        vector_difference = morpheus::core::gfx::Vector2(1, 0);
                     }
@@ -214,10 +182,28 @@ void hayai::Player::update(const unsigned char cycle_time) {
                     break;
                 }
             }
+        }
+    }
 
-            /*if(collision_tile_id(m_level_background->get_tile_id_at_position(collision_position))) {
-                m_velocity = morpheus::core::gfx::Vector2(0, m_velocity.get_y());
-            }*/
+    if(m_velocity.get_y() < 0) {
+        for(int x = 0; PLAYER_SIZE.get_x() > x; x += 8) {
+            morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position() + m_velocity;
+
+            collision_position = collision_position + morpheus::core::gfx::Vector2(x, 0);
+
+            while(m_velocity.get_y() != 0) {
+                if(collision_tile_id(m_level_background->get_tile_id_at_position(collision_position))) {
+                    collision_position = collision_position + morpheus::core::gfx::Vector2(0, 1);
+                    m_velocity = m_velocity + morpheus::core::gfx::Vector2(0, 1);
+                } else {
+                    break;
+                }
+            }
+
+            if(m_velocity.get_y() == 0) {
+                m_jumping = false;
+                break;
+            }
         }
     }
 
@@ -250,17 +236,27 @@ void hayai::Player::update(const unsigned char cycle_time) {
 }
 
 void hayai::Player::update_animation(bool left, unsigned int animation_frame) {
+    animation_frame = std::min(animation_frame, 2u);
+
     if(left) {
         #ifdef _GBA
             static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->build_attr2(
                     LEFT_PALETTE_IDS[animation_frame], LEFT_TILE_IDS[animation_frame]);
         #elif _NDS
+            auto *nds_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_sprite_base.get());
+
+            nds_sprite->set_gfx_pointer(m_gfx_pointers[animation_frame]);
+            nds_sprite->set_palette_id(LEFT_PALETTE_IDS[animation_frame]);
         #endif
     } else {
         #ifdef _GBA
             static_cast<morpheus::gba::gfx::Sprite*>(m_sprite_base.get())->build_attr2(
                     RIGHT_PALETTE_IDS[animation_frame], RIGHT_TILE_IDS[animation_frame]);
         #elif _NDS
+            auto *nds_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_sprite_base.get());
+
+            nds_sprite->set_gfx_pointer(m_gfx_pointers[5 - animation_frame]);
+            nds_sprite->set_palette_id(LEFT_PALETTE_IDS[animation_frame]);
         #endif
     }
 }
@@ -276,16 +272,35 @@ bool hayai::Player::collision_tile_id(unsigned int tile_id) {
 }
 
 void hayai::Player::apply_gravity() {
-    auto player_position = m_sprite_base->get_position();
-    unsigned int tile_id_1 = m_level_background->get_tile_id_at_position(morpheus::core::gfx::Vector2(
-                                                                         player_position.get_x(),
-                                                                         player_position.get_y() +
-                                                                         PLAYER_SIZE.get_y()));
-    unsigned int tile_id_2 = m_level_background->get_tile_id_at_position(player_position + PLAYER_SIZE);
+    morpheus::core::gfx::Vector2 player_position = m_sprite_base->get_position();
 
-    if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
-        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
-    } else {
-        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), m_velocity.get_y() + GRAVITY);
+    auto tile_pos_1 = morpheus::core::gfx::Vector2(player_position.get_x(),
+                                                   player_position.get_y() + PLAYER_SIZE.get_y());
+    morpheus::core::gfx::Vector2 tile_pos_2 = player_position + (PLAYER_SIZE / morpheus::core::gfx::Vector2(2, 1));
+
+    unsigned int tile_id_1 = m_level_background->get_tile_id_at_position(tile_pos_1);
+    unsigned int tile_id_2 = m_level_background->get_tile_id_at_position(tile_pos_2);
+
+    if(m_current_level != nullptr) {
+        m_current_level->nocash_message("1: " + m_level_background->
+                                        get_tile_map_position_at_screen_position(tile_pos_1).to_string() +
+                                        " is " + std::to_string(tile_id_1));
+        m_current_level->nocash_message("2: " + m_level_background->
+                                        get_tile_map_position_at_screen_position(tile_pos_2).to_string() +
+                                        " is " + std::to_string(tile_id_2));
+    }
+
+    if(!m_jumping) {
+        if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
+            m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
+        } else {
+            if(m_current_level != nullptr) {
+                m_current_level->nocash_message("falling");
+            }
+
+            if(m_velocity.get_y() < GRAVITY) {
+                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), m_velocity.get_y() + GRAVITY);
+            }
+        }
     }
 }
