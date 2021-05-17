@@ -4,11 +4,11 @@
 
 #include "tiled_background_4_bpp.hpp"
 
-void morpheus::nds::gfx::TiledBackground4Bpp::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                              const unsigned short *palette, const unsigned int pal_len,
-                                                              const unsigned short *tile_map,
-                                                              const unsigned int tile_map_len,
-                                                              morpheus::core::gfx::TiledBackgroundSize size) {
+void morpheus::nds::gfx::TiledBackground4Bpp::array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                                         const unsigned short *palette, const unsigned int pal_len,
+                                                         const unsigned short *tile_map,
+                                                         const unsigned int tile_map_len,
+                                                         morpheus::core::gfx::TiledBackgroundSize size) {
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
 
     if(is_using_sub_display()) {
@@ -18,7 +18,7 @@ void morpheus::nds::gfx::TiledBackground4Bpp::load_from_array(const unsigned int
     }
 }
 
-void morpheus::nds::gfx::TiledBackground4Bpp::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
+void morpheus::nds::gfx::TiledBackground4Bpp::array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                                               const unsigned short *tile_map,
                                                               const unsigned int tile_map_len,
                                                               morpheus::core::gfx::TiledBackgroundSize size) {

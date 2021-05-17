@@ -99,7 +99,15 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
 
                     m_jumping = true;
                     m_jumping_frame = -1;
-                    m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), -JUMPING_SPEED);
+
+                    if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
+                        m_acceleration = morpheus::core::gfx::Vector2(m_velocity.get_x(), std::max(-ACCELERATION_STEP,
+                                                                                                   -JUMPING_SPEED));
+
+                        m_target_y_velocity = -JUMPING_SPEED;
+                    } else {
+                        m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), -JUMPING_SPEED);
+                    }
                 }
 
                 m_moved_this_frame = true;
@@ -107,7 +115,12 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
             case morpheus::core::InputButton::DPADLEFT:
                 if (m_velocity.get_x() > -static_cast<int>(MAX_SPEED)) {
                     m_moved_this_frame = true;
-                    m_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, m_velocity.get_y());
+
+                    if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
+                        m_acceleration = morpheus::core::gfx::Vector2(m_velocity.get_x(), )
+                    } else {
+                        m_velocity = morpheus::core::gfx::Vector2(-REGULAR_SPEED, m_velocity.get_y());
+                    }
                 }
 
                 m_left = true;
@@ -115,6 +128,10 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
             case morpheus::core::InputButton::DPADRIGHT:
                 if (m_velocity.get_x() < static_cast<int>(MAX_SPEED)) {
                     m_moved_this_frame = true;
+
+                    if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
+                        m_acceleration =
+                    }
                     m_velocity = morpheus::core::gfx::Vector2(REGULAR_SPEED, m_velocity.get_y());
                 }
 
@@ -162,7 +179,7 @@ void hayai::Player::update(const unsigned char cycle_time) {
             } else if(m_velocity.get_x() < 0) {
                 collision_position = collision_position + morpheus::core::gfx::Vector2(m_velocity.get_x(),
                                                                                        m_velocity.get_y() + y);
-            }//
+            }
 
             while(m_velocity.get_x() != 0) {
                 if(collision_tile_id(m_level_background->
@@ -229,6 +246,12 @@ void hayai::Player::update(const unsigned char cycle_time) {
         m_moved_this_frame = false;
     }
 
+    if(ENABLE_ACCEL_MOVEMENT_SYSTEM && m_velocity.get_x() != 0) {
+        apply_friction();
+    }
+
+    apply_speed_zones();
+
     apply_gravity();
 
     m_last_was_left = m_left;
@@ -271,6 +294,83 @@ bool hayai::Player::collision_tile_id(unsigned int tile_id) {
     return false;
 }
 
+bool hayai::Player::friction_tile_id(unsigned int tile_id) {
+    for(unsigned int friction_tile_id : m_current_level->get_friction_tile_ids()) {
+        if(friction_tile_id == tile_id) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+hayai::Player::SpeedZone hayai::Player::get_speed_zone() const {
+    morpheus::core::gfx::Vector2 player_position = m_sprite_base->get_position();
+    SpeedZone return_value = SpeedZone::NO_EFFECT;
+    std::vector<morpheus::core::gfx::Vector2> tile_positions;
+
+    for(int y = 0; PLAYER_SIZE.get_y() > y; ++y) {
+        tile_positions.push_back(player_position + morpheus::core::gfx::Vector2(0, y));
+    }
+
+    for(morpheus::core::gfx::Vector2 &tile_position : tile_positions) {
+        unsigned int tile_id = m_level_background->get_tile_id_at_position(tile_position);
+
+        for(unsigned int speed_left_tile_id : Level::SPEED_LEFT_TILES) {
+            if(tile_id == speed_left_tile_id) {
+                if(return_value == SpeedZone::SPEED_RIGHT) {
+                    return_value = SpeedZone::NO_EFFECT;
+                } else {
+                    return_value = SpeedZone::SPEED_LEFT;
+                }
+
+                break;
+            }
+        }
+
+        for(unsigned int speed_right_tile_id : Level::SPEED_RIGHT_TILES) {
+            if(tile_id == speed_right_tile_id) {
+                if(return_value == SpeedZone::SPEED_LEFT) {
+                    return_value = SpeedZone::NO_EFFECT;
+                } else {
+                    return_value = SpeedZone::SPEED_RIGHT;
+                }
+
+                break;
+            }
+        }
+    }
+
+    return return_value;
+}
+
+void hayai::Player::apply_friction() {
+    morpheus::core::gfx::Vector2 player_position = m_sprite_base->get_position();
+
+    auto tile_pos_1 = morpheus::core::gfx::Vector2(player_position.get_x(),
+                                                   player_position.get_y() + PLAYER_SIZE.get_y());
+    morpheus::core::gfx::Vector2 tile_pos_2 = player_position + (PLAYER_SIZE / morpheus::core::gfx::Vector2(2, 1));
+
+    unsigned int tile_id_1 = m_level_background->get_tile_id_at_position(tile_pos_1);
+    unsigned int tile_id_2 = m_level_background->get_tile_id_at_position(tile_pos_2);
+
+    if(friction_tile_id(tile_id_1) || friction_tile_id(tile_id_2)) {
+        if(m_velocity.get_x() > 0) {
+            m_velocity = m_velocity - morpheus::core::gfx::Vector2(FRICTION, 0);
+
+            if(m_velocity.get_x() < 0) {
+                m_velocity = morpheus::core::gfx::Vector2(0, 0);
+            }
+        } else if(m_velocity.get_x() < 0) {
+            m_velocity = m_velocity + morpheus::core::gfx::Vector2(FRICTION, 0);
+
+            if(m_velocity.get_x() > 0) {
+                m_velocity = morpheus::core::gfx::Vector2(0, 0);
+            }
+        }
+    }
+}
+
 void hayai::Player::apply_gravity() {
     morpheus::core::gfx::Vector2 player_position = m_sprite_base->get_position();
 
@@ -304,3 +404,27 @@ void hayai::Player::apply_gravity() {
         }
     }
 }
+
+void hayai::Player::apply_speed_zones() {
+    SpeedZone current_speed_zone = get_speed_zone();
+
+    switch (current_speed_zone) {
+        case SpeedZone::NO_EFFECT:
+            break;
+        case SpeedZone::SPEED_LEFT:
+            if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
+                m_acceleration = morpheus::core::gfx::Vector2(-SPEED_ZONE_ACCEL, 0);
+            } else {
+                m_velocity = morpheus::core::gfx::Vector2(-SPEED_ZONE_ACCEL, 0);
+            }
+            break;
+        case SpeedZone::SPEED_RIGHT:
+            if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
+                m_acceleration = morpheus::core::gfx::Vector2(SPEED_ZONE_ACCEL, 0);
+            } else {
+                m_velocity = m_velocity + morpheus::core::gfx::Vector2(SPEED_ZONE_ACCEL, 0);
+            }
+            break;
+    }
+}
+

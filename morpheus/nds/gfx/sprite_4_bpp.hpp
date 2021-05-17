@@ -33,7 +33,8 @@ namespace morpheus {
                                      const unsigned short *palette, const unsigned int palette_len,
                                      const unsigned int palette_id, core::gfx::SpriteSize size)override;
 
-                bool load_into_palette(const unsigned short *palette, const unsigned int pal_len)override;
+                bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
+                                       const unsigned int pal_offset = 256)override;
 
                 void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num)override;
             protected:

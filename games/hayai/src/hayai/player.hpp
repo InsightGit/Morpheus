@@ -50,8 +50,8 @@ namespace hayai {
         const std::array<unsigned int, 3> RIGHT_TILE_IDS = {61, 81, 101};
 
         const int ACCELERATION_STEP = 6;
-        const int REGULAR_SPEED = 4;
-        //const int FRICTION = 2;
+        const bool ENABLE_ACCEL_MOVEMENT_SYSTEM = false;
+        const int FRICTION = 2;
         const int GRAVITY = 4;
         const morpheus::core::gfx::Vector2 INITIAL_SCROLL_POSITION = morpheus::core::gfx::Vector2(32*8, 30*8);
         const morpheus::core::gfx::Vector2 INITIAL_SPRITE_POSITION = morpheus::core::gfx::Vector2(88, 88);
@@ -59,6 +59,14 @@ namespace hayai {
         const int JUMPING_SPEED = 6;
         const unsigned int MAX_SPEED = 7;
         const morpheus::core::gfx::Vector2 PLAYER_SIZE = morpheus::core::gfx::Vector2(32, 32);
+        const int REGULAR_SPEED = 4;
+        const int SPEED_ZONE_ACCEL = 3;
+
+        enum class SpeedZone {
+            NO_EFFECT,
+            SPEED_LEFT,
+            SPEED_RIGHT
+        };
 
         bool is_player_collided_with(morpheus::core::gfx::Vector2 point1, morpheus::core::gfx::Vector2 point2) const {
             return point1.get_x() >= point2.get_x() &&
@@ -67,14 +75,19 @@ namespace hayai {
                    point1.get_y() < point2.get_y() + PLAYER_SIZE.get_y();
         }
 
+        void apply_friction();
         void apply_gravity();
+        void apply_speed_zones();
         bool collision_tile_id(unsigned int tile_id);
+        bool friction_tile_id(unsigned int tile_id);
+        SpeedZone get_speed_zone() const;
         void update_animation(bool left, unsigned int animation_frame);
 
         // explicit is better than implicit
-        //morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
+        morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
         unsigned int m_current_animation_frame;
         Level *m_current_level;
+        std::vector<uint16_t*> m_gfx_pointers;
         bool m_last_was_left = false;
         bool m_jumping = false;
         int m_jumping_frame = 0;
@@ -83,7 +96,8 @@ namespace hayai {
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         bool m_moved_this_frame = false;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
-        std::vector<uint16_t*> m_gfx_pointers;
+        int m_target_x_velocity = 0;
+        int m_target_y_velocity = 0;
         morpheus::core::gfx::Vector2 m_velocity = morpheus::core::gfx::Vector2(0, 8);
         morpheus::core::gfx::Vector2 m_past_velocity = morpheus::core::gfx::Vector2(0, 0);
     };

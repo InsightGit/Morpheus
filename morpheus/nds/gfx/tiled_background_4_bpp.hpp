@@ -28,13 +28,14 @@ namespace morpheus {
 
                 virtual ~TiledBackground4Bpp() = default;
 
-                void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                     const unsigned short *palette, const unsigned int pal_len,
-                                     const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     core::gfx::TiledBackgroundSize size)override;
-                void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                     const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     core::gfx::TiledBackgroundSize size)override;
+            protected:
+                void array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                const unsigned short *palette, const unsigned int pal_len,
+                                const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size)override;
+                void array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size)override;
             };
         }
     }

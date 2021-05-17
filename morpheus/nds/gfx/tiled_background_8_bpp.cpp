@@ -5,11 +5,10 @@
 #include "tiled_background_8_bpp.hpp"
 
 void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                              const unsigned short *palette, const unsigned int pal_len,
-                                                              const unsigned int palette_id,
-                                                              const unsigned short *tile_map,
-                                                              const unsigned int tile_map_len,
-                                                              morpheus::core::gfx::TiledBackgroundSize size) {
+                                                         const unsigned short *palette, const unsigned int pal_len,
+                                                         const unsigned int palette_id, const unsigned short *tile_map,
+                                                         const unsigned int tile_map_len,
+                                                         core::gfx::TiledBackgroundSize size) {
     if(is_using_sub_display()) {
         bgExtPaletteEnableSub();
     } else {
@@ -19,7 +18,7 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
     //std::cout << "Loading via extended palette\n" << "into pal_id:" << palette_id << " background num:"
     //          << get_background_num() << "\n";
 
-    load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
+    array_load(tiles, tiles_len, tile_map, tile_map_len, size);
 
     if(is_using_sub_display()) {
         vramSetBankH(VRAM_H_LCD);
@@ -36,12 +35,12 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
     }
 }
 
-void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                              const unsigned short *palette, const unsigned int pal_len,
-                                                              const unsigned short *tile_map,
-                                                              const unsigned int tile_map_len,
-                                                              morpheus::core::gfx::TiledBackgroundSize size) {
-    load_from_array(tiles, tiles_len, tile_map, tile_map_len, size);
+void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                                         const unsigned short *palette, const unsigned int pal_len,
+                                                         const unsigned short *tile_map,
+                                                         const unsigned int tile_map_len,
+                                                         core::gfx::TiledBackgroundSize size) {
+    array_load(tiles, tiles_len, tile_map, tile_map_len, size);
 
     if(is_using_sub_display()) {
         dmaCopy(palette, BG_PALETTE_SUB, pal_len);
@@ -50,10 +49,10 @@ void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int
     }
 }
 
-void morpheus::nds::gfx::TiledBackground8Bpp::load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
-                                                              const unsigned short *tile_map,
-                                                              const unsigned int tile_map_len,
-                                                              morpheus::core::gfx::TiledBackgroundSize size) {
+void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *tiles, const unsigned int tiles_len,
+                                                         const unsigned short *tile_map,
+                                                         const unsigned int tile_map_len,
+                                                         core::gfx::TiledBackgroundSize size) {
     set_background_size(size);
 
     if(is_affine()) {

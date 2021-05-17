@@ -7,7 +7,7 @@
 
 #include <algorithm>
 
-#include <tonc.h>
+//#include <tonc.h>
 
 #include <core/main_loop.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -91,6 +91,12 @@ namespace morpheus {
                     return m_scale;
                 }
 
+                Vector2 get_tile_map_position_at_screen_position(Vector2 screen_position) const {
+                    screen_position = screen_position + m_scroll_position;
+
+                    return morpheus::core::gfx::Vector2(screen_position.get_x() / 8, screen_position.get_y() / 8);
+                }
+
                 unsigned int get_sbb_num() const {
                     return m_sbb_num;
                 }
@@ -150,6 +156,11 @@ namespace morpheus {
                 virtual unsigned int get_priority() const = 0;
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
+                void set_tile_map(const unsigned short *tile_map, TiledBackgroundSize tile_map_size) {
+                    m_tile_map = tile_map;
+                    m_tile_map_size = tile_map_size;
+                }
+
                 virtual void affine_state_updated() = 0;
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *palette, const unsigned int pal_len,

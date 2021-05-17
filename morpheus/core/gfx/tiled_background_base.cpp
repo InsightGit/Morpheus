@@ -35,9 +35,6 @@ int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_position(morpheus::
     
     tile_position = morpheus::core::gfx::Vector2(tile_position.get_x() / 8, tile_position.get_y() / 8);
 
-    /*nocash_puts(("world tile position: " + tile_position.to_string() + " screen tile position: " +
-            (position / Vector2(8, 8)).to_string()).c_str());*/
-
     switch (m_tile_map_size) {
         case TiledBackgroundSize::BG_32x32:
             if(tile_position.get_x() >= 32 || tile_position.get_y() >= 32) {
@@ -76,6 +73,9 @@ int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_position(morpheus::
 
         tile_id = (sbb * 1024) + ((tile_position.get_x() & 31) + (tile_position.get_y() & 31) * 32);
     }
+
+    /*nocash_puts(("world tile position: " + tile_position.to_string()  + " tile: " +
+                std::to_string(m_tile_map[tile_id] & 0x03FF)).c_str());*/
 
     return (m_tile_map[tile_id] & 0x03FF);
 }

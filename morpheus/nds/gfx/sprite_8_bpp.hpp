@@ -32,8 +32,9 @@ namespace morpheus {
                     bool load_from_array(const unsigned short *tile_array, const unsigned int tile_array_len,
                                          const unsigned short *palette, const unsigned int palette_len,
                                          const morpheus::core::gfx::SpriteSize size);
-                    bool load_into_palette(const unsigned short *palette, const unsigned int palette_len) override {
-                        return load_into_palette(palette, palette_len, 0);
+                    bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
+                                           const unsigned int pal_offset = 256) override {
+                        return load_into_palette(palette, pal_len, 0, pal_offset);
                     }
 
                     // Extended palette load functions
@@ -45,7 +46,7 @@ namespace morpheus {
                                          const unsigned int palette_len, const unsigned int palette_id,
                                          const morpheus::core::gfx::SpriteSize size)override;
                     bool load_into_palette(const unsigned short *palette, const unsigned int palette_len,
-                                           const unsigned int palette_id);
+                                           const unsigned int palette_id, const unsigned int pal_offset = 256);
 
                     bool load_from_pcx(const unsigned char *pcx_data, unsigned int palette_id = 0,
                                        bool copy_palette = true);

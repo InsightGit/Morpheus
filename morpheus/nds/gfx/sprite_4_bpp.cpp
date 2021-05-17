@@ -37,12 +37,20 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len) {
-
+bool morpheus::nds::gfx::Sprite4Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len,
+                                                       const unsigned int pal_offset) {
     if(get_current_oam() == &oamSub) {
-        dmaCopy(&palette[0], SPRITE_PALETTE_SUB, palette_len);
+        if(pal_offset < 256) {
+            dmaCopy(&palette[0], SPRITE_PALETTE_SUB + pal_offset, palette_len);
+        } else {
+            dmaCopy(&palette[0], SPRITE_PALETTE_SUB, palette_len);
+        }
     } else {
-        dmaCopy(&palette[0], SPRITE_PALETTE, palette_len);
+        if(pal_offset < 256) {
+            dmaCopy(&palette[0], SPRITE_PALETTE + pal_offset, palette_len);
+        } else {
+            dmaCopy(&palette[0], SPRITE_PALETTE, palette_len);
+        }
     }
 
     return true;

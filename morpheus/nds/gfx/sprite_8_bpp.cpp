@@ -161,6 +161,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
 }
 
 bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len,
+                                                       const unsigned int pal_offset,
                                                        const unsigned int palette_id) {
     OamState *current_oam = get_current_oam();
     std::string oam_name;
@@ -171,13 +172,21 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
 
             vramSetBankI(VRAM_I_LCD);
 
-            dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], palette_len);
+            if(pal_offset < 256) {
+                dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id] + pal_offset, palette_len);
+            } else {
+                dmaCopy(palette, &VRAM_I_EXT_SPR_PALETTE[palette_id], palette_len);
+            }
         } else {
             oam_name = "oamMain";
 
             vramSetBankF(VRAM_F_LCD);
 
-            dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], palette_len);
+            if(pal_offset < 256) {
+                dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id] + pal_offset, palette_len);
+            } else {
+                dmaCopy(palette, &VRAM_F_EXT_SPR_PALETTE[palette_id], palette_len);
+            }
         }
 
         set_palette_id(palette_id);
@@ -191,9 +200,17 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
         }
     } else {
         if(current_oam == &oamSub) {
-            dmaCopy(palette, &SPRITE_PALETTE_SUB[0], palette_len);
+            if(pal_offset < 256) {
+                dmaCopy(palette, &SPRITE_PALETTE_SUB[0] + pal_offset, palette_len);
+            } else {
+                dmaCopy(palette, &SPRITE_PALETTE_SUB[0], palette_len);
+            }
         } else {
-            dmaCopy(palette, &SPRITE_PALETTE[0], palette_len);
+            if(pal_offset < 256) {
+                dmaCopy(palette, &SPRITE_PALETTE[0] + pal_offset, palette_len);
+            } else {
+                dmaCopy(palette, &SPRITE_PALETTE[0], palette_len);
+            }
         }
 
         //nocashMessage("loaded 8bpp palette (single palette mode)\n");
