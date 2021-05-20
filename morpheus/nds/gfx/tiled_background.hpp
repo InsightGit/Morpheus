@@ -54,6 +54,12 @@ namespace morpheus {
                     return m_use_sub_display;
                 }
 
+                void override_map_tile(const unsigned int tile_index, const unsigned short tile_id) override {
+                    if(m_background_reference_num >= 0) {
+                        *(bgGetMapPtr(m_background_reference_num) + tile_index) = tile_id;
+                    }
+                }
+
                 void affine_state_updated()override;
                 void mosaic_state_updated()override;
 

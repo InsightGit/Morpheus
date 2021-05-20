@@ -61,7 +61,35 @@ void hayai::Level::input(const morpheus::core::InputEvent input_event) {
 void hayai::Level::update(const unsigned char cycle_time) {
     m_player->update(cycle_time);
 
+    if(cycle_time == 30 || cycle_time == 0) {
+        animate_coins();
+    }
+
     //nocash_message("velocity was " + m_player->get_velocity().to_string());
 
     m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
+}
+
+void hayai::Level::animate_coins() {
+    for(int i = 0; test_map_1MapCoinsTileIndexLen > i; ++i) {
+        int tile_id = m_level_background->get_tile_id_at_index(test_map_1MapCoinsTileIndex[i]);
+
+        for(unsigned int i2 = 0; DARK_COIN_TILES.size() > i2; ++i2) {
+            if(static_cast<unsigned int>(tile_id) == DARK_COIN_TILES[i2]) {
+                nocash_message("setting to lit");
+
+                m_level_background->set_tile_id_at_index(test_map_1MapCoinsTileIndex[i], LIT_COIN_TILES[i2]);
+                break;
+            }
+        }
+
+        for(unsigned int i2 = 0; LIT_COIN_TILES.size() > i2; ++i2) {
+            if(static_cast<unsigned int>(tile_id) == LIT_COIN_TILES[i2]) {
+                nocash_message("setting to dark");
+
+                m_level_background->set_tile_id_at_index(test_map_1MapCoinsTileIndex[i], DARK_COIN_TILES[i2]);
+                break;
+            }
+        }
+    }
 }

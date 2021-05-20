@@ -6,8 +6,10 @@
 #define MORPHEUS_GBA_TEST_TILED_BACKGROUND_BASE_HPP
 
 #include <algorithm>
+#include <set>
 
 //#include <tonc.h>
+//#include <nds.h>
 
 #include <core/main_loop.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -43,6 +45,7 @@ namespace morpheus {
 
                     array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size);
                 }
+
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                      TiledBackgroundSize size) {
@@ -151,11 +154,35 @@ namespace morpheus {
                     mosaic_state_updated();
                 }
 
-                int get_tile_id_at_position(core::gfx::Vector2 position, bool with_scrolling = true);
+                int get_tile_id_at_index(const unsigned int tile_index) const;
+                int get_tile_id_at_position(const Vector2 position, const bool with_scrolling = true,
+                                            const bool tiled_position = false) const;
+                int get_tile_index_at_position(const Vector2 position, const bool with_scrolling = true,
+                                               const bool tiled_position = false) const;
+                Vector2 get_tile_position_at_screen_position(const Vector2 position, const bool with_scrolling = true,
+                                                             const bool tiled_position = false) const;
+                bool set_tile_id_at_index(const unsigned int tile_index, const unsigned int tile_id);
+                bool set_tile_id_at_position(const Vector2 position, const unsigned int tile_id,
+                                             const bool with_scrolling = true, const bool tiled_position = false);
 
                 virtual unsigned int get_priority() const = 0;
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
+                Vector2 get_tile_map_size_vector() const {
+                    switch (m_tile_map_size) {
+                        case TiledBackgroundSize::BG_32x32:
+                            return Vector2(32, 32);
+                        case TiledBackgroundSize::BG_64x32:
+                            return Vector2(64, 32);
+                        case TiledBackgroundSize::BG_32x64:
+                            return Vector2(32, 64);
+                        case TiledBackgroundSize::BG_64x64:
+                            return Vector2(64, 64);
+                        default:
+                            return Vector2(0, 0);
+                    }
+                }
+
                 void set_tile_map(const unsigned short *tile_map, TiledBackgroundSize tile_map_size) {
                     m_tile_map = tile_map;
                     m_tile_map_size = tile_map_size;
@@ -170,8 +197,14 @@ namespace morpheus {
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
                                         TiledBackgroundSize size) = 0;
                 virtual void mosaic_state_updated() = 0;
+                virtual void override_map_tile(const unsigned int tile_index, const unsigned short tile_id) = 0;
                 virtual void update_scroll() = 0;
             private:
+                struct TileOverride {
+                    unsigned int tile_index;
+                    unsigned int tile_id;
+                };
+
                 const static Vector2 TILE_SCREEN_SIZE;
 
                 Vector2 get_size_vector() const {
@@ -204,11 +237,13 @@ namespace morpheus {
                 unsigned int m_cbb_num;
                 bool m_mosaic = false;
                 gfx::MosaicController *m_mosaic_controller;
+                std::vector<TileOverride> m_past_tile_overrides;
                 int m_rotation = 0;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 Vector2 m_scroll_position;
                 unsigned int m_sbb_num;
                 const unsigned short *m_tile_map;
+                std::vector<TileOverride> m_tile_overrides;
                 TiledBackgroundSize m_tile_map_size;
             };
         }

@@ -45,6 +45,10 @@ namespace morpheus {
                                 const unsigned short *tile_map, const unsigned int tile_map_len,
                                 core::gfx::TiledBackgroundSize size)override;
 
+                void override_map_tile(const unsigned int tile_index, const unsigned short tile_id)override {
+                    *(se_mem[get_cbb_num()] + tile_index) = tile_id;
+                }
+
                 void affine_state_updated()override {}
                 void mosaic_state_updated()override;
                 void update_scroll()override;

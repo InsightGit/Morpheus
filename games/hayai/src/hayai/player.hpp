@@ -78,6 +78,9 @@ namespace hayai {
         void apply_friction();
         void apply_gravity();
         void apply_speed_zones();
+        void apply_x_collision_detection();
+        void apply_y_collision_detection();
+
         bool collision_tile_id(unsigned int tile_id);
         bool friction_tile_id(unsigned int tile_id);
         SpeedZone get_speed_zone() const;

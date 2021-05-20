@@ -81,8 +81,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/tiled_background.cpp
             morpheus/gba/gba_eeprom_save_manager.hpp
             morpheus/gba/gba_eeprom_save_manager.cpp
-            morpheus/gba/gba_flash_save_manager.hpp
-            morpheus/gba/gba_flash_save_manager.cpp
+            #morpheus/gba/gba_flash_save_manager.hpp
+            #morpheus/gba/gba_flash_save_manager.cpp
             morpheus/gba/gfx/gba_window.hpp
             morpheus/gba/gfx/gba_window.cpp
             morpheus/gba/serial_communication.cpp

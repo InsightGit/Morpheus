@@ -49,6 +49,8 @@ namespace hayai {
         void input(const morpheus::core::InputEvent input_event)override;
         void update(const unsigned char cycle_time)override;
     private:
+        void animate_coins();
+
         std::vector<unsigned int> m_collision_tile_ids;
         std::vector<unsigned int> m_friction_tile_ids;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;

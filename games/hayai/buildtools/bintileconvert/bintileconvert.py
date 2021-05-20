@@ -6,6 +6,7 @@ import tempfile
 
 from typing import Union
 
+import hayaibuild
 
 def _camel_case_conversion(header_guard: str) -> str:
     return_value = list(header_guard.lower())
@@ -57,7 +58,7 @@ def _generate_header_file(build_dir: str, file_name: str, with_image_file: bool,
 
 
 def _generate_source_file(build_dir: str, file_name: str, variable_name: str, hex_data: list,
-                          palette_bank: int, with_image_file: bool, width: int, height: int) -> bool:
+                          palette_bank: int, with_image_file: bool, width: int, height: int) -> list:
     file_path = os.path.join(build_dir, file_name)
 
     try:
@@ -67,18 +68,22 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
             file_mode = 'w'
 
         with open(file_path + ".c", file_mode) as file_obj:
+            converted_map = []
+
             file_obj.write("\nconst unsigned short " + variable_name + "[" + str(width * height) + "] " +
                            "__attribute__((aligned(4))) __attribute__((visibility(\"hidden\"))) =\n{\n     ")
 
             if width == 32 and width == 32:
                 for i in range(0, len(hex_data), 2):
-                    file_obj.write(hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i] + ",")
+                    tile_val = hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i]
+
+                    converted_map.append(tile_val)
+
+                    file_obj.write(tile_val + ",")
 
                     if i % 16 == 0 and i > 0:
                         file_obj.write("\n      ")
             else:
-                converted_map = []
-
                 for i in range(width*height):
                     converted_map.append("")
 
@@ -93,9 +98,6 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
                         unconverted_map_index = int((tile_x + (tile_y * width)) * 2)
                         tile_id = int(sbb*1024 + ((tile_x&31)+(tile_y&31)*32))#int((sbb*1024) + ((tile_y % 32) * 32) + (tile_x % 32))
 
-                        print(f"{unconverted_map_index} (out of {len(hex_data)})-{tile_id} " +
-                              f"(out of {len(converted_map)})")
-
                         converted_map[tile_id] = hex(palette_bank) + \
                                                  str(int(hex_data[unconverted_map_index + 1], 16)) + \
                                                  hex_data[unconverted_map_index] + ","
@@ -106,13 +108,13 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
                     if i % 16 == 0 and i > 0:
                         file_obj.write("\n      ")
 
-            file_obj.write("\n};\n")
+            file_obj.write("};\n")
 
-        return True
+        return [True, converted_map]
     except OSError:
         print("Couldn't create generated tilemap source file " + file_name + "!")
 
-        return False
+        return [False, None]
 
 
 def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
@@ -177,8 +179,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         #if width > 32 or height > 32:
         #    grit_subprocess.append("-mLs")
 
-        print(subprocess.run(["which", "grit"], capture_output=True))
-        print(subprocess.run(grit_subprocess, capture_output=True))
+        subprocess.run(["which", "grit"], capture_output=True)
+        subprocess.run(grit_subprocess, capture_output=True)
+
 
     if base_image_file_name != file_name:
         shutil.copy(os.path.join(build_dir, base_image_file_name + ".h"), os.path.join(build_dir, file_name + ".h"))
@@ -210,6 +213,8 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
                 source_file.write(tmp_source_file.read())
                 tmp_source_file.close()
 
+    base_path = os.path.join(build_dir, file_name)
+
     variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0, width * height)
 
     if isinstance(variable_name, bool) and not variable_name:
@@ -226,7 +231,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
 
         file_obj.close()
 
-        if return_value:
+        if return_value[0]:
+            hayaibuild.write_coins(base_path, variable_name, return_value[1])
+
             print("Successfully converted Tilemap Studio BIN file to C header and source files in " + build_dir + "!")
 
         return return_value
@@ -248,8 +255,6 @@ def main() -> None:
         if len(sys.argv) > 5:
             try:
                 palette_bank = int(sys.argv[5])
-
-                print("palette_bank:" + str(palette_bank))
 
                 if palette_bank > 15 or palette_bank < 0:
                     raise ValueError
