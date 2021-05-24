@@ -30,12 +30,18 @@ namespace hayai {
         static const std::vector<std::vector<unsigned int>> COLLISION_TILES;
         static const std::vector<std::vector<unsigned int>> FRICTION_TILES;
 
+        static const unsigned int MAIN_LEVEL_BACKGROUND_NUM;
+
         Level(std::shared_ptr<morpheus::core::MainLoop> main_loop);
 
         ~Level() override = default;
 
         std::vector<unsigned int> get_collision_tile_ids() const {
             return m_collision_tile_ids;
+        }
+
+        std::vector<int> get_current_coin_indices() const {
+            return m_current_coin_indices;
         }
 
         std::vector<unsigned int> get_friction_tile_ids() const {
@@ -46,12 +52,15 @@ namespace hayai {
             get_main_loop()->get_no_cash_debug_controller()->send_to_debug_window(message);
         }
 
+        void delete_coin_indices(std::array<int, 4> coin_indices);
+
         void input(const morpheus::core::InputEvent input_event)override;
         void update(const unsigned char cycle_time)override;
     private:
         void animate_coins();
 
         std::vector<unsigned int> m_collision_tile_ids;
+        std::vector<int> m_current_coin_indices;
         std::vector<unsigned int> m_friction_tile_ids;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         std::unique_ptr<Player> m_player;

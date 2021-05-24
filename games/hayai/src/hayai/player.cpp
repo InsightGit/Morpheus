@@ -4,9 +4,12 @@
 
 #include "player.hpp"
 
+#include <memory>
+
 hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
                       std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> level_background,
                       Level *level) {
+    m_player_hud = std::make_unique<PlayerHud>(main_loop);
     m_sprite_base.reset(morpheus::utils::construct_appropriate_sprite_4bpp(false,
                                                                            main_loop->get_blending_controller(),
                                                                            main_loop->get_mosaic_controller()));
@@ -93,10 +96,6 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
             case morpheus::core::InputButton::A:
                 // if the player is not jumping or falling
                 if (m_velocity.get_y() == 0 && !m_jumping) {
-                    if(m_current_level != nullptr) {
-                        m_current_level->nocash_message("jumping triggered");
-                    }
-
                     m_jumping = true;
                     m_jumping_frame = -1;
 
@@ -151,6 +150,8 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
 }
 
 void hayai::Player::update(const unsigned char cycle_time) {
+    m_player_hud->update_hud_numbers();
+
     if(m_jumping && m_jumping_frame < 0) {
         m_jumping_frame = cycle_time + 10;
 
@@ -198,6 +199,7 @@ void hayai::Player::update(const unsigned char cycle_time) {
 
     apply_x_collision_detection();
     apply_y_collision_detection();
+    //update_coin_count();
 
     if(abs(m_velocity.get_x()) > 0) {
         if(cycle_time == 0) {
@@ -265,6 +267,16 @@ void hayai::Player::update_animation(bool left, unsigned int animation_frame) {
             nds_sprite->set_palette_id(LEFT_PALETTE_IDS[animation_frame]);
         #endif
     }
+}
+
+bool hayai::Player::coin_tile_index(unsigned int tile_index) {
+    for(unsigned int coin_tile_index : m_current_level->get_current_coin_indices()) {
+        if(coin_tile_index == tile_index) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 bool hayai::Player::collision_tile_id(unsigned int tile_id) {
@@ -377,10 +389,6 @@ void hayai::Player::apply_gravity() {
         if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
             m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
         } else {
-            if(m_current_level != nullptr) {
-                m_current_level->nocash_message("falling");
-            }
-
             if(m_velocity.get_y() < GRAVITY) {
                 if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
                     m_acceleration = morpheus::core::gfx::Vector2(m_acceleration.get_x(),
@@ -420,6 +428,7 @@ void hayai::Player::apply_x_collision_detection() {
     if(m_velocity.get_x() != 0) {
         for(int y = 0; PLAYER_SIZE.get_y() > y; y += 8) {
             morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position();
+            unsigned int current_tile_index;
 
             if(m_velocity.get_x() > 0) {
                 collision_position = collision_position + morpheus::core::gfx::Vector2(
@@ -430,20 +439,24 @@ void hayai::Player::apply_x_collision_detection() {
             }
 
             while(m_velocity.get_x() != 0) {
-                if(collision_tile_id(m_level_background->
-                        get_tile_id_at_position(collision_position))) {
+                current_tile_index = m_level_background->get_tile_index_at_position(collision_position);
+
+                if(collision_tile_id(m_level_background->get_tile_id_at_index(current_tile_index))) {
                     morpheus::core::gfx::Vector2 vector_difference;
 
-
-                    if(m_velocity.get_x() > 0) {
+                    if (m_velocity.get_x() > 0) {
                         vector_difference = morpheus::core::gfx::Vector2(-1, 0);
-                    } else if(m_velocity.get_x() < 0) {
+                    } else if (m_velocity.get_x() < 0) {
                         vector_difference = morpheus::core::gfx::Vector2(1, 0);
                     }
 
                     collision_position = collision_position + vector_difference;
                     m_velocity = m_velocity + vector_difference;
                 } else {
+                    if(coin_tile_index(current_tile_index)) {
+                        remove_coin_at_position(collision_position);
+                    }
+
                     break;
                 }
             }
@@ -454,15 +467,21 @@ void hayai::Player::apply_x_collision_detection() {
 void hayai::Player::apply_y_collision_detection() {
     if(m_velocity.get_y() < 0) {
         for(int x = 0; PLAYER_SIZE.get_x() > x; x += 8) {
-            morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position() + m_velocity;
-
-            collision_position = collision_position + morpheus::core::gfx::Vector2(x, 0);
+            morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position() + m_velocity +
+                                                              morpheus::core::gfx::Vector2(x, 0);
+            unsigned int current_tile_index;
 
             while(m_velocity.get_y() != 0) {
-                if(collision_tile_id(m_level_background->get_tile_id_at_position(collision_position))) {
+                current_tile_index = m_level_background->get_tile_index_at_position(collision_position);
+
+                if(collision_tile_id(m_level_background->get_tile_id_at_index(current_tile_index))) {
                     collision_position = collision_position + morpheus::core::gfx::Vector2(0, 1);
                     m_velocity = m_velocity + morpheus::core::gfx::Vector2(0, 1);
                 } else {
+                    if(coin_tile_index(current_tile_index)) {
+                        remove_coin_at_position(collision_position);
+                    }
+
                     break;
                 }
             }
@@ -474,3 +493,121 @@ void hayai::Player::apply_y_collision_detection() {
         }
     }
 }
+
+/*void hayai::Player::update_coin_count() {
+    morpheus::core::gfx::Vector2 player_position = m_sprite_base->get_position();
+    std::array<unsigned int, 4> tile_indices = {};
+    std::array<morpheus::core::gfx::Vector2, 4> tile_positions = {morpheus::core::gfx::Vector2(0, 0),
+                                                                  morpheus::core::gfx::Vector2(8, 0),
+                                                                  morpheus::core::gfx::Vector2(0, 8),
+                                                                  morpheus::core::gfx::Vector2(8, 8)};
+
+    if(m_current_level == nullptr) {
+        return;
+    }
+
+    for(unsigned int i = 0; tile_positions.size() > i; ++i) {
+        tile_indices[i] = m_level_background->get_tile_index_at_position(player_position + tile_positions[i]);
+    }
+
+    bool coin_removed = false;
+    std::vector<int> current_coin_indices = m_current_level->get_current_coin_indices();
+
+    //m_current_level->nocash_message("checking for coin removal");
+
+    for(unsigned int i = 0; tile_indices.size() > i; ++i) {
+        for(unsigned int i2 = 0; current_coin_indices.size() > i2; ++i2) {
+            //m_current_level->nocash_message("Tile index: " + std::to_string(current_coin_indices[i2]));
+
+            if(tile_indices[i] == static_cast<unsigned int>(current_coin_indices[i2])) {
+                m_player_hud->set_coin_number(m_player_hud->get_coin_number() + 1);
+
+                coin_removed = true;
+                remove_coin_at_position(tile_positions[i]);
+
+                break;
+            }
+        }
+
+        if(coin_removed) {
+            //m_current_level->nocash_message("coin was removed");
+            break;
+        }
+    }
+}*/
+
+void hayai::Player::remove_coin_at_position(morpheus::core::gfx::Vector2 position) {
+    unsigned int coin_tile_offset = 0;
+    bool found_offset = false;
+    std::array<int, 4> tile_removal_indices = {m_level_background->get_tile_index_at_position(position), 0, 0, 0};
+    std::array<morpheus::core::gfx::Vector2, 3> tile_removal_positions;
+
+    unsigned int init_coin_tile_id = m_level_background->get_tile_id_at_index(tile_removal_indices[0]);
+
+    //m_current_level->nocash_message("removing coin");
+
+    for(unsigned int i = 0; Level::DARK_COIN_TILES.size() > i; ++i) {
+        if(init_coin_tile_id == Level::DARK_COIN_TILES[i]) {
+            coin_tile_offset = i;
+            found_offset = true;
+            break;
+        }
+    }
+
+    if(!found_offset) {
+        for (unsigned int i = 0; Level::LIT_COIN_TILES.size() > i; ++i) {
+            if (init_coin_tile_id == Level::LIT_COIN_TILES[i]) {
+                coin_tile_offset = i;
+            }
+        }
+    }
+
+    switch (coin_tile_offset) {
+        case 0:
+            tile_removal_positions = {
+                    morpheus::core::gfx::Vector2(8, 0),
+                    morpheus::core::gfx::Vector2(0, 8),
+                    morpheus::core::gfx::Vector2(8, 8)
+            };
+            break;
+        case 1:
+            tile_removal_positions = {
+                    morpheus::core::gfx::Vector2(-8, 0),
+                    morpheus::core::gfx::Vector2(-8, 8),
+                    morpheus::core::gfx::Vector2(0, 8)
+            };
+            break;
+        case 2:
+            tile_removal_positions = {
+                    morpheus::core::gfx::Vector2(0, -8),
+                    morpheus::core::gfx::Vector2(8, -8),
+                    morpheus::core::gfx::Vector2(8, 0)
+            };
+            break;
+        case 3:
+            tile_removal_positions = {
+                    morpheus::core::gfx::Vector2(-8, -8),
+                    morpheus::core::gfx::Vector2(0, -8),
+                    morpheus::core::gfx::Vector2(-8, 0)
+            };
+            break;
+    }
+
+    m_player_hud->set_coin_number(m_player_hud->get_coin_number() + 1);
+
+    m_current_level->nocash_message("old pos: " + position.to_string());
+
+    for(unsigned int i = 1; tile_removal_indices.size() > i; ++i) {
+        morpheus::core::gfx::Vector2 new_position = position + tile_removal_positions[i - 1];
+
+        m_current_level->nocash_message("new pos for tile index " + std::to_string(i) + ": " +
+                                        new_position.to_string());
+
+        tile_removal_indices[i] = m_level_background->get_tile_index_at_position(new_position);
+    }
+
+    if(m_current_level != nullptr) {
+        m_current_level->delete_coin_indices(tile_removal_indices);
+    }
+}
+

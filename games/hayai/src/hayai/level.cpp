@@ -29,14 +29,16 @@ const std::vector<std::vector<unsigned int>> hayai::Level::FRICTION_TILES = {BLO
                                                                              INVISIBLE_WALL_TILES, SLUSH_TILES,
                                                                              YELLOW_BLOCK_TILES};
 
+const unsigned int hayai::Level::MAIN_LEVEL_BACKGROUND_NUM = 2;
+
 hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene(main_loop) {
     m_level_background.reset(
-            morpheus::utils::construct_appropriate_tiled_background_8bpp(false, 2,
+            morpheus::utils::construct_appropriate_tiled_background_8bpp(false, MAIN_LEVEL_BACKGROUND_NUM,
                                                                          main_loop->get_blending_controller(),
                                                                          main_loop->get_mosaic_controller(),
                                                                          main_loop.get(), 2, 1));
-    m_player = std::make_unique<Player>(main_loop, m_level_background, this);
 
+    m_player = std::make_unique<Player>(main_loop, m_level_background, this);
     m_level_background->load_from_array(test_map_1Tiles, test_map_1TilesLen, test_map_1Pal,
                                         test_map_1PalLen, test_map_1Map, test_map_1MapLen,
                                         morpheus::core::gfx::TiledBackgroundSize::BG_64x64);
@@ -49,6 +51,10 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
     for(const std::vector<unsigned int> &friction_tile_group : FRICTION_TILES) {
         m_friction_tile_ids.insert(m_friction_tile_ids.end(), friction_tile_group.begin(),
                                    friction_tile_group.end());
+    }
+
+    for(int i = 0; test_map_1MapCoinsTileIndexLen > i; ++i) {
+        m_current_coin_indices.push_back(test_map_1MapCoinsTileIndex[i]);
     }
 
     main_loop->add_sprite(m_player->get_sprite());
@@ -71,23 +77,36 @@ void hayai::Level::update(const unsigned char cycle_time) {
 }
 
 void hayai::Level::animate_coins() {
-    for(int i = 0; test_map_1MapCoinsTileIndexLen > i; ++i) {
-        int tile_id = m_level_background->get_tile_id_at_index(test_map_1MapCoinsTileIndex[i]);
+    for(unsigned int i = 0; m_current_coin_indices.size() > i; ++i) {
+        int tile_id = m_level_background->get_tile_id_at_index(m_current_coin_indices[i]);
 
         for(unsigned int i2 = 0; DARK_COIN_TILES.size() > i2; ++i2) {
             if(static_cast<unsigned int>(tile_id) == DARK_COIN_TILES[i2]) {
-                nocash_message("setting to lit");
-
-                m_level_background->set_tile_id_at_index(test_map_1MapCoinsTileIndex[i], LIT_COIN_TILES[i2]);
+                m_level_background->set_tile_id_at_index(m_current_coin_indices[i], LIT_COIN_TILES[i2]);
                 break;
             }
         }
 
         for(unsigned int i2 = 0; LIT_COIN_TILES.size() > i2; ++i2) {
             if(static_cast<unsigned int>(tile_id) == LIT_COIN_TILES[i2]) {
-                nocash_message("setting to dark");
+                m_level_background->set_tile_id_at_index(m_current_coin_indices[i], DARK_COIN_TILES[i2]);
+                break;
+            }
+        }
+    }
+}
 
-                m_level_background->set_tile_id_at_index(test_map_1MapCoinsTileIndex[i], DARK_COIN_TILES[i2]);
+void hayai::Level::delete_coin_indices(const std::array<int, 4> coin_indices) {
+    nocash_message("deleting indices " + std::to_string(coin_indices[0]) + "-" +
+                   std::to_string(coin_indices[1]) + "-" + std::to_string(coin_indices[2]) +
+                   "-" + std::to_string(coin_indices[3]));
+
+    for(int coin_index : coin_indices) {
+        for(unsigned int i = 0; m_current_coin_indices.size() > i; ++i) {
+            if(coin_index == m_current_coin_indices[i]) {
+                m_level_background->set_tile_id_at_index(coin_index, 0x0);
+
+                m_current_coin_indices.erase(m_current_coin_indices.begin() + i);
                 break;
             }
         }

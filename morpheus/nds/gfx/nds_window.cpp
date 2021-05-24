@@ -5,8 +5,9 @@
 #include "nds_window.hpp"
 
 void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
-    WINDOW current_window;
     std::vector<unsigned int> active_backgrounds = get_backgrounds();
+    WINDOW current_window;
+    OamState *oam_engine;
 
     switch(get_window_type()) {
         case core::gfx::WindowType::WINDOW_0:
@@ -25,8 +26,6 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
             return;
     }
 
-    OamState *oam_engine;
-
     if(m_use_sub_display) {
         oam_engine = &oamSub;
     } else {
@@ -39,7 +38,11 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
         oamWindowDisable(oam_engine, current_window);
     }
 
-    for(unsigned int &background : active_backgrounds) {
+    for(unsigned int background : active_backgrounds) {
+        if(m_use_sub_display) {
+            background += 3;
+        }
+
         if(on) {
             bgWindowEnable(static_cast<int>(background), current_window);
         } else {
@@ -58,7 +61,11 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
                             window_rect.bottom);
         }
 
-        windowEnable(current_window);
+        if(m_use_sub_display) {
+            windowEnableSub(current_window);
+        } else {
+            windowEnable(current_window);
+        }
     } else {
         if(m_use_sub_display) {
             windowSetBoundsSub(current_window, 0, 0, 0, 0);
@@ -66,6 +73,10 @@ void morpheus::nds::gfx::NdsWindow::toggle_window(bool on) {
             windowSetBounds(current_window, 0, 0, 0, 0);
         }
 
-        windowDisable(current_window);
+        if(m_use_sub_display) {
+            windowDisableSub(current_window);
+        } else {
+            windowDisable(current_window);
+        }
     }
 }

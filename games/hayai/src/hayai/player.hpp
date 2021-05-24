@@ -15,6 +15,7 @@
 #error Unsupported platform!
 #endif
 
+#include "player_hud.hpp"
 #include "level.hpp"
 
 #include "playerleftarms0.h"
@@ -81,6 +82,10 @@ namespace hayai {
         void apply_x_collision_detection();
         void apply_y_collision_detection();
 
+        void remove_coin_at_position(morpheus::core::gfx::Vector2 position);
+        //void update_coin_count();
+
+        bool coin_tile_index(unsigned int tile_index);
         bool collision_tile_id(unsigned int tile_id);
         bool friction_tile_id(unsigned int tile_id);
         SpeedZone get_speed_zone() const;
@@ -98,6 +103,7 @@ namespace hayai {
         bool m_left = false;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         bool m_moved_this_frame = false;
+        std::unique_ptr<PlayerHud> m_player_hud;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
         int m_target_x_velocity = 0;
         int m_target_y_velocity = 0;

@@ -38,7 +38,9 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
-set(MAIN_SRC_FILES "src/main.cpp" src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp)
+set(MAIN_SRC_FILES src/main.cpp
+        src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp
+        src/hayai/player_hud.cpp src/hayai/player_hud.hpp src/hayai/enemy.cpp src/hayai/enemy.h)
 
 #if(platform_lower STREQUAL "gba")
 #    set(PNG4_FILES "../tests/gba/test4.png")
@@ -88,7 +90,10 @@ include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. 
 
 convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
                                FALSE)
+convert_tilemap_bin_image_file("assets/player/player_hud.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0 "assets/tiles1.png"
+                               TRUE FALSE)
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
+list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/player_hud.c ${CMAKE_CURRENT_BINARY_DIR}/player_hud.h)
 
 if(platform_lower STREQUAL "gba")
     add_compile_definitions(_GBA)

@@ -94,9 +94,9 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
                         tile_y = int(tile_y)
                         width = int(width)
 
-                        sbb = int(((tile_x>>5)+(tile_y>>5)*(width>>5)))#int(((tile_y / 32) * (width / 32)) + (tile_x / 32))
+                        sbb = int(((tile_x >> 5) + (tile_y >> 5) * (width >> 5)))#int(((tile_y / 32) * (width / 32)) + (tile_x / 32))
                         unconverted_map_index = int((tile_x + (tile_y * width)) * 2)
-                        tile_id = int(sbb*1024 + ((tile_x&31)+(tile_y&31)*32))#int((sbb*1024) + ((tile_y % 32) * 32) + (tile_x % 32))
+                        tile_id = int(sbb*1024 + ((tile_x & 31)+(tile_y & 31) * 32))#int((sbb*1024) + ((tile_y % 32) * 32) + (tile_x % 32))
 
                         converted_map[tile_id] = hex(palette_bank) + \
                                                  str(int(hex_data[unconverted_map_index + 1], 16)) + \

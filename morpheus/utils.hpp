@@ -212,6 +212,16 @@ namespace morpheus {
                         static_cast<morpheus::nds::NdsMainLoop*>(main_loop), cbb_num, sbb_num);
             #endif
         }
+
+        static morpheus::core::gfx::Window *construct_appropriate_window(const core::gfx::WindowType window_type,
+                                                                         const std::shared_ptr<core::MainLoop> main_loop,
+                                                                         const bool nds_use_sub_display = false) {
+            #ifdef _GBA
+                return new morpheus::gba::gfx::GbaWindow(window_type, main_loop);
+            #elif _NDS
+                return new morpheus::nds::gfx::NdsWindow(nds_use_sub_display, window_type, main_loop);
+            #endif
+        }
     }
 }
 
