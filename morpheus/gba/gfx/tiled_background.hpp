@@ -44,10 +44,14 @@ namespace morpheus {
                 void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                 const unsigned short *tile_map, const unsigned int tile_map_len,
                                 core::gfx::TiledBackgroundSize size)override;
+                void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size)override;
 
                 void override_map_tile(const unsigned int tile_index, const unsigned short tile_id)override {
                     se_mem[get_sbb_num()][tile_index] = tile_id;
                 }
+
+                void large_background_swap(morpheus::core::gfx::Vector2 &current_scroll_position);
 
                 void affine_state_updated()override {}
                 void mosaic_state_updated()override;
@@ -57,6 +61,8 @@ namespace morpheus {
 
                 unsigned int m_background_priority;
                 unsigned int m_background_register;
+                BG_AFFINE m_bg_affine = bg_aff_default;
+                AFF_SRC_EX m_bg_affine_src_ex;
                 bool m_is_8bpp;
                 GbaMainLoop *m_main_loop;
                 bool m_main_loop_notified = false;

@@ -6,7 +6,6 @@ import tempfile
 
 from typing import Union
 
-
 def _camel_case_conversion(header_guard: str) -> str:
     return_value = list(header_guard.lower())
 
@@ -56,8 +55,49 @@ def _generate_header_file(build_dir: str, file_name: str, with_image_file: bool,
         return False
 
 
+def _convert_tile_map_to_sbbs(width: int, height: int, palette_bank: int, hex_data: list, file_obj) -> list:
+    converted_map = []
+
+    if width == 32 and width == 32:
+        for i in range(0, len(hex_data), 2):
+            tile_val = hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i]
+
+            converted_map.append(tile_val)
+
+            file_obj.write(tile_val + ",")
+
+            if i % 16 == 0 and i > 0:
+                file_obj.write("\n      ")
+    else:
+        for i in range(width*height):
+            converted_map.append("")
+
+        for tile_y in range(height):
+            for tile_x in range(width):
+                height = int(height)
+                tile_x = int(tile_x)
+                tile_y = int(tile_y)
+                width = int(width)
+
+                sbb = int(((tile_x >> 5) + (tile_y >> 5) * (width >> 5)))#int(((tile_y / 32) * (width / 32)) + (tile_x / 32))
+                unconverted_map_index = int((tile_x + (tile_y * width)) * 2)
+                tile_id = int(sbb*1024 + ((tile_x & 31)+(tile_y & 31) * 32))#int((sbb*1024) + ((tile_y % 32) * 32) + (tile_x % 32))
+
+                converted_map[tile_id] = hex(palette_bank) + \
+                                         str(int(hex_data[unconverted_map_index + 1], 16)) + \
+                                         hex_data[unconverted_map_index] + ","
+
+        for i in range(len(converted_map)):
+            file_obj.write(converted_map[i])
+
+            if i % 16 == 0 and i > 0:
+                file_obj.write("\n      ")
+
+    return converted_map
+
+
 def _generate_source_file(build_dir: str, file_name: str, variable_name: str, hex_data: list,
-                          palette_bank: int, with_image_file: bool, total_tile_size: int) -> bool:
+                          palette_bank: int, with_image_file: bool, width: int, height: int, is_affine: bool) -> list:
     file_path = os.path.join(build_dir, file_name)
 
     try:
@@ -67,22 +107,53 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
             file_mode = 'w'
 
         with open(file_path + ".c", file_mode) as file_obj:
-            file_obj.write("\nconst unsigned short " + variable_name + "[" + str(total_tile_size) + "] " +
+            array_byte_size = width * height
+
+            if is_affine:
+                #array_byte_size /= 2
+
+                #array_byte_size = int(array_byte_size)
+                pass
+
+            file_obj.write("\nconst unsigned short " + variable_name + "[" + str(array_byte_size) + "] " +
                            "__attribute__((aligned(4))) __attribute__((visibility(\"hidden\"))) =\n{\n     ")
 
-            for i in range(0, len(hex_data), 2):
-                file_obj.write(hex(palette_bank) + str(int(hex_data[i + 1], 16)) + hex_data[i] + ",")
+            if is_affine:
+                converted_map = []
 
-                if i % 16 == 0 and i > 0:
-                    file_obj.write("\n      ")
+                #for i in range(0, len(hex_data), 2):
+                #    tile_val = f"0x{hex_data[i]}{hex_data[i + 1]}"
+                #
+                #    converted_map.append(tile_val)
+                #
+                #    file_obj.write(tile_val + ",")
 
-            file_obj.write("\n};\n")
+                byte_buffer = []
+                i = 0
 
-        return True
+                while i < (len(hex_data) - 1):
+                    byte_buffer.append(hex_data[i])
+
+                    i += 2
+
+                    if len(byte_buffer) >= 2:
+                        file_obj.write(f"0x{byte_buffer.pop()}{byte_buffer.pop()},")
+
+                        if i % 32 == 0:
+                            file_obj.write("\n      ")
+            else:
+                if width > 64 or height > 64:
+                    raise NotImplementedError
+                else:
+                    converted_map = _convert_tile_map_to_sbbs(width, height, palette_bank, hex_data, file_obj)
+
+            file_obj.write("};\n")
+
+        return [True, converted_map]
     except OSError:
-        print("Couldn't create generated tilemap source file " + file_name + "!")
+        print(f"Couldn't create generated tilemap source file {file_name}!")
 
-        return False
+        return [False, None]
 
 
 def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
@@ -137,15 +208,20 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             #grit_subprocess.append("-MRtpf")
         else:
             grit_subprocess.append("-gB8")
-            #grit_subprocess.append("-MRtf")
+            grit_subprocess.append("-MRtf")
 
         if is_affine:
-            grit_subprocess.append("-mRt -mLa")
+            grit_subprocess.append("-MRt")
+            #grit_subprocess.append("-mRt -mLa")
 
         grit_subprocess.append("-ftc")
 
-        print(subprocess.run(["which", "grit"], capture_output=True))
-        print(subprocess.run(grit_subprocess, capture_output=True))
+        #if width > 32 or height > 32:
+        #    grit_subprocess.append("-mLs")
+
+        subprocess.run(["which", "grit"], capture_output=True)
+        subprocess.run(grit_subprocess, capture_output=True)
+
 
     if base_image_file_name != file_name:
         shutil.copy(os.path.join(build_dir, base_image_file_name + ".h"), os.path.join(build_dir, file_name + ".h"))
@@ -177,7 +253,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
                 source_file.write(tmp_source_file.read())
                 tmp_source_file.close()
 
-    variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0, width * height)
+    base_path = os.path.join(build_dir, file_name)
+
+    variable_name = _generate_header_file(build_dir, file_name, len(image_file) > 0, (width * height))
 
     if isinstance(variable_name, bool) and not variable_name:
         file_obj.close()
@@ -189,11 +267,11 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         # Based of OneCricketeer's sample code: https://stackoverflow.com/a/35516257
         return_value = _generate_source_file(build_dir, file_name, variable_name,
                                              ["{:02x}".format(char).upper() for char in file_obj.read()], palette_bank,
-                                             len(image_file) > 0, width * height)
+                                             len(image_file) > 0, width, height, is_affine)
 
         file_obj.close()
 
-        if return_value:
+        if return_value[0]:
             print("Successfully converted Tilemap Studio BIN file to C header and source files in " + build_dir + "!")
 
         return return_value
@@ -205,18 +283,16 @@ def main() -> None:
             height = int(sys.argv[4])
             width = int(sys.argv[3])
 
-            if (height != 32 and height != 64) or (width != 32 and width != 64):
+            if (height != 32 and height != 64 and height != 128) or (width != 32 and width != 64 and width != 128):
                 raise ValueError
         except ValueError:
-            print("Tile width and height must be either 32 or 64!")
+            print("Tile width and height must be either 32, 64, or 128!")
 
             sys.exit(2)
 
         if len(sys.argv) > 5:
             try:
                 palette_bank = int(sys.argv[5])
-
-                print("palette_bank:" + str(palette_bank))
 
                 if palette_bank > 15 or palette_bank < 0:
                     raise ValueError
@@ -249,8 +325,8 @@ def main() -> None:
     else:
         print("Invalid syntax:")
         print(os.path.basename(__file__) + " tilemap_studio_bin_file_path build_dir width height [palette_bank] "
-                                           "[image_file] [image_bpp]")
-        print("Note: if an image_file argument is given, image_bpp becomes a " +\
+                                           "[image_file] [image_bpp] [is_affine]")
+        print("Note: if an image_file argument is given, image_bpp becomes a " + \
               "required argument.")
         sys.exit(2)
 

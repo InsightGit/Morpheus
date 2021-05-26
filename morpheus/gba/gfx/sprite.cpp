@@ -104,6 +104,8 @@ void morpheus::gba::gfx::Sprite::load_from_array(const unsigned short *tile_arra
 }
 
 void morpheus::gba::gfx::Sprite::on_visible_state_changed(bool hidden) {
+    m_attr0 &= ~ATTR0_MODE_MASK;
+
     if(hidden) {
         m_attr0 |= ATTR0_HIDE;
     } else {

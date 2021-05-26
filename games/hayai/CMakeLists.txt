@@ -40,7 +40,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-
 
 set(MAIN_SRC_FILES src/main.cpp
         src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp
-        src/hayai/player_hud.cpp src/hayai/player_hud.hpp src/hayai/enemy.cpp src/hayai/enemy.h)
+        src/hayai/player_hud.cpp src/hayai/player_hud.hpp src/hayai/enemy.cpp src/hayai/enemy.hpp)
 
 #if(platform_lower STREQUAL "gba")
 #    set(PNG4_FILES "../tests/gba/test4.png")
@@ -53,7 +53,9 @@ set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms0.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms2.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms0.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms1.png"
-        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms2.png")
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms2.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/enemydown.png"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/enemyup.png")
 
 #if(platform_lower STREQUAL "gba")
 #    set(PNG8_FILES "../tests/gba/test8.png" CACHE STRING
@@ -63,7 +65,7 @@ set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms0.png"
 #            "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
 #endif()
 
-set(PNG4_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32")
+set(PNG4_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32")
 #set(PNG8_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" CACHE STRING
 #        "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
@@ -90,9 +92,11 @@ include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. 
 
 convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
                                FALSE)
-convert_tilemap_bin_image_file("assets/player/player_hud.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0 "assets/tiles1.png"
-                               TRUE FALSE)
+#convert_tilemap_bin_image_file("assets/test_map_1_128.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 128 0 "assets/tiles1.png" TRUE
+#        FALSE)
+
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
+#list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_128.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_128.h)
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/player_hud.c ${CMAKE_CURRENT_BINARY_DIR}/player_hud.h)
 
 if(platform_lower STREQUAL "gba")

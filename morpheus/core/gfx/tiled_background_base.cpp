@@ -111,9 +111,9 @@ bool morpheus::core::gfx::TiledBackgroundBase::set_tile_id_at_index(const unsign
     bool found = false;
     Vector2 tile_size_vector = get_size_vector();
 
-    if(tile_index >= static_cast<unsigned int>(tile_size_vector.get_x() * tile_size_vector.get_y())) {
+    /*if(tile_index >= static_cast<unsigned int>(tile_size_vector.get_x() * tile_size_vector.get_y())) {
         return false;
-    }
+    }*/
 
     m_past_tile_overrides = m_tile_overrides;
 
@@ -125,16 +125,18 @@ bool morpheus::core::gfx::TiledBackgroundBase::set_tile_id_at_index(const unsign
                 found = true;
                 tile_override.tile_id = tile_id;
 
+                override_map_tile(tile_override.tile_index, tile_override.tile_id);
+
                 break;
             }
         }
-
-        override_map_tile(tile_override.tile_index, tile_override.tile_id);
     }
 
     if(!found) {
         m_tile_overrides.push_back({ .tile_index = static_cast<unsigned int>(tile_index),
                                      .tile_id = (tile_id & 0x3FF) });
+
+        override_map_tile(m_tile_overrides.back().tile_index, m_tile_overrides.back().tile_id);
     }
 
     return true;

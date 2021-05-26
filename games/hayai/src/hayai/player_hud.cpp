@@ -60,7 +60,7 @@ hayai::PlayerHud::PlayerHud(std::shared_ptr<morpheus::core::MainLoop> main_loop)
         m_hud_window->enable_window();
         m_out_window->enable_window();
 
-        m_hud_background->load_from_array(player_hudTiles, player_hudTilesLen, player_hudMap, player_hudMapLen,
+        m_hud_background->load_from_array(player_hudMap, player_hudMapLen,
                                           morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
     } else {
         m_hud_background->load_from_array(player_hudTiles, player_hudTilesLen, player_hudPal, player_hudPalLen,
@@ -70,27 +70,27 @@ hayai::PlayerHud::PlayerHud(std::shared_ptr<morpheus::core::MainLoop> main_loop)
 }
 
 void hayai::PlayerHud::print_number_at(const unsigned int number, const morpheus::core::gfx::Vector2 position) {
-    std::array<unsigned int, MAX_HUD_DIGITS> digits = {0, 0, 0};
+    std::vector<unsigned int> digits;
     unsigned int digit_num = 0;
     unsigned int working_number = number;
     morpheus::core::gfx::Vector2 working_position = position;
 
-    while(working_number != 0 || digit_num >= MAX_HUD_DIGITS) {
+    while(working_number != 0 || digit_num < MAX_HUD_DIGITS) {
         working_number /= 10;
 
         if(working_number == 0) {
-            digits[digit_num++] = number % 10;
+            digits.push_back(number % 10);
         } else {
-            digits[digit_num++] = working_number;
+            digits.push_back(working_number);
         }
+
+        ++digit_num;
     }
 
-    for(unsigned int i = 0; digits.size() > i; ++i) {
-        std::vector<unsigned int> digit_tiles = get_digit_tile_vector(digits[i]);
+    //std::reverse(digits.begin(), digits.end());
 
-        if((i == 2 && digits[i] == 0) || (i == 1 && digits[i + 1] == 0 && digits[i] == 0)) {
-            continue;
-        }
+    for(unsigned int i = 0; digits.size() > i; --i) {
+        std::vector<unsigned int> digit_tiles = get_digit_tile_vector(digits[i]);
 
         for(unsigned int i2 = 0; digit_tiles.size() > i2; ++i2) {
             morpheus::core::gfx::Vector2 tile_position;
@@ -115,10 +115,8 @@ void hayai::PlayerHud::print_number_at(const unsigned int number, const morpheus
                 }
             }
 
-            nocashMessage(("setting tile " + std::to_string(i2) + " at " +
-                                    tile_position.to_string()).c_str());
-
-            m_hud_background->set_tile_id_at_position(tile_position + working_position, digit_tiles[i2]);
+            m_hud_background->set_tile_id_at_position(working_position + tile_position, digit_tiles[i2]);
+            m_hud_background->set_tile_id_at_position(working_position + tile_position, digit_tiles[i2]);
         }
 
         working_position = working_position + morpheus::core::gfx::Vector2(16, 0);

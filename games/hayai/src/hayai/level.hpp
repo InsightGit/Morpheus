@@ -5,9 +5,11 @@
 #ifndef HAYAI_LEVEL_HPP
 #define HAYAI_LEVEL_HPP
 
+#include "enemy.hpp"
 #include "scene.hpp"
 
 #include "test_map_1.h"
+#include "test_map_1_128.h"
 
 namespace hayai {
     class Player;
@@ -59,11 +61,16 @@ namespace hayai {
     private:
         void animate_coins();
 
+        std::vector<int> m_coin_indices_to_delete;
         std::vector<unsigned int> m_collision_tile_ids;
         std::vector<int> m_current_coin_indices;
+        int m_current_top_tile_row_to_load = 64;
+        int m_current_bottom_tile_row_to_load = 0;
+        std::vector<std::unique_ptr<Enemy>> m_enemies;
+        std::unique_ptr<Player> m_player;
         std::vector<unsigned int> m_friction_tile_ids;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
-        std::unique_ptr<Player> m_player;
+        morpheus::core::gfx::Vector2 m_old_scroll_position;
     };
 }
 

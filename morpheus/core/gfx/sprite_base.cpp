@@ -21,9 +21,6 @@ void morpheus::core::gfx::SpriteBase::draw(std::vector<void *> &obj_attr_buffer,
 
 void morpheus::core::gfx::SpriteBase::update_animation() {
     if(is_playing()) {
-        /*nocash_puts(std::string("Animation size:" + std::to_string(animation_frames.size())).c_str());
-        nocash_puts(animation_frames[get_current_frame()]->to_string().c_str());*/
-
         ++m_current_delay;
 
         if(!m_frames.empty() && m_current_delay >= m_frames[m_current_frame]->get_vblank_delays()) {
@@ -41,8 +38,7 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
             m_current_delay = 0;
             m_smoothing_started = false;
 
-            /*nocash_puts(std::string("Activating current frame " + std::to_string(get_current_frame())).c_str());
-            nocash_puts(animation_frames[get_current_frame()]->to_string().c_str());*/
+            //nocash_puts(std::string("Activating current frame " + std::to_string(get_current_frame())).c_str());
 
             m_frames[get_current_frame()]->activate_on_target_sprite_base();
 
@@ -53,6 +49,8 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
             for(std::unique_ptr<IntegerAnimationSmoothingAttribute,
                     IntegerAnimationSmoothingAttributeDeleter> &smoothing_attribute : m_linear_smoothing_attributes) {
                 smoothing_attribute->smooth();
+
+                //nocash_puts("smoothing");
             }
         } else if(m_frames.size() > 1) {
             std::shared_ptr<AnimationFrame> current_frame = m_frames[m_current_frame];

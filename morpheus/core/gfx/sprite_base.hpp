@@ -261,6 +261,8 @@ namespace morpheus {
                 void stop() {
                     stop_animation(false);
 
+                    m_current_frame = 0;
+
                     m_playing = false;
                     m_paused = false;
                 }

@@ -9,7 +9,6 @@
 #include <set>
 
 //#include <tonc.h>
-//#include <nds.h>
 
 #include <core/main_loop.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -22,6 +21,7 @@ namespace morpheus {
                 BG_64x32,
                 BG_32x64,
                 BG_64x64,
+                BG_64x128,
 
                 BG_AFFINE_16x16,
                 BG_AFFINE_32x32,
@@ -53,6 +53,14 @@ namespace morpheus {
                     m_tile_map_size = size;
 
                     array_load(tiles, tiles_len, tile_map, tile_map_len, size);
+                }
+
+                void load_from_array(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                     TiledBackgroundSize size) {
+                    m_tile_map = tile_map;
+                    m_tile_map_size = size;
+
+                    array_load(tile_map, tile_map_len, size);
                 }
 
                 void disable_blending() {
@@ -110,6 +118,10 @@ namespace morpheus {
 
                 bool is_affine() const {
                     return m_affine;
+                }
+
+                bool is_large_background() const {
+                    return m_tile_map_size == morpheus::core::gfx::TiledBackgroundSize::BG_64x128;
                 }
 
                 bool is_mosaic() const {
@@ -196,6 +208,8 @@ namespace morpheus {
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
                                         TiledBackgroundSize size) = 0;
+                virtual void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                        TiledBackgroundSize size) = 0;
                 virtual void mosaic_state_updated() = 0;
                 virtual void override_map_tile(const unsigned int tile_index, const unsigned short tile_id) = 0;
                 virtual void update_scroll() = 0;
@@ -225,6 +239,8 @@ namespace morpheus {
                             return Vector2(64, 64);
                         case TiledBackgroundSize::BG_AFFINE_128x128:
                             return Vector2(128, 128);
+                        case TiledBackgroundSize::BG_64x128:
+                            return Vector2(64, 128);
                     }
 
                     return Vector2(0, 0);

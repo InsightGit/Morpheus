@@ -32,6 +32,8 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/sprite_base.hpp
         morpheus/core/gfx/text_base.cpp
         morpheus/core/gfx/text_base.hpp
+        morpheus/core/gfx/streaming_background_base.hpp
+        morpheus/core/gfx/streaming_background_base.cpp
         morpheus/core/gfx/tiled_background_base.hpp
         morpheus/core/gfx/tiled_background_base.cpp
         morpheus/core/gfx/vector_2.hpp
@@ -43,7 +45,9 @@ set(MORPHEUS_SOURCE_FILES
         ${CMAKE_CURRENT_BINARY_DIR}/sys8.h
         ${CMAKE_CURRENT_BINARY_DIR}/sys8.o
         morpheus/core/gfx/animation_frame.cpp
-        morpheus/core/gfx/animation_frame.hpp morpheus/core/gfx/animation_smoothing_attributes.cpp morpheus/core/gfx/animation_smoothing_attributes.hpp)
+        morpheus/core/gfx/animation_frame.hpp
+        morpheus/core/gfx/animation_smoothing_attributes.cpp
+        morpheus/core/gfx/animation_smoothing_attributes.hpp)
 
 
 project(morpheus)
@@ -81,8 +85,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/tiled_background.cpp
             morpheus/gba/gba_eeprom_save_manager.hpp
             morpheus/gba/gba_eeprom_save_manager.cpp
-            #morpheus/gba/gba_flash_save_manager.hpp
-            #morpheus/gba/gba_flash_save_manager.cpp
+            morpheus/gba/gba_flash_save_manager.hpp
+            morpheus/gba/gba_flash_save_manager.cpp
             morpheus/gba/gfx/gba_window.hpp
             morpheus/gba/gfx/gba_window.cpp
             morpheus/gba/serial_communication.cpp
@@ -354,9 +358,12 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
+        convert_tilemap_bin_image_file("tests/affine_test/region_map_affine_128.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                128 128 0 "tests/affine_test/region_map_affine.png" true true)
+
         add_executable(morpheus-gba-affine-test.elf tests/affine_test/affine_test.cpp
-                       "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
-                        ${PNG4_OUTPUT_FILES})
+                       "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine_128.c"
+                       "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine_128.h" ${PNG4_OUTPUT_FILES})
         add_gba_executable(morpheus-gba-affine-test.elf)
 
         target_link_libraries(morpheus-gba-affine-test.elf morpheus mm tonc)

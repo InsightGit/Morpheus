@@ -36,6 +36,17 @@ void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, 
 void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                                      core::gfx::TiledBackgroundSize size) {
+    if(m_is_8bpp) {
+        memcpy16(&tile8_mem[get_cbb_num()][0], tiles, tiles_len / 2);
+    } else {
+        memcpy16(&tile_mem[get_cbb_num()][0], tiles, tiles_len / 2);
+    }
+
+    array_load(tile_map, tile_map_len, size);
+}
+
+void morpheus::gba::gfx::TiledBackground::array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                                     morpheus::core::gfx::TiledBackgroundSize size) {
     switch(size) {
         default:
         case core::gfx::TiledBackgroundSize::BG_32x32:
@@ -47,46 +58,52 @@ void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, 
         case core::gfx::TiledBackgroundSize::BG_64x32:
             m_background_register |= BG_REG_64x32;
             break;
+        case core::gfx::TiledBackgroundSize::BG_64x128:
         case core::gfx::TiledBackgroundSize::BG_64x64:
             m_background_register |= BG_REG_64x64;
             break;
+        case core::gfx::TiledBackgroundSize::BG_AFFINE_16x16:
+            m_background_register |= BG_AFF_16x16;
+            break;
+        case core::gfx::TiledBackgroundSize::BG_AFFINE_32x32:
+            m_background_register |= BG_AFF_32x32;
+            break;
+        case core::gfx::TiledBackgroundSize::BG_AFFINE_64x64:
+            m_background_register |= BG_AFF_64x64;
+            break;
+        case core::gfx::TiledBackgroundSize::BG_AFFINE_128x128:
+            m_background_register |= BG_AFF_128x128;
+            break;
     }
 
-    if(m_is_8bpp) {
-        memcpy16(&tile8_mem[get_cbb_num()][0], tiles, tiles_len / 2);
+    if(is_affine()) {
+        memcpy32(reinterpret_cast<unsigned int*>(&se_mem[get_sbb_num()][0]),
+                 reinterpret_cast<const unsigned int*>(tile_map), tile_map_len / 2);
     } else {
-        memcpy16(&tile_mem[get_cbb_num()][0], tiles, tiles_len / 2);
+        memcpy16(&se_mem[get_sbb_num()][0], tile_map, tile_map_len);
     }
-
-    memcpy16(&se_mem[get_sbb_num()][0], tile_map, tile_map_len);
 
     update_background_register();
 }
 
 void morpheus::gba::gfx::TiledBackground::update_background_register() {
-    nocash_puts(std::string("updating background register #" + std::to_string(get_background_num())).c_str());
-
     switch (get_background_num()) {
         case 0u:
             REG_BG0CNT = m_background_register | BG_PRIO(m_background_priority);
-
-            nocash_puts(std::string("new bg0cnt value:" + std::to_string(REG_BG0CNT)).c_str());
             break;
         case 1u:
             REG_BG1CNT = m_background_register | BG_PRIO(m_background_priority);
-
-            nocash_puts(std::string("new bg1cnt value:" + std::to_string(REG_BG1CNT)).c_str());
             break;
         case 2u:
             REG_BG2CNT = m_background_register | BG_PRIO(m_background_priority);
-
-            nocash_puts(std::string("new bg2cnt value:" + std::to_string(REG_BG2CNT)).c_str());
             break;
         case 3u:
             REG_BG3CNT = m_background_register | BG_PRIO(m_background_priority);
-
-            nocash_puts(std::string("new bg3cnt value:" + std::to_string(REG_BG3CNT)).c_str());
             break;
+    }
+
+    if(is_affine()) {
+        REG_BG_AFFINE[get_background_num()] = m_bg_affine;
     }
 
     if(!m_main_loop_notified) {
@@ -99,6 +116,10 @@ void morpheus::gba::gfx::TiledBackground::update_background_register() {
 void morpheus::gba::gfx::TiledBackground::update_scroll() {
     morpheus::core::gfx::Vector2 scroll_position = get_scroll();
 
+    if(is_large_background()) {
+        large_background_swap(scroll_position);
+    }
+
     switch(get_background_num()) {
         case 0:
             REG_BG0HOFS = scroll_position.get_x();
@@ -109,13 +130,29 @@ void morpheus::gba::gfx::TiledBackground::update_scroll() {
             REG_BG1VOFS = scroll_position.get_y();
             break;
         case 2:
-            REG_BG2HOFS = scroll_position.get_x();
-            REG_BG2VOFS = scroll_position.get_y();
+            if(!is_affine()) {
+                REG_BG2HOFS = scroll_position.get_x();
+                REG_BG2VOFS = scroll_position.get_y();
+            }
             break;
         case 3:
-            REG_BG3HOFS = scroll_position.get_x();
-            REG_BG3VOFS = scroll_position.get_y();
+            if(!is_affine()) {
+                REG_BG3HOFS = scroll_position.get_x();
+                REG_BG3VOFS = scroll_position.get_y();
+            }
             break;
+    }
+
+    if(is_affine()) {
+        m_bg_affine_src_ex.tex_x = scroll_position.get_x();
+        m_bg_affine_src_ex.tex_y = scroll_position.get_y();
+
+        m_bg_affine_src_ex.sx = (1 << 16) / 0x0100;
+        m_bg_affine_src_ex.sy = m_bg_affine_src_ex.sx;
+
+        bg_rotscale_ex(&m_bg_affine, &m_bg_affine_src_ex);
+
+        update_background_register();
     }
 }
 
@@ -124,6 +161,19 @@ void morpheus::gba::gfx::TiledBackground::mosaic_state_updated() {
         m_background_register |= BG_MOSAIC;
     } else {
         m_background_register &= ~(BG_MOSAIC);
+    }
+
+    update_background_register();
+}
+
+void morpheus::gba::gfx::TiledBackground::large_background_swap(morpheus::core::gfx::Vector2 &current_scroll_position) {
+    if(current_scroll_position.get_y() >= 64 * 8) {
+        m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num() + 4);
+
+        current_scroll_position = morpheus::core::gfx::Vector2(current_scroll_position.get_x(),
+                                                               current_scroll_position.get_y() - (64 * 8));
+    } else {
+        m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num());
     }
 
     update_background_register();

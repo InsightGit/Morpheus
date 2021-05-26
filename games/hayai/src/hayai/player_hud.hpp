@@ -11,6 +11,8 @@
 #include <nds/nds.hpp>
 #endif
 
+#include <iomanip>
+
 #include "level.hpp"
 
 #include "player_hud.h"
@@ -38,9 +40,7 @@ namespace hayai {
         }
 
         void set_coin_number(const unsigned int coin_number) {
-            m_coin_number = coin_number;
-
-            nocashMessage(("coin number set to " + std::to_string(m_coin_number)).c_str());
+            m_coin_number = coin_number;;
         }
 
         unsigned int get_health_number() const {

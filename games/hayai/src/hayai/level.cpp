@@ -36,9 +36,17 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
             morpheus::utils::construct_appropriate_tiled_background_8bpp(false, MAIN_LEVEL_BACKGROUND_NUM,
                                                                          main_loop->get_blending_controller(),
                                                                          main_loop->get_mosaic_controller(),
-                                                                         main_loop.get(), 2, 1));
+                                                                         main_loop.get(), 3, 1));
 
     m_player = std::make_unique<Player>(main_loop, m_level_background, this);
+    m_enemies.push_back(std::make_unique<Enemy>(main_loop->get_blending_controller(),
+                                                main_loop->get_mosaic_controller(),
+                                                main_loop->get_no_cash_debug_controller(),
+                                                m_level_background,
+                                                morpheus::core::gfx::Vector2(16 * 8, 42 * 8),
+                                                morpheus::core::gfx::Vector2(22 * 8, 42 * 8),
+                                                m_player->get_sprite()));
+
     m_level_background->load_from_array(test_map_1Tiles, test_map_1TilesLen, test_map_1Pal,
                                         test_map_1PalLen, test_map_1Map, test_map_1MapLen,
                                         morpheus::core::gfx::TiledBackgroundSize::BG_64x64);
@@ -58,6 +66,12 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
     }
 
     main_loop->add_sprite(m_player->get_sprite());
+
+    for(std::unique_ptr<Enemy> &enemy : m_enemies) {
+        main_loop->add_sprite(enemy->get_sprite());
+    }
+
+    m_old_scroll_position = m_level_background->get_scroll();
 }
 
 void hayai::Level::input(const morpheus::core::InputEvent input_event) {
@@ -65,15 +79,53 @@ void hayai::Level::input(const morpheus::core::InputEvent input_event) {
 }
 
 void hayai::Level::update(const unsigned char cycle_time) {
+    //int y_scroll_difference;
+
     m_player->update(cycle_time);
+
+    for(std::unique_ptr<Enemy> &enemy : m_enemies) {
+        enemy->update(cycle_time);
+    }
 
     if(cycle_time == 30 || cycle_time == 0) {
         animate_coins();
     }
 
-    //nocash_message("velocity was " + m_player->get_velocity().to_string());
-
     m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
+
+    //y_scroll_difference = m_level_background->get_scroll().get_y() - m_old_scroll_position.get_y();
+
+    /*if(m_level_background->is_large_background()) {
+        if(y_scroll_difference >= 8) {
+            for(int i = 0; y_scroll_difference / 8 > i; i += 8) {
+                for(int i2 = 0; 64 > i2; ++i2) {
+                    m_level_background->set_tile_id_at_position(morpheus::core::gfx::Vector2(i2, 0),
+                                                                GRASS_TILES[0]);
+
+                    nocash_message("loading in new top tile id");
+                }
+
+                ++m_current_top_tile_row_to_load;
+                ++m_current_bottom_tile_row_to_load;
+            }
+
+            m_old_scroll_position = m_level_background->get_scroll();
+        } else if(y_scroll_difference <= -8) {
+            for(int i = 0; abs(y_scroll_difference / 8) > i; ++i) {
+                for(int i2 = 0; 64 > i2; ++i2) {
+                    m_level_background->set_tile_id_at_position(morpheus::core::gfx::Vector2(i2, 63 * 8),
+                                                                GRASS_TILES[0]);
+
+                    nocash_message("loading in new bottom tile id");
+                }
+
+                --m_current_top_tile_row_to_load;
+                --m_current_bottom_tile_row_to_load;
+            }
+
+            m_old_scroll_position = m_level_background->get_scroll();
+        }
+    }*/
 }
 
 void hayai::Level::animate_coins() {
@@ -97,16 +149,16 @@ void hayai::Level::animate_coins() {
 }
 
 void hayai::Level::delete_coin_indices(const std::array<int, 4> coin_indices) {
-    nocash_message("deleting indices " + std::to_string(coin_indices[0]) + "-" +
+    /*nocash_message("deleting indices " + std::to_string(coin_indices[0]) + "-" +
                    std::to_string(coin_indices[1]) + "-" + std::to_string(coin_indices[2]) +
-                   "-" + std::to_string(coin_indices[3]));
+                   "-" + std::to_string(coin_indices[3]));*/
 
     for(int coin_index : coin_indices) {
         for(unsigned int i = 0; m_current_coin_indices.size() > i; ++i) {
             if(coin_index == m_current_coin_indices[i]) {
+                m_current_coin_indices.erase(m_current_coin_indices.begin() + static_cast<int>(i));
                 m_level_background->set_tile_id_at_index(coin_index, 0x0);
 
-                m_current_coin_indices.erase(m_current_coin_indices.begin() + i);
                 break;
             }
         }
