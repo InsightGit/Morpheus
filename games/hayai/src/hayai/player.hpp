@@ -56,6 +56,7 @@ namespace hayai {
 
         const int ACCELERATION_STEP = 6;
         const bool ENABLE_ACCEL_MOVEMENT_SYSTEM = false;
+        const int FLICKER_LENGTH = 240;
         const int FRICTION = 2;
         const int GRAVITY = 4;
         const morpheus::core::gfx::Vector2 INITIAL_SCROLL_POSITION = morpheus::core::gfx::Vector2(32*8, 30*8);
@@ -80,6 +81,7 @@ namespace hayai {
                    point1.get_y() < point2.get_y() + PLAYER_SIZE.get_y();
         }
 
+        void apply_enemy_collision_detection();
         void apply_friction();
         void apply_gravity();
         void apply_speed_zones();
@@ -100,7 +102,8 @@ namespace hayai {
         unsigned int m_current_animation_frame;
         Level *m_current_level;
         std::vector<std::shared_ptr<Enemy>> m_enemies;
-        std::vector<morpheus::core::gfx::AnimationFrame> m_flicker_animation;
+        bool m_first_run = true;
+        std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_flicker_animation;
         std::vector<uint16_t*> m_gfx_pointers;
         bool m_last_was_left = false;
         bool m_jumping = false;

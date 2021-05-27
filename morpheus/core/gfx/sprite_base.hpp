@@ -197,6 +197,10 @@ namespace morpheus {
                     return m_playing;
                 }
 
+                bool is_playing_on_loop() const {
+                    return m_looping && m_playing;
+                }
+
                 void set_drawn_node(const bool drawn_node) {
                     m_drawn_node = drawn_node;
                 }
@@ -245,7 +249,7 @@ namespace morpheus {
                     }
                 }
 
-                void play() {
+                void play(bool loop = true) {
                     if(!is_playing()) {
                         if(m_current_frame == 0) {
                             m_first_animation_cycle = true;
@@ -253,19 +257,13 @@ namespace morpheus {
 
                         resume_animation();
 
+                        m_looping = loop;
                         m_playing = true;
                         m_paused = false;
                     }
                 }
 
-                void stop() {
-                    stop_animation(false);
-
-                    m_current_frame = 0;
-
-                    m_playing = false;
-                    m_paused = false;
-                }
+                void stop();
 
                 virtual void set_sprite_size(SpriteSize size) = 0;
             protected:
@@ -294,6 +292,7 @@ namespace morpheus {
                 AffineTransformation m_last_affine_transformation = AffineTransformation::Identity;
                 std::vector<std::unique_ptr<IntegerAnimationSmoothingAttribute,
                                             IntegerAnimationSmoothingAttributeDeleter>> m_linear_smoothing_attributes;
+                bool m_looping = false;
                 bool m_mosaic = false;
                 MosaicController *m_mosaic_controller;
                 Vector2 m_position;

@@ -60,8 +60,10 @@ namespace hayai {
         morpheus::core::gfx::Vector2 m_final_map_position;
         morpheus::core::gfx::Vector2 m_initial_map_position;
         bool m_jumping = false;
+        uint16_t *m_jumping_gfx_pointer;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_player_sprite;
+        uint16_t *m_down_gfx_pointer;
     };
 }
 

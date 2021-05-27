@@ -69,6 +69,10 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
 
                     nocash_puts("Window 0 enable objects");
                 }
+
+                if(is_blending_enabled()) {
+                    REG_WININ |= WIN_BLD;
+                }
                 break;
             case core::gfx::WindowType::WINDOW_1:
                 REG_WININ &= ~(WIN_OBJ << 8);
@@ -78,6 +82,11 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
 
                     nocash_puts("Window 1 enable objects");
                 }
+
+                if(is_blending_enabled()) {
+                    REG_WININ |= WIN_BLD << 8;
+                }
+
                 break;
             case core::gfx::WindowType::WINDOW_OBJ:
                 REG_WINOUT &= ~(WIN_OBJ << 8);
@@ -87,6 +96,10 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
 
                     nocash_puts("Window obj enable objects");
                 }
+
+                if(is_blending_enabled()) {
+                    REG_WINOUT |= WIN_BLD << 8;
+                }
                 break;
             case core::gfx::WindowType::WINDOW_OUT:
                 REG_WINOUT &= ~WIN_OBJ;
@@ -95,6 +108,10 @@ void morpheus::gba::gfx::GbaWindow::toggle_window(bool on) {
                     REG_WINOUT |= WIN_OBJ;
 
                     nocash_puts("Window out enable objects");
+                }
+
+                if(is_blending_enabled()) {
+                    REG_WINOUT |= WIN_BLD;
                 }
 
                 break;

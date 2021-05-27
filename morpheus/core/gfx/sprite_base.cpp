@@ -26,7 +26,12 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
         if(!m_frames.empty() && m_current_delay >= m_frames[m_current_frame]->get_vblank_delays()) {
             if(m_current_frame + 1 >= m_frames.size()) {
                 m_current_frame = 0;
-                m_first_animation_cycle = false;
+
+                if(m_looping) {
+                    m_first_animation_cycle = false;
+                } else {
+                    stop();
+                }
 
                 //nocash_puts("playing frame 0");
             } else {
@@ -131,6 +136,16 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
             m_smoothing_started = true;
         }
     }
+}
+
+void morpheus::core::gfx::SpriteBase::stop() {
+    stop_animation(false);
+
+    m_current_frame = 0;
+    m_frames[get_current_frame()]->activate_on_target_sprite_base();
+
+    m_playing = false;
+    m_paused = false;
 }
 
 void morpheus::core::gfx::IntegerAnimationSmoothingAttributeDeleter::operator()(

@@ -21,6 +21,12 @@ void morpheus::gba::gfx::Sprite::draw_node(std::vector<void *> &obj_attr_buffer,
     if(is_affine()) {
         m_attr0 |= ATTR0_AFF | ATTR0_AFF_DBL;
         m_attr1 |= ATTR1_AFF_ID(get_affine_index());
+    } else if(is_blended()) {
+        m_attr0 |= ATTR0_BLEND;
+    }
+
+    if(is_mosaic()) {
+        m_attr0 |= ATTR0_MOSAIC;
     }
 
     obj_set_attr(obj, m_attr0, m_attr1, m_attr2);
@@ -128,24 +134,33 @@ morpheus::gba::gfx::Sprite::~Sprite() {
 
 void morpheus::gba::gfx::Sprite::mosaic_state_updated() {
     if(is_mosaic()) {
-        m_attr0 |= ATTR0_MOSAIC;
+        m_mosaic = true;
     } else {
         m_attr0 &= ~ATTR0_MOSAIC;
+
+        m_mosaic = false;
     }
 }
 
 void morpheus::gba::gfx::Sprite::toggle_blending(bool enable_blending, bool bottom_layer) {
     get_blending_controller()->disable_object_blending();
 
+    m_attr0 &= 0xF3FF;
+
     if(enable_blending) {
-        m_attr0 |= ATTR0_BLEND;
+        nocash_puts("blending enabled");
+
         m_blended = true;
 
         get_blending_controller()->enable_object_blending(bottom_layer);
     } else {
-        m_attr0 &= ~ATTR0_BLEND;
+        nocash_puts("blending disabled");
+
+        m_attr0 |= ATTR0_REG;
         m_blended = false;
     }
+
+
 }
 
 void morpheus::gba::gfx::Sprite::update_affine_state(core::gfx::AffineTransformation affine_transformation,

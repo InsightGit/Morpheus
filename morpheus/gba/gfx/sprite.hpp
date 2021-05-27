@@ -90,8 +90,8 @@ namespace morpheus {
                     virtual void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num)override;
                     void mosaic_state_updated()override;
                     void on_visible_state_changed(bool hidden)override;
-                    void resume_animation()override {}
-                    void stop_animation(bool pause)override {}
+                    void resume_animation() override {}
+                    void stop_animation(bool pause) override {}
                     void toggle_blending(bool enable_blending, bool bottom_layer)override;
                     void update_affine_state(core::gfx::AffineTransformation affine_transformation,
                                              bool new_transformation)override;
@@ -111,6 +111,7 @@ namespace morpheus {
                     bool m_blended = false;
                     bool m_is_4bpp;
                     unsigned int m_last_obj_attr_num;
+                    bool m_mosaic = false;
                     core::gfx::SpriteSize m_sprite_size;
 
                     OBJ_AFFINE m_affine_base;

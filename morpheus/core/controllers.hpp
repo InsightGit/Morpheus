@@ -115,8 +115,11 @@ namespace morpheus {
                 void set_blend_weight(bool bottom, unsigned char weight) {
                     if(bottom) {
                         m_bottom_blend_weight = std::min(weight, static_cast<unsigned char>(16));
+                        m_top_blend_weight = 16 - m_bottom_blend_weight;
                     } else {
                         m_top_blend_weight = std::min(weight, static_cast<unsigned char>(16));
+
+                        m_bottom_blend_weight = 16 - m_top_blend_weight;
                     }
 
                     update_blending_registers();

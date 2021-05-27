@@ -24,6 +24,14 @@ void morpheus::core::gfx::Window::add_background(unsigned int background) {
     }
 }
 
+void morpheus::core::gfx::Window::disable_blending() {
+    m_blending_enabled = false;
+
+    if(is_window_enabled()) {
+        toggle_window(true);
+    }
+}
+
 void morpheus::core::gfx::Window::disable_objects() {
     m_objects_enabled = false;
 
@@ -39,6 +47,14 @@ void morpheus::core::gfx::Window::disable_window() {
         m_main_loop->disable_window(m_window_type);
 
         m_window_enabled = false;
+    }
+}
+
+void morpheus::core::gfx::Window::enable_blending() {
+    m_blending_enabled = true;
+
+    if(is_window_enabled()) {
+        toggle_window(true);
     }
 }
 

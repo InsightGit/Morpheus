@@ -36,19 +36,30 @@ hayai::Enemy::Enemy(morpheus::core::gfx::BlendingController *blending_controller
                                     enemyupTilesLen, 7, morpheus::core::gfx::SpriteSize::SIZE_32X32,
                                     ENEMY_JUMPING_TILE_ID);
     #elif _NDS
+        auto *nds_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_enemy_sprite.get());
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(enemyupTiles), enemyupTilesLen, 7,
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+
+        m_jumping_gfx_pointer = nds_sprite->get_gfx_pointer();
+
+        nds_sprite->load_from_array(reinterpret_cast<const unsigned short *>(enemydownTiles), enemydownTilesLen, 7,
+                                    morpheus::core::gfx::SpriteSize::SIZE_32X32);
+
+        m_down_gfx_pointer = nds_sprite->get_gfx_pointer();
     #endif
 
     m_enemy_sprite->load_into_palette(enemydownPal, 16, ENEMY_PALETTE_ID * 16);
 
-    m_current_animation_frames.push_back(std::shared_ptr<morpheus::core::gfx::AnimationFrame>(
-            morpheus::utils::construct_appropriate_animation_frame(m_enemy_animation_model_sprite.get())));
+    m_current_animation_frames.emplace_back(morpheus::utils::construct_appropriate_animation_frame(
+            m_enemy_animation_model_sprite.get()));
 
     m_current_animation_frames.back()->set_position(m_initial_map_position, true,
                                                     morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
     m_current_animation_frames.back()->set_vblank_delays(120);
 
-    m_current_animation_frames.push_back(std::shared_ptr<morpheus::core::gfx::AnimationFrame>(
-            morpheus::utils::construct_appropriate_animation_frame(m_enemy_animation_model_sprite.get())));
+    m_current_animation_frames.emplace_back(morpheus::utils::construct_appropriate_animation_frame(
+            m_enemy_animation_model_sprite.get()));
 
     m_current_animation_frames.back()->set_position(m_final_map_position, true,
                                                     morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
@@ -67,10 +78,10 @@ hayai::Enemy::Enemy(morpheus::core::gfx::BlendingController *blending_controller
 
 void hayai::Enemy::update(const unsigned char cycle_time) {
     if(cycle_time == 0 || cycle_time == 15 || cycle_time == 30 || cycle_time == 45) {
+        m_jumping = !m_jumping;
+
         #ifdef _GBA
             auto *gba_sprite = static_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_enemy_sprite.get());
-
-            m_jumping = !m_jumping;
 
             if(m_jumping) {
                 gba_sprite->build_attr2(ENEMY_PALETTE_ID, ENEMY_JUMPING_TILE_ID);
@@ -78,6 +89,13 @@ void hayai::Enemy::update(const unsigned char cycle_time) {
                 gba_sprite->build_attr2(ENEMY_PALETTE_ID, ENEMY_TILE_ID);
             }
         #elif _NDS
+            auto *nds_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_enemy_sprite.get());
+
+            if(m_jumping) {
+                nds_sprite->set_gfx_pointer(m_jumping_gfx_pointer);
+            } else {
+                nds_sprite->set_gfx_pointer(m_down_gfx_pointer);
+            }
         #endif
     }
 

@@ -55,6 +55,7 @@ namespace hayai {
         }
 
         void delete_coin_indices(std::array<int, 4> coin_indices);
+        void kill_enemy(const std::shared_ptr<Enemy> &enemy);
 
         void input(const morpheus::core::InputEvent input_event)override;
         void update(const unsigned char cycle_time)override;

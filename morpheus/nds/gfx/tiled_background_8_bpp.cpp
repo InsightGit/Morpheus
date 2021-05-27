@@ -53,6 +53,14 @@ void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *til
                                                          const unsigned short *tile_map,
                                                          const unsigned int tile_map_len,
                                                          core::gfx::TiledBackgroundSize size) {
+    array_load(tile_map, tile_map_len, size);
+
+    dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
+}
+
+void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned short *tile_map,
+                                                         const unsigned int tile_map_len,
+                                                         morpheus::core::gfx::TiledBackgroundSize size) {
     set_background_size(size);
 
     if(is_affine()) {
@@ -63,6 +71,5 @@ void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *til
         *get_background_register() |= (1 << 7);
     }
 
-    dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
     dmaCopy(tile_map, bgGetMapPtr(get_background_reference_num()), tile_map_len);
 }

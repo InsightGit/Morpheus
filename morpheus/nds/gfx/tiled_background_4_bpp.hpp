@@ -36,6 +36,8 @@ namespace morpheus {
                 void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                 const unsigned short *tile_map, const unsigned int tile_map_len,
                                 core::gfx::TiledBackgroundSize size)override;
+                void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size)override;
             };
         }
     }

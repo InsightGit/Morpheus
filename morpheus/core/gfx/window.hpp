@@ -50,6 +50,10 @@ namespace morpheus {
                     }
                 }
 
+                bool is_blending_enabled() const {
+                    return m_blending_enabled;
+                }
+
                 bool is_objects_enabled() const {
                     return m_objects_enabled;
                 }
@@ -59,8 +63,10 @@ namespace morpheus {
                 }
 
                 void add_background(unsigned int background);
+                void disable_blending();
                 void disable_objects();
                 void disable_window();
+                void enable_blending();
                 void enable_objects();
                 void enable_window();
                 std::vector<unsigned int> get_backgrounds()const;
@@ -69,6 +75,7 @@ namespace morpheus {
             private:
                 std::vector<unsigned int> m_active_backgrounds;
                 std::shared_ptr<core::MainLoop> m_main_loop;
+                bool m_blending_enabled = false;
                 bool m_objects_enabled = false;
                 bool m_window_enabled;
                 WindowRect m_window_rect;

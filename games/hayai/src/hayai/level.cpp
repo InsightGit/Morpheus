@@ -88,9 +88,11 @@ void hayai::Level::update(const unsigned char cycle_time) {
         enemy->update(cycle_time);
     }
 
+    #ifdef _NDS
     if(cycle_time == 30 || cycle_time == 0) {
         animate_coins();
     }
+    #endif
 
     m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
 
@@ -164,4 +166,17 @@ void hayai::Level::delete_coin_indices(const std::array<int, 4> coin_indices) {
             }
         }
     }
+}
+
+void hayai::Level::kill_enemy(const std::shared_ptr<Enemy> &enemy) {
+    m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(),
+                   [this, enemy](std::shared_ptr<Enemy> array_enemy) {
+       for(unsigned int i = 0; i < m_enemies.size(); ++i) {
+           if(enemy.get() == m_enemies[i].get()) {
+               return true;
+           }
+       }
+
+       return false;
+    }), m_enemies.end());
 }

@@ -49,6 +49,7 @@ hayai::PlayerHud::PlayerHud(std::shared_ptr<morpheus::core::MainLoop> main_loop)
         m_hud_window->add_background(HUD_BACKGROUND_NUM);
         m_out_window->add_background(Level::MAIN_LEVEL_BACKGROUND_NUM);
         m_out_window->enable_objects();
+        m_out_window->enable_blending();
 
         m_hud_window->set_window_rect({
             .bottom = static_cast<unsigned char>(HUD_POSITION.get_y() + HUD_SIZE.get_y()),
@@ -86,6 +87,15 @@ void hayai::PlayerHud::print_number_at(const unsigned int number, const morpheus
 
         ++digit_num;
     }
+
+    /*nocashMessage((std::to_string(number) + " with " + std::to_string(digits.size()) + " digits").c_str());
+    std::string digits_string = "digits are ";
+
+    for(unsigned int digit : digits) {
+        digits_string += std::to_string(digit);
+    }
+
+    nocashMessage(digits_string.c_str());*/
 
     //std::reverse(digits.begin(), digits.end());
 
