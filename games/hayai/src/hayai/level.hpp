@@ -66,7 +66,7 @@ namespace hayai {
         std::vector<int> m_current_coin_indices;
         int m_current_top_tile_row_to_load = 64;
         int m_current_bottom_tile_row_to_load = 0;
-        std::vector<std::unique_ptr<Enemy>> m_enemies;
+        std::vector<std::shared_ptr<Enemy>> m_enemies;
         std::unique_ptr<Player> m_player;
         std::vector<unsigned int> m_friction_tile_ids;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;

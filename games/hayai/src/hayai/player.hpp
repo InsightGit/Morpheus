@@ -40,6 +40,10 @@ namespace hayai {
             return m_sprite_base;
         }
 
+        void set_enemies_vector(const std::vector<std::shared_ptr<Enemy>> &enemies) {
+            m_enemies = enemies;
+        }
+
         void draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num);
 
         void input(const morpheus::core::InputEvent input_event)override;
@@ -95,6 +99,8 @@ namespace hayai {
         morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
         unsigned int m_current_animation_frame;
         Level *m_current_level;
+        std::vector<std::shared_ptr<Enemy>> m_enemies;
+        std::vector<morpheus::core::gfx::AnimationFrame> m_flicker_animation;
         std::vector<uint16_t*> m_gfx_pointers;
         bool m_last_was_left = false;
         bool m_jumping = false;

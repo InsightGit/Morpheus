@@ -199,7 +199,6 @@ void hayai::Player::update(const unsigned char cycle_time) {
 
     apply_x_collision_detection();
     apply_y_collision_detection();
-    //update_coin_count();
 
     if(abs(m_velocity.get_x()) > 0) {
         if(cycle_time == 0) {
@@ -376,15 +375,6 @@ void hayai::Player::apply_gravity() {
     unsigned int tile_id_1 = m_level_background->get_tile_id_at_position(tile_pos_1);
     unsigned int tile_id_2 = m_level_background->get_tile_id_at_position(tile_pos_2);
 
-    /*if(m_current_level != nullptr) {
-        m_current_level->nocash_message("1: " + m_level_background->
-                                        get_tile_map_position_at_screen_position(tile_pos_1).to_string() +
-                                        " is " + std::to_string(tile_id_1));
-        m_current_level->nocash_message("2: " + m_level_background->
-                                        get_tile_map_position_at_screen_position(tile_pos_2).to_string() +
-                                        " is " + std::to_string(tile_id_2));
-    }*/
-
     if(!m_jumping) {
         if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
             m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
@@ -460,6 +450,26 @@ void hayai::Player::apply_x_collision_detection() {
                     break;
                 }
             }
+        }
+    }
+
+    for(std::shared_ptr<Enemy> &enemy : m_enemies) {
+        morpheus::core::gfx::Vector2 enemy_position = enemy->get_sprite()->get_position();
+        morpheus::core::gfx::Vector2 player_position = get_sprite()->get_position();
+
+        if(enemy->is_jumping()) {
+            enemy_position = enemy_position + Enemy::JUMPING_OFFSET;
+        } else {
+            enemy_position = enemy_position + Enemy::REGULAR_OFFSET;
+        }
+
+        m_current_level->nocash_message(player_position.to_string() + "-" + enemy_position.to_string());
+
+        if(player_position.get_x() < enemy_position.get_x() + Enemy::ENEMY_SIZE.get_x() &&
+           player_position.get_x() + 32 > enemy_position.get_x() &&
+           player_position.get_y() < player_position.get_y() + Enemy::ENEMY_SIZE.get_y() &&
+           player_position.get_y() + 32 > enemy_position.get_y()) {
+            //
         }
     }
 }
@@ -551,13 +561,9 @@ void hayai::Player::remove_coin_at_position(morpheus::core::gfx::Vector2 positio
 
     m_player_hud->set_coin_number(m_player_hud->get_coin_number() + 1);
 
-    //m_current_level->nocash_message("old pos: " + position.to_string());
 
     for(unsigned int i = 1; tile_removal_indices.size() > i; ++i) {
         morpheus::core::gfx::Vector2 new_position = position + tile_removal_positions[i - 1];
-
-        /*m_current_level->nocash_message("new pos for tile index " + std::to_string(i) + ": " +
-                                        new_position.to_string());*/
 
         tile_removal_indices[i] = m_level_background->get_tile_index_at_position(new_position);
     }

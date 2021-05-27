@@ -4,6 +4,10 @@
 
 #include "enemy.hpp"
 
+const morpheus::core::gfx::Vector2 hayai::Enemy::ENEMY_SIZE = morpheus::core::gfx::Vector2(32, 25);
+const morpheus::core::gfx::Vector2 hayai::Enemy::JUMPING_OFFSET = morpheus::core::gfx::Vector2(0, 2);
+const morpheus::core::gfx::Vector2 hayai::Enemy::REGULAR_OFFSET = morpheus::core::gfx::Vector2(0, 7);
+
 hayai::Enemy::Enemy(morpheus::core::gfx::BlendingController *blending_controller,
                     morpheus::core::gfx::MosaicController *mosaic_controller,
                     morpheus::core::NoCashDebugController *debug_controller,
@@ -12,13 +16,15 @@ hayai::Enemy::Enemy(morpheus::core::gfx::BlendingController *blending_controller
                     morpheus::core::gfx::Vector2 final_map_position,
                     std::shared_ptr<morpheus::core::gfx::SpriteBase> player_sprite) {
     m_debug_controller = debug_controller;
-    m_final_map_position = final_map_position;
-    m_initial_map_position = initial_map_position;
+    // TODO(Bobby): Find a way to get rid of these needed 11 tile offsets
+    m_final_map_position = final_map_position + morpheus::core::gfx::Vector2(11 * 8, 11 * 8);
+    m_initial_map_position = initial_map_position + morpheus::core::gfx::Vector2(11 * 8, 11 * 8);
     m_level_background = level_background;
     m_player_sprite = player_sprite;
 
     m_enemy_sprite.reset(
             morpheus::utils::construct_appropriate_sprite_4bpp(false, blending_controller, mosaic_controller));
+    m_enemy_animation_model_sprite.reset(morpheus::utils::construct_appropriate_sprite_4bpp(false, nullptr, nullptr));
 
     #ifdef _GBA
         auto *gba_sprite = static_cast<morpheus::gba::gfx::Sprite4Bpp*>(m_enemy_sprite.get());
@@ -35,26 +41,28 @@ hayai::Enemy::Enemy(morpheus::core::gfx::BlendingController *blending_controller
     m_enemy_sprite->load_into_palette(enemydownPal, 16, ENEMY_PALETTE_ID * 16);
 
     m_current_animation_frames.push_back(std::shared_ptr<morpheus::core::gfx::AnimationFrame>(
-            morpheus::utils::construct_appropriate_animation_frame(m_enemy_sprite.get())));
+            morpheus::utils::construct_appropriate_animation_frame(m_enemy_animation_model_sprite.get())));
 
-    m_current_animation_frames.back()->set_position(m_initial_map_position - morpheus::core::gfx::Vector2(32 * 8,
-                                                                                                          32 * 8), true,
+    m_current_animation_frames.back()->set_position(m_initial_map_position, true,
                                                     morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
     m_current_animation_frames.back()->set_vblank_delays(120);
 
     m_current_animation_frames.push_back(std::shared_ptr<morpheus::core::gfx::AnimationFrame>(
-            morpheus::utils::construct_appropriate_animation_frame(m_enemy_sprite.get())));
+            morpheus::utils::construct_appropriate_animation_frame(m_enemy_animation_model_sprite.get())));
 
-    m_current_animation_frames.back()->set_position(m_final_map_position - morpheus::core::gfx::Vector2(32 * 8,
-                                                                                                        32 * 8), true,
+    m_current_animation_frames.back()->set_position(m_final_map_position, true,
                                                     morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
     m_current_animation_frames.back()->set_vblank_delays(120);
 
-    m_enemy_sprite->set_frames(m_current_animation_frames);
+    m_enemy_animation_model_sprite->set_frames(m_current_animation_frames);
+
+    m_enemy_animation_model_sprite->play();
+
+    //m_enemy_sprite->set_frames(m_current_animation_frames);
 
     m_debug_controller->send_to_debug_window("animation size is " + std::to_string(m_current_animation_frames.size()));
 
-    m_enemy_sprite->play();
+    //m_enemy_sprite->play();
 }
 
 void hayai::Enemy::update(const unsigned char cycle_time) {
@@ -74,12 +82,13 @@ void hayai::Enemy::update(const unsigned char cycle_time) {
     }
 
     m_enemy_sprite->update(cycle_time);
+    m_enemy_animation_model_sprite->update(cycle_time);
 
     update_animation_positions();
 }
 
 void hayai::Enemy::update_animation_positions() {
-    morpheus::core::gfx::Vector2 enemy_map_position = m_enemy_sprite->get_position();
+    morpheus::core::gfx::Vector2 enemy_map_position = m_enemy_animation_model_sprite->get_position();
     morpheus::core::gfx::Vector2 player_map_position = m_player_sprite->get_position() + m_level_background->get_scroll();
     auto sprite_map_position_delta = morpheus::core::gfx::Vector2(enemy_map_position.get_x() - player_map_position.get_x(),
                                                                   enemy_map_position.get_y() - player_map_position.get_y());
@@ -91,22 +100,4 @@ void hayai::Enemy::update_animation_positions() {
     } else {
         m_enemy_sprite->hide();
     }
-
-    /*final_position = m_final_map_position - scrolling_position;
-    initial_position = m_initial_map_position - scrolling_position;
-
-    m_current_animation_frames[0]->set_position(initial_position, true,
-                                                morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
-    m_current_animation_frames[1]->set_position(final_position, true,
-                                                morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
-
-    m_enemy_sprite->set_frames(m_current_animation_frames);
-
-    //m_enemy_sprite->set_position(m_initial_map_position + scrolling_position);
-    m_enemy_sprite->set_position(m_enemy_sprite->get_position() + scrolling_position);*/
-
-    m_debug_controller->send_to_debug_window(m_enemy_sprite->get_position().to_string());
-
-
-    m_past_scrolling = m_level_background->get_scroll();
 }

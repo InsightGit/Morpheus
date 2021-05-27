@@ -50,6 +50,7 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
     m_level_background->load_from_array(test_map_1Tiles, test_map_1TilesLen, test_map_1Pal,
                                         test_map_1PalLen, test_map_1Map, test_map_1MapLen,
                                         morpheus::core::gfx::TiledBackgroundSize::BG_64x64);
+    m_player->set_enemies_vector(m_enemies);
 
     for(const std::vector<unsigned int> &collision_tile_group : COLLISION_TILES) {
         m_collision_tile_ids.insert(m_collision_tile_ids.end(), collision_tile_group.begin(),
@@ -67,7 +68,7 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
 
     main_loop->add_sprite(m_player->get_sprite());
 
-    for(std::unique_ptr<Enemy> &enemy : m_enemies) {
+    for(std::shared_ptr<Enemy> &enemy : m_enemies) {
         main_loop->add_sprite(enemy->get_sprite());
     }
 
@@ -83,7 +84,7 @@ void hayai::Level::update(const unsigned char cycle_time) {
 
     m_player->update(cycle_time);
 
-    for(std::unique_ptr<Enemy> &enemy : m_enemies) {
+    for(std::shared_ptr<Enemy> &enemy : m_enemies) {
         enemy->update(cycle_time);
     }
 
