@@ -54,6 +54,21 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
     m_game_over_animation.back()->set_blending_value(16, true, morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
     m_game_over_animation.back()->set_vblank_delays(GAME_OVER_FADE_TIME_FRAMES);
 
+    m_game_over_text.reset(morpheus::utils::construct_appropriate_text(false, 3, 2, 28, main_loop.get(), false));
+
+
+    m_game_over_text_window.reset(morpheus::utils::construct_appropriate_window(
+                                                                morpheus::core::gfx::WindowType::WINDOW_1, main_loop));
+
+    m_game_over_text_window->add_background(3);
+
+    m_game_over_text_window->set_window_rect({
+        .bottom = 48,
+        .left = 80,
+        .right = 160,
+        .top = 40,
+    });
+
     main_loop->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::USE_WEIGHTS);
     main_loop->get_blending_controller()->set_blend_weight(false, 16);
     main_loop->get_blending_controller()->enable_backdrop_blending(true);
@@ -187,6 +202,22 @@ void hayai::Player::input(const morpheus::core::InputEvent input_event) {
 }
 
 void hayai::Player::update(const unsigned char cycle_time) {
+    if(m_game_over) {
+        if(!m_sprite_base->is_playing() && !m_game_over_printed) {
+            m_game_over_text->set_print_position(morpheus::core::gfx::Vector2(80, 40));
+
+            m_game_over_text->print("Game over!");
+
+            m_game_over_text_window->enable_window();
+
+            m_game_over_printed = true;
+        }
+
+        return;
+    }
+
+    //m_current_level->nocash_message("updating");
+
     if(m_first_run) {
         m_first_run = !m_first_run;
 
@@ -243,10 +274,19 @@ void hayai::Player::update(const unsigned char cycle_time) {
         m_sprite_base->set_position(INITIAL_SPRITE_POSITION);
     }
 
+    m_current_level->nocash_message("applying enemy collision");
+
     apply_enemy_collision_detection();
 
+    m_current_level->nocash_message("applying x collision");
+
     apply_x_collision_detection();
+
+    m_current_level->nocash_message("applying y collision");
+
     apply_y_collision_detection();
+
+    m_current_level->nocash_message("applying animaton");
 
     if(abs(m_velocity.get_x()) > 0) {
         if(cycle_time == 0) {
@@ -274,9 +314,15 @@ void hayai::Player::update(const unsigned char cycle_time) {
         apply_friction();
     }
 
+    m_current_level->nocash_message("applying speed zones");
+
     apply_speed_zones();
 
+    m_current_level->nocash_message("applying gravity");
+
     apply_gravity();
+
+    m_current_level->nocash_message("done!");
 
     if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
         m_velocity = m_velocity + m_acceleration;
@@ -388,8 +434,12 @@ hayai::Player::SpeedZone hayai::Player::get_speed_zone() const {
 
 void hayai::Player::apply_enemy_collision_detection() {
     for(unsigned int i = 0; m_enemies.size() > i; ++i) {
+        //nocash_puts("getting positions");
+
         morpheus::core::gfx::Vector2 enemy_position = m_enemies[i]->get_sprite()->get_position();
         morpheus::core::gfx::Vector2 player_position = get_sprite()->get_position();
+
+        //nocash_puts("checking jumping");
 
         if(m_enemies[i]->is_jumping()) {
             enemy_position = enemy_position + Enemy::JUMPING_OFFSET;
@@ -397,35 +447,61 @@ void hayai::Player::apply_enemy_collision_detection() {
             enemy_position = enemy_position + Enemy::REGULAR_OFFSET;
         }
 
+        //nocash_puts("collision checking");
+
         if(player_position.get_x() < enemy_position.get_x() + Enemy::ENEMY_SIZE.get_x() &&
            player_position.get_x() + 32 > enemy_position.get_x() &&
            player_position.get_y() < player_position.get_y() + Enemy::ENEMY_SIZE.get_y() &&
            player_position.get_y() + 32 > enemy_position.get_y() && player_position.get_x()) {
             if(player_position.get_y() < enemy_position.get_y() - (Enemy::ENEMY_SIZE.get_y() + 2)) {
+                m_current_level->nocash_message("starting effect");
+
                 m_enemy_damage_sfx->start_effect(false);
 
+                m_current_level->nocash_message("killing enemy");
+
                 m_current_level->kill_enemy(m_enemies[i]);
+
+                m_current_level->nocash_message("erasing enemy");
 
                 m_enemies.erase(m_enemies.begin() + i);
 
                 m_current_level->nocash_message("hit enemy!");
             } else if(!m_sprite_base->is_playing()) {
+                m_current_level->nocash_message("getting health number");
+
                 int current_health_number = m_player_hud->get_health_number();
 
                 if(current_health_number > 0) {
-                    m_player_damage_sfx->start_effect(false);
+                    m_current_level->nocash_message("starting effect");
+
+                    /*if(m_player_damage_sfx != nullptr) {
+                        m_player_damage_sfx->start_effect(false);
+                    }*/
+
+                    m_current_level->nocash_message("setting stop frame");
+
+                    m_sprite_base->set_stop_frame(0);
+
+                    m_current_level->nocash_message("setting health number");
 
                     m_player_hud->set_health_number(m_player_hud->get_health_number() - 1);
+
+                    m_current_level->nocash_message("setting frames");
                     m_sprite_base->set_frames(m_flicker_animation);
                 } else {
                     // game over!
                     m_game_over = true;
+
+                    m_current_level->nocash_message("game overing");
 
                     m_sprite_base->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::FADE_TO_BLACK);
                     m_sprite_base->get_blending_controller()->enable_backdrop_blending(false);
                     m_sprite_base->get_blending_controller()->enable_background_blending(false, 0);
 
                     m_level_background->enable_blending(false);
+
+                    m_sprite_base->set_stop_frame(1);
 
                     m_sprite_base->set_frames(m_game_over_animation);
                 }
@@ -569,6 +645,8 @@ void hayai::Player::apply_y_collision_detection() {
                     m_velocity = m_velocity + morpheus::core::gfx::Vector2(0, 1);
                 } else {
                     if(coin_tile_index(current_tile_index)) {
+                        m_coin_pickup_sfx->start_effect(false);
+
                         remove_coin_at_position(collision_position);
                     }
 
@@ -577,6 +655,8 @@ void hayai::Player::apply_y_collision_detection() {
             }
 
             if(m_velocity.get_y() == 0) {
+                m_current_level->nocash_message("no longer jumping due to collision");
+
                 m_jumping = false;
                 break;
             }

@@ -113,8 +113,6 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
         // TODO(Bobby): Fix unneeded argument 1 problem
         std::vector<void*> filler;
 
-        nocashMessage(("there are sprites " + std::to_string(m_sprites.size())).c_str());
-
         for(unsigned int i = 0; m_sprites.size() > i; ++i) {
             if(!m_sprites[i]->is_hidden()) {
                 m_sprites[i]->draw(filler, i);

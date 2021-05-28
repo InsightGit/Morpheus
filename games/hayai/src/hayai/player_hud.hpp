@@ -40,7 +40,7 @@ namespace hayai {
         }
 
         void set_coin_number(const unsigned int coin_number) {
-            m_coin_number = coin_number;;
+            m_coin_number = coin_number;
         }
 
         unsigned int get_health_number() const {

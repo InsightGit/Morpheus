@@ -132,6 +132,10 @@ namespace morpheus {
                     return m_mosaic_controller;
                 }
 
+                unsigned int get_stop_frame() const {
+                    return m_stop_frame;
+                }
+
                 void set_affine_index(const unsigned int affine_index) {
                     if(m_affine) {
                         m_affine_index = std::min(31u, affine_index);
@@ -163,6 +167,10 @@ namespace morpheus {
 
                 void set_priority(unsigned int priority) {
                     m_priority = std::min(3u, priority);
+                }
+
+                void set_stop_frame(const unsigned int stop_frame) {
+                    m_stop_frame = stop_frame;
                 }
 
                 void toggle_mosaic() {
@@ -299,10 +307,11 @@ namespace morpheus {
                 unsigned char m_priority = 0;
                 bool m_paused = false;
                 bool m_playing = false;
+                int m_rotation = 0;
                 Vector2 m_scale = Vector2(1 << 8, 1 << 8);
                 bool m_smoothing_started = false;
                 int m_smoothing_trend;
-                int m_rotation = 0;
+                int m_stop_frame = 0;
             };
         }
     }

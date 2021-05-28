@@ -31,6 +31,8 @@ void morpheus::nds::gfx::Text::print_chars(std::string string, bool init) {
             m_main_loop->enable_background(get_background_num() + 4);
         }
 
+        m_print_console.fontCurPal = 16;
+
         consoleInit(&m_print_console, static_cast<int>(get_background_num()), BgType_Text4bpp, bg_size,
                     static_cast<int>(get_sbb()), static_cast<int>(get_cbb()), !m_use_sub_display,
                     !m_font_loaded);

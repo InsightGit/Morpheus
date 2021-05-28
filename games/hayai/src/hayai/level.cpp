@@ -76,7 +76,11 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
 }
 
 void hayai::Level::input(const morpheus::core::InputEvent input_event) {
+    nocash_message("getting input");
+
     m_player->input(input_event);
+
+    nocash_message("input recieved!");
 }
 
 void hayai::Level::update(const unsigned char cycle_time) {
@@ -84,17 +88,20 @@ void hayai::Level::update(const unsigned char cycle_time) {
 
     m_player->update(cycle_time);
 
-    for(std::shared_ptr<Enemy> &enemy : m_enemies) {
-        enemy->update(cycle_time);
-    }
+    if(!m_player->is_game_over()) {
+        for(std::shared_ptr<Enemy> &enemy : m_enemies) {
+            nocash_message("updating enemy");
+            enemy->update(cycle_time);
+        }
 
-    #ifdef _NDS
-    if(cycle_time == 30 || cycle_time == 0) {
-        animate_coins();
-    }
-    #endif
+        #ifdef _NDS
+            if(cycle_time == 30 || cycle_time == 0) {
+                animate_coins();
+            }
+        #endif
 
-    m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
+        m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
+    }
 }
 
 void hayai::Level::animate_coins() {

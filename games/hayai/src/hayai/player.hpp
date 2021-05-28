@@ -43,6 +43,10 @@ namespace hayai {
             return m_sprite_base;
         }
 
+        bool is_game_over() const {
+            return m_game_over;
+        }
+
         void set_enemies_vector(const std::vector<std::shared_ptr<Enemy>> &enemies) {
             m_enemies = enemies;
         }
@@ -108,10 +112,13 @@ namespace hayai {
         Level *m_current_level;
         std::vector<std::shared_ptr<Enemy>> m_enemies;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_enemy_damage_sfx;
-        std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_game_over_animation;
         bool m_first_run = true;
         std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_flicker_animation;
+        std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_game_over_animation;
         bool m_game_over = false;
+        bool m_game_over_printed = false;
+        std::unique_ptr<morpheus::core::gfx::TextBase> m_game_over_text;
+        std::unique_ptr<morpheus::core::gfx::Window> m_game_over_text_window;
         std::vector<uint16_t*> m_gfx_pointers;
         bool m_last_was_left = false;
         bool m_jumping = false;
@@ -125,7 +132,6 @@ namespace hayai {
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
         int m_target_x_velocity = 0;
         int m_target_y_velocity = 0;
-        std::unique_ptr<morpheus::core::gfx::TextBase> m_text_base;
         morpheus::core::gfx::Vector2 m_velocity = morpheus::core::gfx::Vector2(0, 8);
         morpheus::core::gfx::Vector2 m_past_velocity = morpheus::core::gfx::Vector2(0, 0);
     };

@@ -130,7 +130,7 @@ namespace morpheus {
                 }
 
                 void set_blend_fade(unsigned char fade) {
-                    m_blend_fade = std::max(fade, static_cast<unsigned char>(16));
+                    m_blend_fade = std::min(fade, static_cast<unsigned char>(16));
 
                     update_blending_registers();
                 }

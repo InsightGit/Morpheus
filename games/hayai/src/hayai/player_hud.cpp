@@ -48,7 +48,10 @@ hayai::PlayerHud::PlayerHud(std::shared_ptr<morpheus::core::MainLoop> main_loop)
     if(gba || !USE_NDS_SUBSCREEN) {
         m_hud_window->add_background(HUD_BACKGROUND_NUM);
         m_out_window->add_background(Level::MAIN_LEVEL_BACKGROUND_NUM);
+
         m_out_window->enable_objects();
+
+        m_hud_window->enable_blending();
         m_out_window->enable_blending();
 
         m_hud_window->set_window_rect({
@@ -76,30 +79,23 @@ void hayai::PlayerHud::print_number_at(const unsigned int number, const morpheus
     unsigned int working_number = number;
     morpheus::core::gfx::Vector2 working_position = position;
 
-    while(working_number != 0 || digit_num < MAX_HUD_DIGITS) {
-        working_number /= 10;
+    if(working_number == 0) {
+        digits.push_back(0);
+    } else {
+        while(working_number != 0 && digit_num < MAX_HUD_DIGITS) {
+            working_number /= 10;
 
-        if(working_number == 0) {
-            digits.push_back(number % 10);
-        } else {
-            digits.push_back(working_number);
+            if(working_number == 0) {
+                digits.push_back(number % 10);
+            } else {
+                digits.push_back(working_number);
+            }
+
+            ++digit_num;
         }
-
-        ++digit_num;
     }
 
-    /*nocashMessage((std::to_string(number) + " with " + std::to_string(digits.size()) + " digits").c_str());
-    std::string digits_string = "digits are ";
-
-    for(unsigned int digit : digits) {
-        digits_string += std::to_string(digit);
-    }
-
-    nocashMessage(digits_string.c_str());*/
-
-    //std::reverse(digits.begin(), digits.end());
-
-    for(unsigned int i = 0; digits.size() > i; --i) {
+    for(unsigned int i = 0; digits.size() > i; ++i) {
         std::vector<unsigned int> digit_tiles = get_digit_tile_vector(digits[i]);
 
         for(unsigned int i2 = 0; digit_tiles.size() > i2; ++i2) {

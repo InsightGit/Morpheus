@@ -147,10 +147,13 @@ bool morpheus::core::gfx::IntegerAnimationSmoothingAttribute::smooth() {
                     }
                     break;
                 case BlendingMode::FADE_TO_WHITE:
-                case BlendingMode::FADE_TO_BLACK:
-                    blending_controller->set_blend_fade(
-                            get_min_value(blending_controller->get_blend_fade() + trend_addition_value));
+                case BlendingMode::FADE_TO_BLACK: {
+                    int blend_fade = get_min_value(blending_controller->get_blend_fade() + trend_addition_value);
+
+                    blending_controller->set_blend_fade(blend_fade);
+
                     break;
+                }
                 case BlendingMode::OFF:
                     return false;
             }

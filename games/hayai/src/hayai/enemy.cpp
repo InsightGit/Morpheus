@@ -99,23 +99,35 @@ void hayai::Enemy::update(const unsigned char cycle_time) {
         #endif
     }
 
-    m_enemy_sprite->update(cycle_time);
+    //nocash_puts("updating animation model");
+
     m_enemy_animation_model_sprite->update(cycle_time);
 
+    //nocash_puts("updating animation ppositions");
+
     update_animation_positions();
+
+    //nocash_puts("done for enemy!");
 }
 
 void hayai::Enemy::update_animation_positions() {
+    //nocash_puts("obtaining positions");
+
     morpheus::core::gfx::Vector2 enemy_map_position = m_enemy_animation_model_sprite->get_position();
     morpheus::core::gfx::Vector2 player_map_position = m_player_sprite->get_position() + m_level_background->get_scroll();
     auto sprite_map_position_delta = morpheus::core::gfx::Vector2(enemy_map_position.get_x() - player_map_position.get_x(),
                                                                   enemy_map_position.get_y() - player_map_position.get_y());
 
     if(abs(sprite_map_position_delta.get_x()) < 240 && abs(sprite_map_position_delta.get_y()) < 160) {
+        //nocash_puts("setting position");
         m_enemy_sprite->set_position(sprite_map_position_delta);
 
+        //nocash_puts("showing");
         m_enemy_sprite->show();
     } else {
+        //nocash_puts("hiding");
         m_enemy_sprite->hide();
     }
+
+    //nocash_puts("done");
 }

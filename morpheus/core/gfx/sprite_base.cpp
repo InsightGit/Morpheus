@@ -29,11 +29,7 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
 
                 if(m_looping) {
                     m_first_animation_cycle = false;
-                } else {
-                    stop();
                 }
-
-                //nocash_puts("playing frame 0");
             } else {
                 ++m_current_frame;
 
@@ -46,6 +42,10 @@ void morpheus::core::gfx::SpriteBase::update_animation() {
             //nocash_puts(std::string("Activating current frame " + std::to_string(get_current_frame())).c_str());
 
             m_frames[get_current_frame()]->activate_on_target_sprite_base();
+
+            if(!m_looping && static_cast<int>(m_current_frame) == m_stop_frame) {
+                stop();
+            }
 
             return;
         }
@@ -144,7 +144,7 @@ void morpheus::core::gfx::SpriteBase::stop() {
     m_current_frame = 0;
 
     if(m_frames.size() > 0) {
-        m_frames[get_current_frame()]->activate_on_target_sprite_base();
+        m_frames[m_stop_frame]->activate_on_target_sprite_base();
     }
 
     m_playing = false;

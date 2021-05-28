@@ -5,8 +5,6 @@
 #ifndef MORPHEUS_GBA_TEST_ANIMATION_SMOOTHING_ATTRIBUTES_HPP
 #define MORPHEUS_GBA_TEST_ANIMATION_SMOOTHING_ATTRIBUTES_HPP
 
-//#include <tonc.h>
-
 #include <core/gfx/animation_frame.hpp>
 #include <core/gfx/vector_2.hpp>
 
