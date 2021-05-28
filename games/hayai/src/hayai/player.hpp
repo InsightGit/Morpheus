@@ -25,6 +25,9 @@
 #include "playerrightarms1.h"
 #include "playerrightarms2.h"
 
+#include "soundbank.h"
+#include "soundbank_bin.h"
+
 namespace hayai {
     class Player : public morpheus::core::ControlReciever {
     public:
@@ -58,6 +61,7 @@ namespace hayai {
         const bool ENABLE_ACCEL_MOVEMENT_SYSTEM = false;
         const int FLICKER_LENGTH = 240;
         const int FRICTION = 2;
+        const int GAME_OVER_FADE_TIME_FRAMES = 60;
         const int GRAVITY = 4;
         const morpheus::core::gfx::Vector2 INITIAL_SCROLL_POSITION = morpheus::core::gfx::Vector2(32*8, 30*8);
         const morpheus::core::gfx::Vector2 INITIAL_SPRITE_POSITION = morpheus::core::gfx::Vector2(88, 88);
@@ -99,11 +103,15 @@ namespace hayai {
 
         // explicit is better than implicit
         morpheus::core::gfx::Vector2 m_acceleration = morpheus::core::gfx::Vector2(0, 0);
+        std::unique_ptr<morpheus::core::audio::MaxModSfx> m_coin_pickup_sfx;
         unsigned int m_current_animation_frame;
         Level *m_current_level;
         std::vector<std::shared_ptr<Enemy>> m_enemies;
+        std::unique_ptr<morpheus::core::audio::MaxModSfx> m_enemy_damage_sfx;
+        std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_game_over_animation;
         bool m_first_run = true;
         std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> m_flicker_animation;
+        bool m_game_over = false;
         std::vector<uint16_t*> m_gfx_pointers;
         bool m_last_was_left = false;
         bool m_jumping = false;
@@ -112,10 +120,12 @@ namespace hayai {
         bool m_left = false;
         std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_level_background;
         bool m_moved_this_frame = false;
+        std::unique_ptr<morpheus::core::audio::MaxModSfx> m_player_damage_sfx;
         std::unique_ptr<PlayerHud> m_player_hud;
         std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
         int m_target_x_velocity = 0;
         int m_target_y_velocity = 0;
+        std::unique_ptr<morpheus::core::gfx::TextBase> m_text_base;
         morpheus::core::gfx::Vector2 m_velocity = morpheus::core::gfx::Vector2(0, 8);
         morpheus::core::gfx::Vector2 m_past_velocity = morpheus::core::gfx::Vector2(0, 0);
     };

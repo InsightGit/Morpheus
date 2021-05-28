@@ -95,40 +95,6 @@ void hayai::Level::update(const unsigned char cycle_time) {
     #endif
 
     m_level_background->set_scroll(m_level_background->get_scroll() + m_player->get_velocity());
-
-    //y_scroll_difference = m_level_background->get_scroll().get_y() - m_old_scroll_position.get_y();
-
-    /*if(m_level_background->is_large_background()) {
-        if(y_scroll_difference >= 8) {
-            for(int i = 0; y_scroll_difference / 8 > i; i += 8) {
-                for(int i2 = 0; 64 > i2; ++i2) {
-                    m_level_background->set_tile_id_at_position(morpheus::core::gfx::Vector2(i2, 0),
-                                                                GRASS_TILES[0]);
-
-                    nocash_message("loading in new top tile id");
-                }
-
-                ++m_current_top_tile_row_to_load;
-                ++m_current_bottom_tile_row_to_load;
-            }
-
-            m_old_scroll_position = m_level_background->get_scroll();
-        } else if(y_scroll_difference <= -8) {
-            for(int i = 0; abs(y_scroll_difference / 8) > i; ++i) {
-                for(int i2 = 0; 64 > i2; ++i2) {
-                    m_level_background->set_tile_id_at_position(morpheus::core::gfx::Vector2(i2, 63 * 8),
-                                                                GRASS_TILES[0]);
-
-                    nocash_message("loading in new bottom tile id");
-                }
-
-                --m_current_top_tile_row_to_load;
-                --m_current_bottom_tile_row_to_load;
-            }
-
-            m_old_scroll_position = m_level_background->get_scroll();
-        }
-    }*/
 }
 
 void hayai::Level::animate_coins() {
@@ -152,10 +118,6 @@ void hayai::Level::animate_coins() {
 }
 
 void hayai::Level::delete_coin_indices(const std::array<int, 4> coin_indices) {
-    /*nocash_message("deleting indices " + std::to_string(coin_indices[0]) + "-" +
-                   std::to_string(coin_indices[1]) + "-" + std::to_string(coin_indices[2]) +
-                   "-" + std::to_string(coin_indices[3]));*/
-
     for(int coin_index : coin_indices) {
         for(unsigned int i = 0; m_current_coin_indices.size() > i; ++i) {
             if(coin_index == m_current_coin_indices[i]) {
@@ -173,6 +135,10 @@ void hayai::Level::kill_enemy(const std::shared_ptr<Enemy> &enemy) {
                    [this, enemy](std::shared_ptr<Enemy> array_enemy) {
        for(unsigned int i = 0; i < m_enemies.size(); ++i) {
            if(enemy.get() == m_enemies[i].get()) {
+               enemy->get_sprite()->hide();
+
+               get_main_loop()->remove_sprite(enemy->get_sprite());
+
                return true;
            }
        }

@@ -133,7 +133,9 @@ namespace morpheus {
                 virtual void input(core::InputEvent input_event) override {}
             protected:
                 void set_last_used_obj_attr_num(const int last_used_obj_attr_num) {
-                    m_last_used_obj_attr_num = last_used_obj_attr_num;
+                    if(m_last_used_obj_attr_num >= 0) {
+                        m_last_used_obj_attr_num = last_used_obj_attr_num;
+                    }
                 }
 
                 NdsAnimationFrame get_current_nds_animation_frame() const {

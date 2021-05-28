@@ -142,7 +142,10 @@ void morpheus::core::gfx::SpriteBase::stop() {
     stop_animation(false);
 
     m_current_frame = 0;
-    m_frames[get_current_frame()]->activate_on_target_sprite_base();
+
+    if(m_frames.size() > 0) {
+        m_frames[get_current_frame()]->activate_on_target_sprite_base();
+    }
 
     m_playing = false;
     m_paused = false;

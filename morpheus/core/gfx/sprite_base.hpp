@@ -56,7 +56,7 @@ namespace morpheus {
                     m_mosaic_controller = mosaic_controller;
                 }
 
-                virtual ~SpriteBase() {}
+                virtual ~SpriteBase() = default;
 
                 unsigned int get_affine_index() const {
                     if(m_affine) {

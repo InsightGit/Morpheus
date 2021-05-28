@@ -17,6 +17,11 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
     m_current_level = level;
     m_level_background = level_background;
 
+    m_coin_pickup_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(
+                                    SFX_COIN_PICKUP, const_cast<void *>(static_cast<const void*>(&soundbank_bin)), 4));
+    m_enemy_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_ENEMY_KILL));
+    m_player_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_PLAYER_HURT));
+
     m_sprite_base->load_into_palette(playerleftarms0Pal, 32, LEFT_PALETTE_IDS[0]*16);
     m_sprite_base->load_into_palette(playerleftarms1Pal, 32, LEFT_PALETTE_IDS[1]*16);
     m_sprite_base->load_into_palette(playerleftarms2Pal, 32, LEFT_PALETTE_IDS[2]*16);
@@ -38,6 +43,16 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
                                                       morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
         m_flicker_animation.back()->set_vblank_delays(30);
     }
+
+    m_game_over_animation.emplace_back(morpheus::utils::construct_appropriate_animation_frame(m_sprite_base.get()));
+
+    m_game_over_animation.back()->set_blending_value(0, true, morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
+    m_game_over_animation.back()->set_vblank_delays(GAME_OVER_FADE_TIME_FRAMES);
+
+    m_game_over_animation.emplace_back(morpheus::utils::construct_appropriate_animation_frame(m_sprite_base.get()));
+
+    m_game_over_animation.back()->set_blending_value(16, true, morpheus::core::gfx::AnimationSmoothingMode::LINEAR);
+    m_game_over_animation.back()->set_vblank_delays(GAME_OVER_FADE_TIME_FRAMES);
 
     main_loop->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::USE_WEIGHTS);
     main_loop->get_blending_controller()->set_blend_weight(false, 16);
@@ -112,7 +127,8 @@ void hayai::Player::draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_
 }
 
 void hayai::Player::input(const morpheus::core::InputEvent input_event) {
-    if(input_event.state == morpheus::core::InputState::DOWN || input_event.state == morpheus::core::InputState::HELD) {
+    if((input_event.state == morpheus::core::InputState::DOWN || input_event.state == morpheus::core::InputState::HELD) &&
+       !m_game_over) {
         switch (input_event.button) {
             case morpheus::core::InputButton::A:
                 // if the player is not jumping or falling
@@ -386,6 +402,8 @@ void hayai::Player::apply_enemy_collision_detection() {
            player_position.get_y() < player_position.get_y() + Enemy::ENEMY_SIZE.get_y() &&
            player_position.get_y() + 32 > enemy_position.get_y() && player_position.get_x()) {
             if(player_position.get_y() < enemy_position.get_y() - (Enemy::ENEMY_SIZE.get_y() + 2)) {
+                m_enemy_damage_sfx->start_effect(false);
+
                 m_current_level->kill_enemy(m_enemies[i]);
 
                 m_enemies.erase(m_enemies.begin() + i);
@@ -395,12 +413,23 @@ void hayai::Player::apply_enemy_collision_detection() {
                 int current_health_number = m_player_hud->get_health_number();
 
                 if(current_health_number > 0) {
+                    m_player_damage_sfx->start_effect(false);
+
                     m_player_hud->set_health_number(m_player_hud->get_health_number() - 1);
+                    m_sprite_base->set_frames(m_flicker_animation);
                 } else {
                     // game over!
+                    m_game_over = true;
+
+                    m_sprite_base->get_blending_controller()->set_blending_mode(morpheus::core::gfx::BlendingMode::FADE_TO_BLACK);
+                    m_sprite_base->get_blending_controller()->enable_backdrop_blending(false);
+                    m_sprite_base->get_blending_controller()->enable_background_blending(false, 0);
+
+                    m_level_background->enable_blending(false);
+
+                    m_sprite_base->set_frames(m_game_over_animation);
                 }
 
-                m_sprite_base->set_frames(m_flicker_animation);
                 m_sprite_base->play(false);
             }
         }
@@ -513,6 +542,8 @@ void hayai::Player::apply_x_collision_detection() {
                     m_velocity = m_velocity + vector_difference;
                 } else {
                     if(coin_tile_index(current_tile_index)) {
+                        m_coin_pickup_sfx->start_effect(false);
+
                         remove_coin_at_position(collision_position);
                     }
 

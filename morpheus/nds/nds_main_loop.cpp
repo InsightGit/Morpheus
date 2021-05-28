@@ -107,14 +107,18 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
             sprite->update(m_cycle_time);
         }
 
-        oamClear(&oamMain, 0, 0);
-        oamClear(&oamSub, 0, 0);
+        oamClear(&oamMain, 0, 128);
+        //oamClear(&oamSub, 0, 128);
 
         // TODO(Bobby): Fix unneeded argument 1 problem
         std::vector<void*> filler;
 
-        for(unsigned int i = 0; m_sprites.size() > i;++i) {
-            m_sprites[i]->draw(filler, i);
+        nocashMessage(("there are sprites " + std::to_string(m_sprites.size())).c_str());
+
+        for(unsigned int i = 0; m_sprites.size() > i; ++i) {
+            if(!m_sprites[i]->is_hidden()) {
+                m_sprites[i]->draw(filler, i);
+            }
 
             set_supplementary_seed(static_cast<int>(m_cycle_time) + i + m_last_input_size);
         }

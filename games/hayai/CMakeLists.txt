@@ -56,6 +56,9 @@ set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms0.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerrightarms2.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/enemydown.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/enemyup.png")
+set(MAXMOD_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/coin_pickup.wav"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/enemy_kill.wav"
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/player_hurt.wav")
 
 #if(platform_lower STREQUAL "gba")
 #    set(PNG8_FILES "../tests/gba/test8.png" CACHE STRING
@@ -122,10 +125,12 @@ if(platform_lower STREQUAL "gba")
         endif()
     endif()
 
+    generate_maxmod_soundbank(true "soundbank" MAXMOD_FILES)
+
     include_directories(hayai PRIVATE $ENV{DEVKITPRO}/libtonc/include $ENV{DEVKITPRO}/libgba/include)
     link_directories(hayai PRIVATE ../../cmake-build-debug-gba $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
+    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES} ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o) #${PNG8_OUTPUT_FILES})
     add_gba_executable(hayai.elf)
 
     target_link_libraries(hayai.elf gba_morpheus mm tonc)
@@ -158,12 +163,14 @@ elseif(platform_lower STREQUAL "nds")
         endif()
     endif()
 
+    generate_maxmod_soundbank(false "soundbank" MAXMOD_FILES)
+
     link_directories(hayai PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
 
-    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES}) #${PNG8_OUTPUT_FILES})
+    add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES} ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o) #${PNG8_OUTPUT_FILES})
     add_nds_executable(hayai.elf assets/ds_icon.bmp "Hayai" "an Acceleration-based platformer" "powered by Morpheus")
 
-    target_link_libraries(hayai.elf nds_morpheus fat filesystem nds9)
+    target_link_libraries(hayai.elf nds_morpheus fat filesystem nds9 mm9)
 endif()
 
 if(WIN32)

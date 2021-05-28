@@ -113,7 +113,13 @@ namespace morpheus {
             void remove_sprite(gfx::SpriteBase *sprite) {
                 std::remove_if(m_sprites.begin(), m_sprites.end(),
                                [this, sprite](std::shared_ptr<gfx::SpriteBase> other) {
-                   return other.get() == sprite;
+                   bool return_value = other.get() == sprite;
+
+                   if(return_value) {
+                       sprite->hide();
+                   }
+
+                   return return_value;
                });
             }
 
