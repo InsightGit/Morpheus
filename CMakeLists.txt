@@ -1,7 +1,8 @@
 # Parts of this cmake file orignate from Xtansia's fork of 3ds-cmake:
 # https://github.com/Xtansia/3ds-cmake/
 
-cmake_minimum_required(VERSION 3.16)
+#cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.7.2)
 
 include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
