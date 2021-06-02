@@ -12,6 +12,16 @@ else()
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
 endif()
 
+if(NOT GRIT)
+    # message(STATUS "Looking for bin2s...")
+    find_program(GRIT grit ${DEVKITPRO}/tools)
+    if(GRIT)
+        message(STATUS "grit: ${GRIT} - found")
+    else()
+        message(FATAL_ERROR "grit - not found")
+    endif()
+endif()
+
 execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.png)
 
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
@@ -170,16 +180,6 @@ if("$ENV{BUILD_TESTS}")
         set(PNG8_FILES "../tests/nds/input_test/test8.png" "../tests/nds/input_test/testt.png" CACHE STRING
                 "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
         set(PNG8_IMAGE_SIZES "32X32" "32X32")
-    endif()
-
-    if(NOT GRIT)
-        # message(STATUS "Looking for bin2s...")
-        find_program(GRIT grit ${DEVKITPRO}/tools)
-        if(GRIT)
-            message(STATUS "grit: ${GRIT} - found")
-        else()
-            message(FATAL_ERROR "grit - not found")
-        endif()
     endif()
 
     execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
