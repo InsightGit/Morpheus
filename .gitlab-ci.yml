@@ -10,7 +10,7 @@ gba-library:
     script:
       - mkdir build
       - cd build
-      - ls ..
+      - echo $DEVKITARM
       - PLATFORM=gba BUILD_TESTS=0 ../cmake-3.20.3-linux-x86_64/bin/cmake .. -DCMAKE_BUILD_TYPE=Debug
       - make all
     artifacts:

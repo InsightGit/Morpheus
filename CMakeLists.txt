@@ -598,3 +598,5 @@ endif()
 set(CMAKE_AS ASSEMBLER_TO_USE CACHE STRING "")
 
 enable_language(ASM)
+
+message(STATUS "set CMAKE_CXX_COMPILER to ${CMAKE_CXX_COMPILER}")
