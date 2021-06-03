@@ -22,6 +22,22 @@ if(NOT GRIT)
     endif()
 endif()
 
+if(WIN32)
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
+else()
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
+endif()
+
 execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.png)
 
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
@@ -58,7 +74,6 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/animation_frame.hpp
         morpheus/core/gfx/animation_smoothing_attributes.cpp
         morpheus/core/gfx/animation_smoothing_attributes.hpp)
-
 
 project(morpheus)
 
