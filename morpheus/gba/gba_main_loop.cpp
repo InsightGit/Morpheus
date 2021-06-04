@@ -318,6 +318,8 @@ void morpheus::gba::GbaMainLoop::enable_affine(morpheus::core::gfx::AffineMode a
 }
 
 morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save_manager(core::GbaSaveType save_type) {
+    // TODO(Bobby): figure out way to embed Save ID strings as well
+
     switch(save_type) {
         case core::GbaSaveType::EEPROM_8KB:
             return new morpheus::gba::GbaEepromSaveManager(morpheus::gba::EepromSize::EEPROM_8_KILOBYTES);
@@ -326,12 +328,11 @@ morpheus::core::SaveManager *morpheus::gba::GbaMainLoop::select_appropriate_save
         case core::GbaSaveType::SRAM_32KB:
             return new morpheus::gba::GbaSramSaveManager();
         case core::GbaSaveType::FLASH_AUTO_DETECT:
-            //return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_AUTO_DETECT);
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_AUTO_DETECT);
         case core::GbaSaveType::FLASH_64KB:
-            //return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_64_KB);
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_64_KB);
         case core::GbaSaveType::FLASH_128KB:
-            break;
-            //return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_128_KB);
+            return new morpheus::gba::GbaFlashSaveManager(morpheus::gba::FlashSaveSize::SIZE_128_KB);
     }
 
     // should never happen

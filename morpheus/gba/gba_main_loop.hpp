@@ -21,7 +21,7 @@
 #include <gba/gba_main_loop.hpp>
 #include <gba/serial_communication.hpp>
 #include <gba/gba_eeprom_save_manager.hpp>
-//#include <gba/gba_flash_save_manager.hpp>
+#include <gba/gba_flash_save_manager.hpp>
 #include <gba/gba_sram_save_manager.hpp>
 
 namespace morpheus {

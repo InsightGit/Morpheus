@@ -36,6 +36,13 @@ morpheus::gba::GbaFlashSaveManager::GbaFlashSaveManager(FlashSaveSize flash_save
             break;
     }
 
+    *FLASH_DEVICE_REGISTER_1 = 0xAA;
+    *FLASH_DEVICE_REGISTER_2 = 0x55;
+    *FLASH_DEVICE_REGISTER_1 = 0xF0;
+
+    // TODO(Bobby): Find a better, shorter delay function to use
+    VBlankIntrWait();
+
     nocash_puts(std::string("Is Atmel flash: " + std::to_string(is_ateml())).c_str());
 }
 

@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_GBA_FLASH_SAVE_MANAGER_HPP
 #define MORPHEUS_GBA_TEST_GBA_FLASH_SAVE_MANAGER_HPP
 
+#pragma GCC diagnostic warning "-Wstringop-overflow"
+
 #include <ctime>
 
 #include <tonc.h>

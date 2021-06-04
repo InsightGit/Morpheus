@@ -30,8 +30,6 @@ int main() {
                 true, true);
     #endif*/
 
-    //nocash_puts("main loop loaded");
-
     if(main_loop->get_save_manager()->is_successfully_mounted()) {
         unsigned char save_string[8] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', '\0'};
         unsigned char string[8];
