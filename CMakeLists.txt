@@ -290,8 +290,8 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
-                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
+                #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_gba_executable(morpheus-gba-tileset-test.elf)
 
         target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
@@ -484,8 +484,8 @@ if("$ENV{BUILD_TESTS}")
         add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
-                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
+                #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_nds_executable(morpheus-nds-tileset-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Tileset Test"
                            "Morpheus engine" "")
 
