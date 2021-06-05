@@ -1,18 +1,13 @@
 image: insightgit/morpheus
 
-before_script:
-  - wget https://github.com/Kitware/CMake/releases/download/v3.20.3/cmake-3.20.3-linux-x86_64.tar.gz
-  - tar xvzf cmake-3.20.3-linux-x86_64.tar.gz
-  - chmod +x cmake-3.20.3-linux-x86_64/bin/cmake
-
 gba-library:
     stage: build
     script:
       - mkdir build
       - cd build
       - echo $DEVKITARM
-      - PLATFORM=gba BUILD_TESTS=0 ../cmake-3.20.3-linux-x86_64/bin/cmake .. -DCMAKE_BUILD_TYPE=Debug
-      - make all
+      - PLATFORM=gba BUILD_TESTS=1 cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - cmake --build . --target morpheus
     artifacts:
       name: Morpheus-GBA-$CI_JOB_NAME
       paths:
@@ -24,8 +19,8 @@ nds-library:
   script:
     - mkdir build
     - cd build
-    - PLATFORM=nds BUILD_TESTS=0 ../cmake-3.20.3-linux-x86_64/bin/cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - make all
+    - PLATFORM=nds BUILD_TESTS=1 cmake .. -DCMAKE_BUILD_TYPE=Debug
+    - cmake --build . --target morpheus
   artifacts:
     name: Morpheus-GBA-$CI_JOB_NAME
     paths:
@@ -36,7 +31,9 @@ affine-test-gba:
   stage: test
   script:
     - cd build
-    - ../cmake-3.20.3-linux-x86_64/bin/cmake --build ~/build --target morpheus-gba-affine-test.gba
+    - cmake --build . --target morpheus-gba-affine-test.gba
+  dependencies:
+    - gba-library
   artifacts:
     name: Morpheus-affine-test-GBA-$CI_JOB_NAME
     paths:
@@ -47,7 +44,9 @@ affine-test-nds:
   stage: test
   script:
     - cd build
-    - ../cmake-3.20.3-linux-x86_64/bin/cmake --build ~/build --target morpheus-gba-affine-test.gba
+    - cmake --build . --target morpheus-gba-affine-test.gba
+  dependencies:
+    - nds-library
   artifacts:
     name: Morpheus-affine-test-NDS-$CI_JOB_NAME
     paths:
