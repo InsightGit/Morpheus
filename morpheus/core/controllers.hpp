@@ -20,6 +20,9 @@ namespace morpheus {
                 FADE_TO_BLACK
             };
 
+            /// \enum morpheus::core::gfx::BlendingMode
+            /// Enum class for the current BlendingMode
+
             enum class BlendingSetting {
                 OFF,
                 BOTTOM_ON,

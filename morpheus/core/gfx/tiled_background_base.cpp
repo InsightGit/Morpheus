@@ -10,13 +10,15 @@ const morpheus::core::gfx::Vector2 morpheus::core::gfx::TiledBackgroundBase::TIL
 morpheus::core::gfx::TiledBackgroundBase::TiledBackgroundBase(bool affine, unsigned int background_num,
                                                               BlendingController *blending_controller,
                                                               MosaicController *mosaic_controller,
-                                                              unsigned int cbb_num, unsigned int sbb_num) {
+                                                              unsigned int cbb_num, unsigned int sbb_num,
+                                                              bool use_tile_overrides) {
     m_affine = affine;
     m_background_num = std::min(3u, background_num);
     m_blending_controller = blending_controller;
     m_cbb_num = std::min(3u, cbb_num);
     m_mosaic_controller = mosaic_controller;
     m_sbb_num = std::min(31u, sbb_num);
+    m_use_tile_overrides = use_tile_overrides;
 }
 
 int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_position(const Vector2 position,
@@ -140,4 +142,19 @@ bool morpheus::core::gfx::TiledBackgroundBase::set_tile_id_at_index(const unsign
     }
 
     return true;
+}
+
+void morpheus::core::gfx::TiledBackgroundBase::update_tilemap_vars(const unsigned short *tile_map,
+                                                                   const unsigned int tile_map_len,
+                                                                   morpheus::core::gfx::TiledBackgroundSize size) {
+    m_tile_map = tile_map;
+    m_tile_map_size = size;
+
+    if(!m_use_tile_overrides) {
+        m_tile_map_rw_copy.reserve(tile_map_len);
+
+        for(unsigned int i = 0; tile_map_len > i; ++i) {
+            m_tile_map_rw_copy.push_back(tile_map[i]);
+        }
+    }
 }

@@ -38,14 +38,6 @@ namespace puzzler {
 
         void setup()override;
     protected:
-        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {
-            if(m_cursor != nullptr) {
-                m_cursor->draw(obj_attr_buffer, obj_attr_num, priority);
-            }
-        }
-
-        void on_visible_state_changed(bool new_visible_state) override {}
-
         void input(morpheus::core::InputEvent input_event)override;
         void update(unsigned char cycle_time)override;
     private:
@@ -68,7 +60,7 @@ namespace puzzler {
         #endif
         const int TITLE_TEXT_SBB_NUM = 31;
 
-        std::unique_ptr<morpheus::core::Node> m_cursor;
+        std::shared_ptr<morpheus::core::gfx::SpriteBase> m_cursor;
         unsigned int m_cursor_position = 0;
         ActionTimer m_cursor_animation_timer;
         bool m_cursor_lit = false;

@@ -18,7 +18,7 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
     m_level_background = level_background;
 
     m_coin_pickup_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(
-                                    SFX_COIN_PICKUP, const_cast<void *>(static_cast<const void*>(&soundbank_bin)), 4));
+                                    SFX_COIN_PICKUP, static_cast<void*>(&soundbank_bin), 8));
     m_enemy_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_ENEMY_KILL));
     m_player_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_PLAYER_HURT));
 
@@ -215,7 +215,6 @@ void hayai::Player::update(const unsigned char cycle_time) {
 
         return;
     }
-
     //m_current_level->nocash_message("updating");
 
     if(m_first_run) {
@@ -373,13 +372,13 @@ bool hayai::Player::coin_tile_index(unsigned int tile_index) {
 }
 
 bool hayai::Player::collision_tile_id(unsigned int tile_id) {
-    for(unsigned int collision_tile_id : m_current_level->get_collision_tile_ids()) {
+    for(unsigned int collision_tile_id : m_current_level->get_no_collision_tile_ids()) {
         if(collision_tile_id == tile_id) {
-            return true;
+            return false;
         }
     }
 
-    return false;
+    return true;
 }
 
 bool hayai::Player::friction_tile_id(unsigned int tile_id) {
@@ -434,12 +433,12 @@ hayai::Player::SpeedZone hayai::Player::get_speed_zone() const {
 
 void hayai::Player::apply_enemy_collision_detection() {
     for(unsigned int i = 0; m_enemies.size() > i; ++i) {
-        //nocash_puts("getting positions");
+        m_current_level->nocash_message("getting positions");
 
         morpheus::core::gfx::Vector2 enemy_position = m_enemies[i]->get_sprite()->get_position();
         morpheus::core::gfx::Vector2 player_position = get_sprite()->get_position();
 
-        //nocash_puts("checking jumping");
+        m_current_level->nocash_message("checking jumping");
 
         if(m_enemies[i]->is_jumping()) {
             enemy_position = enemy_position + Enemy::JUMPING_OFFSET;
@@ -447,7 +446,7 @@ void hayai::Player::apply_enemy_collision_detection() {
             enemy_position = enemy_position + Enemy::REGULAR_OFFSET;
         }
 
-        //nocash_puts("collision checking");
+        m_current_level->nocash_message("collision checking");
 
         if(player_position.get_x() < enemy_position.get_x() + Enemy::ENEMY_SIZE.get_x() &&
            player_position.get_x() + 32 > enemy_position.get_x() &&
@@ -456,7 +455,9 @@ void hayai::Player::apply_enemy_collision_detection() {
             if(player_position.get_y() < enemy_position.get_y() - (Enemy::ENEMY_SIZE.get_y() + 2)) {
                 m_current_level->nocash_message("starting effect");
 
-                m_enemy_damage_sfx->start_effect(false);
+                if(m_enemy_damage_sfx != nullptr) {
+                    m_enemy_damage_sfx->start_effect(false);
+                }
 
                 m_current_level->nocash_message("killing enemy");
 
@@ -475,9 +476,9 @@ void hayai::Player::apply_enemy_collision_detection() {
                 if(current_health_number > 0) {
                     m_current_level->nocash_message("starting effect");
 
-                    /*if(m_player_damage_sfx != nullptr) {
+                    if(m_player_damage_sfx != nullptr) {
                         m_player_damage_sfx->start_effect(false);
-                    }*/
+                    }
 
                     m_current_level->nocash_message("setting stop frame");
 
@@ -551,7 +552,28 @@ void hayai::Player::apply_gravity() {
 
     if(!m_jumping) {
         if(collision_tile_id(tile_id_1) || collision_tile_id(tile_id_2)) {
-            m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
+            bool coin_tile_1 = coin_tile_index(tile_id_1);
+            bool coin_tile_2 = coin_tile_index(tile_id_2);
+
+            if(coin_tile_1) {
+                if(m_coin_pickup_sfx != nullptr) {
+                    m_coin_pickup_sfx->start_effect(false);
+                }
+
+                remove_coin_at_position(tile_pos_1);
+            }
+
+            if(coin_tile_2) {
+                if(m_coin_pickup_sfx != nullptr) {
+                    m_coin_pickup_sfx->start_effect(false);
+                }
+
+                remove_coin_at_position(tile_pos_2);
+            }
+
+            if(!coin_tile_1 || !coin_tile_2) {
+                m_velocity = morpheus::core::gfx::Vector2(m_velocity.get_x(), 0);
+            }
         } else {
             if(m_velocity.get_y() < GRAVITY) {
                 if(ENABLE_ACCEL_MOVEMENT_SYSTEM) {
@@ -606,23 +628,25 @@ void hayai::Player::apply_x_collision_detection() {
                 current_tile_index = m_level_background->get_tile_index_at_position(collision_position);
 
                 if(collision_tile_id(m_level_background->get_tile_id_at_index(current_tile_index))) {
-                    morpheus::core::gfx::Vector2 vector_difference;
-
-                    if (m_velocity.get_x() > 0) {
-                        vector_difference = morpheus::core::gfx::Vector2(-1, 0);
-                    } else if (m_velocity.get_x() < 0) {
-                        vector_difference = morpheus::core::gfx::Vector2(1, 0);
-                    }
-
-                    collision_position = collision_position + vector_difference;
-                    m_velocity = m_velocity + vector_difference;
-                } else {
                     if(coin_tile_index(current_tile_index)) {
-                        m_coin_pickup_sfx->start_effect(false);
+                        if(m_coin_pickup_sfx != nullptr) {
+                            m_coin_pickup_sfx->start_effect(false);
+                        }
 
                         remove_coin_at_position(collision_position);
-                    }
+                    } else {
+                        morpheus::core::gfx::Vector2 vector_difference;
 
+                        if (m_velocity.get_x() > 0) {
+                            vector_difference = morpheus::core::gfx::Vector2(-1, 0);
+                        } else if (m_velocity.get_x() < 0) {
+                            vector_difference = morpheus::core::gfx::Vector2(1, 0);
+                        }
+
+                        collision_position = collision_position + vector_difference;
+                        m_velocity = m_velocity + vector_difference;
+                    }
+                } else {
                     break;
                 }
             }
@@ -636,22 +660,31 @@ void hayai::Player::apply_y_collision_detection() {
             morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position() + m_velocity +
                                                               morpheus::core::gfx::Vector2(x, 0);
             unsigned int current_tile_index;
+            std::string print_statement;
 
             while(m_velocity.get_y() != 0) {
                 current_tile_index = m_level_background->get_tile_index_at_position(collision_position);
 
                 if(collision_tile_id(m_level_background->get_tile_id_at_index(current_tile_index))) {
-                    collision_position = collision_position + morpheus::core::gfx::Vector2(0, 1);
-                    m_velocity = m_velocity + morpheus::core::gfx::Vector2(0, 1);
-                } else {
                     if(coin_tile_index(current_tile_index)) {
-                        m_coin_pickup_sfx->start_effect(false);
+                        if(m_coin_pickup_sfx != nullptr) {
+                            m_coin_pickup_sfx->start_effect(false);
+                        }
 
                         remove_coin_at_position(collision_position);
+                    } else {
+                        collision_position = collision_position + morpheus::core::gfx::Vector2(0, 1);
+                        m_velocity = m_velocity + morpheus::core::gfx::Vector2(0, 1);
                     }
-
+                } else {
                     break;
                 }
+
+                print_statement += std::to_string(current_tile_index) + " at " + collision_position.to_string() + "-";
+            }
+
+            if(!print_statement.empty()) {
+                nocash_puts(print_statement.c_str());
             }
 
             if(m_velocity.get_y() == 0) {

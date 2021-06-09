@@ -8,7 +8,7 @@ morpheus::core::gfx::StreamingBackgroundBase::StreamingBackgroundBase(bool affin
                                                                       morpheus::core::gfx::BlendingController *blendingController,
                                                                       morpheus::core::gfx::MosaicController *mosaicController,
                                                                       unsigned int cbbNum, unsigned int sbbNum)
-        : TiledBackgroundBase(affine, backgroundNum, blendingController, mosaicController, cbbNum, sbbNum) {
+        : TiledBackgroundBase(affine, backgroundNum, blendingController, mosaicController, cbbNum, sbbNum, false) {
 
 }
 

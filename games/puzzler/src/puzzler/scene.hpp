@@ -5,13 +5,13 @@
 #ifndef PUZZLER_SCENE_HPP
 #define PUZZLER_SCENE_HPP
 
-#include <core/node.hpp>
+#include <core/control_reciever.hpp>
 
 namespace puzzler {
-    class Scene : public morpheus::core::Node {
+    class Scene : public morpheus::core::ControlReciever {
     public:
         Scene(morpheus::core::MainLoop *main_loop) {
-            set_drawn_node(false);
+            //set_drawn_node(false);
 
             m_main_loop = main_loop;
         }

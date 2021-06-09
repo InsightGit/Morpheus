@@ -42,10 +42,6 @@ namespace puzzler {
 
         void setup()override;
     protected:
-        void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
-
-        void on_visible_state_changed(bool new_visible_state) override {}
-
         void input(morpheus::core::InputEvent input_event)override;
         void update(unsigned char cycle_time)override;
     private:

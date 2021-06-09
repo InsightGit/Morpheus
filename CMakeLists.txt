@@ -47,7 +47,6 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/main_loop.hpp
         morpheus/core/main_loop.cpp
         morpheus/core/control_reciever.hpp
-        morpheus/core/control_reciever.cpp
         morpheus/core/save_manager.hpp
         morpheus/core/uncopyable.hpp
         morpheus/core/audio/max_mod_music.hpp
@@ -177,6 +176,27 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 add_library(morpheus ${MORPHEUS_SOURCE_FILES})
+
+if($ENV{BUILD_DOCS})
+    if(WIN32)
+        find_program(DOXYGEN doxygen)
+        find_program(PYTHON3 python)
+    else()
+        find_program(DOXYGEN doxygen)
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    add_custom_target(Documentation ALL
+                      COMMENT "Building Documentation"
+                      COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs && ${DOXYGEN}
+                      COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/docs/generate_breathe_rst.py ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus
+                      COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
+                      DEPENDS morpheus)
+endif()
 
 if("$ENV{BUILD_TESTS}")
     if(platform_lower STREQUAL "gba")

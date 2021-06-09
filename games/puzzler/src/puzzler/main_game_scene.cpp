@@ -8,18 +8,21 @@ puzzler::MainGameScene::MainGameScene(morpheus::core::MainLoop *main_loop, const
                                       puzzler::Scene(main_loop) {
     m_difficulty_setting = difficulty_setting;
 
+    m_user_background.reset(morpheus::utils::construct_appropriate_tiled_background_4bpp(false, 0, nullptr, nullptr,
+                                                                                         get_main_loop(), 2, 1));
+
     #ifdef _GBA
-        m_user_background.reset(new morpheus::gba::gfx::TiledBackground(
+        /*m_user_background.reset(new morpheus::gba::gfx::TiledBackground(
                                                 0, static_cast<morpheus::gba::GbaMainLoop*>(get_main_loop()),
-                                                false, 2, 1));
+                                                false, 2, 1));*/
     #elif _NDS
         m_sub_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(true, 1,
                                                                            static_cast<morpheus::nds::NdsMainLoop*>(
                                                                                    get_main_loop()), 1, 1));
 
-        m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
+        /*m_user_background.reset(new morpheus::nds::gfx::TiledBackground4Bpp(
                                             false, 0, reinterpret_cast<morpheus::nds::NdsMainLoop*>(get_main_loop()),
-                                            1, 1));
+                                            1, 1));*/
     #endif
 
     // we can load the soundbank in the module and have all the other maxmod stuff just use that

@@ -13,9 +13,9 @@ namespace morpheus {
             class GbaMaxModSfx : public core::audio::MaxModSfx {
             public:
                 GbaMaxModSfx(int sound_bank_ref_num, void *sound_bank = nullptr,
-                             unsigned char num_of_channels = -1) :
+                             int num_of_channels = -1) :
                     morpheus::core::audio::MaxModSfx(sound_bank_ref_num) {
-                    if(sound_bank != nullptr && num_of_channels > 0 && num_of_channels <= 4) {
+                    if(sound_bank != nullptr && num_of_channels > 0 && num_of_channels <= 8) {
                         mmInitDefault(sound_bank, num_of_channels);
                     }
                 }

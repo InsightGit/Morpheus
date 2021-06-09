@@ -15,11 +15,11 @@ int main() {
     //std::shared_ptr<puzzler::Scene> current_scene(new puzzler::MainGameScene(main_loop.get(), 0));
 
     //std::cout << "All ready!\n";
-    main_loop->send_to_debug_window("All ready!");
+    main_loop->get_no_cash_debug_controller()->send_to_debug_window("All ready!");
 
     //current_scene->setup();
 
-    main_loop->set_root(std::static_pointer_cast<morpheus::core::Node>(current_scene));
+    main_loop->add_control_reciever(current_scene);
 
     main_loop->game_loop();
 }

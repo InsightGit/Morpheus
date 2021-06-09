@@ -12,7 +12,8 @@ bool puzzler::Jewel::jewel_types_spawned[4] = {false, false, false, false};
 unsigned short *puzzler::Jewel::jewel_oam_pointers[4] = {nullptr, nullptr, nullptr, nullptr};
 #endif
 
-puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, bool new_scene_reset) {
+puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, bool new_scene_reset) :
+                                                              morpheus::core::gfx::SpriteBase(false, nullptr, nullptr) {
     int random_number;
     const unsigned short *tile_array = nullptr;
 
@@ -61,7 +62,7 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
             break;
     }
 
-    m_main_loop->send_to_debug_window("Spawned " + to_string());
+    m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Spawned " + to_string());
 
     if(jewel_types_spawned[random_number]) {
         #ifdef _GBA
@@ -79,31 +80,23 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
             sprite->set_palette_id(m_palette_id);
         #endif
 
-        m_main_loop->send_to_debug_window("already loaded");
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("already loaded");
     } else {
+        m_jewel_sprite.reset(morpheus::utils::construct_appropriate_sprite_4bpp(false, nullptr, nullptr));
+
+        m_jewel_sprite->set_priority(1);
+        m_jewel_sprite->set_position(m_pre_position)
+
         #ifdef _GBA
-            auto *sprite_4_bpp = new morpheus::gba::gfx::Sprite4Bpp(m_palette_id);
-
-            static_cast<morpheus::gba::gfx::Sprite*>(sprite_4_bpp)->load_from_array(tile_array, 16, 16,
-                                                                                    m_tile_id);
-
-            sprite_4_bpp->set_position(m_pre_position);
-
-            m_jewel_sprite.reset(sprite_4_bpp);
-
-            sprite_4_bpp->set_priority(1);
+            static_cast<morpheus::gba::gfx::Sprite*>(m_jewel_sprite.get())->
+                                        load_from_array(tile_array, 128, morpheus::core::gfx::SpriteSize::SIZE_16X16,
+                                                        m_tile_id);
         #elif _NDS
-            auto *sprite_4_bpp = new morpheus::nds::gfx::Sprite4Bpp(false);
-
-            m_jewel_sprite.reset(sprite_4_bpp);
-
-            sprite_4_bpp->set_position(m_pre_position);
-
             sassert(sprite_4_bpp->load_from_array(tile_array, m_palette_id, 16, 16), "sprite not properly loaded");
             jewel_oam_pointers[random_number] = sprite_4_bpp->get_gfx_pointer();
         #endif
 
-        m_main_loop->send_to_debug_window("loaded right now");
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("loaded right now");
 
         jewel_types_spawned[random_number] = true;
     }
@@ -116,30 +109,30 @@ puzzler::JewelCollision puzzler::Jewel::check_collision(puzzler::JewelCollision 
         }
 
         if(m_jewel_type == JewelType::Triangle) {
-            //m_main_loop->send_to_debug_window(to_string() + " jewel report:");
+            //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(to_string() + " jewel report:");
 
             if(m_north_jewel == nullptr) {
-                //m_main_loop->send_to_debug_window("north: nullptr");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("north: nullptr");
             } else {
-                //m_main_loop->send_to_debug_window("north: " + m_north_jewel->to_string());
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("north: " + m_north_jewel->to_string());
             }
 
             if(m_south_jewel == nullptr) {
-                //m_main_loop->send_to_debug_window("south: nullptr");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("south: nullptr");
             } else {
-                //m_main_loop->send_to_debug_window("south: " + m_south_jewel->to_string());
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("south: " + m_south_jewel->to_string());
             }
 
             if(m_west_jewel == nullptr) {
-                //m_main_loop->send_to_debug_window("west: nullptr");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("west: nullptr");
             } else {
-                //m_main_loop->send_to_debug_window("west: " + m_west_jewel->to_string());
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("west: " + m_west_jewel->to_string());
             }
 
             if(m_east_jewel == nullptr) {
-                //m_main_loop->send_to_debug_window("east: nullptr");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("east: nullptr");
             } else {
-                //m_main_loop->send_to_debug_window("east: " + m_east_jewel->to_string());
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("east: " + m_east_jewel->to_string());
             }
         }
 
@@ -190,7 +183,7 @@ void puzzler::Jewel::update(unsigned char cycle_time) {
     morpheus::core::gfx::Vector2 current_position = get_position();
 
     if(!m_active && current_position.get_x() != m_past_position.get_x()) {
-        //m_main_loop->send_to_debug_window("ERROR: inactive " + to_string() + " changed from " +
+        //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("ERROR: inactive " + to_string() + " changed from " +
                                           //m_past_position.to_string());
     }
 
@@ -218,7 +211,7 @@ void puzzler::Jewel::update(unsigned char cycle_time) {
 }
 
 void puzzler::Jewel::disconnect_jewel() {
-    //m_main_loop->send_to_debug_window("disconnected " + to_string());
+    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("disconnected " + to_string());
 
     if(m_north_jewel != nullptr && m_north_jewel->m_south_jewel == this) {
         m_north_jewel->m_south_jewel = nullptr;
@@ -271,12 +264,12 @@ puzzler::JewelCollision puzzler::Jewel::update_jewel(puzzler::Jewel *jewel, cons
     switch(jewel_side) {
         case JewelSide::Up:
             /*if(m_north_jewel != nullptr) {
-                //m_main_loop->send_to_debug_window("getting rid of past north jewel (" + m_north_jewel->to_string() + ") with");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("getting rid of past north jewel (" + m_north_jewel->to_string() + ") with");
 
                 if(jewel == nullptr) {
-                    //m_main_loop->send_to_debug_window("nullptr jewel");
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("nullptr jewel");
                 } else {
-                    //m_main_loop->send_to_debug_window(jewel->to_string());
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(jewel->to_string());
                 }
             }*/
 
@@ -286,7 +279,7 @@ puzzler::JewelCollision puzzler::Jewel::update_jewel(puzzler::Jewel *jewel, cons
             break;
         case JewelSide::Down:
             /*if(m_south_jewel != nullptr) {
-                //m_main_loop->send_to_debug_window("getting rid of past south jewel");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("getting rid of past south jewel");
             }*/
 
             m_south_jewel = jewel;
@@ -295,12 +288,12 @@ puzzler::JewelCollision puzzler::Jewel::update_jewel(puzzler::Jewel *jewel, cons
             break;
         case JewelSide::Left:
             if(m_west_jewel != nullptr) {
-                //m_main_loop->send_to_debug_window("getting rid of past west jewel (" + m_west_jewel->to_string() + ") with");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("getting rid of past west jewel (" + m_west_jewel->to_string() + ") with");
 
                 if(jewel == nullptr) {
-                    //m_main_loop->send_to_debug_window("nullptr jewel");
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("nullptr jewel");
                 } else {
-                    //m_main_loop->send_to_debug_window(jewel->to_string());
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(jewel->to_string());
                 }
             }
 
@@ -311,12 +304,12 @@ puzzler::JewelCollision puzzler::Jewel::update_jewel(puzzler::Jewel *jewel, cons
             break;
         case JewelSide::Right:
             if(m_east_jewel != nullptr) {
-                //m_main_loop->send_to_debug_window("getting rid of past east jewel (" + m_east_jewel->to_string() + ") with");
+                //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("getting rid of past east jewel (" + m_east_jewel->to_string() + ") with");
 
                 if(jewel == nullptr) {
-                    //m_main_loop->send_to_debug_window("nullptr jewel");
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("nullptr jewel");
                 } else {
-                    //m_main_loop->send_to_debug_window(jewel->to_string());
+                    //m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(jewel->to_string());
                 }
             }
 

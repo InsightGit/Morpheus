@@ -28,6 +28,10 @@ const std::vector<std::vector<unsigned int>> hayai::Level::COLLISION_TILES = {BL
 const std::vector<std::vector<unsigned int>> hayai::Level::FRICTION_TILES = {BLOCK_TILES, DIRT_TILES, GRASS_TILES,
                                                                              INVISIBLE_WALL_TILES, SLUSH_TILES,
                                                                              YELLOW_BLOCK_TILES};
+const std::vector<std::vector<unsigned int>> hayai::Level::NO_COLLISION_TILES = {SPEED_LEFT_TILES, SPEED_RIGHT_TILES,
+                                                                                 {0x0}};
+
+const bool hayai::Level::ENABLE_NOCASH_MESSAGES = false;
 
 const unsigned int hayai::Level::MAIN_LEVEL_BACKGROUND_NUM = 2;
 
@@ -52,9 +56,14 @@ hayai::Level::Level(std::shared_ptr<morpheus::core::MainLoop> main_loop) : Scene
                                         morpheus::core::gfx::TiledBackgroundSize::BG_64x64);
     m_player->set_enemies_vector(m_enemies);
 
-    for(const std::vector<unsigned int> &collision_tile_group : COLLISION_TILES) {
+    /*for(const std::vector<unsigned int> &collision_tile_group : COLLISION_TILES) {
         m_collision_tile_ids.insert(m_collision_tile_ids.end(), collision_tile_group.begin(),
                                     collision_tile_group.end());
+    }*/
+
+    for(const std::vector<unsigned int> &no_collision_tile_group : NO_COLLISION_TILES) {
+        m_no_collision_tile_ids.insert(m_no_collision_tile_ids.end(), no_collision_tile_group.begin(),
+                                       no_collision_tile_group.end());
     }
 
     for(const std::vector<unsigned int> &friction_tile_group : FRICTION_TILES) {
@@ -90,8 +99,10 @@ void hayai::Level::update(const unsigned char cycle_time) {
 
     if(!m_player->is_game_over()) {
         for(std::shared_ptr<Enemy> &enemy : m_enemies) {
-            nocash_message("updating enemy");
-            enemy->update(cycle_time);
+            if(enemy != nullptr) {
+                nocash_message("updating enemy (not nullptr)");
+                enemy->update(cycle_time);
+            }
         }
 
         #ifdef _NDS

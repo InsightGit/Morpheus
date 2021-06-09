@@ -112,7 +112,7 @@ namespace morpheus {
         static morpheus::core::audio::MaxModSfx *construct_appropriate_max_mod_sfx(
                 int sound_bank_ref_num,
                 void *sound_bank = nullptr,
-                unsigned char num_of_channels = -1) {
+                int num_of_channels = -1) {
             #ifdef _GBA
                 return new morpheus::gba::audio::GbaMaxModSfx(sound_bank_ref_num, sound_bank, num_of_channels);
             #elif _NDS

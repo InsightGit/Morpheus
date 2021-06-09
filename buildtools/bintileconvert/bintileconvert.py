@@ -6,6 +6,7 @@ import tempfile
 
 from typing import Union
 
+
 def _camel_case_conversion(header_guard: str) -> str:
     return_value = list(header_guard.lower())
 

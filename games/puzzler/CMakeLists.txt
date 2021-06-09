@@ -88,9 +88,14 @@ set(SOURCE_FILES
         "${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUNDBANK_NAME}.h"
         src/puzzler/main_game_scene.cpp
         src/puzzler/main_game_scene.hpp
-        src/puzzler/scene.hpp src/puzzler/jewel.cpp
+        src/puzzler/scene.hpp
+        src/puzzler/jewel.cpp
         src/puzzler/jewel.hpp
-        src/puzzler/action_timer.hpp src/puzzler/main_menu_scene.cpp src/puzzler/main_menu_scene.hpp src/puzzler/scene_manager.cpp src/puzzler/scene_manager.hpp)
+        src/puzzler/action_timer.hpp
+        src/puzzler/main_menu_scene.cpp
+        src/puzzler/main_menu_scene.hpp
+        src/puzzler/scene_manager.cpp
+        src/puzzler/scene_manager.hpp)
 
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")

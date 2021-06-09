@@ -32,7 +32,8 @@ namespace morpheus {
             class TiledBackgroundBase {
             public:
                 TiledBackgroundBase(bool affine, unsigned int background_num, BlendingController *blending_controller,
-                                    MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num);
+                                    MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num,
+                                    bool use_tile_overrides);
 
                 virtual ~TiledBackgroundBase() = default;
 
@@ -40,8 +41,7 @@ namespace morpheus {
                                      const unsigned short *palette, const unsigned int pal_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                      TiledBackgroundSize size) {
-                    m_tile_map = tile_map;
-                    m_tile_map_size = size;
+                    update_tilemap_vars(tile_map, tile_map_len, size);
 
                     array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size);
                 }
@@ -49,16 +49,14 @@ namespace morpheus {
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                      TiledBackgroundSize size) {
-                    m_tile_map = tile_map;
-                    m_tile_map_size = size;
+                    update_tilemap_vars(tile_map, tile_map_len, size);
 
                     array_load(tiles, tiles_len, tile_map, tile_map_len, size);
                 }
 
                 void load_from_array(const unsigned short *tile_map, const unsigned int tile_map_len,
                                      TiledBackgroundSize size) {
-                    m_tile_map = tile_map;
-                    m_tile_map_size = size;
+                    update_tilemap_vars(tile_map, tile_map_len, size);
 
                     array_load(tile_map, tile_map_len, size);
                 }
@@ -246,6 +244,9 @@ namespace morpheus {
                     return Vector2(0, 0);
                 }
 
+                void update_tilemap_vars(const unsigned short *tile_map, const unsigned int tile_map_len,
+                                         morpheus::core::gfx::TiledBackgroundSize size);
+
                 bool m_affine;
                 unsigned int m_affine_index;
                 gfx::BlendingController *m_blending_controller;
@@ -259,8 +260,10 @@ namespace morpheus {
                 Vector2 m_scroll_position;
                 unsigned int m_sbb_num;
                 const unsigned short *m_tile_map;
+                std::vector<unsigned short> m_tile_map_rw_copy;
                 std::vector<TileOverride> m_tile_overrides;
                 TiledBackgroundSize m_tile_map_size;
+                bool m_use_tile_overrides;
             };
         }
     }
