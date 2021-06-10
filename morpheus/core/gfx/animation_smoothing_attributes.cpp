@@ -142,6 +142,7 @@ bool morpheus::core::gfx::IntegerAnimationSmoothingAttribute::smooth() {
                                     false,
                                     get_min_value(blending_controller->get_blend_weight(false) + trend_addition_value));
                             break;
+                        case BlendingSetting::INVALID:
                         case BlendingSetting::OFF:
                             return false;
                     }

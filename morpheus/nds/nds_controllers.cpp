@@ -76,6 +76,7 @@ void morpheus::nds::gfx::NdsBlendingController::update_blending_registers() {
     }
 
     switch(get_backdrop_blending_setting()) {
+        case core::gfx::BlendingSetting::INVALID:
         case core::gfx::BlendingSetting::OFF:
             break;
         case core::gfx::BlendingSetting::BOTTOM_ON:
@@ -95,6 +96,7 @@ void morpheus::nds::gfx::NdsBlendingController::update_blending_registers() {
     }
 
     switch(get_object_blending_setting()) {
+        case core::gfx::BlendingSetting::INVALID:
         case core::gfx::BlendingSetting::OFF:
             break;
         case core::gfx::BlendingSetting::BOTTOM_ON:
@@ -116,6 +118,7 @@ void morpheus::nds::gfx::NdsBlendingController::update_blending_registers() {
 
     for(unsigned int i = 0; background_blending_settings.size() > i; ++i) {
         switch (background_blending_settings[i]) {
+            case core::gfx::BlendingSetting::INVALID:
             case core::gfx::BlendingSetting::OFF:
                 break;
             case core::gfx::BlendingSetting::BOTTOM_ON:

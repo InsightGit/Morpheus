@@ -209,10 +209,10 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
+    /*base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
                                      region_map_affine_128Pal, region_map_affine_128PalLen,
                                      region_map_affine_128Map, region_map_affine_128MapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);*/
 
     base_sprite->set_position(64, 64);
     base_sprite->set_affine_index(1);

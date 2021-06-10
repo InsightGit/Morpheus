@@ -92,53 +92,58 @@ bool morpheus::core::gfx::TiledBackgroundBase::set_tile_id_at_position(const mor
 }
 
 int morpheus::core::gfx::TiledBackgroundBase::get_tile_id_at_index(const unsigned int tile_index) const {
-    Vector2 tile_size_vector = get_size_vector();
+    if(m_use_tile_overrides) {
+        Vector2 tile_size_vector = get_size_vector();
 
-    if(tile_index < static_cast<unsigned int>(tile_size_vector.get_x() * tile_size_vector.get_y())) {
-        for(const TileOverride &tile_override : m_tile_overrides) {
-            if(tile_override.tile_index == static_cast<unsigned int>(tile_index)) {
-                return static_cast<int>(tile_override.tile_id & 0x03FF);
+        if(tile_index < static_cast<unsigned int>(tile_size_vector.get_x() * tile_size_vector.get_y())) {
+            for(const TileOverride &tile_override : m_tile_overrides) {
+                if(tile_override.tile_index == static_cast<unsigned int>(tile_index)) {
+                    return static_cast<int>(tile_override.tile_id & 0x03FF);
+                }
             }
+
+            return m_tile_map[tile_index] & 0x03FF;
+        } else {
+            return -1;
         }
-
-        return m_tile_map[tile_index] & 0x03FF;
     } else {
-        return -1;
+        return m_tile_map_rw_copy[tile_index] & 0x03FF;
     }
-
 }
 
 bool morpheus::core::gfx::TiledBackgroundBase::set_tile_id_at_index(const unsigned int tile_index,
                                                                     const unsigned int tile_id) {
-    bool found = false;
-    Vector2 tile_size_vector = get_size_vector();
+    if(m_use_tile_overrides) {
+        bool found = false;
+        Vector2 tile_size_vector = get_size_vector();
 
-    /*if(tile_index >= static_cast<unsigned int>(tile_size_vector.get_x() * tile_size_vector.get_y())) {
-        return false;
-    }*/
+        m_past_tile_overrides = m_tile_overrides;
 
-    m_past_tile_overrides = m_tile_overrides;
+        for(TileOverride &tile_override : m_tile_overrides) {
+            if(tile_override.tile_index == static_cast<unsigned int>(tile_index)) {
+                if(tile_override.tile_id == tile_id) {
+                    return true;
+                } else {
+                    found = true;
+                    tile_override.tile_id = tile_id;
 
-    for(TileOverride &tile_override : m_tile_overrides) {
-        if(tile_override.tile_index == static_cast<unsigned int>(tile_index)) {
-            if(tile_override.tile_id == tile_id) {
-                return true;
-            } else {
-                found = true;
-                tile_override.tile_id = tile_id;
+                    override_map_tile(tile_override.tile_index, tile_override.tile_id);
 
-                override_map_tile(tile_override.tile_index, tile_override.tile_id);
-
-                break;
+                    break;
+                }
             }
         }
-    }
 
-    if(!found) {
-        m_tile_overrides.push_back({ .tile_index = static_cast<unsigned int>(tile_index),
-                                     .tile_id = (tile_id & 0x3FF) });
+        if(!found) {
+            m_tile_overrides.push_back({ .tile_index = static_cast<unsigned int>(tile_index),
+                                         .tile_id = (tile_id & 0x3FF) });
 
-        override_map_tile(m_tile_overrides.back().tile_index, m_tile_overrides.back().tile_id);
+            override_map_tile(m_tile_overrides.back().tile_index, m_tile_overrides.back().tile_id);
+        }
+    } else {
+        m_tile_map_rw_copy[tile_index] = tile_id;
+
+        override_map_tile(tile_index, tile_id);
     }
 
     return true;

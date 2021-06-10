@@ -18,7 +18,7 @@ hayai::Player::Player(std::shared_ptr<morpheus::core::MainLoop> main_loop,
     m_level_background = level_background;
 
     m_coin_pickup_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(
-                                    SFX_COIN_PICKUP, static_cast<void*>(&soundbank_bin), 8));
+                                    SFX_COIN_PICKUP, const_cast<void*>(static_cast<const void*>(&soundbank_bin)), 8));
     m_enemy_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_ENEMY_KILL));
     m_player_damage_sfx.reset(morpheus::utils::construct_appropriate_max_mod_sfx(SFX_PLAYER_HURT));
 
@@ -142,12 +142,14 @@ void hayai::Player::draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_
 }
 
 void hayai::Player::input(const morpheus::core::InputEvent input_event) {
-    if((input_event.state == morpheus::core::InputState::DOWN || input_event.state == morpheus::core::InputState::HELD) &&
-       !m_game_over) {
+    if((input_event.state == morpheus::core::InputState::DOWN ||
+        input_event.state == morpheus::core::InputState::HELD) && !m_game_over) {
         switch (input_event.button) {
             case morpheus::core::InputButton::A:
                 // if the player is not jumping or falling
                 if (m_velocity.get_y() == 0 && !m_jumping) {
+                    m_current_level->nocash_message("jumping");
+
                     m_jumping = true;
                     m_jumping_frame = -1;
 
@@ -234,6 +236,8 @@ void hayai::Player::update(const unsigned char cycle_time) {
         m_jumping_frame -= 60;
 
         if(m_jumping_frame <= 0) {
+            m_current_level->nocash_message("no longer jumping due to gravity");
+
             m_jumping = false;
 
             if(!ENABLE_ACCEL_MOVEMENT_SYSTEM) {
@@ -660,7 +664,6 @@ void hayai::Player::apply_y_collision_detection() {
             morpheus::core::gfx::Vector2 collision_position = m_sprite_base->get_position() + m_velocity +
                                                               morpheus::core::gfx::Vector2(x, 0);
             unsigned int current_tile_index;
-            std::string print_statement;
 
             while(m_velocity.get_y() != 0) {
                 current_tile_index = m_level_background->get_tile_index_at_position(collision_position);
@@ -679,12 +682,6 @@ void hayai::Player::apply_y_collision_detection() {
                 } else {
                     break;
                 }
-
-                print_statement += std::to_string(current_tile_index) + " at " + collision_position.to_string() + "-";
-            }
-
-            if(!print_statement.empty()) {
-                nocash_puts(print_statement.c_str());
             }
 
             if(m_velocity.get_y() == 0) {

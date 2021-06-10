@@ -11,7 +11,8 @@ morpheus::nds::gfx::TiledBackground::TiledBackground(bool affine, bool use_sub_d
                                                      unsigned int cbb_num, unsigned int sbb_num) :
                                      morpheus::core::gfx::TiledBackgroundBase(affine,
                                                                               background_num, blending_controller,
-                                                                              mosaic_controller, cbb_num, sbb_num) {
+                                                                              mosaic_controller, cbb_num, sbb_num,
+                                                                              false) {
     m_main_loop = main_loop;
     m_use_sub_display = use_sub_display;
 }
