@@ -43,6 +43,9 @@ void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
     for(unsigned char c : string) {
         int tile_id = c - m_font.ascii_offset;
 
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) + " is " +
+                                                                          std::to_string(tile_id));
+
         if(tile_id < 0 || c == m_font.space_ascii_code) {
             continue;
         }
@@ -61,13 +64,18 @@ void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
 
         for(int y = 0; m_font.char_size.get_y() > y; ++y) {
             for(int x = 0; m_font.char_size.get_x() > x; ++x) {
+                Vector2 text_position = m_cursor_position + Vector2(x, y);
+
                 if(m_font.is_2d_mapping) {
-                    tile_id += (m_font.char_size.get_y() * 16) + m_font.char_size.get_x();
+                    tile_id += (m_font.char_size.get_y() * (16 / m_font.char_size.get_y())) + m_font.char_size.get_x();
                 } else {
                     tile_id += m_font.char_size.get_y() + m_font.char_size.get_x();
                 }
 
-                m_expression_background->set_tile_id_at_position(m_cursor_position + Vector2(x, y), tile_id);
+                m_expression_background->set_tile_id_at_position(text_position, tile_id);
+
+                m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Printing " + std::to_string(tile_id)
+                                                                                  + " at " + text_position.to_string());
             }
         }
 

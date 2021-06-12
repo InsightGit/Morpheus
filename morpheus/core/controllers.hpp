@@ -320,15 +320,39 @@ namespace morpheus {
 
 
             /// \class morpheus::core::gfx::MosaicController
-            ///
+            /// A controller class controlling the state of the
+            /// mosaic registers on the GBA and the DS. This should only
+            /// be constructed once per screen within the MainLoop.
+            /// Afterwards, this object can be accessed by calling
+            /// morpheus::core::MainLoop::get_mosaic_controller() or
+            /// morpheus::nds::NdsMainLoop::get_sub_mosaic_controller()
+            /// on the DS for its mosaic controller for the sub-screen.
+            /// The mosaic effect on these systems make the pixels look
+            /// more blocky and distorted. For a demo of the effect in action,
+            /// see ../tests/gfx_effects_test/gfx_effects_test.cpp
         }
 
         class NoCashDebugController : Uncopyable {
         public:
+            /// Destructs this NoCashDebugController.
             virtual ~NoCashDebugController() = default;
 
+            /// Sends a custom debug message to NO$GBA's debug window,
+            /// which can be found in the debugger/developer version
+            /// (not the gaming version) of NO$GBA, under the "Window" menu and
+            /// then the "TTY Debug Messages" tab. In order to see the
+            /// messages sent by this function, insure that Debug I/O is
+            /// enabled under the "Options" menu and then the
+            /// "Debugger Setup" tab.
+            /// \param message The message to send to the NO$GBA debug window
             virtual void send_to_debug_window(std::string message) = 0;
         };
+
+
+        /// \class morpheus::core::NoCashDebugController
+        /// A simple class that sends debug messages as specified by the game
+        /// to NO$GBA's debug window. See
+        /// NoCashDebugController::send_to_debug_window() for more details.
     }
 }
 

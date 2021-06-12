@@ -41,6 +41,8 @@ int morpheus::core::gfx::TiledBackgroundBase::get_tile_index_at_position(const V
     int tile_pitch = get_tile_map_size_vector().get_x();
     Vector2 tile_position = get_tile_position_at_screen_position(position, with_scrolling, tiled_position);
 
+    nocash_puts(("tile position is" + tile_position.to_string()).c_str());
+
     if(tile_pitch > 0) {
         int sbb = ((tile_position.get_x() >> 5) + (tile_position.get_y() >> 5) * (tile_pitch >> 5));
 

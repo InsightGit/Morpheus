@@ -407,10 +407,12 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
+        #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/Stick-Regular.ttf jp true 147 235 255 16)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/Stick-Regular.ttf en true 147 235 255 16)
 
         add_executable(morpheus-gba-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
-                "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.o" "${CMAKE_CURRENT_BINARY_DIR}/japanese_font_test.h")
+                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
         add_gba_executable(morpheus-gba-custom-font-test.elf)
 
         target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc)
@@ -523,8 +525,8 @@ if("$ENV{BUILD_TESTS}")
                 tests/nds/extended_palette_test/nds_extended_palette_test.cpp
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o"
-                "${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
+                #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_nds_executable(morpheus-nds-extended-palette-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus ExtPalette Test" "Morpheus engine" "")
 

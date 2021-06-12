@@ -20,19 +20,18 @@ namespace morpheus {
             };
 
             struct Font {
-                const unsigned int *font_tiles;
-                unsigned int font_tiles_len;
                 const unsigned short *font_palette;
                 unsigned int font_palette_len;
-
+                const unsigned int *font_tiles;
+                unsigned int font_tiles_len;
 
                 unsigned int ascii_offset;
                 Vector2 char_size; // Char size (in tiles, NOT pixels)
                 Vector2 cursor_position;
                 FontBpp font_bpp;
                 bool is_2d_mapping;
-                unsigned int new_line_ascii_code = 10;
-                unsigned int space_ascii_code = 32;
+                unsigned int new_line_ascii_code;// = 10;
+                unsigned int space_ascii_code; //= 32;
             };
 
             class TextBase {
@@ -55,6 +54,24 @@ namespace morpheus {
                     return m_cbb;
                 }
 
+                Font get_current_font() const {
+                    return m_font;
+                }
+
+                static Font get_default_font() {
+                    Font font;
+
+                    font.ascii_offset = 32;
+                    font.char_size = Vector2(8, 8);
+                    font.cursor_position = Vector2(0, 0);
+                    font.font_bpp = FontBpp::FONT_4BPP;
+                    //font.font_tiles = sys8Tiles;
+                    //font.font_tiles_len = sys8TilesLen;
+                    font.font_palette = nullptr;
+
+                    return font;
+                }
+
                 Vector2 get_print_position() const {
                     return m_print_position;
                 }
@@ -69,6 +86,10 @@ namespace morpheus {
 
                 void set_bounding_box(Vector2 bounding_box) {
                     m_bounding_box = bounding_box;
+                }
+
+                void set_current_font(const Font font) {
+                    m_font = font;
                 }
 
                 void set_print_position(Vector2 print_pos) {
@@ -87,8 +108,6 @@ namespace morpheus {
 
                 void print(std::string string, bool reinit = false) {
                     if(m_use_native_text_api) {
-                        expression_print_chars(string);
-                    } else {
                         if(reinit || !m_inited) {
                             m_main_loop->enable_background(m_background_num);
 
@@ -96,6 +115,12 @@ namespace morpheus {
                         } else {
                             print_chars(string, false);
                         }
+                    } else {
+                        if(reinit || !m_inited) {
+                            init_expression_text_api();
+                        }
+
+                        expression_print_chars(string);
                     }
 
                     m_inited = true;
@@ -103,20 +128,6 @@ namespace morpheus {
             protected:
                 virtual void change_print_position(Vector2 print_pos) = 0;
                 virtual void print_chars(std::string string, bool init) = 0;
-
-                static Font get_default_font() {
-                    Font font;
-
-                    font.ascii_offset = 32;
-                    font.char_size = Vector2(8, 8);
-                    font.cursor_position = Vector2(0, 0);
-                    font.font_bpp = FontBpp::FONT_4BPP;
-                    //font.font_tiles = sys8Tiles;
-                    //font.font_tiles_len = sys8TilesLen;
-                    font.font_palette = nullptr;
-
-                    return font;
-                }
 
                 void expression_print_chars(std::string string);
                 bool init_expression_text_api();

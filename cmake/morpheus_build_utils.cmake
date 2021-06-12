@@ -207,12 +207,16 @@ function(generate_font ttf_font_file font_character_list_file make_4bpp backgrou
         message(FATAL_ERROR "python3 - not found")
     endif()
 
-    get_filename_component(base_font_name ttf_font_file NAME_WE)
+    get_filename_component(base_char_list_name ${font_character_list_file} NAME_WE)
+    get_filename_component(base_font_name ${ttf_font_file} NAME_WE)
 
-    add_custom_target(${CMAKE_CURRENT_BINARY_DIR}/${base_font_name} ALL SOURCES
+    message(${base_font_name}-${base_char_list_name}.c)
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
             COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
-                    ${font_character_list_file} ${make_4bpp} ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}
-                    ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
+                    ${font_character_list_file} ${make_4bpp}
+                    ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${background_color_r}
+                    ${background_color_g} ${background_color_b} ${font_size}
             VERBATIM)
 endfunction()
 

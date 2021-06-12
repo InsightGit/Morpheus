@@ -17,7 +17,7 @@ namespace morpheus {
             public:
                 Text(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb,
                      GbaMainLoop *gba_main_loop) :
-                    core::gfx::TextBase(affine, background_num, cbb, sbb, gba_main_loop, true) {}
+                    core::gfx::TextBase(affine, background_num, cbb, sbb, gba_main_loop, false) {}
 
                 virtual ~Text() = default;
             protected:

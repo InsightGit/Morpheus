@@ -8,12 +8,35 @@
 #include <nds/nds.hpp>
 #endif
 
-#include "japanese_font_test.h"
+//#include "japanese_font_test.h"
+
+#include "Stick-Regular-en.h"
+#include "Stick-Regular-jp.h"
 
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
+    std::shared_ptr<morpheus::core::gfx::TextBase> text_base(morpheus::utils::construct_appropriate_text(
+                                                                                                     false, 0, 1, 1,
+                                                                                                     main_loop.get()));
 
-    #ifdef _GBA
+    morpheus::core::gfx::Font stick_english_font = {
+            .font_palette = Stick_Regular_enPal,
+            .font_palette_len = 32,
+            .font_tiles = Stick_Regular_enTiles,
+            .font_tiles_len = Stick_Regular_enTilesLen,
+            .ascii_offset = 33,
+            .char_size = morpheus::core::gfx::Vector2(2, 2),
+            .font_bpp = morpheus::core::gfx::FontBpp::FONT_4BPP,
+            .is_2d_mapping = true,
+            .new_line_ascii_code = 10,
+            .space_ascii_code = 32
+    };
+
+    text_base->set_current_font(stick_english_font);
+
+    text_base->print("Hello World!");
+
+    /*#ifdef _GBA
         TFont japanese_font;
 
         japanese_font.bpp = 1;
@@ -66,7 +89,7 @@ int main() {
         }
 
         std::cout << tte_string << "\n";
-    #endif
+    #endif*/
 
     main_loop->enable_background(0);
 

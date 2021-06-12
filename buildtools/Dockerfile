@@ -18,6 +18,6 @@ RUN wget https://github.com/devkitPro/pacman/releases/latest/download/devkitpro-
 ENV DEVKITPRO=/opt/devkitpro
 ENV PATH=${DEVKITPRO}/tools/bin:$PATH
 
-RUN dkp-pacman -Syyu --noconfirm nds-dev gp32-dev gba-dev nds-portlibs
+RUN dkp-pacman -Syyu --noconfirm nds-dev gba-dev nds-portlibs
 
 ENV DEVKITARM=${DEVKITPRO}/devkitARM

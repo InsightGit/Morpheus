@@ -10,9 +10,11 @@ namespace morpheus {
         class Uncopyable {
         protected:
             Uncopyable() = default;
+
             ~Uncopyable() = default;
         private:
             Uncopyable(const Uncopyable&) = delete;
+
             void operator=(const Uncopyable&) = delete;
         };
     }
