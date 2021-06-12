@@ -193,7 +193,7 @@ if($ENV{BUILD_DOCS})
     add_custom_target(Documentation ALL
                       COMMENT "Building Documentation"
                       COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs && ${DOXYGEN}
-                      COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/docs/generate_breathe_rst.py ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus
+                      COMMAND ${PYTHON3} buildtools/generate_breathe_rst/generate_breathe_rst.py ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus
                       COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
                       DEPENDS morpheus)
 endif()

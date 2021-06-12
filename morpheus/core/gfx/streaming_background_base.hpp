@@ -28,7 +28,7 @@ namespace morpheus {
                                             unsigned int cbbNum, unsigned int sbbNum,
                                             Vector2 map_tile_update_threshold = Vector2(30, 20));
 
-                    void load_from_files(const unsigned int *tiles, const unsigned int tiles_len,
+                    bool load_from_files(const unsigned int *tiles, const unsigned int tiles_len,
                                          const unsigned short *palette, const unsigned int pal_len,
                                          const std::vector<std::string> &tilemap_file_paths,
                                          StreamingBackgroundSize size);
@@ -39,15 +39,9 @@ namespace morpheus {
                     }
 
                     void set_global_scroll(Vector2 global_scroll) {
-                        morpheus::core::gfx::Vector2 global_scroll_difference = global_scroll - m_last_file_update_at;
-
                         m_global_scroll = global_scroll;
 
-                        if(global_scroll_difference.get_x() > (m_map_tile_update_threshold.get_x() * 8)) {
-                            load_x_tiles(global_scroll_difference.get_x() < 0);
-                        } else if(global_scroll_difference.get_y() > (m_map_tile_update_threshold.get_y() * 8)) {
-                            load_y_tiles(global_scroll_difference.get_y() < 0);
-                        }
+                        reload_tiles();
                     }
                 protected:
                     virtual void load_tiles_and_palette(const unsigned int *tiles, const unsigned int tiles_len,
@@ -72,9 +66,18 @@ namespace morpheus {
                         }
                     }
 
+                    FILE *get_tilemap_file();
+
                     //void load_from_file(const std::string &tilemap_file_name);
-                    void load_x_tiles(bool right);
-                    void load_y_tiles(bool up);
+
+                    void load_tile(FILE *tilemap_file, int current_tile_index, int vram_tile_index,
+                                   int &previous_tile_index);
+                    void reload_tiles();
+
+                    void load_x_tile_strip(FILE *tilemap_file, const bool right,
+                                           const Vector2 &global_scroll_offset_vector, int &previous_tile_index);
+                    void load_y_tile_strip(FILE *tilemap_file, const bool down,
+                                           const Vector2 &global_scroll_offset_vector, int &previous_tile_index);
 
                     StreamingBackgroundSize m_background_size;
                     std::vector<unsigned short> m_current_tile_map;

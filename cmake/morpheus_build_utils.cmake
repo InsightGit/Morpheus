@@ -195,6 +195,27 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
 
 endfunction()
 
+function(generate_font ttf_font_file font_character_list_file make_4bpp background_color_r background_color_g
+         background_color_b font_size)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    get_filename_component(base_font_name ttf_font_file NAME_WE)
+
+    add_custom_target(${CMAKE_CURRENT_BINARY_DIR}/${base_font_name} ALL SOURCES
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
+                    ${font_character_list_file} ${make_4bpp} ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}
+                    ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
+            VERBATIM)
+endfunction()
+
 function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
     if(NOT MMUTIL)
         find_program(MMUTIL mmutil ${DEVKITPRO}/tools)

@@ -274,16 +274,25 @@ namespace morpheus {
 
             class MosaicController : Uncopyable {
             public:
+                /// Destructs the current MosaicController.
                 virtual ~MosaicController() {}
 
+                /// \return The current mosaic levels (0-15 for both x and y)
+                /// for enabled backgrounds.
                 Vector2 get_background_mosaic_levels() const {
                     return m_background_mosaic_levels;
                 }
 
+                /// \return The current mosaic levels (0-15 for both x and y)
+                /// for enabled sprites.
                 Vector2 get_sprite_mosaic_levels() const {
                     return m_sprite_mosaic_levels;
                 }
 
+                /// Sets mosaic levels (which must be between 0-15) of all
+                /// enabled backgrounds to background_mosaic_levels.
+                /// \param background_mosaic_levels The mosaic levels to set
+                /// enabled backgrounds to
                 void set_background_mosaic_levels(const Vector2 background_mosaic_levels) {
                     m_background_mosaic_levels = core::gfx::Vector2(
                                                         std::max(std::min(15, background_mosaic_levels.get_x()), 0),
@@ -292,6 +301,9 @@ namespace morpheus {
                     update_mosaic_register();
                 }
 
+                /// Set mosaic levels (which must be between 0-15) of all
+                /// enabled sprites to sprite_mosaic_levels.
+                /// \param sprite_mosaic_levels The mosaic levels to set enabled sprites to
                 void set_sprite_mosaic_levels(const Vector2 sprite_mosaic_levels) {
                     m_sprite_mosaic_levels = core::gfx::Vector2(
                                                              std::max(std::min(15, sprite_mosaic_levels.get_x()), 0),
@@ -305,9 +317,13 @@ namespace morpheus {
                 Vector2 m_background_mosaic_levels;
                 Vector2 m_sprite_mosaic_levels;
             };
+
+
+            /// \class morpheus::core::gfx::MosaicController
+            ///
         }
 
-        class NoCashDebugController {
+        class NoCashDebugController : Uncopyable {
         public:
             virtual ~NoCashDebugController() = default;
 

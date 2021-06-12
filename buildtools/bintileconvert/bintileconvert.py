@@ -325,8 +325,8 @@ def main() -> None:
             sys.exit(1)
     else:
         print("Invalid syntax:")
-        print(os.path.basename(__file__) + " tilemap_studio_bin_file_path build_dir width height [palette_bank] "
-                                           "[image_file] [image_bpp] [is_affine]")
+        print(f"{os.path.basename(__file__)} tilemap_studio_bin_file_path build_dir width height [palette_bank] "
+               "[image_file] [image_bpp] [is_affine]")
         print("Note: if an image_file argument is given, image_bpp becomes a " + \
               "required argument.")
         sys.exit(2)

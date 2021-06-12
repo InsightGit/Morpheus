@@ -176,6 +176,8 @@ namespace morpheus {
                                              const bool with_scrolling = true, const bool tiled_position = false);
 
                 virtual unsigned int get_priority() const = 0;
+                /*virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
+                                               const unsigned int pal_offset = 256) = 0;*/
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
                 Vector2 get_tile_map_size_vector() const {
