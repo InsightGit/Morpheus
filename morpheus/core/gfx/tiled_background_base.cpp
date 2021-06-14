@@ -41,7 +41,7 @@ int morpheus::core::gfx::TiledBackgroundBase::get_tile_index_at_position(const V
     int tile_pitch = get_tile_map_size_vector().get_x();
     Vector2 tile_position = get_tile_position_at_screen_position(position, with_scrolling, tiled_position);
 
-    nocash_puts(("tile position is" + tile_position.to_string()).c_str());
+    //nocash_puts(("tile position is " + tile_position.to_string() + " vs " + position.to_string()).c_str());
 
     if(tile_pitch > 0) {
         int sbb = ((tile_position.get_x() >> 5) + (tile_position.get_y() >> 5) * (tile_pitch >> 5));
@@ -57,7 +57,7 @@ morpheus::core::gfx::Vector2 morpheus::core::gfx::TiledBackgroundBase::get_tile_
     morpheus::core::gfx::Vector2 tile_position = position;
     morpheus::core::gfx::Vector2 tile_map_size = get_tile_map_size_vector();
 
-    if(m_tile_map == nullptr || tile_map_size == Vector2(0, 0)) {
+    if(tile_map_size == Vector2(0, 0)) {
         return Vector2(-1, -1);
     }
 

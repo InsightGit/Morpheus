@@ -196,7 +196,7 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
 endfunction()
 
 function(generate_font ttf_font_file font_character_list_file make_4bpp background_color_r background_color_g
-         background_color_b font_size)
+         background_color_b font_size make_1d)
     if(WIN32)
         find_program(PYTHON3 python)
     else()
@@ -215,8 +215,8 @@ function(generate_font ttf_font_file font_character_list_file make_4bpp backgrou
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
             COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
                     ${font_character_list_file} ${make_4bpp}
-                    ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${background_color_r}
-                    ${background_color_g} ${background_color_b} ${font_size}
+                    ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${make_1d}
+                    ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
             VERBATIM)
 endfunction()
 

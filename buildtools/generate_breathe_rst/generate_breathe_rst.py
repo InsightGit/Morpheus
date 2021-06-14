@@ -80,7 +80,7 @@ def generate_header_rst_files(header_path: str, breathe_path: str, root_namespac
 
 
 def main() -> None:
-    path = os.path.dirname(os.path.realpath(__file__))
+    path = sys.argv[3]
 
     print(f"file path: {path}")
 

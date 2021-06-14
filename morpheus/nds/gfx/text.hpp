@@ -26,7 +26,7 @@ namespace morpheus {
             public:
                 Text(bool use_sub_display, bool affine, unsigned int background_num, unsigned int cbb,
                      unsigned int sbb, TextBackgroundSize background_size, NdsMainLoop *main_loop) :
-                     core::gfx::TextBase(affine, background_num, cbb, sbb, main_loop, true) {
+                     core::gfx::TextBase(affine, background_num, cbb, sbb, main_loop, false) {
                     m_background_size = background_size;
                     m_use_sub_display = use_sub_display;
 

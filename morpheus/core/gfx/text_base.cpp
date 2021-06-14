@@ -41,12 +41,20 @@ bool morpheus::core::gfx::TextBase::init_expression_text_api() {
 
 void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
     for(unsigned char c : string) {
-        int tile_id = c - m_font.ascii_offset;
+        int ascii_difference = c - m_font.ascii_offset;
+        int tile_id;
 
-        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) + " is " +
-                                                                          std::to_string(tile_id));
+        if(m_font.is_2d_mapping) {
+            tile_id = (m_font.char_size.get_x() * (ascii_difference % (16 / m_font.char_size.get_x()))) +
+                      ((16 * m_font.char_size.get_y()) * (ascii_difference / 8));
+        } else {
+            tile_id = ascii_difference * 4;
+        }
 
-        if(tile_id < 0 || c == m_font.space_ascii_code) {
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) +
+                                                                          " is " + std::to_string(tile_id));
+
+        if(tile_id < 0) {
             continue;
         }
 
@@ -64,22 +72,40 @@ void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
 
         for(int y = 0; m_font.char_size.get_y() > y; ++y) {
             for(int x = 0; m_font.char_size.get_x() > x; ++x) {
-                Vector2 text_position = m_cursor_position + Vector2(x, y);
+                int subtile_id = tile_id;
+                Vector2 text_position = m_cursor_position + Vector2(x * 8, y * 8);
 
-                if(m_font.is_2d_mapping) {
-                    tile_id += (m_font.char_size.get_y() * (16 / m_font.char_size.get_y())) + m_font.char_size.get_x();
-                } else {
-                    tile_id += m_font.char_size.get_y() + m_font.char_size.get_x();
+                if(static_cast<unsigned int>(subtile_id) != m_font.space_ascii_code) {
+                    if(m_font.is_2d_mapping) {
+                        if(y > 0) {
+                            subtile_id += y * 16;
+
+                            m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(
+                                    "new after adding y " + std::to_string(subtile_id));
+                        }
+
+                        subtile_id += x;
+
+                        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(
+                                "new after adding x " + std::to_string(subtile_id));
+                    } else {
+                        subtile_id += x + y;
+
+                        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(
+                                "new after adding xy " + std::to_string(subtile_id));
+                    }
                 }
 
-                m_expression_background->set_tile_id_at_position(text_position, tile_id);
+                m_expression_background->set_tile_id_at_position(text_position, subtile_id);
 
-                m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Printing " + std::to_string(tile_id)
-                                                                                  + " at " + text_position.to_string());
+                m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Printing " + std::to_string(subtile_id)
+                                                                                  + " at " + text_position.to_string() + "\n");
             }
         }
 
         m_cursor_position = Vector2(m_cursor_position.get_x() + (m_font.char_size.get_x() * 8),
                                     m_cursor_position.get_y());
+
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("\n\n\n");
     }
 }

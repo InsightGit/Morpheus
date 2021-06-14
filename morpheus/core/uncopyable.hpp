@@ -17,6 +17,11 @@ namespace morpheus {
 
             void operator=(const Uncopyable&) = delete;
         };
+
+
+        /// \class morpheus::core::Uncopyable
+        /// A utility class that makes children classes un-copyable by
+        /// deleting the copy constructor.
     }
 }
 
