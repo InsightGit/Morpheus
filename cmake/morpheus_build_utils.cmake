@@ -210,8 +210,6 @@ function(generate_font ttf_font_file font_character_list_file make_4bpp backgrou
     get_filename_component(base_char_list_name ${font_character_list_file} NAME_WE)
     get_filename_component(base_font_name ${ttf_font_file} NAME_WE)
 
-    message(${base_font_name}-${base_char_list_name}.c)
-
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
             COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
                     ${font_character_list_file} ${make_4bpp}
@@ -267,4 +265,31 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
             "extern const uint8_t ${soundbank_name}_bin_end[];\n"
             "extern const uint8_t ${soundbank_name}_bin[];\n"
             "extern const uint32_t ${soundbank_name}_bin_size;")
+endfunction()
+
+function(generate_streaming_background tilemap_bin_to_split asset_dir width height palette_bank_num png_file is_4bpp)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    if(is_4bpp)
+        set(bpp_flag "4")
+    else()
+        set(bpp_flag "8")
+    endif()
+
+    get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.o
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
+            ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num}
+            COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.s
+            COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.o
+            VERBATIM)
 endfunction()

@@ -16,6 +16,8 @@ morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blen
     m_save_manager.reset(save_manager);
 
     m_sprites.reserve(MAX_SPRITE_NUM);
+
+    fatInitDefault();
 }
 
 std::vector<morpheus::core::InputEvent>

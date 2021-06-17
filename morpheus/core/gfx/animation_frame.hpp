@@ -27,25 +27,74 @@ namespace morpheus {
                 LAST
             };
 
+
+            /// \enum morpheus::core::gfx::AnimationFrameCopyOption
+            ///
+            /// An enum class consisting of all the sprite attributes that can
+            /// be modified by the animation engine on both the GBA and the DS.
+            /// The sole exceptions are AnimationFrameCopyOption::LAST, which
+            /// is used for psuedo-inheritance purposes with
+            /// gba::gfx::GbaAnimationFrameCopyOption and
+            /// nds::gfx::NdsAnimationFrameCopyOption, and
+            /// AnimationFrameCopyOption::PALETTE which is currently not
+            /// implemented.
+
             enum class AnimationSmoothingMode {
                 NONE,
                 LINEAR
             };
 
+
+            /// \enum morpheus::core::gfx::AnimationSmoothingMode
+            ///
+            /// An enum class consisting of all the smoothing modes that can be
+            /// used on attributes within their animation frames.
+            /// Currently only linear smoothing or smoothing is supported.
+
             class AnimationFrame {
             public:
-                AnimationFrame(core::gfx::SpriteBase *target_sprite, AnimationFrame *from_animation_frame);
+                /// Constructs an AnimationFrame to be used by a SpriteBase
+                /// through the SpriteBase::set_frames() function.
+                /// This must have a SpriteBase to conduct this animation on
+                /// and may have another AnimationFrame to construct itself from.
+                /// \param target_sprite The SpriteBase to conduct this animation on
+                /// \param from_animation_frame The previous AnimationFrame (if any)
+                /// to construct this animation from.
+                AnimationFrame(SpriteBase *target_sprite, AnimationFrame *from_animation_frame = nullptr);
 
+                /// Destructs an AnimationFrame.
                 virtual ~AnimationFrame() = default;
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// <br><br>
+                /// In addition, remeber to set the BlendingMode on the
+                /// SpriteBase to the desired effect before starting a
+                /// blending animation.
+                /// \return the blending value specified by this AnimationFrame.
                 unsigned int get_blending_value() const {
                     return m_blending_value;
                 }
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// \return the mosaic levels specified by this AnimationFrame.
                 core::gfx::Vector2 get_mosaic_levels() const {
                     return m_mosaic_levels;
                 }
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// <br><br>
+                /// In addition, make sure that the SpriteBase is affine before
+                /// trying to do an affine animation.
+                /// \return The fixed-point rotation specified by this AnimationFrame
                 int get_rotation() const {
                     return m_rotation;
                 }

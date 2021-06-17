@@ -15,11 +15,44 @@ morpheus::nds::gfx::TiledBackground::TiledBackground(bool affine, bool use_sub_d
                                                                               false) {
     m_main_loop = main_loop;
     m_use_sub_display = use_sub_display;
+
+    if(is_affine()) {
+        if(use_sub_display) {
+            if(background_num == 2) {
+                REG_BG2PA_SUB = 1 << 8;
+                REG_BG2PB_SUB = 0;
+                REG_BG2PC_SUB = 0;
+                REG_BG2PD_SUB = 1 << 8;
+            } else if(background_num == 3) {
+                REG_BG3PA_SUB = 1 << 8;
+                REG_BG3PB_SUB = 0;
+                REG_BG3PC_SUB = 0;
+                REG_BG3PD_SUB = 1 << 8;
+            }
+        } else {
+            if(background_num == 2) {
+                REG_BG2PA = 1 << 8;
+                REG_BG2PB = 0;
+                REG_BG2PC = 0;
+                REG_BG2PD = 1 << 8;
+            } else if(background_num == 3) {
+                REG_BG3PA = 1 << 8;
+                REG_BG3PB = 0;
+                REG_BG3PC = 0;
+                REG_BG3PD = 1 << 8;
+            }
+        }
+    }
 }
 
 
 void morpheus::nds::gfx::TiledBackground::update_scroll() {
     morpheus::core::gfx::Vector2 position = get_scroll();
+
+    if(is_affine()) {
+        bgSetCenter(m_background_reference_num, 0, 0);
+        bgSetRotateScale(m_background_reference_num, get_rotation(), get_scale().get_x(), get_scale().get_y());
+    }
 
     bgSetScroll(m_background_reference_num, position.get_x(), position.get_y());
 }

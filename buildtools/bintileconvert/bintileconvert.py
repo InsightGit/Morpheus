@@ -277,9 +277,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
 
         return return_value
 
-
 def main() -> None:
     if len(sys.argv) > 4:
+
         try:
             height = int(sys.argv[4])
             width = int(sys.argv[3])
@@ -287,7 +287,8 @@ def main() -> None:
             if (height != 32 and height != 64 and height != 128) or (width != 32 and width != 64 and width != 128):
                 raise ValueError
         except ValueError:
-            print("Tile width and height must be either 32, 64, or 128!")
+            print("Tile width and height must be either 32, 64, or 128 for a " \
+                  "non-streaming background")
 
             sys.exit(2)
 

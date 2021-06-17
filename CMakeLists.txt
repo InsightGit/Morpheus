@@ -8,8 +8,10 @@ string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
 if(WIN32)
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
 else()
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
 endif()
 
 if(NOT GRIT)
@@ -76,7 +78,7 @@ set(MORPHEUS_SOURCE_FILES
 
 project(morpheus)
 
-set( CMAKE_VERBOSE_MAKEFILE on )
+#set( CMAKE_VERBOSE_MAKEFILE on )
 
 set(BASE_INCLUDE_DIRS . ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -103,6 +105,8 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_4_bpp.cpp
             morpheus/gba/gfx/sprite_8_bpp.hpp
             morpheus/gba/gfx/sprite_8_bpp.cpp
+            morpheus/gba/gfx/streaming_background.hpp
+            morpheus/gba/gfx/streaming_background.cpp
             morpheus/gba/gfx/text.cpp
             morpheus/gba/gfx/text.hpp
             morpheus/gba/gfx/tiled_background.hpp
@@ -421,6 +425,22 @@ if("$ENV{BUILD_TESTS}")
         add_gba_executable(morpheus-gba-custom-font-test.elf)
 
         target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc)
+
+        project(morpheus-gba-streaming-background-test)
+
+        link_directories(morpheus-gba-streaming-background-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib
+                $ENV{DEVKITPRO}/libgba/lib)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.bin
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.png
+                                      false)
+
+        add_executable(morpheus-gba-streaming-background-test.elf
+                tests/streaming_background_test/streaming_background_test.cpp
+                ${CMAKE_CURRENT_BINARY_DIR}/region_map_128.o)
+        add_gba_executable(morpheus-gba-streaming-background-test.elf)
+
+        target_link_libraries(morpheus-gba-streaming-background-test.elf morpheus mm tonc fat gba)
     elseif(platform_lower STREQUAL "nds")
         list(APPEND maxmod_soundbank_list "${CMAKE_CURRENT_SOURCE_DIR}/tests/maxmod_test/example.it")
 
@@ -593,12 +613,15 @@ if("$ENV{BUILD_TESTS}")
         project(morpheus-nds-affine-test)
 
         execute_grit_tilemap("../tests/affine_test/region_map_affine2.png" FALSE 3 TRUE)
-        #convert_tilemap_bin_image_file("tests/affine_test/region_map_affine.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
-        #        "tests/affine_test/region_map_affine.png" 8 true)
+        convert_tilemap_bin_image_file("tests/affine_test/region_map_affine.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
+                "tests/affine_test/region_map_affine.png" 8 true)
+        convert_tilemap_bin_image_file("tests/affine_test/region_map_affine_128.bin" ${CMAKE_CURRENT_BINARY_DIR}
+                128 128 0 "tests/affine_test/region_map_affine.png" true true)
 
         link_directories(morpheus-nds-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         add_executable(morpheus-nds-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES}
+                "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine_128.c"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine2.o")
         add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Affine Test" "Morpheus engine" "")
@@ -639,8 +662,6 @@ else()
     set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
 endif()
-
-set(CMAKE_AS ASSEMBLER_TO_USE CACHE STRING "")
 
 enable_language(ASM)
 

@@ -9,7 +9,9 @@
 #endif
 
 #include "region_map_affine_128.h"
-#include "nums.h"
+#include "region_map_affine.h"
+#include "region_map_affine2.h"
+//#include "nums.h"
 #include "test4.h"
 
 class InputNode : public morpheus::core::ControlReciever {
@@ -190,7 +192,7 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::SpriteBase> base_sprite(morpheus::utils::construct_appropriate_sprite_4bpp(
                                                           true, nullptr, nullptr));
     std::shared_ptr<morpheus::core::gfx::TextBase> info_text(morpheus::utils::construct_appropriate_text(false,
-                                                                                                     0, 15, 15,
+                                                                                                     2, 15, 15,
                                                                                                      main_loop.get(),
                                                                                                      true));
     std::shared_ptr<InputNode> input_node(new InputNode(main_loop->get_no_cash_debug_controller(),
@@ -209,9 +211,19 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    /*base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
+    base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
                                      region_map_affine_128Pal, region_map_affine_128PalLen,
                                      region_map_affine_128Map, region_map_affine_128MapLen,
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_128x128);
+
+    /*base_background->load_from_array(region_map_affineTiles, region_map_affineTilesLen,
+                                 region_map_affinePal, region_map_affinePalLen,
+                                 region_map_affineMap, region_map_affineMapLen,
+                                 morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);*/
+
+    /*base_background->load_from_array(region_map_affine2Tiles, region_map_affine2TilesLen,
+                                     region_map_affine2Pal, region_map_affine2PalLen,
+                                     region_map_affine2Map, region_map_affine2MapLen,
                                      morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);*/
 
     base_sprite->set_position(64, 64);
@@ -219,8 +231,8 @@ int main() {
 
     base_background->set_affine_index(2);
 
-    main_loop->enable_affine(morpheus::core::gfx::AffineMode::MIXED_AFFINE);
-    main_loop->enable_background(0);
+    main_loop->enable_affine(morpheus::core::gfx::AffineMode::FULL_AFFINE);
+    //main_loop->enable_background(0);
 
     main_loop->add_control_reciever(input_node);
 

@@ -9,6 +9,7 @@
 
 #include <core/gfx/affine_interface.hpp>
 #include <core/gfx/sprite_base.hpp>
+#include <core/gfx/streaming_background_base.hpp>
 #include <core/gfx/text_base.hpp>
 #include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>

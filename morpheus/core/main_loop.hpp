@@ -9,6 +9,8 @@
 #include <random>
 #include <vector>
 
+#include <fat.h>
+
 #include <core/gfx/sprite_base.hpp>
 #include <core/gfx/window.hpp>
 #include <core/communication_channel.hpp>

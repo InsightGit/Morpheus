@@ -261,8 +261,6 @@ morpheus::core::SaveManager *morpheus::nds::NdsMainLoop::select_appropriate_save
     char *base_path;
     bool mounted = nitroFSInit(&base_path);
 
-    fatInitDefault();
-
     nocashMessage(std::string("mount process:" + std::to_string(mounted)).c_str());
 
     if(!mounted) {
