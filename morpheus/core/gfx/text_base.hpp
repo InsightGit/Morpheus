@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_TEXT_BASE_HPP
 #define MORPHEUS_TEXT_BASE_HPP
 
+#include <map>
+
 #include <core/main_loop.hpp>
 #include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -32,6 +34,8 @@ namespace morpheus {
                 bool is_2d_mapping;
                 unsigned int new_line_ascii_code;// = 10;
                 unsigned int space_ascii_code; //= 32;
+                bool use_utf8;
+                std::map<unsigned int, unsigned int> utf8_table;
             };
 
             class TextBase {

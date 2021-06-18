@@ -30,7 +30,7 @@ namespace morpheus {
 
                     bool load_from_arrays(const unsigned int *tiles, const unsigned int tiles_len,
                                           const unsigned short *palette, const unsigned int pal_len,
-                                          const std::vector<unsigned short *> tilemaps,
+                                          const unsigned short **tilemaps, const unsigned short tilemaps_len,
                                           StreamingBackgroundSize size);
 
                     bool load_from_files(const unsigned int *tiles, const unsigned int tiles_len,
@@ -66,7 +66,7 @@ namespace morpheus {
                         }
                     }
 
-                    FILE *get_tilemap_file();
+                    //FILE *get_tilemap_file();
 
                     //void load_from_file(const std::string &tilemap_file_name);
 
@@ -78,7 +78,7 @@ namespace morpheus {
                     void refresh_current_background_file_pointer(FILE **background_file_pointer,
                                                                  unsigned int &current_background_number,
                                                                  const Vector2 &current_scroll_vector);
-                    void refresh_current_background_array_pointer(unsigned short **background_array_pointer,
+                    void refresh_current_background_array_pointer(const unsigned short **background_array_pointer,
                                                                   unsigned int &current_background_number,
                                                                   const Vector2 &current_scroll_vector);
 
@@ -96,7 +96,7 @@ namespace morpheus {
                     Vector2 m_last_file_update_at = Vector2(0, 0);
                     Vector2 m_map_tile_update_threshold;
                     std::vector<std::string> m_tilemap_file_paths;
-                    std::vector<unsigned short *> m_tilemaps;
+                    std::vector<const unsigned short *> m_tilemaps;
                     bool m_using_files = false;
             };
         }

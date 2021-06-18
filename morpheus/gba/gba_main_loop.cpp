@@ -5,12 +5,12 @@
 #include "gba_main_loop.hpp"
 
 morpheus::gba::GbaMainLoop::GbaMainLoop(morpheus::gba::DebugConsoleMode debug_console_mode,
-                                        core::GbaSaveType save_type) :
+                                        core::GbaSaveType save_type, bool enable_fat) :
                             morpheus::core::MainLoop(new morpheus::gba::gfx::GbaBlendingController(),
                                                      new MultiplayerSerialCommunication(),
                                                      new morpheus::gba::gfx::GbaMosaicController(),
                                                      new GbaNoCashDebugController(),
-                                                     select_appropriate_save_manager(save_type)) {
+                                                     select_appropriate_save_manager(save_type), enable_fat) {
     #ifdef NDEBUG
         bool debug = false;
     #else

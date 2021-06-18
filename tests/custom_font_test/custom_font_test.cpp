@@ -21,16 +21,26 @@ int main() {
                                                                                                      main_loop.get()));
 
     morpheus::core::gfx::Font stick_english_font = {
-            .font_palette = Montserrat_Light_enPal,
+            .font_palette = Stick_Regular_enPal,
             .font_palette_len = 32,
-            .font_tiles = Montserrat_Light_enTiles,
-            .font_tiles_len = Montserrat_Light_enTilesLen,
+            .font_tiles = Stick_Regular_enTiles,
+            .font_tiles_len = Stick_Regular_enTilesLen,
             .ascii_offset = 32,
             .char_size = morpheus::core::gfx::Vector2(2, 2),
             .font_bpp = morpheus::core::gfx::FontBpp::FONT_4BPP,
             .is_2d_mapping = true,
             .new_line_ascii_code = 10,
-            .space_ascii_code = 32
+            .space_ascii_code = 32,
+            .use_utf8 = false,
+            .utf8_table = std::map<unsigned int, unsigned int>()
+    };
+    morpheus::core::gfx::Font stick_japanese_font = {
+            .font_palette = Stick_Regular_jpPal,
+            .font_palette_len = 32,
+            .font_tiles = Stick_Regular_jpTiles,
+            .font_tiles_len = Stick_Regular_jpTilesLen,
+            .use_utf8 = true,
+            .utf8_table = std::map<unsigned int, unsigned int>()
     };
 
     text_base->set_current_font(stick_english_font);
@@ -38,6 +48,7 @@ int main() {
     //text_base->print("HELLO WORLD!");
 
     text_base->print_at_pos("Hello World!", morpheus::core::gfx::Vector2(0, 32));
+    text_base->print_at_pos("こんにちは", morpheus::core::gfx::Vector2(0, 64));
 
     /*#ifdef _GBA
         TFont japanese_font;

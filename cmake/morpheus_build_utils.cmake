@@ -267,7 +267,8 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
             "extern const uint32_t ${soundbank_name}_bin_size;")
 endfunction()
 
-function(generate_streaming_background tilemap_bin_to_split asset_dir width height palette_bank_num png_file is_4bpp)
+function(generate_streaming_background tilemap_bin_to_split asset_dir width height palette_bank_num png_file is_4bpp
+         output_files)
     if(WIN32)
         find_program(PYTHON3 python)
     else()
@@ -286,10 +287,17 @@ function(generate_streaming_background tilemap_bin_to_split asset_dir width heig
 
     get_filename_component(png_file_name_path ${png_file} NAME_WLE)
 
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.o
-            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
-            ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num}
-            COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.s
-            COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.o
-            VERBATIM)
+    if(output_files)
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
+                ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num}
+                COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                VERBATIM)
+    else()
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
+                ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num} ${png_file}
+                ${bpp_flag} ${CMAKE_CURRENT_BINARY_DIR}
+                VERBATIM)
+    endif()
 endfunction()

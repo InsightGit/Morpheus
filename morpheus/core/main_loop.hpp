@@ -61,9 +61,10 @@ namespace morpheus {
             /// \param mosaic_controller Platform-specific mosaic controller
             /// \param no_cash_debug_controller Platform-specific debug controller
             /// \param save_manager Platform-specific save manager
+            /// \param enable_fat Whether to enable libfat or not.
             MainLoop(gfx::BlendingController *blending_controller, CommunicationChannel *communication_channel,
                      gfx::MosaicController *mosaic_controller, NoCashDebugController *no_cash_debug_controller,
-                     SaveManager *save_manager);
+                     SaveManager *save_manager, bool enable_fat);
 
             /// Destructs the Main loop object.
             virtual ~MainLoop() = default;

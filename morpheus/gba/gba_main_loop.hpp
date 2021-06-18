@@ -42,7 +42,8 @@ namespace morpheus {
         public:
             const static int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
 
-            explicit GbaMainLoop(DebugConsoleMode debug_console_mode, core::GbaSaveType save_type);
+            explicit GbaMainLoop(DebugConsoleMode debug_console_mode, core::GbaSaveType save_type,
+                                 bool enable_fat = false);
 
             virtual ~GbaMainLoop();
 

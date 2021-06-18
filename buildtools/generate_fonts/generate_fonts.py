@@ -5,8 +5,18 @@ import sys
 from PIL import Image, ImageColor, ImageDraw, ImageFont
 
 
+def _convert_str_to_bool(argument: str, argument_name : str):
+    if argument.lower() == "true":
+        return True
+    elif argument.lower() == "false":
+        return False
+    else:
+        print(f"Argument {argument_name} must be either true or false (case insensitive)")
+        sys.exit(2)
+
+
 def main() -> None:
-    if len(sys.argv) > 5:
+    if len(sys.argv) > 6:
         print(sys.argv)
 
         if len(sys.argv) > 9:
@@ -24,29 +34,30 @@ def main() -> None:
             sys.exit(2)
 
             return
+come back here
+        make_1d = _convert_str_to_bool()
 
-        if sys.argv[5].lower() == "true":
-            make_1d = True
-        elif sys.argv[5].lower() == "false":
-            make_1d = False
-        else:
-            print("make_1d argument must either be True or False (case insensitive)")
-
-            sys.exit(2)
-
-            return
 
         font = ImageFont.truetype(sys.argv[1], font_size, encoding="unic")
-        size = [font_size * 8, 0]
+        size = [128, 0]
+
+        if font_size % 8 > 0:
+            rounded_font_size = font_size + (8 - (font_size % 8))
+        else:
+            rounded_font_size = font_size
+
+        print(f"Original font size is {font_size} Rounded font size is {rounded_font_size}")
 
         try:
             with open(sys.argv[2], 'r') as file:
                 characters = file.read().replace("\n", "").split(" ")
 
-                if len(characters) >= 128 / font_size:
-                    size[0] = len(characters) * font_size
+                #if len(characters) >= 128 / rounded_font_size:
+                #    size[0] = len(characters) * rounded_font_size
+                if len(characters) * (rounded_font_size / 8) < 128 / rounded_font_size:
+                    size[0] = int((len(characters) * (rounded_font_size / 8)) * rounded_font_size)
 
-                size[1] = (len(characters) % (128 / font_size))
+                size[1] = (len(characters) % (128 / rounded_font_size))
         except OSError:
             character_list_path = os.path.join(os.path.join(os.path.dirname(__file__),  "character_lists"),
                                                f"{sys.argv[2]}.txt")
@@ -57,12 +68,14 @@ def main() -> None:
                 with open(character_list_path, 'r') as file:
                     characters = file.read().replace("\n", "").split(" ")
 
-                    print(f"Character len: {len(characters)} vs {128 / font_size} and font size: {font_size}")
+                    print(f"Character len: {len(characters)} vs {128 / rounded_font_size} and font size: "
+                          f"{rounded_font_size}")
 
-                    if len(characters) + (font_size / 8) <= 128 / font_size:
-                        size[0] = int((len(characters) + (font_size / 8)) * font_size)
+                    if len(characters) * (rounded_font_size / 8) < 128 / rounded_font_size:
+                        size[0] = int((len(characters) * (rounded_font_size / 8)) * rounded_font_size)
 
-                    size[1] = int(((len(characters) + (font_size / 4)) / (128 / font_size)) * font_size)
+                    size[1] = int(((len(characters) + (rounded_font_size / 4)) / (128 / rounded_font_size)) *
+                                  rounded_font_size)
             except OSError:
                 print(f"Couldn't open {character_list_path} either!")
 
@@ -71,7 +84,7 @@ def main() -> None:
                 return
 
         if len(sys.argv) > 7:
-            background_color = (int(sys.argv[6]), int(sys.argv[7]), int(sys.argv[8]))
+            background_color = (int(sys.argv[7]), int(sys.argv[8]), int(sys.argv[9]))
         else:
             background_color = (0, 0, 0)
 
@@ -81,21 +94,21 @@ def main() -> None:
 
         print(f"image size: ({size[0]}, {size[1]})")
 
-        print_position = [font_size, -6]
+        print_position = [rounded_font_size, -6]
 
         for character in characters:
-            if print_position[1] >= size[1] - (font_size - 1):
+            if print_position[1] >= size[1] - (rounded_font_size - 1):
                 break
 
-            if print_position[0] >= size[0] - (font_size - 1):
+            if print_position[0] >= size[0] - (rounded_font_size - 1):
                 print_position[0] = 0
-                print_position[1] += font_size
+                print_position[1] += rounded_font_size
 
-            image_drawing.text((print_position[0], print_position[1]), character, font=font)
+            image_drawing.text((print_position[0], print_position[1]), character, features=["-kern"], font=font)
 
             print(f"{character} at ({print_position[0]}, {print_position[1]})")
 
-            print_position[0] += font_size
+            print_position[0] += rounded_font_size
 
         #image_drawing.multiline_text((0, 0), string_to_print, fill=background_color, font=font)
 
@@ -128,7 +141,7 @@ def main() -> None:
 
         grit_subprocess = ["grit", image_path]
 
-        if sys.argv:
+        if _convert_str_to_bool(sys.argv[3], "make_4bpp"):
             grit_subprocess.append("-gB4")
             #grit_subprocess.append("-MRtpf")
         else:
@@ -141,7 +154,7 @@ def main() -> None:
     else:
         print("Invalid syntax:")
         print(f"{os.path.basename(__file__)} ttf_font_file font_character_list_file make_4bpp destination_file make_1d "
-              f"[background_color_r] [background_color_g] [background_color_b] [font_size]")
+              f"use_utf8 [background_color_r] [background_color_g] [background_color_b] [font_size]")
 
         sys.exit(2)
 

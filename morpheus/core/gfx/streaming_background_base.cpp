@@ -15,13 +15,17 @@ bool
 morpheus::core::gfx::StreamingBackgroundBase::load_from_arrays(const unsigned int *tiles, const unsigned int tiles_len,
                                                                const unsigned short *palette,
                                                                const unsigned int pal_len,
-                                                               const std::vector<unsigned short *> tilemaps,
+                                                               const unsigned short **tilemaps,
+                                                               const unsigned short tilemaps_len,
                                                                StreamingBackgroundSize size) {
     m_background_size = size;
-    m_tilemaps = tilemaps;
     m_using_files = false;
 
-    m_background->load_from_array(tiles, tiles_len, palette, pal_len, tilemaps[0],
+    for(int i = 0; tilemaps_len > i; ++i) {
+        m_tilemaps.push_back(tilemaps[i]);
+    }
+
+    m_background->load_from_array(tiles, tiles_len, palette, pal_len, m_tilemaps[0],
                                   64 * 64 * 2, TiledBackgroundSize::BG_64x64);
 
     return true;
@@ -186,7 +190,7 @@ void morpheus::core::gfx::StreamingBackgroundBase::reload_tiles() {
 
         unsigned int global_scroll_background_number = global_scroll_background_vector.get_x() +
                 (2 * global_scroll_background_vector.get_y());
-        unsigned short *tilemap_array = nullptr;
+        const unsigned short *tilemap_array = nullptr;
         FILE *tilemap_file = nullptr;
 
         if(m_using_files) {
@@ -273,7 +277,7 @@ void morpheus::core::gfx::StreamingBackgroundBase::refresh_current_background_fi
 
 
 void morpheus::core::gfx::StreamingBackgroundBase::refresh_current_background_array_pointer(
-                                              unsigned short **background_array_pointer,
+                                              const unsigned short **background_array_pointer,
                                               unsigned int &current_background_number,
                                               const Vector2 &current_scroll_vector) {
     Vector2 global_scroll_background_vector = current_scroll_vector / Vector2(64 * 8, 64 * 8);

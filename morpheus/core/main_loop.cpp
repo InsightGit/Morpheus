@@ -8,7 +8,7 @@ morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blen
                                    morpheus::core::CommunicationChannel *communication_channel,
                                    morpheus::core::gfx::MosaicController *mosaic_controller,
                                    morpheus::core::NoCashDebugController *no_cash_debug_controller,
-                                   SaveManager *save_manager) {
+                                   SaveManager *save_manager, bool enable_fat) {
     m_blending_controller.reset(blending_controller);
     m_communication_channel.reset(communication_channel);
     m_mosaic_controller.reset(mosaic_controller);
@@ -17,7 +17,9 @@ morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blen
 
     m_sprites.reserve(MAX_SPRITE_NUM);
 
-    fatInitDefault();
+    if(enable_fat) {
+        fatInitDefault();
+    }
 }
 
 std::vector<morpheus::core::InputEvent>

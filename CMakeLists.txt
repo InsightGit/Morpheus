@@ -414,17 +414,17 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 16 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en true 147 235 255 16 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en true 147 235 255 16 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en true 147 235 255 16 false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 15 false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en true 147 235 255 15 false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en true 147 235 255 15 false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en true 147 235 255 15 false)
 
         add_executable(morpheus-gba-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
                        ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c
                        ${CMAKE_CURRENT_BINARY_DIR}/Montserrat-Light-en.c ${CMAKE_CURRENT_BINARY_DIR}/Roboto-Black-en.c)
         add_gba_executable(morpheus-gba-custom-font-test.elf)
 
-        target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc)
+        target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc fat gba)
 
         project(morpheus-gba-streaming-background-test)
 
@@ -433,11 +433,11 @@ if("$ENV{BUILD_TESTS}")
         generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.bin
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.png
-                                      false)
+                                      false false false)
 
         add_executable(morpheus-gba-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/region_map_128.o)
+                ${CMAKE_CURRENT_BINARY_DIR}/region_map_128.c)
         add_gba_executable(morpheus-gba-streaming-background-test.elf)
 
         target_link_libraries(morpheus-gba-streaming-background-test.elf morpheus mm tonc fat gba)

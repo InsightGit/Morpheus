@@ -32,12 +32,10 @@ namespace morpheus {
             ///
             /// An enum class consisting of all the sprite attributes that can
             /// be modified by the animation engine on both the GBA and the DS.
-            /// The sole exceptions are AnimationFrameCopyOption::LAST, which
+            /// The sole exception is AnimationFrameCopyOption::LAST, which
             /// is used for psuedo-inheritance purposes with
             /// gba::gfx::GbaAnimationFrameCopyOption and
-            /// nds::gfx::NdsAnimationFrameCopyOption, and
-            /// AnimationFrameCopyOption::PALETTE which is currently not
-            /// implemented.
+            /// nds::gfx::NdsAnimationFrameCopyOption.
 
             enum class AnimationSmoothingMode {
                 NONE,
@@ -49,7 +47,9 @@ namespace morpheus {
             ///
             /// An enum class consisting of all the smoothing modes that can be
             /// used on attributes within their animation frames.
-            /// Currently only linear smoothing or smoothing is supported.
+            /// Currently only linear smoothing or smoothing is supported on all
+            /// attributes except for AnimationFrameCopyOption::PALETTE and
+            /// AnimationFrameCopyOption::VISIBLE.
 
             class AnimationFrame {
             public:
@@ -99,22 +99,54 @@ namespace morpheus {
                     return m_rotation;
                 }
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// \return The position specified by this AnimationFrame
                 core::gfx::Vector2 get_position() const {
                     return m_position;
                 }
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// <br><br>
+                /// In addition, make sure that the SpriteBase is affine before
+                /// trying to do an affine animation.
+                /// \return The fixed-point scale specified by this AnimationFrame
                 core::gfx::Vector2 get_scale() const {
                     return m_scale;
                 }
 
+                /// \return The number of VBlanks till this AnimationFrame should be
+                /// fully triggered since the last AnimationFrame
                 unsigned int get_vblank_delays() const {
                     return m_vblank_delays;
                 }
 
+                /// The values from these SpriteBase attribute
+                /// getters will not be used unless they are explicitly
+                /// enabled through the enable_copy argument being set to true
+                /// on the respective SpriteBase attribute setters.
+                /// <br><br>
+                /// In addition, this attribute cannot be smoothed.
+                /// \return Whether the SpriteBase is visible in this AnimationFrame
                 bool is_visible() const {
                     return m_visible;
                 }
 
+                /// Sets the blending value used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is set
+                /// to true. Remeber to set the BlendingMode on this SpriteBase
+                /// to the desired effect before starting a blending animation.
+                /// \param blending_value The blending value to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_blending_value(unsigned int blending_value, bool enable_copy = true,
                                         AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_blending_value = blending_value;
@@ -124,6 +156,15 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the mosaic levels used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true.
+                /// \param blending_value The mosaic levels to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_mosaic_levels(core::gfx::Vector2 mosaic_levels, bool enable_copy = true,
                                        AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_mosaic_levels = mosaic_levels;
@@ -135,6 +176,15 @@ namespace morpheus {
 
                 // TODO(Bobby): Implement Palette functions with Palette support
 
+                /// Sets the position used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true.
+                /// \param blending_value The position to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_position(core::gfx::Vector2 position, bool enable_copy = true,
                                   AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_position = position;
@@ -144,6 +194,16 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the rotation used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true. Remeber to make sure that the SpriteBase is
+                /// affine before starting an animation on an affine attribute.
+                /// \param blending_value The rotation to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_rotation(int rotation, bool enable_copy = true,
                                   AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_rotation = rotation;
@@ -153,6 +213,16 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the scale used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true. Remeber to make sure that the SpriteBase is
+                /// affine before starting an animation on an affine attribute.
+                /// \param blending_value The scale to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_scale(core::gfx::Vector2 scale, bool enable_copy = true,
                                AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_scale = scale;
