@@ -40,27 +40,18 @@ bool morpheus::core::gfx::TextBase::init_expression_text_api() {
 }
 
 void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
-    for(unsigned char c : string) {
-        int ascii_difference = c - m_font.ascii_offset;
-        int tile_id;
+    std::vector<int> tile_ids;
 
-        if(m_font.is_2d_mapping) {
-            tile_id = (m_font.char_size.get_x() * (ascii_difference % (16 / m_font.char_size.get_x()))) +
-                      ((16 * m_font.char_size.get_y()) * (ascii_difference / 8));
-        } else {
-            tile_id = ascii_difference * 4;
-        }
+    if(m_font.use_utf8) {
+        tile_ids = get_tile_ids_from_utf_string(string);
+    } else {
+        tile_ids = get_tile_ids_from_ascii_string(string);
+    }
 
-        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) +
-                                                                          " is " + std::to_string(tile_id));
-
-        if(tile_id < 0) {
-            continue;
-        }
-
+    for(int tile_id : tile_ids) {
         if((m_bounding_box.get_x() > 0 &&
-            m_cursor_position.get_x() >= m_print_position.get_x() + m_bounding_box.get_x()) ||
-           c == m_font.new_line_ascii_code) {
+            m_cursor_position.get_x() >= m_print_position.get_x() + m_bounding_box.get_x()) /*||
+            c == m_font.new_line_ascii_code*/) {
             m_cursor_position = Vector2(m_print_position.get_x(),
                                         m_cursor_position.get_y() + (m_font.char_size.get_y() * 8));
         }
@@ -99,7 +90,7 @@ void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
                 m_expression_background->set_tile_id_at_position(text_position, subtile_id);
 
                 m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Printing " + std::to_string(subtile_id)
-                                                                                  + " at " + text_position.to_string() + "\n");
+                + " at " + text_position.to_string() + "\n");
             }
         }
 
@@ -108,4 +99,51 @@ void morpheus::core::gfx::TextBase::expression_print_chars(std::string string) {
 
         m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("\n\n\n");
     }
+}
+
+std::vector<int> morpheus::core::gfx::TextBase::get_tile_ids_from_ascii_string(const std::string &string) {
+    std::vector<int> return_value;
+
+    for(unsigned char c : string) {
+        int ascii_difference = c - m_font.ascii_offset;
+        int tile_id;
+
+        if(m_font.is_2d_mapping) {
+            tile_id = (m_font.char_size.get_x() * (ascii_difference % (16 / m_font.char_size.get_x()))) +
+                    ((16 * m_font.char_size.get_y()) * (ascii_difference / 8));
+        } else {
+            tile_id = ascii_difference * 4;
+        }
+
+        /*m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) +
+        " is " + std::to_string(tile_id));*/
+
+        if(tile_id < 0) {
+            continue;
+        }
+
+        return_value.push_back(tile_id);
+    }
+
+    return return_value;
+}
+
+std::vector<int> morpheus::core::gfx::TextBase::get_tile_ids_from_utf_string(const std::string &string) {
+    std::vector<int> return_value;
+    std::u32string u32_string = std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t>{}.from_bytes(string);
+
+    for(char32_t c : u32_string) {
+        unsigned int tile_id = m_font.utf8_map[c];
+
+        if(tile_id == 0) {
+            nocash_puts(std::string("Couldn't find " + std::to_string(static_cast<unsigned int>(c))).c_str());
+
+            while(true) {}
+        } else {
+            return_value.push_back(tile_id - 1);
+        }
+        //return_value.push_back(m_font.utf8_map[])
+    }
+
+    return return_value;
 }

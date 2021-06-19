@@ -19,27 +19,16 @@ def main() -> None:
     if len(sys.argv) > 6:
         print(sys.argv)
 
-        if len(sys.argv) > 9:
-            font_size = int(sys.argv[9])
+        if len(sys.argv) > 10:
+            font_size = int(sys.argv[10])
         else:
             font_size = 16
 
-        if sys.argv[3].lower() == "true":
-            make_4bpp = True
-        elif sys.argv[3].lower() == "false":
-            make_4bpp = False
-        else:
-            print("make_4bpp argument must either be True or False (case insensitive)")
-
-            sys.exit(2)
-
-            return
-come back here
-        make_1d = _convert_str_to_bool()
-
-
         font = ImageFont.truetype(sys.argv[1], font_size, encoding="unic")
+        make_1d = _convert_str_to_bool(sys.argv[5], "make_1d")
+        make_4bpp = _convert_str_to_bool(sys.argv[3], "make_4bpp")
         size = [128, 0]
+        use_utf8 = _convert_str_to_bool(sys.argv[6], "use_utf8")
 
         if font_size % 8 > 0:
             rounded_font_size = font_size + (8 - (font_size % 8))
@@ -139,9 +128,10 @@ come back here
         else:
             image.save(image_path, "PNG")
 
+        base_image_file_name = os.path.splitext(os.path.basename(sys.argv[4]))[0]
         grit_subprocess = ["grit", image_path]
 
-        if _convert_str_to_bool(sys.argv[3], "make_4bpp"):
+        if make_4bpp:
             grit_subprocess.append("-gB4")
             #grit_subprocess.append("-MRtpf")
         else:
@@ -151,6 +141,40 @@ come back here
         grit_subprocess.append("-ftc")
 
         print(subprocess.run(grit_subprocess, capture_output=True))
+
+        if use_utf8:
+            with open(f"{base_image_file_name}.h", 'r+') as grit_header_file:
+                base_image_snake_file_name = base_image_file_name.replace("-", "_")
+                lines = grit_header_file.readlines()
+                variable_name = f"{base_image_snake_file_name}UtfMap"
+
+                utf8_map_string = f"extern const std::map<unsigned int, unsigned int> {variable_name};\n\n"
+
+                for i in range(len(lines)):
+                    if "#include" in lines[i]:
+                        lines.insert(i, "#include <map>")
+                    elif "#endif" in lines[i]:
+                        lines.insert(i, utf8_map_string)
+                        break
+
+                grit_header_file.seek(0)
+
+                grit_header_file.writelines(lines)
+
+            with open(f"{base_image_file_name}.cxx", 'w') as grit_source_file:
+                grit_source_file.write("\n#include <map>\n")
+                grit_source_file.write(f"\nconst std::map<unsigned int, unsigned int> {variable_name} = \n{{")
+
+                for i in range(len(characters)):
+                    character_utf8_int = int.from_bytes(characters[i].encode("utf-8"), "little")
+
+                    if i % 4 == 0:
+                        grit_source_file.write("\n    ")
+
+                    grit_source_file.write(f"{{ {character_utf8_int}, {i + 1} }}, ")
+
+                grit_source_file.write("\n};\n")
+
     else:
         print("Invalid syntax:")
         print(f"{os.path.basename(__file__)} ttf_font_file font_character_list_file make_4bpp destination_file make_1d "

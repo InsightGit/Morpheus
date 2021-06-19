@@ -153,38 +153,12 @@ void morpheus::core::gfx::StreamingBackgroundBase::reload_tiles() {
     if(global_scroll_x_differs || global_scroll_y_differs) {
         Vector2 global_scroll_offset_vector = m_global_scroll % Vector2(64 * 8, 64 * 8);
         Vector2 initial_scroll_vector = m_last_file_update_at + Vector2(8 * 8, 8 * 8);
-        bool scrolling_down = false;
-        bool scrolling_right = false;
 
         Vector2 initial_scroll_difference_vector = m_global_scroll - initial_scroll_vector;
-        Vector2 initial_scroll_difference_tile_vector = initial_scroll_difference_vector / Vector2(8, 8);
-
-        initial_scroll_difference_tile_vector = Vector2(abs(initial_scroll_difference_tile_vector.get_x()),
-                                                        abs(initial_scroll_difference_tile_vector.get_y()));
 
         /*if(global_scroll_background_number < m_tilemap_file_paths.size()) {
             return;
         }*/
-
-        if(initial_scroll_difference_vector.get_x() > 0) {
-            initial_scroll_vector = Vector2(m_global_scroll.get_x() - (m_map_tile_update_threshold.get_x() * 8),
-                                            initial_scroll_vector.get_y());
-            scrolling_right = true;
-        } else if(initial_scroll_difference_vector.get_x() < 0) {
-            initial_scroll_vector = Vector2(m_global_scroll.get_x() + (m_map_tile_update_threshold.get_x() * 8),
-                                            initial_scroll_vector.get_y());
-            scrolling_right = false;
-        }
-
-        if(initial_scroll_difference_vector.get_y() > 0) {
-            initial_scroll_vector = Vector2(initial_scroll_vector.get_x(), m_global_scroll.get_y() -
-                                            (m_map_tile_update_threshold.get_y() * 8));
-            scrolling_down = true;
-        } else if(initial_scroll_difference_vector.get_y() < 0) {
-            initial_scroll_vector = Vector2(initial_scroll_vector.get_x(), m_global_scroll.get_y() +
-                                            (m_map_tile_update_threshold.get_y() * 8));
-            scrolling_down = false;
-        }
 
         Vector2 global_scroll_background_vector = initial_scroll_vector / Vector2(64 * 8, 64 * 8);
 
@@ -199,56 +173,8 @@ void morpheus::core::gfx::StreamingBackgroundBase::reload_tiles() {
             tilemap_array = m_tilemaps[global_scroll_background_number];
         }
 
-        while(initial_scroll_difference_tile_vector.get_x() > 0) {
-            load_x_tile_strip(tilemap_file, tilemap_array, scrolling_right,
-                              initial_scroll_vector % Vector2(64, 64), previous_tile_index);
-
-            //global_scroll_offset_vector = Vector2(global_scroll_offset_vector.get_x() + )
-            if(scrolling_right) {
-                initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x() + (8 * 8),
-                                                initial_scroll_difference_tile_vector.get_y());
-            } else {
-                initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x() - (8 * 8),
-                                                initial_scroll_difference_tile_vector.get_y());
-            }
-
-            if(m_using_files) {
-                refresh_current_background_file_pointer(&tilemap_file, global_scroll_background_number,
-                                                        initial_scroll_vector);
-            } else {
-                refresh_current_background_array_pointer(&tilemap_array, global_scroll_background_number,
-                                                         initial_scroll_vector);
-            }
-
-            initial_scroll_difference_tile_vector = Vector2(initial_scroll_difference_tile_vector.get_x() - 1,
-                                                            initial_scroll_difference_vector.get_y());
-        }
-
-        while(initial_scroll_difference_tile_vector.get_y() > 0) {
-
-            load_y_tile_strip(tilemap_file, tilemap_array, scrolling_down,
-                              initial_scroll_vector % Vector2(64, 64),
-                              previous_tile_index);
-
-            if(scrolling_down) {
-                initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
-                                                initial_scroll_difference_tile_vector.get_y() + (8 * 8));
-            } else {
-                initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
-                                                initial_scroll_difference_tile_vector.get_y() - (8 * 8));
-            }
-
-            if(m_using_files) {
-                refresh_current_background_file_pointer(&tilemap_file, global_scroll_background_number,
-                                                        initial_scroll_vector);
-            } else {
-                refresh_current_background_array_pointer(&tilemap_array, global_scroll_background_number,
-                                                         initial_scroll_vector);
-            }
-
-            initial_scroll_difference_tile_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
-                                                            initial_scroll_difference_tile_vector.get_y() - 1);
-        }
+        reload_x_tiles();
+        reload_y_tiles();
 
         if(m_using_files) {
             fclose(tilemap_file);
@@ -286,5 +212,127 @@ void morpheus::core::gfx::StreamingBackgroundBase::refresh_current_background_ar
 
     if(new_global_scroll_background_number != current_background_number) {
         *background_array_pointer = m_tilemaps[current_background_number];
+    }
+}
+
+void morpheus::core::gfx::StreamingBackgroundBase::reload_x_tiles(FILE **tilemap_file,
+                                                                  const unsigned short **tilemap_array,
+                                                                  int &previous_tile_index) {
+    int x_strip_value = m_global_scroll.get_x() + ((m_map_tile_update_threshold.get_x() + 1) * 8);
+    int y_end_value = m_global_scroll.get_y() + ((m_map_tile_update_threshold.get_y() * 8) - m_player_position.get_y());
+    int y_start_value = m_global_scroll.get_y() - m_player_position.get_y();
+
+    if(scrolling_right) {
+        x_strip_value = m_global_scroll.get_x() + ((m_map_tile_update_threshold.get_x() + 1) * 8);
+        y_end_value = m_global_scroll.get_y() + ((m_map_tile_update_threshold.get_y() * 8) - m_player_position.get_y());
+        y_start_value = m_global_scroll.get_y() - m_player_position.get_y();
+    } else {
+        // TODO(Bobby): Write left scrolling code
+    }
+
+    for(int y = y_start_value; y_end_value > y; ++y) {
+        int current_tile_index;
+        Vector2 current_tile_vector = Vector2(x_strip_value, y);
+        int vram_map_tile_index;
+
+        if(right) {
+            current_tile_index = m_background->get_tile_index_at_position(current_tile_vector, false);
+            vram_map_tile_index = m_background->get_tile_index_at_position(current_tile_vector % Vector2(64, 64),
+                                                                           false);
+        } else {
+            current_tile_index = m_background->get_tile_index_at_position(current_tile_vector, false);
+            vram_map_tile_index = get_tile_index_at_position(current_tile_vector % Vector2(64, 64), false);
+        }
+
+        if(m_using_files) {
+            load_tile_from_file(tilemap_file, current_tile_index, vram_map_tile_index, previous_tile_index);
+        } else {
+            load_tile_from_array(tilemap_array, current_tile_index, vram_map_tile_index);
+        }
+    }
+
+    /*Vector2 global_scroll_background_vector = initial_scroll_vector / Vector2(64 * 8, 64 * 8);
+    Vector2 initial_scroll_difference_tile_vector = initial_scroll_difference_vector / Vector2(8, 8);
+    bool scrolling_right;
+
+    unsigned int global_scroll_background_number = global_scroll_background_vector.get_x() +
+            (2 * global_scroll_background_vector.get_y());
+
+    initial_scroll_difference_tile_vector = Vector2(abs(initial_scroll_difference_tile_vector.get_x()),
+                                                    abs(initial_scroll_difference_tile_vector.get_y()));
+
+    if(initial_scroll_difference_vector.get_x() > 0) {
+        initial_scroll_vector = Vector2(m_global_scroll.get_x() - (m_map_tile_update_threshold.get_x() * 8),
+                                        initial_scroll_vector.get_y());
+        scrolling_right = true;
+    } else if(initial_scroll_difference_vector.get_x() < 0) {
+        initial_scroll_vector = Vector2(m_global_scroll.get_x() + (m_map_tile_update_threshold.get_x() * 8),
+                                        initial_scroll_vector.get_y());
+        scrolling_right = false;
+    }*/
+
+    while(initial_scroll_difference_tile_vector.get_x() > 0) {
+        load_x_tile_strip(*tilemap_file, *tilemap_array, scrolling_right,
+                          initial_scroll_vector % Vector2(64, 64), previous_tile_index);
+
+        //global_scroll_offset_vector = Vector2(global_scroll_offset_vector.get_x() + )
+        if(scrolling_right) {
+            initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x() + (8 * 8),
+                                            initial_scroll_difference_tile_vector.get_y());
+        } else {
+            initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x() - (8 * 8),
+                                            initial_scroll_difference_tile_vector.get_y());
+        }
+
+        if(m_using_files) {
+            refresh_current_background_file_pointer(tilemap_file, global_scroll_background_number,
+                                                    initial_scroll_vector);
+        } else {
+            refresh_current_background_array_pointer(tilemap_array, global_scroll_background_number,
+                                                     initial_scroll_vector);
+        }
+
+        initial_scroll_difference_tile_vector = Vector2(initial_scroll_difference_tile_vector.get_x() - 1,
+                                                        initial_scroll_difference_vector.get_y());
+    }
+}
+
+void morpheus::core::gfx::StreamingBackgroundBase::reload_y_tiles(Vector2 initial_scroll_vector,
+                                                                  Vector2 initial_scroll_difference_vector) {
+    bool scrolling_down;
+
+    if(initial_scroll_difference_vector.get_y() > 0) {
+        initial_scroll_vector = Vector2(initial_scroll_vector.get_x(), m_global_scroll.get_y() -
+        (m_map_tile_update_threshold.get_y() * 8));
+        scrolling_down = true;
+    } else if(initial_scroll_difference_vector.get_y() < 0) {
+        initial_scroll_vector = Vector2(initial_scroll_vector.get_x(), m_global_scroll.get_y() +
+        (m_map_tile_update_threshold.get_y() * 8));
+        scrolling_down = false;
+    }
+
+    while(initial_scroll_difference_tile_vector.get_y() > 0) {
+        load_y_tile_strip(tilemap_file, tilemap_array, scrolling_down,
+                          initial_scroll_vector % Vector2(64, 64),
+                          previous_tile_index);
+
+        if(scrolling_down) {
+            initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
+                                            initial_scroll_difference_tile_vector.get_y() + (8 * 8));
+        } else {
+            initial_scroll_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
+                                            initial_scroll_difference_tile_vector.get_y() - (8 * 8));
+        }
+
+        if(m_using_files) {
+            refresh_current_background_file_pointer(&tilemap_file, global_scroll_background_number,
+                                                    initial_scroll_vector);
+        } else {
+            refresh_current_background_array_pointer(&tilemap_array, global_scroll_background_number,
+                                                     initial_scroll_vector);
+        }
+
+        initial_scroll_difference_tile_vector = Vector2(initial_scroll_difference_tile_vector.get_x(),
+                                                        initial_scroll_difference_tile_vector.get_y() - 1);
     }
 }

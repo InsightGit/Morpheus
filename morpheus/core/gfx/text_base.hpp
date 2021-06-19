@@ -5,7 +5,12 @@
 #ifndef MORPHEUS_TEXT_BASE_HPP
 #define MORPHEUS_TEXT_BASE_HPP
 
+#include <codecvt>
+#include <locale>
 #include <map>
+#include <string>
+
+#include <tonc.h>
 
 #include <core/main_loop.hpp>
 #include <core/gfx/tiled_background_base.hpp>
@@ -35,7 +40,7 @@ namespace morpheus {
                 unsigned int new_line_ascii_code;// = 10;
                 unsigned int space_ascii_code; //= 32;
                 bool use_utf8;
-                std::map<unsigned int, unsigned int> utf8_table;
+                std::map<unsigned int, unsigned int> utf8_map;
             };
 
             class TextBase {
@@ -134,8 +139,12 @@ namespace morpheus {
                 virtual void print_chars(std::string string, bool init) = 0;
 
                 void expression_print_chars(std::string string);
+
                 bool init_expression_text_api();
             private:
+                std::vector<int> get_tile_ids_from_ascii_string(const std::string &string);
+                std::vector<int> get_tile_ids_from_utf_string(const std::string &string);
+
                 bool m_affine;
                 unsigned int m_background_num;
                 Vector2 m_bounding_box = Vector2(0, 0);

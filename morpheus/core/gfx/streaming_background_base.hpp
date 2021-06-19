@@ -83,6 +83,12 @@ namespace morpheus {
                                                                   const Vector2 &current_scroll_vector);
 
                     void reload_tiles();
+                    void reload_x_tiles(FILE **tilemap_file, const unsigned short **tilemap_array,
+                                        Vector2 initial_scroll_vector,
+                                        Vector2 initial_scroll_difference_vector,
+                                        int &previous_tile_index);
+                    void reload_y_tiles(Vector2 initial_scroll_vector,
+                                        Vector2 initial_scroll_difference_vector);
 
                     void load_x_tile_strip(FILE *tilemap_file, const unsigned short *tilemap_array, const bool right,
                                            const Vector2 &global_scroll_offset_vector, int &previous_tile_index);

@@ -13,6 +13,7 @@ namespace morpheus {
         namespace gfx {
             class IntegerAnimationSmoothingAttribute {
             public:
+                /// Constructs
                 IntegerAnimationSmoothingAttribute(core::gfx::SpriteBase *target_sprite,
                                                    core::gfx::AnimationFrameCopyOption copy_option,
                                                    int from, int to, unsigned int in_vblanks);

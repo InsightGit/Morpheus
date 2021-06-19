@@ -414,14 +414,21 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 15 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en true 147 235 255 15 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en true 147 235 255 15 false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en true 147 235 255 15 false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 15 false
+                      true)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en true 147 235 255 15 false
+                      false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en true 147 235 255 15 false
+                      false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en true 147 235 255 15 false
+                      false)
 
         add_executable(morpheus-gba-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
-                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c
-                       ${CMAKE_CURRENT_BINARY_DIR}/Montserrat-Light-en.c ${CMAKE_CURRENT_BINARY_DIR}/Roboto-Black-en.c)
+                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c
+                       #${CMAKE_CURRENT_BINARY_DIR}/Montserrat-Light-en.c
+                       #${CMAKE_CURRENT_BINARY_DIR}/Roboto-Black-en.c
+                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.cxx
+                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c)
         add_gba_executable(morpheus-gba-custom-font-test.elf)
 
         target_link_libraries(morpheus-gba-custom-font-test.elf morpheus mm tonc fat gba)
@@ -632,14 +639,15 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        generate_font(assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 16 false)
-        generate_font(assets/test_fonts/Stick-Regular.ttf en true 147 235 255 16 false)
+        generate_font(assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 16 false true)
+        generate_font(assets/test_fonts/Stick-Regular.ttf en true 147 235 255 16 false false)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
         execute_grit_4bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
 
         add_executable(morpheus-nds-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
+                ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.cxx ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c
+                ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
         add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Custom Font Test" "Morpheus engine" "")
 

@@ -120,7 +120,7 @@ namespace morpheus {
                     return m_scale;
                 }
 
-                /// \return The number of VBlanks till this AnimationFrame should be
+                /// \return The number of VBlanks to wait until this AnimationFrame should be
                 /// fully triggered since the last AnimationFrame
                 unsigned int get_vblank_delays() const {
                     return m_vblank_delays;
@@ -232,6 +232,15 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the sprite size used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true.
+                /// \param sprite_size The sprite size to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void set_sprite_size(core::gfx::SpriteSize sprite_size, bool enable_copy = true,
                                      AnimationSmoothingMode smoothing_mode = AnimationSmoothingMode::NONE) {
                     m_sprite_size = sprite_size;
@@ -241,10 +250,20 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the number of VBlanks to wait until this AnimationFrame should be
+                /// fully triggered since the last AnimationFrame.
+                /// \param vblank_delays The number of VBlanks to use
                 void set_vblank_delays(const unsigned int vblank_delays) {
                     m_vblank_delays = vblank_delays;
                 }
 
+                /// Sets the sprite visiblity used by this AnimationFrame and
+                /// that is applied to the SpriteBase if enable_copy is
+                /// set to true.
+                /// \param visible The sprite visibilty (true for visible,
+                /// false for invisible) to apply
+                /// \param enable_copy Whether to enable copying this attribute
+                /// to the SpriteBase upon this AnimationFrame becoming active
                 void set_visible(bool visible, bool enable_copy = true) {
                     m_visible = visible;
 
@@ -254,16 +273,32 @@ namespace morpheus {
                     }
                 }
 
+                /// Enables a sprite attribute with a certain smoothing mode
+                /// to be copied to the SpriteBase upon this AnimationFrame getting fully triggered.
+                /// \param copy_option Which sprite attribute to enable the
+                /// copying of
+                /// \param smoothing_mode The AnimationSmoothingMode to smooth
+                /// the transition from this AnimationFrame attribute to the
+                /// next AnimationFrame attribute.
                 void enable_copy_option(AnimationFrameCopyOption copy_option, AnimationSmoothingMode smoothing_mode) {
                     m_animation_frame_copy_options.emplace(copy_option);
                     m_animation_smoothing_modes[copy_option] = smoothing_mode;
                 }
 
+                /// Disables a sprite attribute from being copied to the
+                /// SpriteBase upon this AnimationFrame getting fully
+                /// triggered.
+                /// \param copy_option Which sprite attribute to disable the
+                /// copying of
                 void disable_copy_option(AnimationFrameCopyOption copy_option) {
                     m_animation_frame_copy_options.erase(copy_option);
                     m_animation_smoothing_modes.erase(copy_option);
                 }
 
+                /// \param copy_option
+                /// \return Whether a certain sprite attribute will be copied
+                /// to the SpriteBase upon this AnimationFrame getting fully
+                /// triggered
                 bool is_copy_option_active(AnimationFrameCopyOption copy_option) const {
                     return m_animation_frame_copy_options.find(copy_option) != m_animation_frame_copy_options.end();
                 }
@@ -281,8 +316,14 @@ namespace morpheus {
                     return return_value;
                 }
 
+                /// \return A string that contains the number of enabled AnimationFrameCopyOptions
+                /// and the VBlank delay for easier debugging
                 std::string to_string();
 
+                /// Copies all the enabled sprite attributes to the SpriteBase
+                /// that this frame is acting on. Note: This function should
+                /// usually be called by the SpriteBase automatically and thus
+                /// shouldn't be called be manually.
                 void activate_on_target_sprite_base();
             protected:
                 core::gfx::SpriteBase *get_target_sprite() const {
@@ -305,6 +346,17 @@ namespace morpheus {
 
                 unsigned int m_vblank_delays = 0;
             };
+
+
+            /// \class morpheus::core::gfx::AnimationFrame
+            /// A class representing an animation frame that can be used on
+            /// SpriteBases by creating a vector of the desired
+            /// AnimationFrames in an animation, calling
+            /// SpriteBase::set_frames() to set the frames, and then
+            /// calling SpriteBase::play() to play the animation.
+            /// For an example of this class being used, see
+            /// ../tests/animation_test/animation_test.cpp and
+            /// ../tests/animation_test/test_animation.hpp
         }
     }
 }

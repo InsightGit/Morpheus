@@ -11,8 +11,8 @@
 
 #include "Stick-Regular-en.h"
 #include "Stick-Regular-jp.h"
-#include "Montserrat-Light-en.h"
-#include "Roboto-Black-en.h"
+//#include "Montserrat-Light-en.h"
+//#include "Roboto-Black-en.h"
 
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
@@ -31,24 +31,23 @@ int main() {
             .is_2d_mapping = true,
             .new_line_ascii_code = 10,
             .space_ascii_code = 32,
-            .use_utf8 = false,
-            .utf8_table = std::map<unsigned int, unsigned int>()
+            .use_utf8 = false
     };
-    morpheus::core::gfx::Font stick_japanese_font = {
+    /*morpheus::core::gfx::Font stick_japanese_font = {
             .font_palette = Stick_Regular_jpPal,
             .font_palette_len = 32,
             .font_tiles = Stick_Regular_jpTiles,
             .font_tiles_len = Stick_Regular_jpTilesLen,
             .use_utf8 = true,
-            .utf8_table = std::map<unsigned int, unsigned int>()
-    };
+            .utf8_map = Stick_Regular_jpUtfMap
+    };*/
 
     text_base->set_current_font(stick_english_font);
 
     //text_base->print("HELLO WORLD!");
 
     text_base->print_at_pos("Hello World!", morpheus::core::gfx::Vector2(0, 32));
-    text_base->print_at_pos("こんにちは", morpheus::core::gfx::Vector2(0, 64));
+    //text_base->print_at_pos(u8"こんにちは", morpheus::core::gfx::Vector2(0, 64));
 
     /*#ifdef _GBA
         TFont japanese_font;

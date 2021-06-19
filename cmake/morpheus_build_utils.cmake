@@ -196,7 +196,7 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
 endfunction()
 
 function(generate_font ttf_font_file font_character_list_file make_4bpp background_color_r background_color_g
-         background_color_b font_size make_1d)
+         background_color_b font_size make_1d use_utf8)
     if(WIN32)
         find_program(PYTHON3 python)
     else()
@@ -210,12 +210,22 @@ function(generate_font ttf_font_file font_character_list_file make_4bpp backgrou
     get_filename_component(base_char_list_name ${font_character_list_file} NAME_WE)
     get_filename_component(base_font_name ${ttf_font_file} NAME_WE)
 
-    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
-            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
-                    ${font_character_list_file} ${make_4bpp}
-                    ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${make_1d}
-                    ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
-            VERBATIM)
+    if(use_utf8)
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.cxx
+                OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
+                ${font_character_list_file} ${make_4bpp}
+                ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${make_1d} ${use_utf8}
+                ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
+                VERBATIM)
+    else()
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
+                ${font_character_list_file} ${make_4bpp}
+                ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${make_1d} ${use_utf8}
+                ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
+                VERBATIM)
+    endif()
 endfunction()
 
 function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
