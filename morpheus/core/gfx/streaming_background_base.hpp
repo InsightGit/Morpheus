@@ -5,7 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_STREAMING_BACKGROUND_BASE_HPP
 #define MORPHEUS_GBA_TEST_STREAMING_BACKGROUND_BASE_HPP
 
-#include <fat.h>
+//#include <fat.h>
+#include <tonc.h>
 
 #include <memory>
 
@@ -26,7 +27,8 @@ namespace morpheus {
             class StreamingBackgroundBase {
                 public:
                     StreamingBackgroundBase(TiledBackgroundBase *background_to_use,
-                                            Vector2 map_tile_update_threshold);
+                                            Vector2 map_tile_update_threshold,
+                                            Vector2 player_position = Vector2(0, 0));
 
                     bool load_from_arrays(const unsigned int *tiles, const unsigned int tiles_len,
                                           const unsigned short *palette, const unsigned int pal_len,
@@ -47,6 +49,16 @@ namespace morpheus {
                         m_global_scroll = global_scroll;
 
                         reload_tiles();
+
+                        m_background->set_scroll(global_scroll % Vector2(64 * 8, 64 * 8));
+                    }
+
+                    void set_player_position(Vector2 player_position) {
+                        m_player_position = player_position;
+                    }
+
+                    Vector2 get_player_position() const {
+                        return m_player_position;
                     }
                 private:
                     Vector2 get_streaming_background_size_vector() const {
@@ -78,17 +90,14 @@ namespace morpheus {
                     void refresh_current_background_file_pointer(FILE **background_file_pointer,
                                                                  unsigned int &current_background_number,
                                                                  const Vector2 &current_scroll_vector);
-                    void refresh_current_background_array_pointer(const unsigned short **background_array_pointer,
+                    const unsigned short *refresh_current_background_array_pointer(
+                                                                  const unsigned short *background_array_pointer,
                                                                   unsigned int &current_background_number,
                                                                   const Vector2 &current_scroll_vector);
 
                     void reload_tiles();
-                    void reload_x_tiles(FILE **tilemap_file, const unsigned short **tilemap_array,
-                                        Vector2 initial_scroll_vector,
-                                        Vector2 initial_scroll_difference_vector,
-                                        int &previous_tile_index);
-                    void reload_y_tiles(Vector2 initial_scroll_vector,
-                                        Vector2 initial_scroll_difference_vector);
+                    void reload_x_tiles(const bool scrolling_right);
+                    void reload_y_tiles(const bool scrolling_down);
 
                     void load_x_tile_strip(FILE *tilemap_file, const unsigned short *tilemap_array, const bool right,
                                            const Vector2 &global_scroll_offset_vector, int &previous_tile_index);
@@ -101,8 +110,10 @@ namespace morpheus {
                     Vector2 m_global_scroll = Vector2(0, 0);
                     Vector2 m_last_file_update_at = Vector2(0, 0);
                     Vector2 m_map_tile_update_threshold;
+                    Vector2 m_player_position;
                     std::vector<std::string> m_tilemap_file_paths;
-                    std::vector<const unsigned short *> m_tilemaps;
+                    const unsigned short **m_tilemaps;
+                    unsigned int m_tilemaps_len;
                     bool m_using_files = false;
             };
         }
