@@ -21,34 +21,44 @@ def _convert_tile_map_to_sbbs(width: int, height: int, palette_bank: int, hex_da
     return converted_map
 
 
-def split_bin_file(single_bin_file_path: str, single_bin_file_path_len: int, asset_dir: str, palette_bank: int) -> list:
+def split_bin_file(single_bin_file_path: str, height: int, width: int, asset_dir: str, palette_bank: int) -> list:
     with open(single_bin_file_path, "rb") as single_tilemap_file:
         # Break it up into 64x64 tilemaps which themselves will be
         # broken up into 32x32 tilemaps
         # TODO(Bobby): Make this work for non-square large maps
 
         base_file_name = os.path.splitext(os.path.basename(single_bin_file_path))[0]
-        cursor = 0
+        hex_data = []
         tilemaps_64x64 = []
 
-        while single_bin_file_path_len > cursor:
-            hex_data = []
+        for i in range(128 * 128):
+            hex_data.append(0)
 
-            for i in range(64 * 64):
-                hex_data.append(0)
+        for y in range(height):
+            for x in range(width):
+                hex_data[(height * y) + x] = single_tilemap_file.read(2)
 
-            for y in range(64):
-                for x in range(64):
-                    hex_data[(64 * y) + x] = single_tilemap_file.read(2)
+        #["{:02x}".format(char).upper() for char in file_obj.read()]
+        for background_y in range(int(height / 64)):
+            for background_x in range(int(width / 64)):
+                unconverted_tilemap_64x64 = []
 
-            tilemaps_64x64.append(_convert_tile_map_to_sbbs(64, 64, palette_bank, hex_data))
+                for i in range(64 * 64):
+                    unconverted_tilemap_64x64.append(0)
 
-            cursor += 64 * 64 * 2
+                for y in range(background_y * 64, (background_y * 64) + 64):
+                    for x in range(background_x * 64, (background_x * 64) + 64):
+                        new_x = x - (background_x * 64)
+                        new_y = y - (background_y * 64)
+
+                        unconverted_tilemap_64x64[(new_y * 64) + new_x] = hex_data[(y * height) + x]
+
+                tilemaps_64x64.append(_convert_tile_map_to_sbbs(64, 64, palette_bank, unconverted_tilemap_64x64))
 
         for i in range(len(tilemaps_64x64)):
             with open(os.path.join(asset_dir, f"{base_file_name}-{i}.bin"), "wb") as split_tilemap_file:
                 for tile in tilemaps_64x64[i]:
-                    split_tilemap_file.write(tile.to_bytes(2, byteorder="big"))
+                    split_tilemap_file.write(tile.to_bytes(2, byteorder="little"))
 
         return tilemaps_64x64
 
@@ -169,9 +179,9 @@ def main():
         else:
             palette_bank = 0
 
-        tilemaps_64x64 = split_bin_file(single_bin_file_path, file_size, sys.argv[2], palette_bank)
+        tilemaps_64x64 = split_bin_file(single_bin_file_path, height, width, sys.argv[2], palette_bank)
 
-        print("Split bin file successfully!")
+        print(f"Split bin file successfully! File size was {file_size} bytes")
 
         if len(sys.argv) > 6:
             if len(sys.argv) > 7:

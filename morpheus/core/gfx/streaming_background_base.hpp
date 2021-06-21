@@ -5,9 +5,6 @@
 #ifndef MORPHEUS_GBA_TEST_STREAMING_BACKGROUND_BASE_HPP
 #define MORPHEUS_GBA_TEST_STREAMING_BACKGROUND_BASE_HPP
 
-//#include <fat.h>
-#include <tonc.h>
-
 #include <memory>
 
 #include "tiled_background_base.hpp"
@@ -16,42 +13,35 @@ namespace morpheus {
     namespace core {
         namespace gfx {
             enum class StreamingBackgroundSize {
-                BG_64x128,
-                BG_128x64,
                 BG_128x128,
-                BG_128x256,
-                BG_256x128,
-                BG_256x256
+                // TODO(Bobby): Test 256x256 and 512x512
+                BG_256x256,
+                BG_512x512
             };
 
             class StreamingBackgroundBase {
                 public:
                     StreamingBackgroundBase(TiledBackgroundBase *background_to_use,
-                                            Vector2 map_tile_update_threshold,
-                                            Vector2 player_position = Vector2(0, 0));
+                                            const Vector2 &map_tile_update_threshold,
+                                            const Vector2 &player_position = Vector2(0, 0),
+                                            const bool enable_wrapping = false);
 
                     bool load_from_arrays(const unsigned int *tiles, const unsigned int tiles_len,
                                           const unsigned short *palette, const unsigned int pal_len,
                                           const unsigned short **tilemaps, const unsigned short tilemaps_len,
                                           StreamingBackgroundSize size);
 
-                    bool load_from_files(const unsigned int *tiles, const unsigned int tiles_len,
+                    /*bool load_from_files(const unsigned int *tiles, const unsigned int tiles_len,
                                          const unsigned short *palette, const unsigned int pal_len,
                                          const std::vector<std::string> &tilemap_file_paths,
-                                         StreamingBackgroundSize size);
+                                         StreamingBackgroundSize size);*/
 
 
                     Vector2 get_global_scroll() const {
                         return m_global_scroll;
                     }
 
-                    void set_global_scroll(Vector2 global_scroll) {
-                        m_global_scroll = global_scroll;
-
-                        reload_tiles();
-
-                        m_background->set_scroll(global_scroll % Vector2(64 * 8, 64 * 8));
-                    }
+                    void set_global_scroll(Vector2 global_scroll);
 
                     void set_player_position(Vector2 player_position) {
                         m_player_position = player_position;
@@ -63,29 +53,23 @@ namespace morpheus {
                 private:
                     Vector2 get_streaming_background_size_vector() const {
                         switch (m_background_size) {
-                            case StreamingBackgroundSize::BG_64x128:
-                                return Vector2(64, 128);
-                            case StreamingBackgroundSize::BG_128x64:
-                                return Vector2(128, 64);
                             case StreamingBackgroundSize::BG_128x128:
                                 return Vector2(128, 128);
-                            case StreamingBackgroundSize::BG_128x256:
-                                return Vector2(128, 256);
-                            case StreamingBackgroundSize::BG_256x128:
-                                return Vector2(256, 128);
                             case StreamingBackgroundSize::BG_256x256:
                                 return Vector2(256, 256);
+                            case StreamingBackgroundSize::BG_512x512:
+                                return Vector2(512, 512);
                         }
+
+                        return Vector2(0, 0);
                     }
 
                     //FILE *get_tilemap_file();
 
                     //void load_from_file(const std::string &tilemap_file_name);
 
-                    void load_tile_from_file(FILE *tilemap_file, int current_tile_index, int vram_tile_index,
-                                             int &previous_tile_index);
-                    void load_tile_from_array(const unsigned short *tilemap_array, int current_tile_index,
-                                              int vram_tile_index);
+                    void load_tile_from_file(FILE *tilemap_file, int current_tile_index, int &previous_tile_index);
+                    void load_tile_from_array(const unsigned short *tilemap_array, int current_tile_index);
 
                     void refresh_current_background_file_pointer(FILE **background_file_pointer,
                                                                  unsigned int &current_background_number,
@@ -96,19 +80,28 @@ namespace morpheus {
                                                                   const Vector2 &current_scroll_vector);
 
                     void reload_tiles();
-                    void reload_x_tiles(const bool scrolling_right);
-                    void reload_y_tiles(const bool scrolling_down);
 
-                    void load_x_tile_strip(FILE *tilemap_file, const unsigned short *tilemap_array, const bool right,
-                                           const Vector2 &global_scroll_offset_vector, int &previous_tile_index);
-                    void load_y_tile_strip(FILE *tilemap_file, const unsigned short *tilemap_array, const bool down,
-                                           const Vector2 &global_scroll_offset_vector, int &previous_tile_index);
+                    void reload_x_tiles(const bool scrolling_right, const bool double_refresh);
+                    void reload_y_tiles(const bool scrolling_down, const bool double_refresh);
+
+                    void reload_x_tile_strip(const int x_start_value, const int x_end_value,
+                                             const int y_value, FILE **tilemap_file,
+                                             const unsigned short *tilemap_array,
+                                             unsigned int &current_background_number,
+                                             int &previous_tile_index);
+                    void reload_y_tile_strip(const int y_start_value, const int y_end_value,
+                                             const int x_value, FILE **tilemap_file,
+                                             const unsigned short *tilemap_array,
+                                             unsigned int &current_background_number,
+                                             int &previous_tile_index);
 
                     StreamingBackgroundSize m_background_size;
                     std::unique_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
                     std::vector<unsigned short> m_current_tile_map;
+                    bool m_enable_wrapping;
                     Vector2 m_global_scroll = Vector2(0, 0);
                     Vector2 m_last_file_update_at = Vector2(0, 0);
+                    bool m_last_scrolled_x = false;
                     Vector2 m_map_tile_update_threshold;
                     Vector2 m_player_position;
                     std::vector<std::string> m_tilemap_file_paths;

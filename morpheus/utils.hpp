@@ -222,6 +222,33 @@ namespace morpheus {
                 return new morpheus::nds::gfx::NdsWindow(nds_use_sub_display, window_type, main_loop);
             #endif
         }
+
+        static morpheus::core::gfx::StreamingBackgroundBase *construct_appropriate_streaming_background_base(
+                morpheus::core::gfx::TiledBackgroundBase *background_to_use,
+                morpheus::core::gfx::Vector2 map_tile_update_threshold = morpheus::core::gfx::Vector2(0, 0),
+                const morpheus::core::gfx::Vector2 &player_position = morpheus::core::gfx::Vector2(0, 0),
+                bool enable_wrapping = false) {
+            morpheus::core::gfx::Vector2 screen_coordinates;
+
+            #ifdef _GBA
+                screen_coordinates = morpheus::core::gfx::Vector2(30, 20);
+            #elif _NDS
+                screen_coordinates = morpheus::core::gfx::Vector2(32, 24);
+            #endif
+
+            if(map_tile_update_threshold.get_x() <= 0) {
+                map_tile_update_threshold = morpheus::core::gfx::Vector2(screen_coordinates.get_x(),
+                                                                         map_tile_update_threshold.get_y());
+            }
+
+            if(map_tile_update_threshold.get_y() <= 0) {
+                map_tile_update_threshold = morpheus::core::gfx::Vector2(map_tile_update_threshold.get_x(),
+                                                                         screen_coordinates.get_y());
+            }
+
+            return new morpheus::core::gfx::StreamingBackgroundBase(background_to_use, map_tile_update_threshold,
+                                                                    player_position, enable_wrapping);
+        }
     }
 }
 

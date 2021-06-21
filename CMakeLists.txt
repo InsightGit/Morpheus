@@ -437,14 +437,14 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-streaming-background-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib
                 $ENV{DEVKITPRO}/libgba/lib)
-        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.bin
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.bin
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
-                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/region_map_128.png
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.png
                                       false false false)
 
         add_executable(morpheus-gba-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/region_map_128.c)
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c)
         add_gba_executable(morpheus-gba-streaming-background-test.elf)
 
         target_link_libraries(morpheus-gba-streaming-background-test.elf morpheus mm tonc fat gba)
@@ -637,7 +637,7 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-nds-custom-font-test)
 
-        link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+        link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         generate_font(assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 16 false true)
         generate_font(assets/test_fonts/Stick-Regular.ttf en true 147 235 255 16 false false)
@@ -652,6 +652,22 @@ if("$ENV{BUILD_TESTS}")
                 "Morpheus Custom Font Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-custom-font-test.elf morpheus fat filesystem nds9 mm9)
+
+        project(morpheus-nds-streaming-background-test)
+
+        link_directories(morpheus-nds-streaming-background-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.bin
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.png
+                false false false)
+
+        add_executable(morpheus-nds-streaming-background-test.elf
+                tests/streaming_background_test/streaming_background_test.cpp
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c)
+        add_nds_executable(morpheus-nds-streaming-background-test.elf "tests/nds/input_test/ds_icon.bmp"
+                "Morpheus Streaming Background Test" "Morpheus engine" "")
+
+        target_link_libraries(morpheus-nds-streaming-background-test.elf morpheus fat filesystem nds9 mm9)
     endif()
 endif()
 

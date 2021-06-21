@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <set>
 
-#include <tonc.h>
-
 #include <core/main_loop.hpp>
 #include <core/gfx/vector_2.hpp>
 

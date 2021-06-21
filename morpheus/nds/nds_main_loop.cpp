@@ -10,7 +10,7 @@ PrintConsole *morpheus::nds::NdsMainLoop::debug_print_console = nullptr;
 morpheus::nds::NdsMainLoop::NdsMainLoop(morpheus::nds::DebugConsoleMode debug_console_mode) :
             morpheus::core::MainLoop(new gfx::NdsBlendingController(false), nullptr,
                                      new gfx::NdsMosaicController(false),
-                                     new NdsNoCashDebugController(), select_appropriate_save_manager()) {
+                                     new NdsNoCashDebugController(), select_appropriate_save_manager(), true) {
     #ifdef NDEBUG
         bool debug = false;
     #else

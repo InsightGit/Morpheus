@@ -13,14 +13,35 @@ namespace morpheus {
         namespace gfx {
             class IntegerAnimationSmoothingAttribute {
             public:
-                /// Constructs
+                /// Constructs an IntegerSmoothingAttribute which will conduct
+                /// linear smoothing on the transition between two
+                /// AnimationFrames for a certain SpriteBase attribute in a
+                /// certain amount of VBlanks. Note: this class is usually used
+                /// only internally within SpriteBase::update_animation() and
+                /// shouldn't need to be constructed manually.
+                /// \param target_sprite The SpriteBase that the AnimationFrames are acting on
+                /// \param copy_option The SpriteBase attribute to act on
+                /// \param from The value of the SpriteBase attribute upon
+                /// the animation smoothing starting
+                /// \param to The value of the SpriteBase attribute upon
+                /// the animation smoothing finishing
+                /// \param in_vblanks The amount of VBlanks for the smoothed
+                /// animation transition to take
                 IntegerAnimationSmoothingAttribute(core::gfx::SpriteBase *target_sprite,
                                                    core::gfx::AnimationFrameCopyOption copy_option,
                                                    int from, int to, unsigned int in_vblanks);
 
+                /// Destructs an IntegerAnimationSmoothingAttribute
                 virtual ~IntegerAnimationSmoothingAttribute() = default;
 
-                // should be only called once per each VBlank
+                /// Conducts one VBlank's worth of smoothing on the
+                /// SpriteBase attribute and applies it to the SpriteBase.
+                /// This function will return false if it cannot smooth the
+                /// specified AnimationFrameCopyOption.
+                /// Note: This function should ONLY be called once per each
+                /// VBlank or else the animation smoothing will no longer be
+                /// in sync.
+                /// \return Whether the smoothing was successful or not
                 virtual bool smooth();
             protected:
                 core::gfx::AnimationFrameCopyOption get_copy_option() const {
@@ -47,6 +68,9 @@ namespace morpheus {
                 core::gfx::SpriteBase *m_target_sprite;
                 int m_trend = 0;
             };
+
+
+            /// \class morpheus::core::gfx::IntegerAnimationSmoothingAttribute
 
             class Vector2SmoothingAttribute : public IntegerAnimationSmoothingAttribute {
             public:

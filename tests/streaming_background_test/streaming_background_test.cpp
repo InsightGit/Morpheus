@@ -8,7 +8,7 @@
 #include <nds/nds.hpp>
 #endif
 
-#include "region_map_128.h"
+#include "kakariko_tiled.h"
 
 class StreamingBackgroundTestControls : public morpheus::core::ControlReciever {
 public:
@@ -29,16 +29,16 @@ protected:
 
             switch(input_event.button) {
                 case morpheus::core::InputButton::DPADUP:
-                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() - 10);
+                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() - 8);
                     break;
                 case morpheus::core::InputButton::DPADLEFT:
-                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() - 10, scroll_pos.get_y());
+                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() - 8, scroll_pos.get_y());
                     break;
                 case morpheus::core::InputButton::DPADRIGHT:
-                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() + 10, scroll_pos.get_y());
+                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x() + 8, scroll_pos.get_y());
                     break;
                 case morpheus::core::InputButton::DPADDOWN:
-                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() + 10);
+                    scroll_pos = morpheus::core::gfx::Vector2(scroll_pos.get_x(), scroll_pos.get_y() + 8);
                     break;
                     default:
                         break;
@@ -52,8 +52,6 @@ private:
 };
 
 int main() {
-    nocash_puts("Constructing MainLoop");
-
     auto main_loop = std::shared_ptr<morpheus::core::MainLoop>(morpheus::utils::construct_appropriate_main_loop());
 
     main_loop->get_no_cash_debug_controller()->send_to_debug_window("Constructing TiledBackgroundBase");
@@ -65,8 +63,7 @@ int main() {
     main_loop->get_no_cash_debug_controller()->send_to_debug_window("Constructing StreamingBackgroundBase");
 
     auto streaming_background_base = std::shared_ptr<morpheus::core::gfx::StreamingBackgroundBase>(
-            new morpheus::core::gfx::StreamingBackgroundBase(tiled_background_base.get(),
-                                                             morpheus::core::gfx::Vector2(30, 20)));
+            morpheus::utils::construct_appropriate_streaming_background_base(tiled_background_base.get()));
 
 
     auto control_reciever = std::shared_ptr<StreamingBackgroundTestControls>(
@@ -74,8 +71,8 @@ int main() {
 
     main_loop->get_no_cash_debug_controller()->send_to_debug_window("Loading StreamingBackgroundBase");
 
-    streaming_background_base->load_from_arrays(region_map_128Tiles, region_map_128TilesLen, region_map_128Pal,
-                                                region_map_128PalLen, region_map_128MapsRows, region_map_128MapsLen,
+    streaming_background_base->load_from_arrays(kakariko_tiledTiles, kakariko_tiledTilesLen, kakariko_tiledPal,
+                                                kakariko_tiledPalLen, kakariko_tiledMapsRows, kakariko_tiledMapsLen,
                                                 morpheus::core::gfx::StreamingBackgroundSize::BG_128x128);
 
     main_loop->add_control_reciever(control_reciever);

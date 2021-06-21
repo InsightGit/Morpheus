@@ -148,7 +148,7 @@ def main() -> None:
                 lines = grit_header_file.readlines()
                 variable_name = f"{base_image_snake_file_name}UtfMap"
 
-                utf8_map_string = f"extern const std::map<unsigned int, unsigned int> {variable_name};\n\n"
+                utf8_map_string = f"const std::map<unsigned int, unsigned int> {variable_name};\n\n"
 
                 for i in range(len(lines)):
                     if "#include" in lines[i]:
