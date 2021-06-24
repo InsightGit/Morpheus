@@ -9,6 +9,7 @@
 #endif
 
 #include "kakariko_tiled.h"
+#include "kakariko_tiled_256.h"
 
 class StreamingBackgroundTestControls : public morpheus::core::ControlReciever {
 public:
@@ -71,9 +72,10 @@ int main() {
 
     main_loop->get_no_cash_debug_controller()->send_to_debug_window("Loading StreamingBackgroundBase");
 
-    streaming_background_base->load_from_arrays(kakariko_tiledTiles, kakariko_tiledTilesLen, kakariko_tiledPal,
-                                                kakariko_tiledPalLen, kakariko_tiledMapsRows, kakariko_tiledMapsLen,
-                                                morpheus::core::gfx::StreamingBackgroundSize::BG_128x128);
+    streaming_background_base->load_from_arrays(kakariko_tiled_256Tiles, kakariko_tiled_256TilesLen,
+                                                kakariko_tiled_256Pal, kakariko_tiled_256PalLen,
+                                                kakariko_tiled_256MapsRows, kakariko_tiled_256MapsLen,
+                                                morpheus::core::gfx::StreamingBackgroundSize::BG_256x256);
 
     main_loop->add_control_reciever(control_reciever);
 

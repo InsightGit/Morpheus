@@ -55,6 +55,7 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/audio/max_mod_music.cpp
         morpheus/core/audio/max_mod_sfx.hpp
         morpheus/core/audio/max_mod_sfx.cpp
+        morpheus/core/gfx/asm/tiled_background_base.s
         morpheus/core/gfx/sprite_base.cpp
         morpheus/core/gfx/sprite_base.hpp
         morpheus/core/gfx/text_base.cpp
@@ -74,7 +75,8 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/gfx/animation_frame.cpp
         morpheus/core/gfx/animation_frame.hpp
         morpheus/core/gfx/animation_smoothing_attributes.cpp
-        morpheus/core/gfx/animation_smoothing_attributes.hpp)
+        morpheus/core/gfx/animation_smoothing_attributes.hpp
+        morpheus/core/gfx/font.hpp)
 
 project(morpheus)
 
@@ -176,7 +178,7 @@ else()
     message(FATAL_ERROR "Unrecognized platform (" $ENV{PLATFORM} ") specified in PLATFORM environment variable!")
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 add_library(morpheus ${MORPHEUS_SOURCE_FILES})
@@ -414,20 +416,19 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 15 false
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp 1 147 235 255 15 false
                       true)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en true 147 235 255 15 false
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 15 false
                       false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en true 147 235 255 15 false
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Montserrat-Light.ttf en 4 147 235 255 15 false
                       false)
-        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en true 147 235 255 15 false
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Roboto-Black.ttf en 4 147 235 255 15 false
                       false)
 
         add_executable(morpheus-gba-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
                        ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c
                        #${CMAKE_CURRENT_BINARY_DIR}/Montserrat-Light-en.c
                        #${CMAKE_CURRENT_BINARY_DIR}/Roboto-Black-en.c
-                       ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.cxx
                        ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c)
         add_gba_executable(morpheus-gba-custom-font-test.elf)
 
@@ -437,14 +438,19 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-streaming-background-test PRIVATE . $ENV{DEVKITPRO}/libtonc/lib
                 $ENV{DEVKITPRO}/libgba/lib)
+
         generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.bin
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.png
                                       false false false)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.bin
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 256 256 0
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.png
+                                      false false false)
 
         add_executable(morpheus-gba-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c)
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c)
         add_gba_executable(morpheus-gba-streaming-background-test.elf)
 
         target_link_libraries(morpheus-gba-streaming-background-test.elf morpheus mm tonc fat gba)
@@ -639,14 +645,14 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        generate_font(assets/test_fonts/Stick-Regular.ttf jp true 147 235 255 16 false true)
-        generate_font(assets/test_fonts/Stick-Regular.ttf en true 147 235 255 16 false false)
+        generate_font(assets/test_fonts/Stick-Regular.ttf jp 1 147 235 255 16 false true)
+        generate_font(assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 16 false false)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
         execute_grit_4bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
 
         add_executable(morpheus-nds-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.cxx ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c
+                ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c
                 ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
         add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Custom Font Test" "Morpheus engine" "")

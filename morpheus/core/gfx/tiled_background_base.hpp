@@ -27,8 +27,22 @@ namespace morpheus {
                 BG_AFFINE_128x128
             };
 
+            enum class BitUnpacking {
+                NONE,
+                BPP_1_TO_4,
+                BPP_1_TO_8,
+                BPP_4_TO_8,
+            };
+
             class TiledBackgroundBase {
             public:
+                struct BitUnPackOptions {
+                    unsigned short source_len;
+                    unsigned char source_bit_width;
+                    unsigned char dest_bit_width;
+                    unsigned int offset_plus_zero_data_flag;
+                };
+
                 TiledBackgroundBase(bool affine, unsigned int background_num, BlendingController *blending_controller,
                                     MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num,
                                     bool use_tile_overrides);
@@ -38,18 +52,20 @@ namespace morpheus {
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *palette, const unsigned int pal_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     TiledBackgroundSize size) {
+                                     const TiledBackgroundSize size,
+                                     const BitUnpacking unpacking_needed = BitUnpacking::NONE) {
                     update_tilemap_vars(tile_map, tile_map_len, size);
 
-                    array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size);
+                    array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size, unpacking_needed);
                 }
 
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     TiledBackgroundSize size) {
+                                     const TiledBackgroundSize size,
+                                     const BitUnpacking unpacking_needed = BitUnpacking::NONE) {
                     update_tilemap_vars(tile_map, tile_map_len, size);
 
-                    array_load(tiles, tiles_len, tile_map, tile_map_len, size);
+                    array_load(tiles, tiles_len, tile_map, tile_map_len, size, unpacking_needed);
                 }
 
                 void load_from_array(const unsigned short *tile_map, const unsigned int tile_map_len,
@@ -202,12 +218,14 @@ namespace morpheus {
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *palette, const unsigned int pal_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
-                                        TiledBackgroundSize size) = 0;
+                                        const TiledBackgroundSize size,
+                                        const BitUnpacking unpacking_needed = BitUnpacking::NONE) = 0;
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
-                                        TiledBackgroundSize size) = 0;
+                                        const TiledBackgroundSize size,
+                                        const BitUnpacking unpacking_needed = BitUnpacking::NONE) = 0;
                 virtual void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
-                                        TiledBackgroundSize size) = 0;
+                                        const TiledBackgroundSize size) = 0;
                 virtual void mosaic_state_updated() = 0;
                 virtual void override_map_tile(const unsigned int tile_index, const unsigned short tile_id) = 0;
                 virtual void update_scroll() = 0;
@@ -265,6 +283,9 @@ namespace morpheus {
                 TiledBackgroundSize m_tile_map_size;
                 bool m_use_tile_overrides;
             };
+
+            // defined in asm/tiled_background_base.s
+            extern void asm_BitUnPack(const void *src, void *dest, TiledBackgroundBase::BitUnPackOptions *unpack_options);
         }
     }
 }

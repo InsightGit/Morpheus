@@ -42,22 +42,51 @@ namespace morpheus {
                 SIZE_32X64
             };
 
+
+            /// \enum morpheus::core::gfx::SpriteSize
+            /// An enum class of all the supported sizes of SpriteBases
+            /// on the GBA and the DS.
+
             enum class AffineTransformation {
                 Rotation,
                 Scaling,
                 Identity
             };
 
+
+            /// \enum morpheus::core::gfx::AffineTransformation
+            /// An enum class of all the supported affine transformations
+            /// supported on the GBA and the DS.
+
             class SpriteBase : public core::ControlReciever {
             public:
+                /// Constructs a SpriteBase (also known as OBJ or objects
+                /// within GBA/DS terminology) to be displayed.
+                /// This SpriteBase can be either affine or regular, but make
+                /// sure if it is affine that an affine video mode is active
+                /// through core::MainLoop::enable_affine(). This class can
+                /// also have blending and/or mosaic effects applied to it,
+                /// but the blending_controller and mosaic_controller must be
+                /// passed in for this SpriteBase to be affected by those
+                /// graphical effects. Alternatively, passing in NULL or nullptr
+                /// to those arguments will disable blending and/or mosaic on
+                /// this SpriteBase.
+                /// \param affine Whether this SpriteBase is affine or not
+                /// \param blending_controller Which
+                /// core::gfx::BlendingController to use (if any)
+                /// \param mosaic_controller Which
+                /// core::gfx::MosaicController to use (if any)
                 SpriteBase(bool affine, BlendingController *blending_controller, MosaicController *mosaic_controller) {
                     m_affine = affine;
                     m_blending_controller = blending_controller;
                     m_mosaic_controller = mosaic_controller;
                 }
 
+                /// Destroys a SpriteBase.
                 virtual ~SpriteBase() = default;
 
+                /// \return The affine index currently being used for this
+                /// affine sprite, or 32 if it is not an affine sprite.
                 unsigned int get_affine_index() const {
                     if(m_affine) {
                         return m_affine_index;
@@ -66,10 +95,13 @@ namespace morpheus {
                     }
                 }
 
+                /// \return The number of the current AnimationFrame this
+                /// SpriteBase is currently on.
                 unsigned int get_current_frame() const {
                     return m_current_frame;
                 }
 
+                /// The
                 core::gfx::Vector2 get_mosaic_levels() const {
                     if(m_mosaic_controller == nullptr) {
                         return core::gfx::Vector2();

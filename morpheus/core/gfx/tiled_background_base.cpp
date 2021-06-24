@@ -158,7 +158,9 @@ void morpheus::core::gfx::TiledBackgroundBase::update_tilemap_vars(const unsigne
     m_tile_map_size = size;
 
     if(!m_use_tile_overrides) {
-        m_tile_map_rw_copy.reserve(tile_map_len);
+        Vector2 tile_map_size = get_tile_map_size_vector();
+
+        m_tile_map_rw_copy.reserve(tile_map_size.get_x() * tile_map_size.get_y());
 
         for(unsigned int i = 0; tile_map_len > i; ++i) {
             m_tile_map_rw_copy.push_back(tile_map[i]);

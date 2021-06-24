@@ -12,6 +12,7 @@
 
 #include <tonc.h>
 
+#include <core/gfx/font.hpp>
 #include <core/main_loop.hpp>
 #include <core/gfx/tiled_background_base.hpp>
 #include <core/gfx/vector_2.hpp>
@@ -21,31 +22,8 @@
 namespace morpheus {
     namespace core {
         namespace gfx {
-            enum class FontBpp {
-                FONT_4BPP,
-                FONT_8BPP
-            };
-
-            struct Font {
-                const unsigned short *font_palette;
-                unsigned int font_palette_len;
-                const unsigned int *font_tiles;
-                unsigned int font_tiles_len;
-
-                unsigned int ascii_offset;
-                Vector2 char_size; // Char size (in tiles, NOT pixels)
-                Vector2 cursor_position;
-                FontBpp font_bpp;
-                bool is_2d_mapping;
-                unsigned int new_line_ascii_code;// = 10;
-                unsigned int space_ascii_code; //= 32;
-                bool use_utf8;
-                std::map<unsigned int, unsigned int> utf8_map;
-            };
-
             class TextBase {
             public:
-                // TODO(Bobby): Add custom font support maybe?
                 TextBase(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb,
                          morpheus::core::MainLoop *main_loop, bool use_native_text_api);
 
@@ -67,7 +45,7 @@ namespace morpheus {
                     return m_font;
                 }
 
-                static Font get_default_font() {
+                /*static Font get_default_font() {
                     Font font;
 
                     font.ascii_offset = 32;
@@ -78,8 +56,8 @@ namespace morpheus {
                     //font.font_tiles_len = sys8TilesLen;
                     font.font_palette = nullptr;
 
-                    return font;
-                }
+                    return Font(nullptr, 0, sys8Tiles, );
+                }*/
 
                 Vector2 get_print_position() const {
                     return m_print_position;
@@ -97,22 +75,24 @@ namespace morpheus {
                     m_bounding_box = bounding_box;
                 }
 
-                void set_current_font(const Font font) {
+                void set_current_font(const Font &font) {
                     m_font = font;
                 }
 
                 void set_print_position(Vector2 print_pos) {
                     m_print_position = print_pos;
 
+                    m_cursor_position = m_print_position;
+
                     change_print_position(m_print_position);
                 }
 
                 void print_at_pos(std::string string, Vector2 print_pos) {
-                    change_print_position(print_pos);
+                    set_print_position(print_pos);
 
                     print(string);
 
-                    change_print_position(m_print_position);
+                    set_print_position(m_print_position);
                 }
 
                 void print(std::string string, bool reinit = false) {
@@ -151,7 +131,7 @@ namespace morpheus {
                 unsigned int m_cbb;
                 Vector2 m_cursor_position;
                 std::shared_ptr<core::gfx::TiledBackgroundBase> m_expression_background;
-                Font m_font = get_default_font();
+                Font m_font; //= get_default_font();
                 bool m_inited;
                 Vector2 m_print_position;
                 core::MainLoop *m_main_loop;

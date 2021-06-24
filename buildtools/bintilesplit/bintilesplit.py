@@ -31,7 +31,7 @@ def split_bin_file(single_bin_file_path: str, height: int, width: int, asset_dir
         hex_data = []
         tilemaps_64x64 = []
 
-        for i in range(128 * 128):
+        for i in range(height * width):
             hex_data.append(0)
 
         for y in range(height):
@@ -149,19 +149,16 @@ def main():
         try:
             file_size = os.path.getsize(single_bin_file_path)
 
-            if (height == 64 and width == 64) or (height != 64 and height != 128) or (width != 64 and width != 128):
+            if (height != 128 and height != 256 and height != 512) or (width != 128 and width != 256 and width != 512):
                 print("Tile width and height must be one of these combinations for a streaming background:\n "
-                      "(64, 128), (128, 64), (128, 128)", file=sys.stderr)
+                      "(128, 128), (256, 256), (512, 512)", file=sys.stderr)
                 sys.exit(2)
 
-            if height == 128 and width == 128:
-                if file_size != (128 * 128 * 2):
-                    print(f"{single_bin_file_path} of size (128, 128) does not match the expected file "
-                          f"size of {128 * 128 * 2}")
-                    sys.exit(1)
-            elif file_size != (128 * 64 * 2):
-                print(f"{single_bin_file_path} of size (128, 128) does not match the expected file "
-                      f"size of {64 * 128 * 2}")
+            expected_file_size = height * width * 2
+
+            if file_size != expected_file_size:
+                print(f"{single_bin_file_path} of size ({width}, {height}) does not match the expected file "
+                      f"size of {expected_file_size}")
                 sys.exit(1)
         except OSError:
             print("Could not get size of the bin file provided!", file=sys.stderr)
