@@ -181,6 +181,11 @@ set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-
 
 add_library(morpheus ${MORPHEUS_SOURCE_FILES})
 
+if(platform_lower STREQUAL "gba")
+    libgba_fat_patch()
+    add_dependencies(morpheus libgba_fat_patch_target)
+endif()
+
 if($ENV{BUILD_DOCS})
     if(WIN32)
         find_program(DOXYGEN doxygen)

@@ -1,6 +1,23 @@
+function(libgba_fat_patch)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+        find_program(SUDO sudo)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    add_custom_target(libgba_fat_patch_target ALL
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/gba_fat_patch/gba_fat_patch.py
+            VERBATIM)
+endfunction()
+
 function(add_gba_executable target)
     get_filename_component(target_name ${target} NAME_WE)
-    add_custom_target(${target_name}.gba ALL SOURCES
+    add_custom_target(${target_name}.gba ALL
             COMMAND ${OBJCOPY} -v -O binary ${target} ${target_name}.gba
             COMMAND ${GBAFIX} ${target_name}.gba
             DEPENDS ${target}
@@ -12,7 +29,7 @@ endfunction()
 
 function(add_nds_executable target game_icon title subtitle1 subtitle2)
     get_filename_component(target_name ${target} NAME_WE)
-    add_custom_target(${target_name}.nds ALL SOURCES
+    add_custom_target(${target_name}.nds ALL
             COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_SOURCE_DIR}/${game_icon}
             "${title};${subtitle1};${subtitle2}"
             DEPENDS ${target}
