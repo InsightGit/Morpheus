@@ -101,7 +101,10 @@ namespace morpheus {
                     return m_current_frame;
                 }
 
-                /// The
+                /// \return The current mosaic levels of this SpriteBase,
+                /// including horizontal and vertical mosaic.
+                /// For more details on this effect, see
+                /// the docs for morpheus::core::gfx::MosaicController
                 core::gfx::Vector2 get_mosaic_levels() const {
                     if(m_mosaic_controller == nullptr) {
                         return core::gfx::Vector2();
@@ -110,14 +113,21 @@ namespace morpheus {
                     }
                 }
 
+                /// \return The current global priority [0, 3] for this
+                /// SpriteBase.
                 unsigned int get_priority() const {
                     return m_priority;
                 }
 
+                /// \return The current screen position for this SpriteBase.
                 core::gfx::Vector2 get_position() const {
                     return m_position;
                 }
 
+                /// \return The current fixed-point rotation for this
+                /// affine SpriteBase (which is internally handled as an
+                /// unsigned 16-bit short). If this SpriteBase is not affine,
+                /// this function will just return 0.
                 int get_rotation() const {
                     if(m_affine) {
                         return m_rotation;
@@ -126,54 +136,84 @@ namespace morpheus {
                     }
                 }
 
+                /// \return The current fixed-point scale for this
+                /// affine SpriteBase. If this SpriteBase is not affine,
+                /// this function will just return Vector2(0, 0).
                 Vector2 get_scale() const {
                     if(m_affine) {
                         return m_scale;
                     } else {
-                        return Vector2(1, 1);
+                        return Vector2(0, 0);
                     }
                 }
 
+                /// \return Whether this SpriteBase is blended or not.
                 virtual bool is_blended() const = 0;
 
+                /// Disables blending on all SpriteBases (including this one).
                 void disable_blending() {
                     if(m_blending_controller != nullptr) {
                         toggle_blending(false);
                     }
                 }
 
+                /// Enables blending on this specific SpriteBase and places it
+                /// on either the bottom layer (also known as layer B or the
+                /// 2nd layer) or the top layer (also known as layer A or the
+                /// 1st layer).
+                /// \param bottom_layer Whether to place this SpriteBase on
+                /// the bottom layer (true) or the top layer (false)
                 void enable_blending(bool bottom_layer) {
                     if(m_blending_controller != nullptr) {
                         toggle_blending(true, bottom_layer);
                     }
                 }
 
+                /// \return Whether this SpriteBase is effected by the mosaic
+                /// effect.
                 bool is_mosaic() const {
                     return m_mosaic;
                 }
 
+                /// \return The BlendingController being used in this SpriteBase
+                /// that was passed in via the constructor.
                 BlendingController *get_blending_controller() const {
                     return m_blending_controller;
                 }
 
+                /// \return The current AnimationFrames being used by
+                /// this SpriteBase, if any.
                 std::vector<std::shared_ptr<AnimationFrame>> get_frames() const {
                     return m_frames;
                 }
 
+                /// \return The MosaicController being used in this SpriteBase
+                /// that was passed in via the constructor.
                 MosaicController *get_mosaic_controller() const {
                     return m_mosaic_controller;
                 }
 
+                /// \return The frame to stop the SpriteBase animation at
+                /// (or 0 if it stops at the end).
                 unsigned int get_stop_frame() const {
                     return m_stop_frame;
                 }
 
+                /// Sets the index of the affine transformation matrix to use [0, 31]
+                /// \param The index of the affine transformation matrix to use
                 void set_affine_index(const unsigned int affine_index) {
                     if(m_affine) {
                         m_affine_index = std::min(31u, affine_index);
                     }
                 }
 
+                /// Sets the AnimationFrames this SpriteBase will use as its
+                /// animation upon AnimationFrame::play() being called.
+                /// Undefined behavior will occur if this function is called
+                /// while another animation with a smooth transition is playing
+                /// or is paused then resumed after this function call.
+                /// \param frames The AnimationFrames this SpriteBase will use
+                /// as its animation
                 void set_frames(const std::vector<std::shared_ptr<AnimationFrame>> frames) {
                     m_frames.clear();
 
@@ -183,74 +223,106 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the horizontal and vertical mosaic levels of
+                /// this SpriteBase. For more details about this effect, see
+                /// the documentation for morpheus::core::gfx::MosaicController
+                /// \param mosaic_levels The Mosaic levels to be set for this
+                /// SpriteBase.
                 void set_mosaic_levels(const core::gfx::Vector2 mosaic_levels) {
                     if(m_mosaic_controller != nullptr) {
                         return m_mosaic_controller->set_sprite_mosaic_levels(mosaic_levels);
                     }
                 }
 
+                /// Sets the screen position of this SpriteBase.
+                /// Bounds are the GBA screen size if running on the GBA
+                /// (240x160 pixels) or the DS screen size if running on
+                /// the DS (256x192 pixels on both screens).
+                /// \param position The new screen position of this SpriteBase
                 void set_position(const core::gfx::Vector2 position) {
                     m_position = position;
                 }
 
+                /// Simple overloader for the previous set_position() function
+                /// taking a Vector2.
                 void set_position(const int x, const int y) {
                     set_position(core::gfx::Vector2(x, y));
                 }
 
+                /// Sets the global priority [0, 3] for this SpriteBase. A
+                /// Sprite with a lower global priority level than a
+                /// background will be overlaid on the background and
+                /// vice-versa.
+                /// \param priority The new global priority for this SpriteBase
                 void set_priority(unsigned int priority) {
                     m_priority = std::min(3u, priority);
                 }
 
+                /// Sets the frame to stop the SpriteBase animation at
+                /// (or 0 if it stops at the end).
+                /// This only applies when calling the stop() function
+                /// or playing with animation looping disabled.
                 void set_stop_frame(const unsigned int stop_frame) {
                     m_stop_frame = stop_frame;
                 }
 
+                /// Toggles whether mosaic should affect this SpriteBase.
                 void toggle_mosaic() {
                     m_mosaic = !m_mosaic;
 
                     mosaic_state_updated();
                 }
 
+                /// Hides (but DOES NOT delete) this SpriteBase from being
+                /// displayed.
                 void hide() {
                     m_hidden = true;
 
                     on_visible_state_changed(m_hidden);
                 }
 
+                /// \return Whether this SpriteBase is affine or not.
                 bool is_affine() const {
                     return m_affine;
                 }
 
-                bool is_drawn_node() const {
-                    return m_drawn_node;
-                }
-
+                /// \return Whether this SpriteBase is currently hidden from
+                /// the display.
                 bool is_hidden() const {
                     return m_hidden;
                 }
 
+                /// \return Whether this SpriteBase's animation is currently
+                /// paused or not.
                 bool is_paused() const {
                     return m_paused;
                 }
 
+                /// \return Whether this SpriteBase's animation is currently
+                /// playing or not.
                 bool is_playing() const {
                     return m_playing;
                 }
 
+                /// \return Whether this SpriteBase's animation is currently
+                /// playing ON LOOP or not.
                 bool is_playing_on_loop() const {
                     return m_looping && m_playing;
                 }
 
-                void set_drawn_node(const bool drawn_node) {
-                    m_drawn_node = drawn_node;
-                }
-
+                /// Shows or makes this SpriteBase visible on the display.
                 void show() {
                     m_hidden = false;
 
                     on_visible_state_changed(m_hidden);
                 }
 
+                /// Sets the fixed-point rotation for this
+                /// affine SpriteBase if this SpriteBase is affine.
+                /// If this function is called on a non-affine SpriteBase,
+                /// it will have no effect.
+                /// \param rotation The new fixed-point rotation for this
+                /// affine SpriteBase.
                 void set_rotation(const short rotation) {
                     if(m_affine && m_rotation != rotation) {
                         m_rotation = rotation;
@@ -325,7 +397,6 @@ namespace morpheus {
                 BlendingController *m_blending_controller;
                 unsigned int m_current_delay;
                 unsigned int m_current_frame = 0;
-                bool m_drawn_node = true;
                 bool m_first_animation_cycle = true;
                 std::vector<std::shared_ptr<AnimationFrame>> m_frames;
                 bool m_hidden = false;

@@ -11,7 +11,7 @@
 void morpheus::core::gfx::SpriteBase::draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) {
     if(obj_attr_num >= 128) {
         std::cout << "ERROR: obj_attr_num exceeded max of 127!";
-    } else if(is_drawn_node()) {
+    } else {
         draw_node(obj_attr_buffer, obj_attr_num);
         if(std::is_base_of<core::gfx::AffineInterface, typeof(this)>::value) {
             reinterpret_cast<core::gfx::AffineInterface*>(this)->draw_affine_node(obj_attr_buffer, obj_attr_num);
