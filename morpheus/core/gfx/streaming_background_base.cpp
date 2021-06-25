@@ -26,10 +26,6 @@ morpheus::core::gfx::StreamingBackgroundBase::load_from_arrays(const unsigned in
     m_background_size = size;
     m_using_files = false;
 
-    /*for(int i = 0; tilemaps_len > i; ++i) {
-        m_tilemaps.push_back(tilemaps[i]);
-    }*/
-
     m_tilemaps = tilemaps;
     m_tilemaps_len = tilemaps_len;
 
@@ -146,7 +142,7 @@ void morpheus::core::gfx::StreamingBackgroundBase::refresh_current_background_fi
                                               const Vector2 &current_scroll_vector) {
     Vector2 global_scroll_background_vector = current_scroll_vector / Vector2(64, 64);
     unsigned int new_global_scroll_background_number = global_scroll_background_vector.get_x() +
-            (2 * global_scroll_background_vector.get_y());
+            ((get_streaming_background_size_vector().get_x() / 64) * global_scroll_background_vector.get_y());
 
     if(new_global_scroll_background_number != current_background_number
        || current_background_array_pointer == nullptr) {

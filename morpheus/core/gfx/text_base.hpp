@@ -10,8 +10,6 @@
 #include <map>
 #include <string>
 
-#include <tonc.h>
-
 #include <core/gfx/font.hpp>
 #include <core/main_loop.hpp>
 #include <core/gfx/tiled_background_base.hpp>

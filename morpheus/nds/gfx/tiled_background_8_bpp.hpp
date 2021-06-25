@@ -37,12 +37,14 @@ namespace morpheus {
             protected:
                 // Single Palette Mode loading functions
                 void array_load(const unsigned int *tiles, const unsigned int tiles_len,
-                                     const unsigned short *palette, const unsigned int pal_len,
-                                     const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     core::gfx::TiledBackgroundSize size)override;
+                                const unsigned short *palette, const unsigned int pal_len,
+                                const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size,
+                                const core::gfx::BitUnpacking unpacking_needed = core::gfx::BitUnpacking::NONE)override;
                 void array_load(const unsigned int *tiles, const unsigned int tiles_len,
-                                     const unsigned short *tile_map, const unsigned int tile_map_len,
-                                     core::gfx::TiledBackgroundSize size)override;
+                                const unsigned short *tile_map, const unsigned int tile_map_len,
+                                core::gfx::TiledBackgroundSize size,
+                                const core::gfx::BitUnpacking unpacking_needed = core::gfx::BitUnpacking::NONE)override;
                 void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
                                 core::gfx::TiledBackgroundSize size)override;
             };

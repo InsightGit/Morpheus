@@ -36,13 +36,6 @@ namespace morpheus {
 
             class TiledBackgroundBase {
             public:
-                struct BitUnPackOptions {
-                    unsigned short source_len;
-                    unsigned char source_bit_width;
-                    unsigned char dest_bit_width;
-                    unsigned int offset_plus_zero_data_flag;
-                };
-
                 TiledBackgroundBase(bool affine, unsigned int background_num, BlendingController *blending_controller,
                                     MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num,
                                     bool use_tile_overrides);
@@ -283,12 +276,20 @@ namespace morpheus {
                 TiledBackgroundSize m_tile_map_size;
                 bool m_use_tile_overrides;
             };
-
-            // defined in asm/tiled_background_base.s
-            extern void asm_BitUnPack(const void *src, void *dest, TiledBackgroundBase::BitUnPackOptions *unpack_options);
         }
     }
 }
 
+extern "C" {
+    struct asm_BitUnPackOptions {
+        unsigned short source_len;
+        unsigned char source_bit_width;
+        unsigned char dest_bit_width;
+        unsigned int offset_plus_zero_data_flag;
+    };
+
+    // defined in asm/tiled_background_base.s
+    extern void asm_BitUnPack(const void *src, void *dest, asm_BitUnPackOptions *unpack_options);
+}
 
 #endif //MORPHEUS_GBA_TEST_TILED_BACKGROUND_BASE_HPP

@@ -35,12 +35,14 @@ int main() {
     en_text_base->set_current_font(stick_english_font);
     jp_text_base->set_current_font(stick_japanese_font);
 
-
-    nocash_puts("printing japanese");
-    jp_text_base->print_at_pos(u8"こんにちは！", morpheus::core::gfx::Vector2(0, 64));
-
-    nocash_puts("printing english");
+    main_loop->get_no_cash_debug_controller()->send_to_debug_window("printing english");
     en_text_base->print_at_pos("Hello World!", morpheus::core::gfx::Vector2(0, 32));
+
+    main_loop->get_no_cash_debug_controller()->send_to_debug_window("printing japanese");
+    jp_text_base->print_at_pos(u8"こんにちは!", morpheus::core::gfx::Vector2(0, 64));
+
+    en_text_base->print_at_pos("Good Morning.", morpheus::core::gfx::Vector2(0, 96));
+    jp_text_base->print_at_pos(u8"おはようございます。", morpheus::core::gfx::Vector2(0, 128));
 
     main_loop->enable_background(0);
     main_loop->enable_background(1);

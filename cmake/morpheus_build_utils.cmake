@@ -99,9 +99,8 @@ endfunction()
 function(execute_grit_1bpp_font png_file)
     get_filename_component(png_file_name_path ${png_file} NAME_WLE)
 
-    add_custom_command(OUTPUT ${png_file_name_path}.o ${png_file_name_path}.h
-            COMMAND ${GRIT} ${png_file} -gB1 -tc
-            COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.s -o${png_file_name_path}.o
+    add_custom_command(OUTPUT ${png_file_name_path}.c ${png_file_name_path}.h
+            COMMAND ${GRIT} ${png_file} -gB1 -ftc -pn2
             VERBATIM)
 endfunction()
 

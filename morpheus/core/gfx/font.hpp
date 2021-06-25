@@ -9,6 +9,8 @@
 
 #include <core/gfx/vector_2.hpp>
 
+#include "sys8.h"
+
 namespace morpheus {
     namespace core {
         namespace gfx {
@@ -21,7 +23,15 @@ namespace morpheus {
             class Font {
             public:
                 // default font
-                Font() {}
+                Font() {
+                    set_common_characteristics(sys8Pal, sys8PalLen, sys8Tiles, sys8TilesLen, Vector2(1, 1),
+                                               FontBpp::FONT_1BPP, false);
+
+                    m_ascii_offset = 32;
+                    m_new_line_ascii_code = 10;
+                    m_space_ascii_code = 32;
+                    m_use_utf8 = false;
+                }
 
                 // ascii-based font constructor
                 Font(const unsigned short *font_palette, const unsigned int font_palette_len,

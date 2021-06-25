@@ -71,7 +71,7 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/core/communication_channel.cpp
         morpheus/core/communication_channel.hpp
         ${CMAKE_CURRENT_BINARY_DIR}/sys8.h
-        ${CMAKE_CURRENT_BINARY_DIR}/sys8.o
+        ${CMAKE_CURRENT_BINARY_DIR}/sys8.c
         morpheus/core/gfx/animation_frame.cpp
         morpheus/core/gfx/animation_frame.hpp
         morpheus/core/gfx/animation_smoothing_attributes.cpp
@@ -107,8 +107,6 @@ if(platform_lower STREQUAL "gba")
             morpheus/gba/gfx/sprite_4_bpp.cpp
             morpheus/gba/gfx/sprite_8_bpp.hpp
             morpheus/gba/gfx/sprite_8_bpp.cpp
-            morpheus/gba/gfx/streaming_background.hpp
-            morpheus/gba/gfx/streaming_background.cpp
             morpheus/gba/gfx/text.cpp
             morpheus/gba/gfx/text.hpp
             morpheus/gba/gfx/tiled_background.hpp
@@ -447,10 +445,15 @@ if("$ENV{BUILD_TESTS}")
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 256 256 0
                                       ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.png
                                       false false false)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_512.bin
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 512 512 0
+                                      ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_512.png
+                                      false false false)
 
         add_executable(morpheus-gba-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c)
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_512.c)
         add_gba_executable(morpheus-gba-streaming-background-test.elf)
 
         target_link_libraries(morpheus-gba-streaming-background-test.elf morpheus mm tonc fat gba)
@@ -645,8 +648,10 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-nds-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        generate_font(assets/test_fonts/Stick-Regular.ttf jp 1 147 235 255 16 false true)
-        generate_font(assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 16 false false)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp 1 147 235 255 15 false
+                      true)
+        generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 15 false
+                      false)
 
         #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
         execute_grit_4bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
@@ -662,14 +667,19 @@ if("$ENV{BUILD_TESTS}")
         project(morpheus-nds-streaming-background-test)
 
         link_directories(morpheus-nds-streaming-background-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
+
         generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.bin
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 128 128 0
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled.png
                 false false false)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.bin
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 256 256 0
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.png
+                false false false)
 
         add_executable(morpheus-nds-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c)
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c)
         add_nds_executable(morpheus-nds-streaming-background-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Streaming Background Test" "Morpheus engine" "")
 

@@ -117,7 +117,7 @@ std::vector<int> morpheus::core::gfx::TextBase::get_tile_ids_from_ascii_string(c
             tile_id = (m_font.get_char_size().get_x() * (ascii_difference % (16 / m_font.get_char_size().get_x()))) +
                     ((16 * m_font.get_char_size().get_y()) * (ascii_difference / 8));
         } else {
-            tile_id = ascii_difference * 4;
+            tile_id = ascii_difference * (m_font.get_char_size().get_x() * m_font.get_char_size().get_x());
         }
 
         /*m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Tile id for " + std::to_string(c) +

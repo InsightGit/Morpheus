@@ -39,8 +39,9 @@ void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *til
                                                          const unsigned short *palette, const unsigned int pal_len,
                                                          const unsigned short *tile_map,
                                                          const unsigned int tile_map_len,
-                                                         core::gfx::TiledBackgroundSize size) {
-    array_load(tiles, tiles_len, tile_map, tile_map_len, size);
+                                                         const core::gfx::TiledBackgroundSize size,
+                                                         const core::gfx::BitUnpacking unpacking_needed) {
+    array_load(tiles, tiles_len, tile_map, tile_map_len, size, unpacking_needed);
 
     if(is_using_sub_display()) {
         dmaCopy(palette, BG_PALETTE_SUB, pal_len);
@@ -52,8 +53,40 @@ void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *til
 void morpheus::nds::gfx::TiledBackground8Bpp::array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                                          const unsigned short *tile_map,
                                                          const unsigned int tile_map_len,
-                                                         core::gfx::TiledBackgroundSize size) {
+                                                         const core::gfx::TiledBackgroundSize size,
+                                                         const core::gfx::BitUnpacking unpacking_needed) {
+    asm_BitUnPackOptions bit_unpacking_options;
+    bool ready_for_unpacking = false;
+
     array_load(tile_map, tile_map_len, size);
+
+    switch(unpacking_needed) {
+        case core::gfx::BitUnpacking::NONE:
+            break;
+        case core::gfx::BitUnpacking::BPP_1_TO_4:
+            nocashMessage("Incorrect bit conversion specified! BPP_1_TO_4 was tried on a 8bpp background!");
+            break;
+        case core::gfx::BitUnpacking::BPP_1_TO_8:
+            bit_unpacking_options.source_bit_width = 1;
+            bit_unpacking_options.dest_bit_width = 8;
+            bit_unpacking_options.offset_plus_zero_data_flag = 0;
+
+            ready_for_unpacking = true;
+            break;
+        case core::gfx::BitUnpacking::BPP_4_TO_8:
+            bit_unpacking_options.source_bit_width = 4;
+            bit_unpacking_options.dest_bit_width = 8;
+            bit_unpacking_options.offset_plus_zero_data_flag = 0;
+
+            ready_for_unpacking = true;
+            break;
+    }
+
+    if(ready_for_unpacking) {
+        asm_BitUnPack(tiles, bgGetGfxPtr(get_background_reference_num()), &bit_unpacking_options);
+    } else {
+        dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
+    }
 
     dmaCopy(tiles, bgGetGfxPtr(get_background_reference_num()), tiles_len);
 }

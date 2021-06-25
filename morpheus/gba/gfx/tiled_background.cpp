@@ -186,10 +186,10 @@ void morpheus::gba::gfx::TiledBackground::large_background_swap(morpheus::core::
 
 bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core::gfx::BitUnpacking unpacking_needed,
                                                            const unsigned int *tiles, const unsigned int tiles_len) {
-    //morpheus::core::gfx::TiledBackgroundBase::BitUnPackOptions bit_unpacking_options;
-    BUP bit_unpacking_options;
+    asm_BitUnPackOptions bit_unpacking_options;
+    //BUP bit_unpacking_options;
 
-    bit_unpacking_options.src_len = tiles_len;
+    bit_unpacking_options.source_len = tiles_len;
 
     switch(unpacking_needed) {
         case core::gfx::BitUnpacking::NONE:
@@ -200,9 +200,12 @@ bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core:
                         "Incorrect bit conversion specified! BPP_1_TO_4 was tried on a 8bpp background!");
                 return false;
             } else {
-                bit_unpacking_options.src_bpp = 1;
+                /*bit_unpacking_options.src_bpp = 1;
                 bit_unpacking_options.dst_bpp = 4;
-                bit_unpacking_options.dst_ofs = 0;
+                bit_unpacking_options.dst_ofs = 0;*/
+                bit_unpacking_options.source_bit_width = 1;
+                bit_unpacking_options.dest_bit_width = 4;
+                bit_unpacking_options.offset_plus_zero_data_flag = 0;
 
                 m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("Set to BPP_1_TO_4!");
             }
@@ -213,9 +216,9 @@ bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core:
                         "Incorrect bit conversion specified! BPP_1_TO_8 was tried on a 4bpp background!");
                 return false;
             } else {
-                bit_unpacking_options.src_bpp = 1;
-                bit_unpacking_options.dst_bpp = 8;
-                bit_unpacking_options.dst_ofs = 0;
+                bit_unpacking_options.source_bit_width = 1;
+                bit_unpacking_options.dest_bit_width = 8;
+                bit_unpacking_options.offset_plus_zero_data_flag = 0;
             }
             break;
         case core::gfx::BitUnpacking::BPP_4_TO_8:
@@ -224,19 +227,17 @@ bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core:
                         "Incorrect bit conversion specified! BPP_4_TO_8 was tried on a 4bpp background!");
                 return false;
             } else {
-                bit_unpacking_options.src_bpp = 4;
-                bit_unpacking_options.dst_bpp = 8;
-                bit_unpacking_options.dst_ofs = 0;
+                bit_unpacking_options.source_bit_width = 4;
+                bit_unpacking_options.dest_bit_width = 8;
+                bit_unpacking_options.offset_plus_zero_data_flag = 0;
             }
             break;
     }
 
     if(m_is_8bpp) {
-        BitUnPack(tiles, &tile8_mem[get_cbb_num()][0], &bit_unpacking_options);
-        //asm_BitUnPack(tiles, &tile8_mem[get_cbb_num()][0], &bit_unpacking_options);
+        asm_BitUnPack(tiles, &tile8_mem[get_cbb_num()][0], &bit_unpacking_options);
     } else {
-        BitUnPack(tiles, &tile_mem[get_cbb_num()][0], &bit_unpacking_options);
-        //asm_BitUnPack(tiles, &tile_mem[get_cbb_num()][0], &bit_unpacking_options);
+        asm_BitUnPack(tiles, &tile_mem[get_cbb_num()][0], &bit_unpacking_options);
     }
 
     return true;
