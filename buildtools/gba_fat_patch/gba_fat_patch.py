@@ -52,6 +52,9 @@ def main():
                             return
         except OSError as e:
             print(f"Couldn't open {patch_path}! Can we read this path? Was libgba not installed?", file=sys.stderr)
+
+            raise e
+
             sys.exit(2)
 
 
