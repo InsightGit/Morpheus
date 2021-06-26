@@ -31,7 +31,7 @@ affine-test-gba:
   stage: test
   script:
     - cd build
-    - cmake --build . --target morpheus-gba-affine-test.gba
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-affine-test.gba
   dependencies:
     - gba-library
   artifacts:
@@ -44,7 +44,7 @@ affine-test-nds:
   stage: test
   script:
     - cd build
-    - cmake --build . --target morpheus-gba-affine-test.gba
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-gba-affine-test.gba
   dependencies:
     - nds-library
   artifacts:
