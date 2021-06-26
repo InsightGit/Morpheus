@@ -116,8 +116,9 @@ endfunction()
 function(execute_grit_1bpp_font png_file)
     get_filename_component(png_file_name_path ${png_file} NAME_WLE)
 
-    add_custom_command(OUTPUT ${png_file_name_path}.c ${png_file_name_path}.h
-            COMMAND ${GRIT} ${png_file} -gB1 -ftc -pn2
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}.c
+                              ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}.h
+            COMMAND ${GRIT} ${png_file} -gB1 -ftc -pn2 -o ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}
             VERBATIM)
 endfunction()
 

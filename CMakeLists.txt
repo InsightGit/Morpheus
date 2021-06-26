@@ -70,8 +70,8 @@ set(MORPHEUS_SOURCE_FILES
         morpheus/utils.hpp
         morpheus/core/communication_channel.cpp
         morpheus/core/communication_channel.hpp
-        ${CMAKE_CURRENT_BINARY_DIR}/sys8.h
-        ${CMAKE_CURRENT_BINARY_DIR}/sys8.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.c
         morpheus/core/gfx/animation_frame.cpp
         morpheus/core/gfx/animation_frame.hpp
         morpheus/core/gfx/animation_smoothing_attributes.cpp
@@ -170,7 +170,7 @@ elseif(platform_lower STREQUAL "nds")
 
     message(STATUS "Configuring for the Nintendo DS...")
 
-    include_directories(morpheus PRIVATE ${BASE_INCLUDE_DIRS} /opt/devkitpro/libnds/include)
+    include_directories(morpheus ${BASE_INCLUDE_DIRS} /opt/devkitpro/libnds/include)
     link_directories(${DEVKITPRO}/libnds/lib)
 else()
     message(FATAL_ERROR "Unrecognized platform (" $ENV{PLATFORM} ") specified in PLATFORM environment variable!")
@@ -210,23 +210,13 @@ if($ENV{BUILD_DOCS})
 endif()
 
 if("$ENV{BUILD_TESTS}")
-    if(platform_lower STREQUAL "gba")
-        set(PNG4_FILES "../tests/gba/input_test/test4.png")
-    elseif(platform_lower STREQUAL "nds")
-        set(PNG4_FILES "../tests/nds/input_test/test4.png")
-    endif()
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/assets)
 
+    set(PNG4_FILES "../tests/input_test/test4.png")
     set(PNG4_IMAGE_SIZES "32X32")
 
-    if(platform_lower STREQUAL "gba")
-        set(PNG8_FILES "../tests/gba/input_test/test8.png" CACHE STRING
-                "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
-        set(PNG8_IMAGE_SIZES "32X32")
-    elseif(platform_lower STREQUAL "nds")
-        set(PNG8_FILES "../tests/nds/input_test/test8.png" "../tests/nds/input_test/testt.png" CACHE STRING
-                "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
-        set(PNG8_IMAGE_SIZES "32X32" "32X32")
-    endif()
+    set(PNG8_FILES "../tests/input_test/test8.png")
+    set(PNG8_IMAGE_SIZES "32X32")
 
     execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE PNG4_OUTPUT_FILES)
     execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
@@ -275,7 +265,7 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-input-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        add_executable(morpheus-gba-input-test.elf tests/gba/input_test/gba_input_test.cpp ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
+        add_executable(morpheus-gba-input-test.elf tests/input_test/input_test.cpp ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
         add_gba_executable(morpheus-gba-input-test.elf)
 
         target_link_libraries(morpheus-gba-input-test.elf morpheus mm tonc)
@@ -418,7 +408,6 @@ if("$ENV{BUILD_TESTS}")
 
         link_directories(morpheus-gba-custom-font-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
 
-        #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
         generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf jp 1 147 235 255 15 false
                       true)
         generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 15 false
@@ -534,12 +523,12 @@ if("$ENV{BUILD_TESTS}")
             list(APPEND NDS_PCX_OBJECTS "${pcx_file_underscores_no_path}.o")
         endforeach()
 
-        add_executable(morpheus-nds-input-test.elf tests/nds/input_test/nds_input_test.cpp
+        add_executable(morpheus-nds-input-test.elf tests/input_test/input_test.cpp
                 ${NDS_PCX_OBJECTS} ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
         add_nds_executable(morpheus-nds-input-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Input Test"
                            "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-input-test.elf morpheus nds9 fat)
+        target_link_libraries(morpheus-nds-input-test.elf morpheus filesystem fat nds9)
 
         project(morpheus-nds-tileset-test)
 
@@ -575,8 +564,7 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-extended-palette-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus ExtPalette Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus nds9)
-
+        target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus filesystem fat nds9)
 
         project(morpheus-nds-save-test)
 
@@ -628,7 +616,7 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus GFX Effect Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus nds9 mm9 fat)
+        target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus filesystem fat nds9 mm9)
 
         project(morpheus-nds-affine-test)
 
@@ -657,16 +645,13 @@ if("$ENV{BUILD_TESTS}")
         generate_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_fonts/Stick-Regular.ttf en 1 147 235 255 15 false
                       false)
 
-        #execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
-        execute_grit_4bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/japanese_font_test.png)
-
         add_executable(morpheus-nds-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
                 ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c
                 ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
         add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Custom Font Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-custom-font-test.elf morpheus fat filesystem nds9 mm9)
+        target_link_libraries(morpheus-nds-custom-font-test.elf morpheus filesystem fat nds9 mm9)
 
         project(morpheus-nds-streaming-background-test)
 

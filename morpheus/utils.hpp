@@ -27,6 +27,8 @@ namespace morpheus {
                 scroll_background(input_event);
             }
 
+            void update(unsigned char cycle_time) override {}
+
             void change_background(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> new_background) {
                 m_background = new_background;
             }
@@ -144,7 +146,7 @@ namespace morpheus {
                 bool affine,
                 morpheus::core::gfx::BlendingController *blending_controller,
                 morpheus::core::gfx::MosaicController *mosaic_controller,
-                bool nds_use_sub_display = false, bool nds_use_extended_palettes = true) {
+                bool nds_use_sub_display = false, bool nds_use_extended_palettes = false) {
             #ifdef _GBA
                 return new morpheus::gba::gfx::Sprite8Bpp(affine,
                         static_cast<morpheus::gba::gfx::GbaBlendingController*>(blending_controller),

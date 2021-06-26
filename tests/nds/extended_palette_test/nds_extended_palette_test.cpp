@@ -32,6 +32,8 @@ public:
 
                     change_background(m_background);
                     break;
+                default:
+                    break;
             }
 
             scroll_background(input_event);
@@ -52,13 +54,19 @@ int main() {
     morpheus::nds::gfx::TiledBackground8Bpp custom_bg2();*/
 
     std::shared_ptr<morpheus::nds::gfx::TiledBackground8Bpp> custom_bg0(
-            new morpheus::nds::gfx::TiledBackground8Bpp(false, 0,
-                                                       std::static_pointer_cast<morpheus::nds::NdsMainLoop>(main_loop),
-                                                       1, 2));
+            new morpheus::nds::gfx::TiledBackground8Bpp(
+                        false, false, 0,
+                        static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
+                        static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
+                        static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()),
+                       1, 2));
     std::shared_ptr<morpheus::nds::gfx::TiledBackground8Bpp> custom_bg1(
-            new morpheus::nds::gfx::TiledBackground8Bpp(false, 1,
-                                                        std::static_pointer_cast<morpheus::nds::NdsMainLoop>(main_loop),
-                                                        3, 7));
+            new morpheus::nds::gfx::TiledBackground8Bpp(
+                    false, false, 1,
+                    static_cast<morpheus::nds::gfx::NdsBlendingController*>(main_loop->get_blending_controller()),
+                    static_cast<morpheus::nds::gfx::NdsMosaicController*>(main_loop->get_mosaic_controller()),
+                    static_cast<morpheus::nds::NdsMainLoop*>(main_loop.get()),
+                    3, 7));
 
     std::shared_ptr<SwitchingBackgroundTestControls> controls(new SwitchingBackgroundTestControls(custom_bg0,
                                                                                                   custom_bg1));
@@ -74,7 +82,7 @@ int main() {
                                 region_map2Map, region_map2MapLen,
                                 morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
 
-    main_loop->set_root(controls);
+    main_loop->add_control_reciever(controls);
 
     main_loop->game_loop();
 }

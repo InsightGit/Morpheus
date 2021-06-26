@@ -91,7 +91,7 @@ endforeach()
 
 project(hayai)
 
-include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. $ENV{DEVKITPRO}/libnds/include)
+include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. $ENV{DEVKITPRO}/libnds/include ../../assets)
 
 convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
                                FALSE)
@@ -170,7 +170,7 @@ elseif(platform_lower STREQUAL "nds")
     add_executable(hayai.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES} ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o) #${PNG8_OUTPUT_FILES})
     add_nds_executable(hayai.elf assets/ds_icon.bmp "Hayai" "an Acceleration-based platformer" "powered by Morpheus")
 
-    target_link_libraries(hayai.elf nds_morpheus fat filesystem nds9 mm9)
+    target_link_libraries(hayai.elf nds_morpheus filesystem fat nds9 mm9)
 endif()
 
 if(WIN32)

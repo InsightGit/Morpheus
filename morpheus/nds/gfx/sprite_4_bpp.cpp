@@ -32,7 +32,7 @@ bool morpheus::nds::gfx::Sprite4Bpp::load_from_array(const unsigned short *tile_
         return false;
     }
 
-    load_into_palette(palette, palette_len);
+    load_into_palette(palette, palette_len, palette_id * 16);
 
     return true;
 }

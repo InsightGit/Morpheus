@@ -10,7 +10,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
     //std::cout << "loading tiled array in single palette mode\n";
 
     if(is_in_extended_palette_mode()) {
-        std::cout << "ERROR: the DS is not in single palette mode!\n";
+        nocashMessage("ERROR: the DS is not in single palette mode!\n");
         return false;
     }
 
@@ -42,7 +42,7 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_array(const unsigned short *tile_
                                                      const unsigned int tile_array_len, const unsigned int palette_id,
                                                      const morpheus::core::gfx::SpriteSize size) {
     if(!is_in_extended_palette_mode()) {
-        std::cout << "ERROR: the DS is not in extended palette mode!\n";
+        nocashMessage("ERROR: the DS is not in extended palette mode!\n");
         return false;
     }
 
@@ -213,8 +213,8 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *pal
             }
         }
 
-        //nocashMessage("loaded 8bpp palette (single palette mode)\n");
-        //nocashMessage(std::string("palette len:" + std::to_string(palette_len)).c_str());
+        nocashMessage("loaded 8bpp palette (single palette mode)\n");
+        nocashMessage(std::string("palette len:" + std::to_string(palette_len)).c_str());
     }
 
     return true;
