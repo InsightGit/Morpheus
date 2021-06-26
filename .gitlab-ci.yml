@@ -52,3 +52,29 @@ affine-test-nds:
     paths:
       - build/morpheus-nds-affine-test.nds
     when: on_success
+
+animation-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-animation-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-animation-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-animation-test.gba
+    when: on_success
+
+animation-test-nds:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-animation-test.nds
+  dependencies:
+    - nds-library
+  artifacts:
+    name: Morpheus-animation-test-NDS-$CI_JOB_NAME
+    paths:
+      - build/morpheus-nds-animation-test.nds
+    when: on_success

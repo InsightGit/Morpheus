@@ -503,12 +503,11 @@ if("$ENV{BUILD_TESTS}")
                 32 32 0 "tests/gfx_effects_test/region_map.png" 8 false)
 
         add_executable(morpheus-nds-animation-test.elf tests/animation_test/animation_test.cpp
-                ${GFX_EFFECT_PNG8_OUTPUT_FILES} "${CMAKE_CURRENT_BINARY_DIR}/region_map.c"
-                "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c" tests/animation_test/test_animation.hpp)
+                ${GFX_EFFECT_PNG8_OUTPUT_FILES} tests/animation_test/test_animation.hpp)
         add_nds_executable(morpheus-nds-animation-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Animation Test"
                            "Morpheus' Ani animation engine" "")
 
-        target_link_libraries(morpheus-nds-animation-test.elf morpheus fat filesystem nds9 mm9)
+        target_link_libraries(morpheus-nds-animation-test.elf morpheus filesystem fat nds9 mm9)
 
         project(morpheus-nds-input-test)
 
