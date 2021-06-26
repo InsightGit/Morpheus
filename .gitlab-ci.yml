@@ -11,7 +11,7 @@ gba-library:
     artifacts:
       name: Morpheus-GBA-$CI_JOB_NAME
       paths:
-        - build/libgba_morpheus.a
+        - build/*
       when: on_success
 
 nds-library:
@@ -24,7 +24,7 @@ nds-library:
   artifacts:
     name: Morpheus-GBA-$CI_JOB_NAME
     paths:
-      - build/libnds_morpheus.a
+      - build/*
     when: on_success
 
 affine-test-gba:
