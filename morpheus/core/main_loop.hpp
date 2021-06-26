@@ -9,7 +9,9 @@
 #include <random>
 #include <vector>
 
+#ifdef GBA_FAT_SUPPORT_ENABLED
 #include <fat.h>
+#endif
 
 #include <core/gfx/sprite_base.hpp>
 #include <core/gfx/window.hpp>

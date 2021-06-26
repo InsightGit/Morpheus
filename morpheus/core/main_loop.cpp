@@ -17,9 +17,11 @@ morpheus::core::MainLoop::MainLoop(morpheus::core::gfx::BlendingController *blen
 
     m_sprites.reserve(MAX_SPRITE_NUM);
 
-    if(enable_fat) {
-        fatInitDefault();
-    }
+    #ifdef GBA_FAT_SUPPORT_ENABLED
+        if(enable_fat) {
+            fatInitDefault();
+        }
+    #endif
 }
 
 std::vector<morpheus::core::InputEvent>

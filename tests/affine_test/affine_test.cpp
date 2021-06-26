@@ -10,7 +10,7 @@
 
 #include "region_map_affine_128.h"
 #include "region_map_affine.h"
-#include "region_map_affine2.h"
+//#include "region_map_affine2.h"
 //#include "nums.h"
 #include "test4.h"
 
@@ -176,7 +176,7 @@ private:
     const static InputMode FIRST_INPUT_MODE = InputMode::SPRITE_ROTATION;
     const static InputMode LAST_INPUT_MODE = InputMode::BACKGROUND_SCALE;
 
-    InputMode m_input_mode = InputMode::BACKGROUND_SCROLL;
+    InputMode m_input_mode = FIRST_INPUT_MODE;
     morpheus::core::NoCashDebugController *m_no_cash_debug_controller;
     std::shared_ptr<morpheus::core::gfx::SpriteBase> m_sprite_base;
     std::shared_ptr<morpheus::core::gfx::TextBase> m_text_base;
@@ -211,10 +211,10 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
+    /*base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
                                      region_map_affine_128Pal, region_map_affine_128PalLen,
                                      region_map_affine_128Map, region_map_affine_128MapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_128x128);
+                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_128x128);*/
 
     /*base_background->load_from_array(region_map_affineTiles, region_map_affineTilesLen,
                                  region_map_affinePal, region_map_affinePalLen,

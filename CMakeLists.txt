@@ -639,7 +639,7 @@ if("$ENV{BUILD_TESTS}")
         convert_tilemap_bin_image_file("tests/affine_test/region_map_affine_128.bin" ${CMAKE_CURRENT_BINARY_DIR}
                 128 128 0 "tests/affine_test/region_map_affine.png" true true)
 
-        link_directories(morpheus-nds-affine-test PRIVATE . $ENV{DEVKITPRO}/libgba/lib $ENV{DEVKITPRO}/libtonc/lib)
+        link_directories(morpheus-nds-affine-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         add_executable(morpheus-nds-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES}
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine_128.c"
@@ -647,7 +647,7 @@ if("$ENV{BUILD_TESTS}")
         add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/input_test/ds_icon.bmp"
                 "Morpheus Affine Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-affine-test.elf morpheus fat filesystem nds9 mm9)
+        target_link_libraries(morpheus-nds-affine-test.elf morpheus filesystem fat nds9 mm9 )
 
         project(morpheus-nds-custom-font-test)
 
