@@ -191,7 +191,7 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
     tmp_header_file = None
     tmp_source_file = None
 
-    if base_image_file_name != file_name and os.path.isfile(os.path.join(build_dir, base_image_file_name + ".h")):
+    '''if base_image_file_name != file_name and os.path.isfile(os.path.join(build_dir, base_image_file_name + ".h")):
         tmp_header_file = tempfile.TemporaryFile(mode="w+")
         tmp_source_file = tempfile.TemporaryFile(mode="w+")
 
@@ -199,10 +199,10 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             tmp_header_file.write(header_file.read())
 
         with open(os.path.join(build_dir, base_image_file_name + ".c"), 'r') as source_file:
-            tmp_source_file.write(source_file.read())
+            tmp_source_file.write(source_file.read())'''
 
     if len(image_file) > 0:
-        grit_subprocess = ["grit", image_file]
+        grit_subprocess = ["grit", image_file, f"-o{os.path.join(build_dir, file_name)}"]
 
         if is_4bpp:
             grit_subprocess.append("-gB4")
@@ -220,39 +220,10 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         #if width > 32 or height > 32:
         #    grit_subprocess.append("-mLs")
 
+        print()
+
         subprocess.run(["which", "grit"], capture_output=True)
         subprocess.run(grit_subprocess, capture_output=True)
-
-
-    if base_image_file_name != file_name:
-        shutil.copy(os.path.join(build_dir, base_image_file_name + ".h"), os.path.join(build_dir, file_name + ".h"))
-        shutil.copy(os.path.join(build_dir, base_image_file_name + ".c"), os.path.join(build_dir, file_name + ".c"))
-
-        header_file_contents = ""
-        source_file_contents = ""
-
-        with open(os.path.join(build_dir, file_name + ".h"), 'r') as header_file:
-            header_file_contents = header_file.read()
-
-        with open(os.path.join(build_dir, file_name + ".c"), 'r') as source_file:
-            source_file_contents = source_file.read()
-
-        with open(os.path.join(build_dir, file_name + ".h"), 'w') as header_file:
-            header_file.write(header_file_contents.replace(base_image_file_name, file_name).
-                              replace(base_image_file_name.upper(), file_name.upper()))
-
-        with open(os.path.join(build_dir, file_name + ".c"), 'w') as source_file:
-            source_file.write(source_file_contents.replace(base_image_file_name, file_name).
-                              replace(base_image_file_name.upper(), file_name.upper()))
-
-        if tmp_header_file is not None and tmp_source_file is not None:
-            with open(os.path.join(build_dir, base_image_file_name + ".h"), 'w') as header_file:
-                header_file.write(tmp_header_file.read())
-                tmp_header_file.close()
-
-            with open(os.path.join(build_dir, base_image_file_name + ".c"), 'w') as source_file:
-                source_file.write(tmp_source_file.read())
-                tmp_source_file.close()
 
     base_path = os.path.join(build_dir, file_name)
 
