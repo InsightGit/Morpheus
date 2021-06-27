@@ -6,7 +6,7 @@ Class Reference
     :maxdepth: 1
     :glob:
 
-    *class_index*
+    morpheus/*
     morpheus/core/*
     morpheus/gba/*
     morpheus/nds/*

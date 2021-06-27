@@ -6,8 +6,6 @@
     #include <gba/gba.hpp>
 #elif _NDS
     #include <nds/nds.hpp>
-
-    #include "test8_pcx.h"
 #endif
 
 #include "test8.h"

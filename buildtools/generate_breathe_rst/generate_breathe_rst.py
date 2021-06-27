@@ -25,14 +25,14 @@ def generate_header_rst_file(breathe_dir: str, class_name: str, namespace_name: 
     with open(os.path.join(namespace_dir, f"{class_name}.rst"), 'w') as header_rst_file:
         equal_string = ""
 
-        header_rst_file.write(class_name)
+        header_rst_file.write(f".. title:: {class_name}\n")
+        header_rst_file.write(f".. doxygenclass:: {namespace_name}::{class_name}\n")
 
-        for i in range(len(class_name)):
+        for i in range(len(f"    :members:")):
             equal_string += "="
 
-        header_rst_file.write(f"{equal_string}\n"
-                              f"    :project: {PROJECT_NAME}"
-                              f"    :members:")
+        header_rst_file.write(f"    :project: {PROJECT_NAME}\n"
+                              f"    :members:\n{equal_string}")
 
 
 def identify_cpp_classes(file_name: str) -> list:
@@ -77,6 +77,26 @@ def generate_header_rst_files(header_path: str, breathe_path: str, root_namespac
                     namespace_name = namespace_name.lstrip("::")
 
                     generate_header_rst_file(breathe_path, class_name, namespace_name)
+
+        for dir in dirs:
+            complete_dir_path = os.path.join(os.path.join(breathe_path, "classes"), os.path.join(root_namespace, dir))
+
+            print(complete_dir_path)
+
+            namespace_name = root_namespace + complete_dir_path.replace(header_path, "").replace("/", "::").lstrip("::")
+
+            os.makedirs(complete_dir_path, exist_ok=True)
+
+            generate_namespace_toctree(complete_dir_path, namespace_name)
+
+
+def generate_namespace_toctree(namespace_dir: str, namespace_name: str):
+    with open(os.path.join(namespace_dir, "class_index.rst"), 'w') as file:
+        file.write(f".. toctree::\n"
+                   f"   :maxdepth: 1\n"
+                   f"   :name: {namespace_name}\n"
+                   f"   :glob:\n"
+                   f"   *\n")
 
 
 def main() -> None:

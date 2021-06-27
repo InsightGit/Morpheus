@@ -33,7 +33,7 @@ release = 'v1.0'
 extensions = ['myst_parser', "breathe", "sphinx_rtd_theme"]
 
 breathe_projects = {
-    "morpheus": "./xml"
+    "morpheus": os.path.join(os.path.dirname(os.path.abspath(__file__)), "xml/")
 }
 
 breathe_default_project = "morpheus"
