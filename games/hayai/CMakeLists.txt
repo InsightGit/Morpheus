@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.16)
 include("cmake/morpheus_build_utils.cmake")
 
 if(WIN32)

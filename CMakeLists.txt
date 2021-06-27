@@ -500,31 +500,10 @@ if("$ENV{BUILD_TESTS}")
 
         project(morpheus-nds-input-test)
 
-        set(NDS_PCX_FILES "../tests/nds/input_test/test8.pcx" CACHE STRING
-                "PCX Files used by test code (paths are relative to cmake build dir)")
-
         link_directories(morpheus-nds-input-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
-        foreach(pcx_file IN LISTS NDS_PCX_FILES)
-            get_filename_component(pcx_file_underscores_no_path ${pcx_file} NAME)
-            string(REPLACE "." "_" pcx_file_underscores_no_path ${pcx_file_underscores_no_path})
-
-            file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pcx_file_underscores_no_path}.h
-                    "extern const uint8_t ${pcx_file_underscores_no_path}_end[];\n"
-                    "extern const uint8_t ${pcx_file_underscores_no_path}[];\n"
-                    "extern const uint32_t ${pcx_file_underscores_no_path}_size;")
-
-            add_custom_command(OUTPUT ${pcx_file_underscores_no_path}.o
-                    COMMAND ${BIN2S} ${pcx_file} > ${pcx_file_underscores_no_path}.s
-                    COMMAND ${ASSEMBLER_TO_USE} ${pcx_file_underscores_no_path}.s
-                    -o${pcx_file_underscores_no_path}.o
-                    VERBATIM)
-
-            list(APPEND NDS_PCX_OBJECTS "${pcx_file_underscores_no_path}.o")
-        endforeach()
-
         add_executable(morpheus-nds-input-test.elf tests/input_test/input_test.cpp
-                ${NDS_PCX_OBJECTS} ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
+                       ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
         add_nds_executable(morpheus-nds-input-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Input Test"
                            "Morpheus engine" "")
 
