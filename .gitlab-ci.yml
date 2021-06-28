@@ -170,34 +170,51 @@ input-test-nds:
       - build/morpheus-nds-input-test.nds
     when: on_success
 
-hayai-game-gba:
-  stage: test
-  script:
-    - mkdir games/hayai/build
-    - cd games/hayai/build
-    - echo $DEVKITARM
-    - PLATFORM=gba cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - cmake --build . --target hayai.gba
-  dependencies:
-    - gba-library
-  artifacts:
-    name: Morpheus-hayai-NDS-$CI_JOB_NAME
-    paths:
-      - games/hayai/build/hayai.gba
-    when: on_success
+#hayai-game-gba:
+#  stage: test
+#  script:
+#    - mkdir games/hayai/build
+#    - cd games/hayai/build
+#    - echo $DEVKITARM
+#    - PLATFORM=gba cmake .. -DCMAKE_BUILD_TYPE=Debug
+#    - cmake --build . --target hayai.gba
+#  dependencies:
+#    - gba-library
+#  artifacts:
+#    name: Morpheus-hayai-NDS-$CI_JOB_NAME
+#    paths:
+#      - games/hayai/build/hayai.gba
+#    when: on_success
 
-hayai-game-nds:
-  stage: test
+#hayai-game-nds:
+#  stage: test
+#  script:
+#    - mkdir games/hayai/build
+#    - cd games/hayai/build
+#    - echo $DEVKITARM
+#    - PLATFORM=nds cmake .. -DCMAKE_BUILD_TYPE=Debug
+#    - cmake --build . --target hayai.nds
+#  dependencies:
+#    - nds-library
+#  artifacts:
+#    name: Morpheus-input-test-NDS-$CI_JOB_NAME
+#    paths:
+#      - games/hayai/build/hayai.nds
+#    when: on_success
+
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+
+pages:
+  stage: deploy
   script:
-    - mkdir games/hayai/build
-    - cd games/hayai/build
-    - echo $DEVKITARM
-    - PLATFORM=nds cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - cmake --build . --target hayai.nds
-  dependencies:
-    - nds-library
+    - mkdir build
+    - cd build
+    - BUILD_DOCS=1 cmake ..
+    - cmake --build . --target Documentation
   artifacts:
-    name: Morpheus-input-test-NDS-$CI_JOB_NAME
     paths:
-      - games/hayai/build/hayai.nds
-    when: on_success
+      - docs/_build/html
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'

@@ -84,6 +84,29 @@ project(morpheus)
 
 set(BASE_INCLUDE_DIRS . ${CMAKE_CURRENT_BINARY_DIR})
 
+if($ENV{BUILD_DOCS})
+    if(WIN32)
+        find_program(DOXYGEN doxygen)
+        find_program(PYTHON3 python)
+    else()
+        find_program(DOXYGEN doxygen)
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    add_custom_target(Documentation ALL
+            COMMENT "Building Documentation"
+            COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs && ${DOXYGEN}
+            COMMAND ${PYTHON3}
+            ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_breathe_rst/generate_breathe_rst.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus ${CMAKE_CURRENT_SOURCE_DIR}/docs
+            COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
+            DEPENDS morpheus)
+endif()
+
 if(platform_lower STREQUAL "gba")
     set(CMAKE_STATIC_LIBRARY_PREFIX "libgba_")
     set(CMAKE_SYSTEM_NAME Generic)
@@ -172,6 +195,8 @@ elseif(platform_lower STREQUAL "nds")
 
     include_directories(morpheus ${BASE_INCLUDE_DIRS} /opt/devkitpro/libnds/include)
     link_directories(${DEVKITPRO}/libnds/lib)
+elseif($ENV{BUILD_DOCS})
+    return()
 else()
     message(FATAL_ERROR "Unrecognized platform (" $ENV{PLATFORM} ") specified in PLATFORM environment variable!")
 endif()
@@ -184,29 +209,6 @@ add_library(morpheus ${MORPHEUS_SOURCE_FILES})
 if(platform_lower STREQUAL "gba")
     libgba_fat_patch()
     add_dependencies(morpheus libgba_fat_patch_target)
-endif()
-
-if($ENV{BUILD_DOCS})
-    if(WIN32)
-        find_program(DOXYGEN doxygen)
-        find_program(PYTHON3 python)
-    else()
-        find_program(DOXYGEN doxygen)
-        find_program(PYTHON3 python3)
-    endif()
-
-    if(NOT PYTHON3)
-        message(FATAL_ERROR "python3 - not found")
-    endif()
-
-    add_custom_target(Documentation ALL
-                      COMMENT "Building Documentation"
-                      COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs && ${DOXYGEN}
-                      COMMAND ${PYTHON3}
-                              ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_breathe_rst/generate_breathe_rst.py
-                              ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus ${CMAKE_CURRENT_SOURCE_DIR}/docs
-                      COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
-                      DEPENDS morpheus)
 endif()
 
 if("$ENV{BUILD_TESTS}")

@@ -7,6 +7,8 @@ else()
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
 endif()
 
+
+
 string(TOLOWER $ENV{PLATFORM} platform_lower)
 
 if(platform_lower STREQUAL "gba")
@@ -189,6 +191,6 @@ else()
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
 endif()
 
-set(CMAKE_AS ASSEMBLER_TO_USE CACHE STRING "")
+set(CMAKE_AS ASSEMBLER_TO_USE)
 
 enable_language(ASM)

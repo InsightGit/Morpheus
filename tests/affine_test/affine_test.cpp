@@ -8,8 +8,8 @@
 #include <nds/nds.hpp>
 #endif
 
-#include "region_map_affine_128.h"
-#include "region_map_affine.h"
+//#include "region_map_affine_128.h"
+//#include "region_map_affine.h"
 //#include "region_map_affine2.h"
 //#include "nums.h"
 #include "test4.h"

@@ -1,3 +1,4 @@
+import glob
 import os
 import re
 import sys
@@ -18,18 +19,19 @@ def generate_header_rst_file(breathe_dir: str, class_name: str, namespace_name: 
 
     # Ask for forgiveness, not for permission
     try:
-        os.mkdir(namespace_dir)
+        os.makedirs(namespace_dir, exist_ok=True)
     except FileExistsError:
         pass
 
     with open(os.path.join(namespace_dir, f"{class_name}.rst"), 'w') as header_rst_file:
         equal_string = ""
 
-        header_rst_file.write(f".. title:: {class_name}\n")
-        header_rst_file.write(f".. doxygenclass:: {namespace_name}::{class_name}\n")
+        header_rst_file.write(f"{class_name}\n")
 
-        for i in range(len(f"    :members:")):
-            equal_string += "="
+        for i in range(len(class_name)):
+            header_rst_file.write("=")
+
+        header_rst_file.write(f"\n.. doxygenclass:: {namespace_name}::{class_name}\n")
 
         header_rst_file.write(f"    :project: {PROJECT_NAME}\n"
                               f"    :members:\n{equal_string}")
@@ -59,7 +61,7 @@ def identify_cpp_classes(file_name: str) -> list:
     return class_list
 
 
-def generate_header_rst_files(header_path: str, breathe_path: str, root_namespace: str = "") -> None:
+def generate_header_rst_files(header_path: str, breathe_path: str, root_namespace: str = "") -> list:
     print(f"header path: {header_path}")
 
     for root, dirs, files in os.walk(header_path):
@@ -78,25 +80,97 @@ def generate_header_rst_files(header_path: str, breathe_path: str, root_namespac
 
                     generate_header_rst_file(breathe_path, class_name, namespace_name)
 
+        print(f"{dirs} with namespace name {namespace_name}")
+
         for dir in dirs:
-            complete_dir_path = os.path.join(os.path.join(breathe_path, "classes"), os.path.join(root_namespace, dir))
+            complete_dir_path = os.path.join(os.path.join(os.path.join(breathe_path, "classes"),
+                                                          os.path.join(root_namespace, dir)))
+
+
+            if namespace_name != root_namespace:
+                namespace_path = namespace_name.replace("::", "/")
+
+                complete_dir_path = complete_dir_path.replace(os.path.join("classes", root_namespace),
+                                                              os.path.join("classes", namespace_path))
 
             print(complete_dir_path)
 
-            namespace_name = root_namespace + complete_dir_path.replace(header_path, "").replace("/", "::").lstrip("::")
+            working_namespace_name = complete_dir_path.replace(breathe_path, "").replace("/", "::").lstrip("classes::")
+
+            print(working_namespace_name)
 
             os.makedirs(complete_dir_path, exist_ok=True)
 
-            generate_namespace_toctree(complete_dir_path, namespace_name)
+            generate_namespace_toctree(complete_dir_path, working_namespace_name)
 
 
 def generate_namespace_toctree(namespace_dir: str, namespace_name: str):
+    added_file_to_toc = False
+
     with open(os.path.join(namespace_dir, "class_index.rst"), 'w') as file:
-        file.write(f".. toctree::\n"
-                   f"   :maxdepth: 1\n"
-                   f"   :name: {namespace_name}\n"
-                   f"   :glob:\n"
-                   f"   *\n")
+        title_string = f"{namespace_name}\n"
+
+        for i in range(len(namespace_name)):
+            title_string += "="
+
+        file.write(f"{title_string}\n"
+                   f".. toctree::\n"
+                   f"   :maxdepth: 1\n\n")
+
+        sub_toc_files_to_add = []
+
+        for root_file in os.listdir(namespace_dir):
+            class_toctree = os.path.join(root_file, "class_index.rst")
+
+            if os.path.isdir(os.path.join(namespace_dir, root_file)):
+                sub_toc_files_to_add.append(os.path.join(root_file, "class_index.rst"))
+
+        for sub_toc_file in sorted(sub_toc_files_to_add):
+            file.write(f"   {sub_toc_file}\n")
+
+            added_file_to_toc = True
+
+        rst_files_to_add = []
+
+        for rst_file in glob.glob(os.path.join(namespace_dir, "*.rst")):
+            if rst_file == os.path.join(namespace_dir, "class_index.rst"):
+                continue
+            else:
+                rst_files_to_add.append(rst_file.replace(namespace_dir, "").lstrip("/"))
+
+        for rst_file in sorted(rst_files_to_add):
+            file.write(f"   {rst_file}\n")
+
+            added_file_to_toc = True
+
+    if not added_file_to_toc:
+        os.remove(os.path.join(namespace_dir, "class_index.rst"))
+        os.rmdir(namespace_dir)
+
+
+def generate_root_toctree(root_namespace_name: str = "morpheus"):
+    root_path = "../docs/classes"
+
+    with open(os.path.join(root_path, "class_index.rst"), 'w') as root_toctree:
+        class_reference_title = "Class Reference"
+
+        root_toctree.write(f"{class_reference_title}\n")
+
+        for i in range(len(class_reference_title)):
+            root_toctree.write("=")
+
+        root_toctree.write(f"\n\n.. toctree::\n"
+                           f"   :maxdepth: 2\n\n")
+
+        relative_dir = os.path.join(root_path, root_namespace_name)
+
+        for root_file in os.listdir(relative_dir):
+            class_toctree = os.path.join(root_file, "class_index.rst")
+
+            if os.path.isdir(os.path.join(relative_dir, root_file)):
+                relative_path = os.path.join(root_namespace_name, root_file, "class_index.rst")
+
+                root_toctree.write(f"   {relative_path}\n")
 
 
 def main() -> None:
@@ -113,10 +187,18 @@ def main() -> None:
     if os.path.isfile(os.path.join(path, "conf.py")) and \
        os.path.isfile(os.path.join(path, "Makefile")) and \
        os.path.isfile(os.path.join(path, "make.bat")):
-        if len(sys.argv) > 2:
-            generate_header_rst_files(sys.argv[1], path, sys.argv[2])
-        else:
-            generate_header_rst_files(sys.argv[1], path)
+        i = 0
+
+        # TODO(Bobby): Get rid of this hack
+        while i < 2:
+            if len(sys.argv) > 2:
+                generate_header_rst_files(sys.argv[1], path, sys.argv[2])
+                generate_root_toctree(sys.argv[2])
+            else:
+                generate_header_rst_files(sys.argv[1], path)
+                generate_root_toctree()
+
+            i += 1
     else:
         print("This script is not in the breathe build directory!")
 
