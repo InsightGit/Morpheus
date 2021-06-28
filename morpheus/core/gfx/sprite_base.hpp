@@ -26,31 +26,31 @@ namespace morpheus {
 
             enum class SpriteSize {
                 // square sprite sizes (x == y)
-                SIZE_8X8,
-                SIZE_16X16,
-                SIZE_32X32,
-                SIZE_64X64,
+                SIZE_8X8, ///< Square 8px by 8px SpriteBase
+                SIZE_16X16, ///< Square 16px by 16px SpriteBase
+                SIZE_32X32, ///< Square 32px by 32px SpriteBase
+                SIZE_64X64, ///< Square 64px by 64px SpriteBase
 
                 // wide sprite sizes (x == 2 * y)
-                SIZE_16X8,
-                SIZE_32X16,
-                SIZE_64X32,
+                SIZE_16X8, ///< Wide 16px by 8px SpriteBase
+                SIZE_32X16, ///< Wide 32px by 16px SpriteBase
+                SIZE_64X32, ///< Wide 64px by 32px SpriteBase
 
                 // long sprite sizes (2 * x == y)
-                SIZE_8X16,
-                SIZE_16X32,
-                SIZE_32X64
+                SIZE_8X16, ///< Long 8px by 16px SpriteBase
+                SIZE_16X32, ///< Long 16px by 32px SpriteBase
+                SIZE_32X64 ///< Long 32px by 64px SpriteBase
             };
 
 
             /// \enum morpheus::core::gfx::SpriteSize
             /// An enum class of all the supported sizes of SpriteBases
-            /// on the GBA and the DS.
+            /// on the GBA and the DS. All sizes are given in terms of (X, Y).
 
             enum class AffineTransformation {
-                Rotation,
-                Scaling,
-                Identity
+                Rotation, ///< Represents a Fixed-point rotation operation
+                Scaling, ///< Represents a Fixed-point scaling operation
+                Identity ///< Represents an Identity matrix reset operation
             };
 
 
@@ -318,7 +318,7 @@ namespace morpheus {
                 }
 
                 /// Sets the fixed-point rotation for this
-                /// affine SpriteBase if this SpriteBase is affine.
+                /// SpriteBase if this SpriteBase is affine.
                 /// If this function is called on a non-affine SpriteBase,
                 /// it will have no effect.
                 /// \param rotation The new fixed-point rotation for this
@@ -334,6 +334,13 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets the fixed-point scale Vector2 for this SpriteBase if
+                /// this SpriteBase is affine. Vector2(1 << 8, 1 << 8) here
+                /// represents the object at original size. If this function
+                /// is called on a non-affine SpriteBase,
+                /// it will have no effect.
+                /// \param scale The new fixed-point scale for this affine
+                /// SpriteBase.
                 void set_scale(const core::gfx::Vector2 scale) {
                     if(m_affine && m_scale != scale) {
                         m_scale = core::gfx::Vector2(static_cast<short>(scale.get_x()),
@@ -346,12 +353,36 @@ namespace morpheus {
                     }
                 }
 
+                /// Draws this SpriteBase onto the screen by internally calling
+                /// SpriteBase::draw_node(). Also takes a std::vector reference
+                /// representing the object attribute buffer and number of max
+                /// objects that can be placed in that buffer (however these
+                /// arguments are only used on the GBA Sprite implementation
+                /// currently).
+                /// \param obj_attr_buffer Object attribute buffer for the GBA
+                /// Sprite implementation
+                /// \param obj_attr_num Vumber of max objects that can be
+                /// placed in that buffer for the GBA Sprite implementation
                 void draw(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num);
 
+                /// \return The current SpriteSize of this SpriteBase
                 virtual SpriteSize get_sprite_size() const = 0;
+
+                /// Loads a grit-generated palette into this SpriteBase's
+                /// color palette VRAM.
+                /// \param palette The palette data
+                /// \param pal_len The length (in bytes) of the palette data
+                /// \param pal_offset The offset of the palette data load within
+                /// the palette VRAM [0-255]
+                /// \return Whether this was successfully loaded into the
+                /// palette VRAM or not.
                 virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
                                                const unsigned int pal_offset = 256) = 0;
 
+                /// Pauses the current animation on this SpriteBase at the
+                /// current frame in the animation. If there is no current
+                /// animation playing on this SpriteBase, this function has
+                /// no effect.
                 void pause() {
                     if(is_playing()) {
                         stop_animation(true);
@@ -361,8 +392,14 @@ namespace morpheus {
                     }
                 }
 
+                /// Plays (or resumes if paused) the current animation on this
+                /// SpriteBase as specified by SpriteBase::set_frames().
+                /// If there are no AnimationFrames assigned to this
+                /// SpriteBase through that aforementioned function, this
+                /// function will have no effect.
+                /// \param loop Whether to play this animation on loop or not
                 void play(bool loop = true) {
-                    if(!is_playing()) {
+                    if(!is_playing() && !m_frames.empty()) {
                         if(m_current_frame == 0) {
                             m_first_animation_cycle = true;
                         }
@@ -375,6 +412,8 @@ namespace morpheus {
                     }
                 }
 
+                /// Stops the current animation on this SpriteBase and returns
+                /// the modified SpriteBase attribute values to frame 0's values.
                 void stop();
 
                 virtual void set_sprite_size(SpriteSize size) = 0;
