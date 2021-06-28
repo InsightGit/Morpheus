@@ -209,6 +209,7 @@ workflow:
 pages:
   stage: deploy
   script:
+    - rm -rf build
     - mkdir build
     - cd build
     - BUILD_DOCS=1 cmake ..
