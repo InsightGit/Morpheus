@@ -214,8 +214,10 @@ pages:
     - cd build
     - BUILD_DOCS=1 cmake ..
     - cmake --build . --target Documentation
+    - mkdir ../public
+    - mv ../docs/_build/html/* ../public
   artifacts:
     paths:
-      - docs/_build/html
+      - public
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
