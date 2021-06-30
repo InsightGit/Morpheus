@@ -12,8 +12,7 @@ bool puzzler::Jewel::jewel_types_spawned[4] = {false, false, false, false};
 unsigned short *puzzler::Jewel::jewel_oam_pointers[4] = {nullptr, nullptr, nullptr, nullptr};
 #endif
 
-puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, bool new_scene_reset) :
-                                                              morpheus::core::gfx::SpriteBase(false, nullptr, nullptr) {
+puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, bool new_scene_reset) {
     int random_number;
     const unsigned short *tile_array = nullptr;
 
@@ -66,7 +65,8 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
 
     if(jewel_types_spawned[random_number]) {
         #ifdef _GBA
-            auto *sprite = new morpheus::gba::gfx::Sprite4Bpp(m_tile_id, m_palette_id, 16, 16);
+            auto *sprite = new morpheus::gba::gfx::Sprite4Bpp(false, nullptr, nullptr, m_tile_id, m_palette_id,
+                                                              morpheus::core::gfx::SpriteSize::SIZE_16X16);
 
             m_jewel_sprite.reset(sprite);
 
@@ -85,7 +85,7 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
         m_jewel_sprite.reset(morpheus::utils::construct_appropriate_sprite_4bpp(false, nullptr, nullptr));
 
         m_jewel_sprite->set_priority(1);
-        m_jewel_sprite->set_position(m_pre_position)
+        m_jewel_sprite->set_position(m_pre_position);
 
         #ifdef _GBA
             static_cast<morpheus::gba::gfx::Sprite*>(m_jewel_sprite.get())->
@@ -100,6 +100,16 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
 
         jewel_types_spawned[random_number] = true;
     }
+
+    m_main_loop->add_sprite(m_jewel_sprite);
+}
+
+puzzler::Jewel::~Jewel() {
+    m_main_loop->remove_sprite(m_jewel_sprite);
+
+    nocash_puts(("sprite removed which has " + std::to_string(m_jewel_sprite.use_count())).c_str());
+
+    m_jewel_sprite->show();
 }
 
 puzzler::JewelCollision puzzler::Jewel::check_collision(puzzler::JewelCollision &base_jewel_collision) {

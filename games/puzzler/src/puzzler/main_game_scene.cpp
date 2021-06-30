@@ -133,9 +133,9 @@ void puzzler::MainGameScene::input(morpheus::core::InputEvent input_event) {
                         m_total_score = 0;
                         m_game_over = false;
 
-                        for(std::unique_ptr<Jewel> &jewel : m_jewels) {
+                        for(std::shared_ptr<Jewel> &jewel : m_jewels) {
                             if(jewel != nullptr) {
-                                remove_child(jewel.get());
+                                get_main_loop()->remove_control_reciever(jewel.get());
                             }
                         }
 
@@ -242,7 +242,7 @@ void puzzler::MainGameScene::setup() {
     }
 
     #ifdef _GBA
-        morpheus::gba::gfx::Sprite4Bpp sprite;
+        morpheus::gba::gfx::Sprite4Bpp sprite(false, nullptr, nullptr);
 
         sprite.load_into_palette(circlejewelPal, circlejewelPalLen);
 
@@ -350,6 +350,8 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
                 return;
             }
 
+            nocash_puts("initing Jewel");
+
             m_active_jewel.reset(new Jewel(get_main_loop(), m_bottom_y_boundary, m_first_jewel));
 
             if(m_first_jewel) {
@@ -358,7 +360,7 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
             m_active_jewel->set_position(initial_position_vector[0]);
 
-            add_child(m_active_jewel.get());
+            get_main_loop()->add_control_reciever(m_active_jewel);
 
             //std::cout << "\x1b[6;0H Added jewel\n";
         } else if(!m_jewel_spawning_timer.current_action_cycle_waiting) {
@@ -433,15 +435,15 @@ void puzzler::MainGameScene::update(unsigned char cycle_time) {
 
                     m_jewels.push_back(std::unique_ptr<puzzler::Jewel>());
 
-                    remove_child(m_active_jewel.get());
+                    get_main_loop()->remove_control_reciever(m_active_jewel);
 
                     m_jewels[m_jewels.size() - 1] = std::move(m_active_jewel);
 
                     #ifdef _NDS
-                        sassert(m_active_jewel == nullptr, "improperly moved std::unique_ptr");
+                    sassert(m_active_jewel == nullptr, "improperly moved std::unique_ptr");
                     #endif
 
-                    add_child(m_jewels[m_jewels.size() - 1].get());
+                    get_main_loop()->add_control_reciever(m_jewels[m_jewels.size() - 1]);
 
                     m_jewel_put_sfx->start_effect(true);
                 }
@@ -502,8 +504,11 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
                 continue;
         }
 
+        nocash_puts(("before collision " + std::to_string(get_main_loop()->get_number_control()) + " and " +
+                     std::to_string(get_main_loop()->get_number_sprites())).c_str());
+
         m_jewels.erase(std::remove_if(m_jewels.begin(), m_jewels.end(),
-                                      [this, &jewel_collision_result](std::unique_ptr<Jewel> &jewel) {
+                                      [this, &jewel_collision_result](std::shared_ptr<Jewel> &jewel) {
             morpheus::core::gfx::Vector2 position = jewel->get_position();
 
             for(unsigned int i2 = 0; jewel_collision_result.collisions.size() > i2; ++i2) {
@@ -515,9 +520,11 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
 
                 // TODO(Bobby): better equality check
                 if(position == position2) {
-                    remove_child(jewel.get());
+                    get_main_loop()->remove_control_reciever(jewel);
 
                     jewel->disconnect_jewel();
+
+                    nocash_puts(("Removing " + jewel->to_string()).c_str());
 
                     jewel_collision_result.collisions.erase(jewel_collision_result.collisions.begin() +
                                                             static_cast<int>(i2));
@@ -531,8 +538,8 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
 
         m_active_jewel->disconnect_jewel();
 
-        remove_child(m_active_jewel.get());
-        m_active_jewel.reset(nullptr);
+        get_main_loop()->remove_control_reciever(m_active_jewel);
+        m_active_jewel = nullptr;
 
         m_jewel_put_sfx->stop_effect();
         m_jewel_complete_sfx->start_effect(false);
@@ -560,6 +567,11 @@ void puzzler::MainGameScene::update_gem_scoring(std::vector<JewelCollision> jewe
         #endif
 
         //std::cout << "Score updated\n";
+
+        nocash_puts(("after collision " + std::to_string(get_main_loop()->get_number_control()) + " and " +
+                        std::to_string(get_main_loop()->get_number_sprites())).c_str());
+
+        //while(true) {}
     }
 }
 
@@ -583,8 +595,8 @@ std::vector<unsigned int> puzzler::MainGameScene::get_gems_at_positions(
 }
 
 bool puzzler::MainGameScene::is_gem_at_positions(std::vector<morpheus::core::gfx::Vector2> positions) {
-    for(std::unique_ptr<Jewel> &jewel : m_jewels) {
-        if(jewel != m_active_jewel) {
+    for(std::shared_ptr<Jewel> &jewel : m_jewels) {
+        if(jewel.get() != m_active_jewel.get()) {
             for(morpheus::core::gfx::Vector2 &position : positions) {
                 if(jewel->get_position() == position) {
                     return true;

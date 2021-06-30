@@ -69,14 +69,14 @@ namespace puzzler {
 
         void update_gem_scoring(std::vector<JewelCollision> jewel_collision_results);
 
-        std::unique_ptr<Jewel> m_active_jewel;
+        std::shared_ptr<Jewel> m_active_jewel;
         std::unique_ptr<morpheus::core::audio::MaxModMusic> m_active_module;
         int m_bottom_y_boundary;
         unsigned int m_cycles = 0;
         unsigned int m_difficulty_setting;
         bool m_first_jewel = true;
         bool m_game_over = false;
-        std::vector<std::unique_ptr<Jewel>> m_jewels;
+        std::vector<std::shared_ptr<Jewel>> m_jewels;
         ActionTimer m_jewel_animation_timer;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_complete_sfx;
         std::unique_ptr<morpheus::core::audio::MaxModSfx> m_jewel_put_sfx;

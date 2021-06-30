@@ -416,19 +416,69 @@ namespace morpheus {
                 /// the modified SpriteBase attribute values to frame 0's values.
                 void stop();
 
+                /// Sets the SpriteSize of this SpriteBase.
+                /// \param size The new SpriteSize to be set on this SpriteBase
                 virtual void set_sprite_size(SpriteSize size) = 0;
             protected:
+                /// Abstract method that is called by SpriteBase::draw() to
+                /// actually draw the Sprite content. Also takes a std::vector reference
+                /// representing the object attribute buffer and number of max
+                /// objects that can be placed in that buffer (however these
+                /// arguments are only used on the GBA Sprite implementation
+                /// currently).
+                /// \param obj_attr_buffer Object attribute buffer for the GBA
+                /// Sprite implementation
+                /// \param obj_attr_num Vumber of max objects that can be
+                /// placed in that buffer for the GBA Sprite implementation
                 virtual void draw_node(std::vector<void *> &obj_attr_buffer, unsigned int obj_attr_num) = 0;
+
+                /// Updates this SpriteBase to reflect the current sprite mosaic
+                /// levels set in SpriteBase::set_mosaic_levels().
                 virtual void mosaic_state_updated() = 0;
+
+                /// Updates this SpriteBase's visible state to reflect
+                /// whether this SpriteBase was recently hidden or shown
+                /// through SpriteBase::hide() or SpriteBase::show().
+                /// \param new_visible_state Whether this SpriteBase was newly
+                /// shown (true) or hidden (false).
                 virtual void on_visible_state_changed(bool new_visible_state) = 0;
+
+                /// Updates the Blending enabled/disabled state of SpriteBases
+                /// triggered through calling SpriteBase::disable_blending() and
+                /// SpriteBase::enable_blending().
+                /// \param enable_blending Whether this SpriteBase had blending
+                /// newly enabled or disabled
+                /// \param bottom_layer Whether this blending state change is
+                /// on the bottom (true) or the top layer (false)
                 virtual void toggle_blending(bool enable_blending, bool bottom_layer = true) = 0;
+
+                /// Updates the affine state of this SpriteBase through
+                /// applying an AffineTransformation.
+                /// \param affine_transformation The AffineTransformation to
+                /// apply
+                /// \param new_transformation Whether this AffineTransformation
+                /// was the last AffineTransformation applied to this SpriteBase
                 virtual void update_affine_state(AffineTransformation affine_transformation,
                                                  bool new_transformation) = 0;
 
+                /// Resumes or starts playing the current animation defined by
+                /// SpriteBase::get_frames(). This should only be called by
+                /// SpriteBase::play() when there is at least one AnimationFrame
+                /// associated with this SpriteBase through
+                /// SpriteBase::set_frames().
                 virtual void resume_animation() = 0;
+
+                /// Stops the current animation. This should only be called by
+                /// SpriteBase::pause() or SpriteBase::stop() when an animation
+                /// associated with this SpriteBase is playing.
+                /// \param pause Whether to pause the current animation or
+                /// completely stop it.
                 virtual void stop_animation(bool pause) = 0;
 
-                // should only be called once per VBlank
+                /// Updates the current animation. This should only be called
+                /// in this sprite's implementation of SpriteBase::update()
+                /// once per VBlank, or else animation will not be timed
+                /// correctly.
                 void update_animation();
             private:
                 bool m_affine = false;
@@ -455,6 +505,19 @@ namespace morpheus {
                 int m_smoothing_trend;
                 int m_stop_frame = 0;
             };
+
+
+            /// \class morpheus::core::gfx::SpriteBase
+            ///
+            /// The abstract base class that all sprite objects should inherit.
+            /// Sprite objects, otherwise known as objects or OBJ,
+            /// can be controlled by the player, modified by graphical effects
+            /// like mosaic or blending, animated through AnimationFrames, and
+            /// can be rotated and scaled (if affine).
+            /// For an example of Sprites being used, see Input Test (tests/input_test/input_test.cpp),
+            /// Graphical Effect Test (tests/gfx_effects_test/gfx_effect_test.cpp),
+            /// Animation Test (tests/animation_test/animation_test.cpp) and
+            /// Affine Test (tesys/affine_test/affine_test.cpp),
         }
     }
 }

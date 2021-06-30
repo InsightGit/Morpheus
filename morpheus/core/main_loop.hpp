@@ -10,7 +10,7 @@
 #include <vector>
 
 #ifdef GBA_FAT_SUPPORT_ENABLED
-#include <fat.h>
+    #include <fat.h>
 #endif
 
 #include <core/gfx/sprite_base.hpp>
@@ -154,10 +154,10 @@ namespace morpheus {
             /// within MainLoop::game_loop.
             /// \param control_reciever the ControlReciever to be removed
             void remove_control_reciever(ControlReciever *control_reciever) {
-                std::remove_if(m_control_recievers.begin(), m_control_recievers.end(),
+                m_control_recievers.erase(std::remove_if(m_control_recievers.begin(), m_control_recievers.end(),
                                [this, control_reciever](std::shared_ptr<ControlReciever> other) {
                     return other.get() == control_reciever;
-                });
+                }), m_control_recievers.end());
             }
 
             void remove_control_reciever(std::shared_ptr<ControlReciever> control_reciever) {
@@ -170,7 +170,7 @@ namespace morpheus {
             /// and gfx::SpriteBase::draw functions within gfx::MainLoop::game_loop
             /// \param sprite the SpriteBase to remove
             void remove_sprite(gfx::SpriteBase *sprite) {
-                std::remove_if(m_sprites.begin(), m_sprites.end(),
+                m_sprites.erase(std::remove_if(m_sprites.begin(), m_sprites.end(),
                                [this, sprite](std::shared_ptr<gfx::SpriteBase> other) {
                    bool return_value = other.get() == sprite;
 
@@ -179,7 +179,7 @@ namespace morpheus {
                    }
 
                    return return_value;
-               });
+               }), m_sprites.end());
             }
 
             void remove_sprite(std::shared_ptr<gfx::SpriteBase> sprite) {

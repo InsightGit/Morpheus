@@ -130,6 +130,8 @@ morpheus::gba::gfx::Sprite::~Sprite() {
 
         nocash_puts("cleared obj attr");
     }
+
+    nocash_puts("deconstructed sprite");
 }
 
 void morpheus::gba::gfx::Sprite::mosaic_state_updated() {

@@ -6,7 +6,8 @@ cmake_minimum_required(VERSION 3.16)
 include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
-set(BASE_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../morpheus)
+set(BASE_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../morpheus
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../assets)
 #set(CMAKE_VERBOSE_MAKEFILE true)
 
 if(WIN32)

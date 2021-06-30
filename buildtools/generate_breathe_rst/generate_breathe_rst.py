@@ -8,14 +8,35 @@ HEADER_EXTENSIONS = [".hpp"]
 PROJECT_NAME = "morpheus"
 
 
-def generate_header_rst_file(breathe_dir: str, class_name: str, namespace_name: str) -> None:
+def generate_rst_file_for_object(breathe_command: str, object_name: str, namespace_name: str, namespace_dir: str,
+                                 file_path: str):
+    with open(os.path.join(namespace_dir, f"{object_name}.rst"), 'w') as header_rst_file:
+        header_rst_file.write(f"{object_name}\n")
+
+        for i in range(len(object_name)):
+            header_rst_file.write("=")
+
+        header_rst_file.write(f"\n*Located within {file_path}*\n")
+
+        header_rst_file.write(f"\n.. {breathe_command}:: {namespace_name}::{object_name}\n"
+                              f"    :project: {PROJECT_NAME}\n")
+
+        if breathe_command == "doxygenclass":
+            header_rst_file.write(f"    :members:\n"
+                                  f"    :protected-members:\n"
+                                  f"    :undoc-members:\n")
+
+
+def generate_rst_files_for_header(breathe_dir: str, file_name: str, file_content: dict, namespace_name: str) -> None:
     namespace_dir_names = namespace_name.split("::")
     namespace_dir = os.path.join(breathe_dir, "classes")
 
     for namespace_dir_name in namespace_dir_names:
         namespace_dir = os.path.join(namespace_dir, namespace_dir_name)
 
-    print(f"class name: {class_name} namespace path: {namespace_dir} namespace name: {namespace_name}")
+    relative_file_path = os.path.join(namespace_dir.lstrip(breathe_dir).lstrip("lasses/"), file_name)
+
+    print(f"file content: {file_content} namespace path: {namespace_dir} namespace name: {namespace_name}")
 
     # Ask for forgiveness, not for permission
     try:
@@ -23,42 +44,60 @@ def generate_header_rst_file(breathe_dir: str, class_name: str, namespace_name: 
     except FileExistsError:
         pass
 
-    with open(os.path.join(namespace_dir, f"{class_name}.rst"), 'w') as header_rst_file:
-        equal_string = ""
+    for class_name in file_content["classes"]:
+        generate_rst_file_for_object("doxygenclass", class_name, namespace_name, namespace_dir, relative_file_path)
 
-        header_rst_file.write(f"{class_name}\n")
+    for enum_name in file_content["enums"]:
+        generate_rst_file_for_object("doxygenenum", enum_name, namespace_name, namespace_dir, relative_file_path)
 
-        for i in range(len(class_name)):
-            header_rst_file.write("=")
-
-        header_rst_file.write(f"\n.. doxygenclass:: {namespace_name}::{class_name}\n")
-
-        header_rst_file.write(f"    :project: {PROJECT_NAME}\n"
-                              f"    :members:\n{equal_string}")
+    for struct_name in file_content["structs"]:
+        generate_rst_file_for_object("doxygenstruct", struct_name, namespace_name, namespace_dir, relative_file_path)
 
 
-def identify_cpp_classes(file_name: str) -> list:
-    class_list = []
+def get_object_name(object_type_name: str, object_name_line: str) -> str:
+    looking_for_class_name = False
+    string_space_split = object_name_line.split(" ")
+
+    for string in string_space_split:
+        if len(string) == 0:
+            continue
+        elif looking_for_class_name:
+            return string
+        elif string == object_type_name:
+            looking_for_class_name = True
+
+    return ""
+
+
+def identify_cpp_file_content(file_name: str) -> dict:
+    return_value = {"classes": [], "enums": [], "structs": []}
+
+    c_enum_re_pattern = re.compile("enum .*{")
+    c_struct_re_pattern = re.compile("struct .*{")
     cpp_class_re_pattern = re.compile("class .*{")
+    cpp_enum_class_re_pattern = re.compile("enum class .*{")
 
     with open(file_name, 'r') as cpp_file:
         for line in cpp_file.readlines():
-            if cpp_class_re_pattern.search(line) is not None and "enum class" not in line:
-                print("found class syntax")
+            if cpp_class_re_pattern.search(line) is not None:
+                if cpp_enum_class_re_pattern.search(line) is not None:
+                    print("found enum class syntax")
 
-                looking_for_class_name = False
-                string_space_split = line.split(" ")
+                    return_value["enums"].append(get_object_name("class", line))
+                else:
+                    print("found class syntax")
 
-                for string in string_space_split:
-                    if len(string) == 0:
-                        continue
-                    elif looking_for_class_name:
-                        class_list.append(string)
-                        break
-                    elif string == "class":
-                        looking_for_class_name = True
+                    return_value["classes"].append(get_object_name("class", line))
+            elif c_enum_re_pattern.search(line) is not None:
+                print("found enum syntax")
 
-    return class_list
+                return_value["enums"].append(get_object_name("enum", line))
+            elif c_struct_re_pattern.search(line) is not None:
+                print("found struct syntax")
+
+                return_value["structs"].append(get_object_name("struct", line))
+
+    return return_value
 
 
 def generate_header_rst_files(header_path: str, breathe_path: str, root_namespace: str = "") -> list:
@@ -73,12 +112,13 @@ def generate_header_rst_files(header_path: str, breathe_path: str, root_namespac
             if file_extension in HEADER_EXTENSIONS:
                 complete_file_path = os.path.join(root, file)
 
-                for class_name in identify_cpp_classes(complete_file_path):
-                    namespace_name = root_namespace + os.path.dirname(complete_file_path).replace(header_path, "").\
-                        replace("/", "::")
-                    namespace_name = namespace_name.lstrip("::")
+                cpp_file_content = identify_cpp_file_content(complete_file_path)
 
-                    generate_header_rst_file(breathe_path, class_name, namespace_name)
+                namespace_name = root_namespace + os.path.dirname(complete_file_path).replace(header_path, "").\
+                    replace("/", "::")
+                namespace_name = namespace_name.lstrip("::")
+
+                generate_rst_files_for_header(breathe_path, file, cpp_file_content, namespace_name)
 
         print(f"{dirs} with namespace name {namespace_name}")
 

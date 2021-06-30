@@ -22,40 +22,56 @@ namespace morpheus {
         namespace gfx {
             class TextBase {
             public:
+                /// Constructs a TextBase object, which uses a background to
+                /// display text. This can use Morpheus' cross-platform text
+                /// API or the "native" text apis provided by libtonc or libnds
+                /// on the GBA and the DS, respectively. Note that custom fonts
+                /// and other advanced features through this class are only
+                /// supported on the cross-platform Morpheus API.
+                /// \param affine Whether this text background should be affine
+                /// or not.
+                /// \param background_num Which background this TextBase
+                /// should use.
+                /// \param cbb Which tile memory offset this TextBase should
+                /// use.
+                /// \param sbb Which tilemap memory offset this TextBase should
+                /// use
+                /// \param main_loop The pointer to the core::MainLoop currently
+                /// being used
+                /// \param use_native_text_api Whether to use the "native"
+                /// text APIs (true) or the cross-platform Morpheus text API
+                /// (false)
                 TextBase(bool affine, unsigned int background_num, unsigned int cbb, unsigned int sbb,
                          morpheus::core::MainLoop *main_loop, bool use_native_text_api);
 
+                /// Destructs this TextBase.
                 virtual ~TextBase() = default;
 
+                /// \return The background number this TextBase is currently using.
                 unsigned int get_background_num() const {
                     return m_background_num;
                 }
 
+                /// \return The bounding box the text of this TextBase cannot
+                /// extend beyond. If the x or y component is less than or
+                /// equal to zero, that will mean the text of this TextBase
+                /// will not be constrainted by that component.
                 Vector2 get_bounding_box() const {
                     return m_bounding_box;
                 }
 
+                /// \return The tile memory offset this TextBase is currently
+                /// using
                 unsigned int get_cbb() const {
                     return m_cbb;
                 }
 
+                /// \return The current Font this Morpheus API-based
+                /// TextBase is using. If this TextBase is based upon
+                /// native text APIs, this returned value will be meaningless.
                 Font get_current_font() const {
                     return m_font;
                 }
-
-                /*static Font get_default_font() {
-                    Font font;
-
-                    font.ascii_offset = 32;
-                    font.char_size = Vector2(8, 8);
-                    font.cursor_position = Vector2(0, 0);
-                    font.font_bpp = FontBpp::FONT_4BPP;
-                    //font.font_tiles = sys8Tiles;
-                    //font.font_tiles_len = sys8TilesLen;
-                    font.font_palette = nullptr;
-
-                    return Font(nullptr, 0, sys8Tiles, );
-                }*/
 
                 Vector2 get_print_position() const {
                     return m_print_position;

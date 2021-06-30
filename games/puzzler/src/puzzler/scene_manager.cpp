@@ -7,24 +7,26 @@
 puzzler::SceneManager::SceneManager(morpheus::core::MainLoop *main_loop) {
     m_main_loop = main_loop;
 
-    set_drawn_node(false);
-
     m_current_scene.reset(new puzzler::MainMenuScene(m_main_loop));
 
-    add_child(m_current_scene.get());
+    m_main_loop->add_control_reciever(m_current_scene);
 
     m_current_scene->setup();
 }
 
 void puzzler::SceneManager::update(unsigned char cycle_time) {
     if(m_current_scene->is_marked_for_deletion()) {
-        remove_child(m_current_scene.get());
+        m_main_loop->remove_control_reciever(m_current_scene);
 
         switch(m_current_scene_type) {
             case SceneType::MAIN_MENU:
+                nocash_puts("resetting scene");
+
                 m_current_scene.reset(new puzzler::MainGameScene(m_main_loop,
                                                                  static_cast<puzzler::MainMenuScene*>(
                                                                         m_current_scene.get())->get_cursor_position()));
+
+                nocash_puts("reset scene");
 
                 m_current_scene_type = SceneType::GAME;
                 break;
@@ -34,8 +36,13 @@ void puzzler::SceneManager::update(unsigned char cycle_time) {
                 break;
         }
 
-        add_child(m_current_scene.get());
+        nocash_puts("adding control reciever");
 
+        m_main_loop->add_control_reciever(m_current_scene);
+
+        nocash_puts("setting up");
         m_current_scene->setup();
+
+        nocash_puts("setup");
     }
 }

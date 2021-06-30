@@ -124,31 +124,36 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
             m_last_input_size = input_events.size() * m_cycle_time;
         }
 
-        for(std::shared_ptr<core::ControlReciever> &control_reciever : m_control_recievers) {
-            for(core::InputEvent &event : input_events) {
-                control_reciever->input(event);
-            }
+        for(unsigned int i = 0; m_control_recievers.size() > i; ++i) {
+            if(m_control_recievers[i] != nullptr) {
+                for(core::InputEvent &event : input_events) {
+                    m_control_recievers[i]->input(event);
+                }
 
-            control_reciever->update(m_cycle_time);
+                m_control_recievers[i]->update(m_cycle_time);
+            } else {
+                m_control_recievers.erase(m_control_recievers.begin() + i);
+            }
         }
 
         for(std::shared_ptr<core::gfx::SpriteBase> &sprite : m_sprites) {
-            for(core::InputEvent input_event : input_events) {
-                sprite->input(input_event);
-            }
+            if(sprite != nullptr) {
+                for(core::InputEvent input_event : input_events) {
+                    sprite->input(input_event);
+                }
 
-            sprite->update(m_cycle_time);
+                sprite->update(m_cycle_time);
+            }
         }
 
-        /*m_sprites.erase(std::remove_if(m_sprites.begin(), m_sprites.end(),
-                                               [](const std::shared_ptr<core::gfx::SpriteBase> &sprite) {
-            return sprite.get() == nullptr;
-        }), m_sprites.end());*/
-
         for(unsigned int i = 0; m_sprites.size() > i; ++i) {
-            m_sprites[i]->draw(m_obj_buffer, i);
+            if(m_sprites[i] != nullptr) {
+                m_sprites[i]->draw(m_obj_buffer, i);
 
-            memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+                memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+            } else {
+                m_sprites.erase(m_sprites.begin() + i);
+            }
         }
 
         if(m_debug_stream != nullptr) {

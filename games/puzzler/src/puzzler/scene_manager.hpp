@@ -31,7 +31,7 @@ namespace puzzler {
             GAME
         };
 
-        std::unique_ptr<Scene> m_current_scene;
+        std::shared_ptr<Scene> m_current_scene;
         SceneType m_current_scene_type = SceneType::MAIN_MENU;
         morpheus::core::MainLoop *m_main_loop;
     };
