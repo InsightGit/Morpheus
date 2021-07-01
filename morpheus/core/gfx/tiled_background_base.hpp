@@ -173,10 +173,6 @@ namespace morpheus {
                     return m_affine;
                 }
 
-                bool is_large_background() const {
-                    return m_tile_map_size == morpheus::core::gfx::TiledBackgroundSize::BG_64x128;
-                }
-
                 bool is_mosaic() const {
                     return m_mosaic;
                 }

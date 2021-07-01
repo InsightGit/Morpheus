@@ -19,7 +19,7 @@
 - Several Python 3 scripts to assist with asset management and the build process
 
 ## 🏗️ Work in Progress (WIP)
-- Reworking puzzler test game to support newer API, and creating the Hayai test game (in progress)s
+- Reworking puzzler test game to support newer API, and creating the Hayai test game (in progress)
 - Doxygen and Sphinx documentation (in progress)
 - Affine Background and TextBase support (in progress)
 - Background animation support (in progress)
@@ -28,5 +28,4 @@
 ## ⚠️ Broken and currently postponed
 - GBA EEPROM save support
 
-## Need Help? Want to show off what you're making? Join the Discord!
-https://discord.gg/rK2f63yaMK
+## Need Help? Want to show off what you're making? [Join the Discord!](https://discord.gg/rK2f63yaMK)
