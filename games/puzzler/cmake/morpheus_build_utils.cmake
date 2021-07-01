@@ -93,7 +93,7 @@ function(execute_grit_tilemap png_file is_4bpp palette_bank_num)
 
     add_custom_command(OUTPUT ${png_file_name_path}.o
             COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -mR${tile_map_flag} -mp${palette_bank_num}
-            COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+            COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${png_file_name_path}.o
             VERBATIM)
 endfunction()
 

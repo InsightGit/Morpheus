@@ -11,7 +11,11 @@ puzzler::SceneManager::SceneManager(morpheus::core::MainLoop *main_loop) {
 
     m_main_loop->add_control_reciever(m_current_scene);
 
+    nocashMessage("setting up");
+
     m_current_scene->setup();
+
+    nocashMessage("set up!");
 }
 
 void puzzler::SceneManager::update(unsigned char cycle_time) {
@@ -20,13 +24,13 @@ void puzzler::SceneManager::update(unsigned char cycle_time) {
 
         switch(m_current_scene_type) {
             case SceneType::MAIN_MENU:
-                nocash_puts("resetting scene");
+                m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("resetting scene");
 
                 m_current_scene.reset(new puzzler::MainGameScene(m_main_loop,
                                                                  static_cast<puzzler::MainMenuScene*>(
                                                                         m_current_scene.get())->get_cursor_position()));
 
-                nocash_puts("reset scene");
+                m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("reset scene");
 
                 m_current_scene_type = SceneType::GAME;
                 break;
@@ -36,13 +40,13 @@ void puzzler::SceneManager::update(unsigned char cycle_time) {
                 break;
         }
 
-        nocash_puts("adding control reciever");
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("adding control reciever");
 
         m_main_loop->add_control_reciever(m_current_scene);
 
-        nocash_puts("setting up");
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("setting up");
         m_current_scene->setup();
 
-        nocash_puts("setup");
+        m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("setup");
     }
 }

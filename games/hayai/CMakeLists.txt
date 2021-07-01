@@ -7,8 +7,6 @@ else()
     set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
 endif()
 
-
-
 string(TOLOWER $ENV{PLATFORM} platform_lower)
 
 if(platform_lower STREQUAL "gba")

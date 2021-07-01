@@ -73,7 +73,9 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
             sprite->set_position(m_pre_position);
             sprite->set_priority(1);
         #elif _NDS
-            m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false, jewel_oam_pointers[random_number], 16, 16));
+            m_jewel_sprite.reset(new morpheus::nds::gfx::Sprite4Bpp(false, false, nullptr, nullptr,
+                                                                    jewel_oam_pointers[random_number],
+                                                                    morpheus::core::gfx::SpriteSize::SIZE_16X16));
 
             auto *sprite = reinterpret_cast<morpheus::nds::gfx::Sprite4Bpp*>(m_jewel_sprite.get());
 
@@ -92,8 +94,11 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
                                         load_from_array(tile_array, 128, morpheus::core::gfx::SpriteSize::SIZE_16X16,
                                                         m_tile_id);
         #elif _NDS
-            sassert(sprite_4_bpp->load_from_array(tile_array, m_palette_id, 16, 16), "sprite not properly loaded");
-            jewel_oam_pointers[random_number] = sprite_4_bpp->get_gfx_pointer();
+            auto *jewel_sprite = static_cast<morpheus::nds::gfx::Sprite*>(m_jewel_sprite.get());
+
+            sassert(jewel_sprite->load_from_array(tile_array, trianglejewelTilesLen, m_palette_id,
+                                                  morpheus::core::gfx::SpriteSize::SIZE_16X16), "sprite not properly loaded");
+            jewel_oam_pointers[random_number] = jewel_sprite->get_gfx_pointer();
         #endif
 
         m_main_loop->get_no_cash_debug_controller()->send_to_debug_window("loaded right now");
@@ -107,7 +112,8 @@ puzzler::Jewel::Jewel(morpheus::core::MainLoop *main_loop, int jewel_ground, boo
 puzzler::Jewel::~Jewel() {
     m_main_loop->remove_sprite(m_jewel_sprite);
 
-    nocash_puts(("sprite removed which has " + std::to_string(m_jewel_sprite.use_count())).c_str());
+    m_main_loop->get_no_cash_debug_controller()->send_to_debug_window(
+            ("sprite removed which has " + std::to_string(m_jewel_sprite.use_count())).c_str());
 
     m_jewel_sprite->show();
 }

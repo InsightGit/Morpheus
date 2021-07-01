@@ -1,6 +1,23 @@
+function(libgba_fat_patch)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+        find_program(SUDO sudo)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    add_custom_target(libgba_fat_patch_target ALL
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/gba_fat_patch/gba_fat_patch.py
+            VERBATIM)
+endfunction()
+
 function(add_gba_executable target)
     get_filename_component(target_name ${target} NAME_WE)
-    add_custom_target(${target_name}.gba ALL SOURCES
+    add_custom_target(${target_name}.gba ALL
             COMMAND ${OBJCOPY} -v -O binary ${target} ${target_name}.gba
             COMMAND ${GBAFIX} ${target_name}.gba
             DEPENDS ${target}
@@ -12,7 +29,7 @@ endfunction()
 
 function(add_nds_executable target game_icon title subtitle1 subtitle2)
     get_filename_component(target_name ${target} NAME_WE)
-    add_custom_target(${target_name}.nds ALL SOURCES
+    add_custom_target(${target_name}.nds ALL
             COMMAND ${NDSTOOL} -c ${target_name}.nds -9 ${target} -b ${CMAKE_CURRENT_SOURCE_DIR}/${game_icon}
             "${title};${subtitle1};${subtitle2}"
             DEPENDS ${target}
@@ -99,9 +116,9 @@ endfunction()
 function(execute_grit_1bpp_font png_file)
     get_filename_component(png_file_name_path ${png_file} NAME_WLE)
 
-    add_custom_command(OUTPUT ${png_file_name_path}.o ${png_file_name_path}.h
-            COMMAND ${GRIT} ${png_file} -gB1 -tc
-            COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.s -o${png_file_name_path}.o
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}.c
+            ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}.h
+            COMMAND ${GRIT} ${png_file} -gB1 -ftc -pn2 -o ${CMAKE_CURRENT_SOURCE_DIR}/assets/${png_file_name_path}
             VERBATIM)
 endfunction()
 
@@ -150,7 +167,7 @@ function(convert_tilemap_bin_files build_dir palette_bank_num bin_files target_n
     foreach(bin_file IN ${${bin_files}})
         add_custom_command(OUTPUT ${bin_file}.c
                 COMMAND ${PYTHON3} buildtools/bintileconvert/bintileconvert.py ${bin_file} ${build_dir}
-                        ${palette_bank_num}
+                ${palette_bank_num}
                 VERBATIM)
     endforeach()
 
@@ -195,6 +212,29 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
 
 endfunction()
 
+function(generate_font ttf_font_file font_character_list_file font_bpp background_color_r background_color_g
+        background_color_b font_size make_1d use_utf8)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    get_filename_component(base_char_list_name ${font_character_list_file} NAME_WE)
+    get_filename_component(base_font_name ${ttf_font_file} NAME_WE)
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name}.c
+            COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_fonts/generate_fonts.py ${ttf_font_file}
+            ${font_character_list_file} ${font_bpp}
+            ${CMAKE_CURRENT_BINARY_DIR}/${base_font_name}-${base_char_list_name} ${make_1d} ${use_utf8}
+            ${background_color_r} ${background_color_g} ${background_color_b} ${font_size}
+            VERBATIM)
+endfunction()
+
 function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
     if(NOT MMUTIL)
         find_program(MMUTIL mmutil ${DEVKITPRO}/tools)
@@ -220,11 +260,11 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
         message(STATUS "using maxmod for gba")
         add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
-                    -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
+                -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
                 COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
-                                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
+                ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
                 COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
-                                            ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
+                ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 VERBATIM)
     else()
         message(STATUS "using maxmod for nds")
@@ -242,4 +282,39 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
             "extern const uint8_t ${soundbank_name}_bin_end[];\n"
             "extern const uint8_t ${soundbank_name}_bin[];\n"
             "extern const uint32_t ${soundbank_name}_bin_size;")
+endfunction()
+
+function(generate_streaming_background tilemap_bin_to_split asset_dir width height palette_bank_num png_file is_4bpp
+        output_files)
+    if(WIN32)
+        find_program(PYTHON3 python)
+    else()
+        find_program(PYTHON3 python3)
+    endif()
+
+    if(NOT PYTHON3)
+        message(FATAL_ERROR "python3 - not found")
+    endif()
+
+    if(is_4bpp)
+        set(bpp_flag "4")
+    else()
+        set(bpp_flag "8")
+    endif()
+
+    get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+
+    if(output_files)
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
+                ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num}
+                COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                VERBATIM)
+    else()
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+                COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
+                ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num} ${png_file}
+                ${bpp_flag} ${CMAKE_CURRENT_BINARY_DIR}
+                VERBATIM)
+    endif()
 endfunction()

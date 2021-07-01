@@ -9,21 +9,9 @@ puzzler::MainMenuScene::MainMenuScene(morpheus::core::MainLoop *main_loop) : puz
     m_main_bg.reset(morpheus::utils::construct_appropriate_tiled_background_4bpp(false, 1, nullptr, nullptr,
                                                                                  main_loop, MAIN_BG_CBB_NUM,
                                                                                  MAIN_BG_SBB_NUM));
-
-    #ifdef _GBA
-        /*m_cursor.reset(new morpheus::gba::gfx::Sprite4Bpp(4));
-
-        m_main_bg.reset(new morpheus::gba::gfx::TiledBackground(
-                                                    1, static_cast<morpheus::gba::GbaMainLoop*>(main_loop),
-                                                    false, MAIN_BG_CBB_NUM, MAIN_BG_SBB_NUM));*/
-    #elif _NDS
-        /*m_cursor.reset(new morpheus::nds::gfx::Sprite4Bpp(false));
-        m_main_bg.reset(new morpheus::nds::gfx::TiledBackground4Bpp(false, 1,
-                                                                    static_cast<morpheus::nds::NdsMainLoop*>(main_loop),
-                                                                    MAIN_BG_CBB_NUM, MAIN_BG_SBB_NUM));*/
-        m_sub_bg.reset(new morpheus::nds::gfx::TiledBackground8Bpp(true, 1,
-                                                                   static_cast<morpheus::nds::NdsMainLoop*>(main_loop),
-                                                                   MAIN_BG_CBB_NUM, MAIN_BG_SBB_NUM));
+    #ifdef _NDS
+        m_sub_bg.reset(morpheus::utils::construct_appropriate_tiled_background_8bpp(false, 1, nullptr, nullptr, main_loop,
+                                                                                       MAIN_BG_CBB_NUM, MAIN_BG_SBB_NUM, true));
     #endif
 }
 
@@ -96,8 +84,9 @@ void puzzler::MainMenuScene::setup() {
         // intentional copy
         unsigned short old_palette_value = BG_PALETTE[0];
 
-        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles),
-                                       circlejewelPal, circlejewelPalLen, 4, 16, 16);
+        cursor_sprite->load_from_array(reinterpret_cast<const unsigned short *>(menucursorTiles), menucursorTilesLen,
+                                       circlejewelPal, circlejewelPalLen, 4,
+                                       morpheus::core::gfx::SpriteSize::SIZE_16X16);
         m_sub_bg->load_from_array(submainmenuscreenTiles, submainmenuscreenTilesLen, mainmenuscreenPal,
                                   mainmenuscreenPalLen, submainmenuscreenMap, submainmenuscreenMapLen,
                                   morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
@@ -114,7 +103,7 @@ void puzzler::MainMenuScene::setup() {
 
         cursor_sprite->set_position(MENU_POSITIONS[0]);
 
-        add_child(cursor_sprite);
+        get_main_loop()->add_sprite(m_cursor);
 
         morpheus::nds::NdsMainLoop::reset_to_debug_print_console();
     #endif

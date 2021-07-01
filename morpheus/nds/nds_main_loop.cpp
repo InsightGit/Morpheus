@@ -91,24 +91,32 @@ morpheus::core::Error morpheus::nds::NdsMainLoop::game_loop() {
             m_last_input_size = input_events.size() * m_cycle_time;
         }
 
-        for(std::shared_ptr<core::ControlReciever> &control_reciever : m_control_recievers) {
-            for(core::InputEvent &input_event : input_events) {
-                control_reciever->input(input_event);
-            }
+        for(unsigned int i = 0; m_control_recievers.size() > i; ++i) {
+            if(m_control_recievers[i] == nullptr) {
+                m_control_recievers.erase(m_control_recievers.begin() + i);
+            } else {
+                for(core::InputEvent &input_event : input_events) {
+                    m_control_recievers[i]->input(input_event);
+                }
 
-            control_reciever->update(m_cycle_time);
+                m_control_recievers[i]->update(m_cycle_time);
+            }
         }
 
-        for(std::shared_ptr<core::gfx::SpriteBase> &sprite : m_sprites) {
-            for(core::InputEvent &input_event : input_events) {
-                sprite->input(input_event);
-            }
+        for(unsigned int i = 0; m_sprites.size() > i; ++i) {
+            if(m_sprites[i] == nullptr) {
+                m_sprites.erase(m_sprites.begin() + i);
+            } else {
+                for(core::InputEvent &input_event : input_events) {
+                    m_sprites[i]->input(input_event);
+                }
 
-            sprite->update(m_cycle_time);
+                m_sprites[i]->update(m_cycle_time);
+            }
         }
 
         oamClear(&oamMain, 0, 128);
-        //oamClear(&oamSub, 0, 128);
+        oamClear(&oamSub, 0, 128);
 
         // TODO(Bobby): Fix unneeded argument 1 problem
         std::vector<void*> filler;

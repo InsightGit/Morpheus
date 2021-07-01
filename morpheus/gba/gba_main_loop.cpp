@@ -125,14 +125,14 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
         }
 
         for(unsigned int i = 0; m_control_recievers.size() > i; ++i) {
-            if(m_control_recievers[i] != nullptr) {
+            if(m_control_recievers[i] == nullptr) {
+                m_control_recievers.erase(m_control_recievers.begin() + i);
+            } else {
                 for(core::InputEvent &event : input_events) {
                     m_control_recievers[i]->input(event);
                 }
 
                 m_control_recievers[i]->update(m_cycle_time);
-            } else {
-                m_control_recievers.erase(m_control_recievers.begin() + i);
             }
         }
 
@@ -147,12 +147,20 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
         }
 
         for(unsigned int i = 0; m_sprites.size() > i; ++i) {
-            if(m_sprites[i] != nullptr) {
-                m_sprites[i]->draw(m_obj_buffer, i);
+            if(i < m_sprites.size()) {
+                if(m_sprites[i] == nullptr) {
+                    static_cast<OBJ_ATTR *>(m_obj_buffer[i])->attr0 = ATTR0_HIDE;
 
-                memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
-            } else {
-                m_sprites.erase(m_sprites.begin() + i);
+                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+
+                    nocash_puts("clearing old sprite");
+
+                    m_sprites.erase(m_sprites.begin() + i);
+                } else {
+                    m_sprites[i]->draw(m_obj_buffer, i);
+
+                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+                }
             }
         }
 
@@ -198,11 +206,11 @@ morpheus::core::Error morpheus::gba::GbaMainLoop::platform_init() {
     }
 
     for(int i = 0; GBA_MAX_SPRITES > i; ++i) {
-        OBJ_ATTR new_attr;
-
-        new_attr.attr0 |= ATTR0_HIDE;
-
         m_obj_buffer.push_back(new OBJ_ATTR());
+
+        static_cast<OBJ_ATTR *>(m_obj_buffer[i])->attr0 = ATTR0_HIDE;
+
+        memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
     }
 
     m_platform_inited = true;

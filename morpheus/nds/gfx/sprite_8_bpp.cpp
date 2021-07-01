@@ -160,9 +160,10 @@ bool morpheus::nds::gfx::Sprite8Bpp::load_from_pcx(const unsigned char *pcx_data
     return true;
 }
 
-bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette(const unsigned short *palette, const unsigned int palette_len,
-                                                       const unsigned int pal_offset,
-                                                       const unsigned int palette_id) {
+bool morpheus::nds::gfx::Sprite8Bpp::load_into_palette_with_id(const unsigned short *palette,
+                                                               const unsigned int palette_len,
+                                                               const unsigned int pal_offset,
+                                                               const unsigned int palette_id) {
     OamState *current_oam = get_current_oam();
     std::string oam_name;
 

@@ -73,42 +73,81 @@ namespace morpheus {
                     return m_font;
                 }
 
+                /// \return The position for this TextBase to start printing
+                /// at (or the position of the first character).
                 Vector2 get_print_position() const {
                     return m_print_position;
                 }
 
+                /// \return The sbb or the tilemap memory offset this TextBase
+                /// is using.
                 unsigned int get_sbb() const {
                     return m_sbb;
                 }
 
+                /// \return Whether this TextBase is affine or not.
                 bool is_affine() const {
                     return m_affine;
                 }
 
+                /// Sets the new bounding box that the text of this
+                /// TextBase cannot extend beyond. If the x or y
+                /// component is set to less than or equal to zero, that
+                /// will mean the text of this TextBase
+                /// will not be constrained by that component.
+                /// \param bounding_box The new bounding box size to be set.
                 void set_bounding_box(Vector2 bounding_box) {
                     m_bounding_box = bounding_box;
                 }
 
+                /// Sets the current Font this Morpheus API-based
+                /// TextBase is using. If this TextBase is based upon
+                /// native text APIs, this function will have no effect.
+                /// \param font The new Font for this Morpheus API-based
+                /// TextBase to use.
                 void set_current_font(const Font &font) {
-                    m_font = font;
+                    if(!m_use_native_text_api) {
+                        m_font = font;
+                    }
                 }
 
+                /// Sets the position for this TextBase to start printing
+                /// at (or the position of the first character).
+                /// \param print_pos The new print position to be set.
                 void set_print_position(Vector2 print_pos) {
                     m_print_position = print_pos;
 
                     m_cursor_position = m_print_position;
 
-                    change_print_position(m_print_position);
+                    if(m_use_native_text_api) {
+                        change_print_position(m_print_position);
+                    }
                 }
 
+                /// Prints a string that is appropriately formatted
+                /// (ASCII or UTF8) at a specific position to the screen.
+                /// \param string The appropriately formatted string to print
+                /// \param print_pos The position to print the string at
                 void print_at_pos(std::string string, Vector2 print_pos) {
-                    set_print_position(print_pos);
+                    if(m_use_native_text_api) {
+                        change_print_position(print_pos);
+                    } else {
+                        set_print_position(print_pos);
+                    }
 
-                    print(string);
-
-                    set_print_position(m_print_position);
+                    if(m_use_native_text_api) {
+                        change_print_position(m_print_position);
+                    } else {
+                        set_print_position(m_print_position);
+                    }
                 }
 
+                /// Prints an appropriately formatted (ASCII or UTF8) string
+                /// to the screen. Optionally re-initializes the text API
+                /// being used.
+                /// \param string The appropriately formatted string to print
+                /// \param reinit Whether to re-initialize the text API
+                /// being used or not
                 void print(std::string string, bool reinit = false) {
                     if(m_use_native_text_api) {
                         if(reinit || !m_inited) {
@@ -129,11 +168,37 @@ namespace morpheus {
                     m_inited = true;
                 }
             protected:
+                /// Changes the position for the next string to be printed for
+                /// "native" text APIs. This function should never be called
+                /// when the cross-platform morpheus text API is being used.
+                /// \param print_pos The new print position to set for
+                /// "native" text APIs.
                 virtual void change_print_position(Vector2 print_pos) = 0;
+
+                /// Prints a string to the screen using a "native" text API for
+                /// the platform while also optionally initializing
+                /// (or re-initializing) the text API. This function should
+                /// never be called when the cross-platform morpheus text API
+                /// is being used.
+                /// \param string The string to print to the screen using a
+                /// "native" text API
+                /// \param init Whether to initialize (or re-initialize) the
+                /// "native" text API
                 virtual void print_chars(std::string string, bool init) = 0;
 
+                /// Prints an appropriately formatted (ASCII or UTF8) to the
+                /// screen using the cross-platform Morpheus "expression" text
+                /// API. This function should never be called when a "native"
+                /// text API is being used.
+                /// \param string The string to be printed by the cross-platform
+                /// Morpheus "expression" text API
                 void expression_print_chars(std::string string);
 
+                /// Initializes (or re-initializes) the cross-platform Morpheus
+                /// "expression" text API. This function should never be called
+                /// when a "native" text API is being used.
+                /// \return Whether the cross-platform Morpheus "expression"
+                /// text API was successfully initialized
                 bool init_expression_text_api();
             private:
                 std::vector<int> get_tile_ids_from_ascii_string(const std::string &string);
@@ -152,6 +217,20 @@ namespace morpheus {
                 unsigned int m_sbb;
                 bool m_use_native_text_api;
             };
+
+            /// \class morpheus::core::gfx::TextBase
+            /// A text renderer (based on regular backgrounds) that can
+            /// display text using "native" text APIs through
+            /// libtonc's TTE engine or libnds's PrintConsole or the
+            /// cross-platform "expression" Morpheus text API.
+            /// When using expression, custom fonts (ASCII and UTF8) are also
+            /// supported through the Font class and
+            /// TextBase::set_current_font().
+            /// These fonts can be manually created or generated from a
+            /// pre-existing TTF file using the generate_fonts buildtool
+            /// (buildtools/generate_fonts/generate_fonts.py). For an example
+            /// of this in action, see Custom Font Test
+            /// (tests/custom_font_test/custom_font_test.cpp).
         }
     }
 }

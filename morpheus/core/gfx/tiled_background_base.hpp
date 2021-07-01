@@ -15,31 +15,79 @@ namespace morpheus {
     namespace core {
         namespace gfx {
             enum class TiledBackgroundSize {
-                BG_32x32,
-                BG_64x32,
-                BG_32x64,
-                BG_64x64,
-                BG_64x128,
+                BG_32x32, ///< 32x32 (256 px by 256 px) regular tiled
+                          ///< background
+                BG_64x32, ///< 64x32 (512 px by 256 px) regular tiled
+                          ///< background
+                BG_32x64, ///< 32x64 (256 px by 512 px) regular tiled
+                          ///< background
+                BG_64x64, ///< 64x64 (512 px by 512 px) regular tiled
+                          ///< background
 
-                BG_AFFINE_16x16,
-                BG_AFFINE_32x32,
-                BG_AFFINE_64x64,
-                BG_AFFINE_128x128
+                BG_AFFINE_16x16, ///< 16x16 (128 px by 128 px) affine tiled
+                                 ///< background
+                BG_AFFINE_32x32, ///< 32x32 (256 px by 256 px) affine tiled
+                                 ///< background
+                BG_AFFINE_64x64, ///< 64x64 (512 px by 512 px) affine tiled
+                                 ///< background
+                BG_AFFINE_128x128 ///< 128x128 (1024 px by 1024 px) affine tiled
+                                  ///< background
             };
+
+
+            /// \enum morpheus::core::gfx::TiledBackgroundSize
+            /// (x, y) size of a regular or affine TiledBackgroundBase and in
+            /// 8x8 TILES not pixels. (affine TiledBackgroundBase support
+            /// still WIP).
 
             enum class BitUnpacking {
-                NONE,
-                BPP_1_TO_4,
-                BPP_1_TO_8,
-                BPP_4_TO_8,
+                NONE, ///< No bit unpacking needed
+                BPP_1_TO_4, ///< Bit unpacking from 1bpp tiles to 4bpp tiles
+                BPP_1_TO_8, ///< Bit unpacking from 1bpp tiles to 8bpp tiles
+                BPP_4_TO_8, ///< Bit unpacking from 4bpp tiles to 8bpp tiles
             };
+
+
+            /// \enum morpheus::core::gfx::BitUnpacking
+            /// Supported bit unpacking operations to do on graphical 1bpp,
+            /// 4bpp, and 8bpp tiles to display on 4bpp and 8bpp backgrounds.
 
             class TiledBackgroundBase {
             public:
+                /// Constructs a regular or affine (WIP) TiledBackgroundBase
+                /// with a certain background number,
+                /// blending and mosaic controllers,
+                /// cbb (or tile memory offset), sbb (or tilemap memory offset),
+                /// and whether to use individual TileOverrides or a completely
+                /// separate read-write copy of the tilemap to update specific
+                /// tiles during run-time. If the BlendingController and/or the
+                /// MosaicController passed through are nullptr, this
+                /// TiledBackgroundBase will not be able to modify its mosaic
+                /// and/or blending states.
+                /// \param affine Whether this TiledBackgroundBase should be
+                /// affine
+                /// \param background_num Which background number this
+                /// TiledBackgroundBase should use
+                /// \param blending_controller Which blending controller this
+                /// TiledBackgroundBase is affected by
+                /// \param mosaic_controller Which mosaic controller this
+                /// TiledBackgroundBase is affected by
+                /// \param cbb_num The cbb or tile memory offset for this
+                /// TiledBackgroundBase to use
+                /// \param sbb_num The sbb or tile memory offset for this
+                /// TiledBackgroundBase to use
+                /// \param use_tile_overrides Whether to use individual
+                /// TileOverrides (true) or a completely separate
+                /// read-write copy of the tilemap (false)
+                /// to update specific tiles during run-time.
+                /// Unless you are stressed for WRAM and/or do not need to
+                /// update this background, it is recommended to set this to
+                /// false for performance reasons.
                 TiledBackgroundBase(bool affine, unsigned int background_num, BlendingController *blending_controller,
                                     MosaicController *mosaic_controller, unsigned int cbb_num, unsigned int sbb_num,
                                     bool use_tile_overrides);
 
+                /// Destructs a TiledBackgroundBase
                 virtual ~TiledBackgroundBase() = default;
 
                 void load_from_array(const unsigned int *tiles, const unsigned int tiles_len,
@@ -248,8 +296,6 @@ namespace morpheus {
                             return Vector2(64, 64);
                         case TiledBackgroundSize::BG_AFFINE_128x128:
                             return Vector2(128, 128);
-                        case TiledBackgroundSize::BG_64x128:
-                            return Vector2(64, 128);
                     }
 
                     return Vector2(0, 0);

@@ -45,6 +45,9 @@ namespace puzzler {
             const int MAIN_BG_CBB_NUM = 2;
         #elif _NDS
             const int MAIN_BG_CBB_NUM = 1;
+
+            const int SUB_BG_CBB_NUM = 3;
+            const int SUB_BG_SBB_NUM = 5;
         #endif
 
         const int MAIN_BG_SBB_NUM = 1;
