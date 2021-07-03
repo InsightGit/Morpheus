@@ -42,12 +42,6 @@ set(MAIN_SRC_FILES src/main.cpp
         src/hayai/level.cpp src/hayai/level.hpp src/hayai/scene.hpp src/hayai/player.cpp src/hayai/player.hpp
         src/hayai/player_hud.cpp src/hayai/player_hud.hpp src/hayai/enemy.cpp src/hayai/enemy.hpp)
 
-#if(platform_lower STREQUAL "gba")
-#    set(PNG4_FILES "../tests/gba/test4.png")
-#elseif(platform_lower STREQUAL "nds")
-#    set(PNG4_FILES "../tests/nds/test4.png")
-#endif()
-
 set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms0.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms1.png"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/playerleftarms2.png"
@@ -60,20 +54,9 @@ set(MAXMOD_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/coin_pickup.wav"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/enemy_kill.wav"
         "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/player_hurt.wav")
 
-#if(platform_lower STREQUAL "gba")
-#    set(PNG8_FILES "../tests/gba/test8.png" CACHE STRING
-#            "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
-#elseif(platform_lower STREQUAL "nds")
-#    set(PNG8_FILES "../tests/nds/test8.png" "../tests/nds/testt.png" CACHE STRING
-#            "8bpp PNG Files used by test code (paths are relative to cmake build dir)")
-#endif()
-
 set(PNG4_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32")
-#set(PNG8_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" CACHE STRING
-#        "Image sizes of the previously listed 8bpp PNG files (widthXlength)")
 
 execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
-#execute_grit(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
 
 foreach(png4_file ${PNG4_FILES})
     get_filename_component(png4_file ${png4_file} NAME_WLE)
@@ -81,25 +64,17 @@ foreach(png4_file ${PNG4_FILES})
     list(APPEND PNG4_OUTPUT_FILES ${png4_file}.o)
 endforeach()
 
-#foreach(png8_file ${PNG8_FILES})
-#    get_filename_component(png8_file ${png8_file} NAME_WLE)
-
-#    list(APPEND PNG8_OUTPUT_FILES ${png8_file}.o)
-#endforeach()
-
-#message(STATUS "${PNG8_OUTPUT_FILES}")
-
 project(hayai)
 
 include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. $ENV{DEVKITPRO}/libnds/include ../../assets)
 
 convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
                                FALSE)
-#convert_tilemap_bin_image_file("assets/test_map_1_128.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 128 0 "assets/tiles1.png" TRUE
-#        FALSE)
+generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_map_1_256.bin ${CMAKE_CURRENT_BINARY_DIR} 256 256
+                              0 ${CMAKE_CURRENT_SOURCE_DIR}/assets/tiles1.png TRUE FALSE)
 
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
-#list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_128.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_128.h)
+list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_256.c)
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/player_hud.c ${CMAKE_CURRENT_BINARY_DIR}/player_hud.h)
 
 if(platform_lower STREQUAL "gba")

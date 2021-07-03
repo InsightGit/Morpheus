@@ -1,12 +1,10 @@
 import os.path
-import shutil
 import subprocess
 import sys
-import tempfile
+
+from buildtools import hayaibuild
 
 from typing import Union
-
-import hayaibuild
 
 
 def _camel_case_conversion(header_guard: str) -> str:
@@ -113,7 +111,10 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
             array_byte_size = width * height
 
             if is_affine:
-                array_byte_size /= 2
+                #array_byte_size /= 2
+
+                #array_byte_size = int(array_byte_size)
+                pass
 
             file_obj.write("\nconst unsigned short " + variable_name + "[" + str(array_byte_size) + "] " +
                            "__attribute__((aligned(4))) __attribute__((visibility(\"hidden\"))) =\n{\n     ")
@@ -121,12 +122,26 @@ def _generate_source_file(build_dir: str, file_name: str, variable_name: str, he
             if is_affine:
                 converted_map = []
 
-                for i in range(0, len(hex_data), 2):
-                    tile_val = f"0x{hex_data[i]}{hex_data[i + 1]}"
+                #for i in range(0, len(hex_data), 2):
+                #    tile_val = f"0x{hex_data[i]}{hex_data[i + 1]}"
+                #
+                #    converted_map.append(tile_val)
+                #
+                #    file_obj.write(tile_val + ",")
 
-                    converted_map.append(tile_val)
+                byte_buffer = []
+                i = 0
 
-                    file_obj.write(tile_val + ",")
+                while i < (len(hex_data) - 1):
+                    byte_buffer.append(hex_data[i])
+
+                    i += 2
+
+                    if len(byte_buffer) >= 2:
+                        file_obj.write(f"0x{byte_buffer.pop()}{byte_buffer.pop()},")
+
+                        if i % 32 == 0:
+                            file_obj.write("\n      ")
             else:
                 if width > 64 or height > 64:
                     raise NotImplementedError
@@ -176,18 +191,8 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
     tmp_header_file = None
     tmp_source_file = None
 
-    if base_image_file_name != file_name and os.path.isfile(os.path.join(build_dir, base_image_file_name + ".h")):
-        tmp_header_file = tempfile.TemporaryFile(mode="w+")
-        tmp_source_file = tempfile.TemporaryFile(mode="w+")
-
-        with open(os.path.join(build_dir, base_image_file_name + ".h"), 'r') as header_file:
-            tmp_header_file.write(header_file.read())
-
-        with open(os.path.join(build_dir, base_image_file_name + ".c"), 'r') as source_file:
-            tmp_source_file.write(source_file.read())
-
     if len(image_file) > 0:
-        grit_subprocess = ["grit", image_file]
+        grit_subprocess = ["grit", image_file, f"-o{os.path.join(build_dir, file_name)}"]
 
         if is_4bpp:
             grit_subprocess.append("-gB4")
@@ -197,46 +202,18 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
             grit_subprocess.append("-MRtf")
 
         if is_affine:
-            grit_subprocess.append("-mRt -mLa")
+            grit_subprocess.append("-MRt")
+            #grit_subprocess.append("-mRt -mLa")
 
         grit_subprocess.append("-ftc")
 
         #if width > 32 or height > 32:
         #    grit_subprocess.append("-mLs")
 
+        print()
+
         subprocess.run(["which", "grit"], capture_output=True)
         subprocess.run(grit_subprocess, capture_output=True)
-
-
-    if base_image_file_name != file_name:
-        shutil.copy(os.path.join(build_dir, base_image_file_name + ".h"), os.path.join(build_dir, file_name + ".h"))
-        shutil.copy(os.path.join(build_dir, base_image_file_name + ".c"), os.path.join(build_dir, file_name + ".c"))
-
-        header_file_contents = ""
-        source_file_contents = ""
-
-        with open(os.path.join(build_dir, file_name + ".h"), 'r') as header_file:
-            header_file_contents = header_file.read()
-
-        with open(os.path.join(build_dir, file_name + ".c"), 'r') as source_file:
-            source_file_contents = source_file.read()
-
-        with open(os.path.join(build_dir, file_name + ".h"), 'w') as header_file:
-            header_file.write(header_file_contents.replace(base_image_file_name, file_name).
-                              replace(base_image_file_name.upper(), file_name.upper()))
-
-        with open(os.path.join(build_dir, file_name + ".c"), 'w') as source_file:
-            source_file.write(source_file_contents.replace(base_image_file_name, file_name).
-                              replace(base_image_file_name.upper(), file_name.upper()))
-
-        if tmp_header_file is not None and tmp_source_file is not None:
-            with open(os.path.join(build_dir, base_image_file_name + ".h"), 'w') as header_file:
-                header_file.write(tmp_header_file.read())
-                tmp_header_file.close()
-
-            with open(os.path.join(build_dir, base_image_file_name + ".c"), 'w') as source_file:
-                source_file.write(tmp_source_file.read())
-                tmp_source_file.close()
 
     base_path = os.path.join(build_dir, file_name)
 
@@ -263,9 +240,9 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
 
         return return_value
 
-
 def main() -> None:
     if len(sys.argv) > 4:
+
         try:
             height = int(sys.argv[4])
             width = int(sys.argv[3])
@@ -273,7 +250,8 @@ def main() -> None:
             if (height != 32 and height != 64 and height != 128) or (width != 32 and width != 64 and width != 128):
                 raise ValueError
         except ValueError:
-            print("Tile width and height must be either 32, 64, or 128!")
+            print("Tile width and height must be either 32, 64, or 128 for a " \
+                  "non-streaming background")
 
             sys.exit(2)
 
@@ -311,8 +289,8 @@ def main() -> None:
             sys.exit(1)
     else:
         print("Invalid syntax:")
-        print(os.path.basename(__file__) + " tilemap_studio_bin_file_path build_dir width height [palette_bank] "
-                                           "[image_file] [image_bpp] [is_affine]")
+        print(f"{os.path.basename(__file__)} tilemap_studio_bin_file_path build_dir width height [palette_bank] "
+               "[image_file] [image_bpp] [is_affine]")
         print("Note: if an image_file argument is given, image_bpp becomes a " + \
               "required argument.")
         sys.exit(2)

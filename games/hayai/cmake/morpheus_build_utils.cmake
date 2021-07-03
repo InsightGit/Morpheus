@@ -302,16 +302,16 @@ function(generate_streaming_background tilemap_bin_to_split asset_dir width heig
         set(bpp_flag "8")
     endif()
 
-    get_filename_component(png_file_name_path ${png_file} NAME_WLE)
+    get_filename_component(tilemap_bin_to_split_file_name_path ${tilemap_bin_to_split} NAME_WLE)
 
     if(output_files)
-        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${tilemap_bin_to_split_file_name_path}.c
                 COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
                 ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num}
                 COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -o${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
                 VERBATIM)
     else()
-        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${png_file_name_path}.c
+        add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${tilemap_bin_to_split_file_name_path}.c
                 COMMAND ${PYTHON3} ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintilesplit/bintilesplit.py
                 ${tilemap_bin_to_split} ${asset_dir} ${width} ${height} ${palette_bank_num} ${png_file}
                 ${bpp_flag} ${CMAKE_CURRENT_BINARY_DIR}

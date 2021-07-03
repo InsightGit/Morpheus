@@ -63,7 +63,6 @@ void morpheus::gba::gfx::TiledBackground::array_load(const unsigned short *tile_
         case core::gfx::TiledBackgroundSize::BG_64x32:
             m_background_register |= BG_REG_64x32;
             break;
-        case core::gfx::TiledBackgroundSize::BG_64x128:
         case core::gfx::TiledBackgroundSize::BG_64x64:
             m_background_register |= BG_REG_64x64;
             break;
@@ -121,10 +120,6 @@ void morpheus::gba::gfx::TiledBackground::update_background_register() {
 void morpheus::gba::gfx::TiledBackground::update_scroll() {
     morpheus::core::gfx::Vector2 scroll_position = get_scroll();
 
-    if(is_large_background()) {
-        large_background_swap(scroll_position);
-    }
-
     switch(get_background_num()) {
         case 0:
             REG_BG0HOFS = scroll_position.get_x();
@@ -166,19 +161,6 @@ void morpheus::gba::gfx::TiledBackground::mosaic_state_updated() {
         m_background_register |= BG_MOSAIC;
     } else {
         m_background_register &= ~(BG_MOSAIC);
-    }
-
-    update_background_register();
-}
-
-void morpheus::gba::gfx::TiledBackground::large_background_swap(morpheus::core::gfx::Vector2 &current_scroll_position) {
-    if(current_scroll_position.get_y() >= 64 * 8) {
-        m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num() + 4);
-
-        current_scroll_position = morpheus::core::gfx::Vector2(current_scroll_position.get_x(),
-                                                               current_scroll_position.get_y() - (64 * 8));
-    } else {
-        m_background_register = BG_CBB(get_cbb_num()) | BG_SBB(get_sbb_num());
     }
 
     update_background_register();

@@ -1,8 +1,10 @@
 import os
-import tkinter
 import subprocess
 import sys
 
+sys.path.insert(0, "../hayaibuild")
+
+from buildtools import hayaibuild
 
 def _convert_tile_map_to_sbbs(width: int, height: int, palette_bank: int, hex_data: list) -> list:
     converted_map = []
@@ -63,10 +65,9 @@ def split_bin_file(single_bin_file_path: str, height: int, width: int, asset_dir
         return tilemaps_64x64
 
 
-def execute_grit(image_file: str, image_bpp: int, tilemaps_64x64: list, build_dir: str) -> None:
-    base_image_file_name = os.path.splitext(os.path.basename(image_file))[0]
+def execute_grit(image_file: str, base_map_file_name: str, image_bpp: int, tilemaps_64x64: list, build_dir: str) -> None:
     grit_subprocess = ["grit", image_file]
-    grit_target_file = os.path.join(build_dir, base_image_file_name)
+    grit_target_file = os.path.join(build_dir, base_map_file_name)
 
     if image_bpp == 4:
         grit_subprocess.append("-gB4")
@@ -83,16 +84,38 @@ def execute_grit(image_file: str, image_bpp: int, tilemaps_64x64: list, build_di
     print(subprocess.run(grit_subprocess, capture_output=True))
 
     try:
-        header_guard_name = base_image_file_name.upper()
+        header_guard_name = base_map_file_name.upper()
         variable_name = header_guard_name.lower() + "Maps"
+
+        enemy_spawn_positions = []
+
+        for i in range(len(tilemaps_64x64)):
+            enemy_spawn_positions[i], tilemaps_64x64[i] = \
+                hayaibuild.get_enemy_positions_and_cleaned_map(tilemaps_64x64[i])
 
         with open(f"{grit_target_file}.h", 'r+') as file_obj:
             lines = file_obj.readlines()
 
-            tile_map_string = f"#define {header_guard_name.lower()}IndividualMapLen {64 * 64 * 2}\n"
-            tile_map_string += f"#define {variable_name}Len {len(tilemaps_64x64)}\n"
-            tile_map_string += f"extern const unsigned short {variable_name}[{len(tilemaps_64x64)}][{64 * 64}];\n"
-            tile_map_string += f"extern const unsigned short *{variable_name}Rows[{len(tilemaps_64x64)}];\n\n"
+            tile_map_string = "#include <vector>\n\n" \
+                              "#include <core/gfx/vector_2.hpp>\n\n"
+            tile_map_string += "extern \"C\" {"
+            tile_map_string += f"   #define {header_guard_name.lower()}IndividualMapLen {64 * 64 * 2}\n"
+            tile_map_string += f"   #define {variable_name}Len {len(tilemaps_64x64)}\n"
+            tile_map_string += f"   extern const unsigned short {variable_name}[{len(tilemaps_64x64)}][{64 * 64}];\n"
+            tile_map_string += f"   extern const unsigned short *{variable_name}Rows[{len(tilemaps_64x64)}];\n}}\n"
+            tile_map_string += f"const std::vector<morpheus::core::gfx::Vector2> " \
+                               f"enemy_positions[{len(tilemaps_64x64)}] = {{\n"
+
+            for enemy_spawn_map in enemy_spawn_positions:
+                tile_map_string += "{"
+
+                for i in range(len(enemy_spawn_map)):
+                    if i % 8 == 0:
+                        tile_map_string += "\n"
+
+                    tile_map_string += f"morpheus::core::gfx::Vector2({enemy_spawn_map[i]}, {enemy_spawn_map[i]}), "
+
+                tile_map_string += "}"
 
             for i in range(len(lines)):
                 if "#endif" in lines[i]:
@@ -131,6 +154,8 @@ def execute_grit(image_file: str, image_bpp: int, tilemaps_64x64: list, build_di
     except OSError:
         print(f"Grit couldn't generate the image header/source files!")
         sys.exit(1)
+
+    hayaibuild.write_coins()
 
 
 def main():
@@ -184,7 +209,8 @@ def main():
             if len(sys.argv) > 7:
                 if len(sys.argv) > 8:
                     try:
-                        execute_grit(sys.argv[6], int(sys.argv[7]), tilemaps_64x64, sys.argv[8])
+                        execute_grit(sys.argv[6], os.path.splitext(os.path.basename(single_bin_file_path))[0],
+                                     int(sys.argv[7]), tilemaps_64x64, sys.argv[8])
                     except ValueError:
                         print("image_bpp argument must be an integer!")
                         sys.exit(2)
