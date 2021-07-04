@@ -12,23 +12,33 @@ namespace morpheus {
         namespace gfx {
             class Vector2 {
             public:
+                /// Constructs a Vector2 with a specified x and y component in a
+                /// Cartesian coordinate space.
+                /// \param x The x (horizontal) component to set
+                /// \param y The y (vertical) component to set
                 Vector2(int x, int y) {
                     m_x = x;
                     m_y = y;
                 }
 
+                /// Constructs a default Vector2 with a zero x and y component.
                 Vector2() : Vector2(0, 0) {}
 
+                /// Destructs a Vector2
                 virtual ~Vector2() = default;
 
+                /// \return The x component of this Vector2.
                 int get_x() const {
                     return m_x;
                 }
 
+                /// \return The y component of this Vector2.
                 int get_y() const {
                     return m_y;
                 }
 
+                /// \return The string representation of this Vector2 in the
+                /// form (x,y)
                 std::string to_string() const {
                     return "(" + std::to_string(m_x) + "," + std::to_string(m_y) + ")";
                 }
@@ -66,6 +76,11 @@ namespace morpheus {
                 int m_x;
                 int m_y;
             };
+
+
+            /// \class morpheus::core::gfx::Vector2
+            /// An utility class representing a plain 2D Vector in a
+            /// Cartesian coordinate system.
         }
     }
 }

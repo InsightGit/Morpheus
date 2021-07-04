@@ -21,7 +21,7 @@ def generate_rst_file_for_object(breathe_command: str, object_name: str, namespa
         header_rst_file.write(f"\n.. {breathe_command}:: {namespace_name}::{object_name}\n"
                               f"    :project: {PROJECT_NAME}\n")
 
-        if breathe_command == "doxygenclass":
+        if breathe_command == "doxygenclass" or breathe_command == "doxygenstruct":
             header_rst_file.write(f"    :members:\n"
                                   f"    :protected-members:\n"
                                   f"    :undoc-members:\n")

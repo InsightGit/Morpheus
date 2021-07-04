@@ -30,27 +30,48 @@ namespace morpheus {
 
         namespace gfx {
             enum class AffineMode {
-                MIXED_AFFINE,
-                FULL_AFFINE
+                MIXED_AFFINE, ///< Mixed Affine (Mode 1 on the GBA/NDS)
+                              ///< This displays backgrounds 0 and 1 as regular
+                              ///< backgrounds, background 2 as affine, and
+                              ///< disables background 3 on the GBA. On the DS,
+                              ///< no backgrounds are disabled and backgrounds
+                              ///< 0-2 are displayed as regular backgrounds and
+                              ///< background 3 is displayed as an affine one.
+                FULL_AFFINE ///< Full Affine (Mode 2 on the GBA/NDS)
+                            ///< On the GBA, this disables backgrounds 0 and 1
+                            ///< and displays backgrounds 2 and 3 as affine
+                            ///< backgrounds. On the DS, no backgrounds are
+                            ///< disabled, backgrounds 0 and 1 are displayed as
+                            ///< regular backgrounds, and backgrounds 2 and 3
+                            ///< are displayed as affine
             };
+
+            /// \enum morpheus::core::gfx::AffineMode
+            /// Enum class representing the different affine modes supported
+            /// on the GBA and the DS.
 
             enum class WindowType;
             class SpriteBase;
         }
 
         enum class GbaSaveType {
-            EEPROM_8KB,
-            EEPROM_512B,
-            SRAM_32KB,
-            FLASH_AUTO_DETECT,
-            FLASH_64KB,
-            FLASH_128KB
+            EEPROM_512B, ///< 512 byte EEPROM (currently WIP)
+            EEPROM_8KB, ///< 8 kilobyte EEPROM (currently WIP)
+            SRAM_32KB, ///< 32 kilobyte SRAM/FRAM
+            FLASH_AUTO_DETECT, ///< 64 or 128 kilobyte FLASH
+            FLASH_64KB, ///< 64 kilobyte FLASH
+            FLASH_128KB ///< 128 kilobyte FLASH
         };
+
+        /// \enum morpheus::core::gfx::GbaSaveType
+        /// All the save types supported inside Morpheus for the GBA.
 
         class ControlReciever;
 
-        const int MAX_SPRITE_NUM = 128;
-        const int VBLANK_CYCLE_TIME = 60;
+        const int MAX_SPRITE_NUM = 128; ///< The maximum number of sprites
+                                        ///< that can be displayed at once
+        const int VBLANK_CYCLE_TIME = 60; ///< The number of VBlanks per one
+                                          ///< second
 
         class MainLoop : Uncopyable {
         public:
@@ -237,34 +258,75 @@ namespace morpheus {
             /// or the DS.
             virtual Error game_loop() = 0;
         protected:
+            /// Sets whether affine is enabled on this MainLoop or not.
+            /// \param affine The new affine state on this MainLoop.
             void set_affine(const bool affine) {
                 m_affine = affine;
             }
 
+            /// Sets what affine mode is used on this MainLoop while affine
+            /// support is enabled.
+            /// \param affine The new AffineMode to set on this MainLoop.
             void set_affine_mode(const gfx::AffineMode affine_mode) {
                 m_affine_mode = affine_mode;
             }
 
+            /// Sets the SaveManager being used by this MainLoop
+            /// \param save_manager The new SaveManager for this MainLoop to use
             void set_save_manager(SaveManager *save_manager) {
                 m_save_manager = std::unique_ptr<SaveManager>(save_manager);
             }
 
+            /// Sets a supplementary seed by a specific implementation of this
+            /// MainLoop that this abstract MainLoop can use to help randomize
+            /// MainLoop::get_random_number().
+            /// \param supplementary_seed The new supplemetary seed to be set on
+            /// this MainLoop
             void set_supplementary_seed(const int supplementary_seed) {
                 m_supplementary_seed = supplementary_seed;
             }
 
+            /// Converts a generated input integer using platform-specific
+            /// integer bits into an InputEvent std::vector for input event
+            /// handling.
+            /// \param inputs The generated input integer to use
+            /// \param input_bits The buffer of the platform-specific integer
+            /// bits
+            /// \param input_bits_size The size of the the integer bit buffer
+            /// \param input_state The InputState of the generated input integer
+            /// \return The InputEvent std::vector produced
             std::vector<InputEvent> to_input_events(const uint32_t inputs, const uint16_t input_bits[],
                                                     int input_bits_size, const morpheus::core::InputState input_state);
 
+            /// Pure virtual function which converts a specific keypad bit from
+            /// the generated input integer to a InputEvent for input event
+            /// handling in a platform specific way.
+            /// \param inputs The generated input integer to use
+            /// \param keypad_bit The specific keypad bit to use
+            /// \param input_state The InputState of the generated InputEvent
+            /// \return The InputEvent produced
             virtual InputEvent to_input_event(const uint32_t inputs, const uint16_t keypad_bit,
                                               const InputState input_state) = 0;
 
+            /// Initializes some platform-specific functions right before the
+            /// first iteration of MainLoop::game_loop() is completed.
             virtual Error platform_init() = 0;
 
-            unsigned char m_cycle_time;
+            unsigned char m_cycle_time; ///< The current VBlank number that this
+                                        ///< MainLoop is on.
 
-            std::vector<std::shared_ptr<ControlReciever>> m_control_recievers;
-            std::vector<std::shared_ptr<gfx::SpriteBase>> m_sprites;
+            std::vector<std::shared_ptr<ControlReciever>> m_control_recievers; ///< The
+                                                                               ///< ControlRecievers
+                                                                               ///< added
+                                                                               ///< to
+                                                                               ///< this
+                                                                               ///< MainLoop.
+            std::vector<std::shared_ptr<gfx::SpriteBase>> m_sprites; ///< The
+                                                                     ///< Sprites
+                                                                     ///< added
+                                                                     ///< to
+                                                                     ///< this
+                                                                     ///< MainLoop.
         private:
             std::unique_ptr<gfx::BlendingController> m_blending_controller;
             std::unique_ptr<CommunicationChannel> m_communication_channel;

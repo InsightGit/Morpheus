@@ -14,10 +14,14 @@ namespace morpheus {
     namespace core {
         namespace gfx {
             enum class BlendingMode {
-                OFF,
-                USE_WEIGHTS,
-                FADE_TO_WHITE,
-                FADE_TO_BLACK
+                OFF, ///< Blending off
+                USE_WEIGHTS, ///< Alpha-blending using weights (making
+                             ///< certain backgrounds or objects look
+                             ///< "transparent")
+                FADE_TO_WHITE, ///< Fades certain backgrounds or objects
+                               ///< to white
+                FADE_TO_BLACK ///< Fades certain backgrounds or objects
+                              ///< to black
             };
 
             /// \enum morpheus::core::gfx::BlendingMode
@@ -29,18 +33,22 @@ namespace morpheus {
             /// (BlendingMode::USE_WEIGHTS).
 
             enum class BlendingSetting {
-                OFF,
-                BOTTOM_ON,
-                TOP_ON,
-                INVALID
+                OFF, ///< This background/object is not affected by the blending
+                     ///< effect
+                BOTTOM_ON, ///< This background/object is on the bottom layer of
+                           ///< the blending effect
+                TOP_ON, ///< This background/object is on the top layer of
+                        ///< the blending effect
+                INVALID ///< Invalid BlendingSetting returned during function
+                        ///< errors
             };
 
             /// \enum morpheus::core::gfx::BlendingSetting
             /// Internally used enum class for the current BlendingSetting,
             /// which determines if
-            /// blending is on for a certain layer or whether it is on the
-            /// bottom layer or the top layer. NOTE that bottom layers must
-            /// actually be behind top layer while using
+            /// blending is on for a certain object/background or whether it
+            /// is on thebottom layer or the top layer. NOTE that bottom layers
+            /// must actually be behind top layer while using
             /// BlendingMode::USE_WEIGHTS for the blending to work and that
             /// BlendingMode::FADE_TO_BLACK and BlendingMode::FADE_TO_WHITE
             /// only work on layers on the top.
@@ -350,7 +358,7 @@ namespace morpheus {
 
 
         /// \class morpheus::core::NoCashDebugController
-        /// A simple class that sends debug messages as specified by the game
+        /// A class that sends debug messages as specified by the game
         /// to NO$GBA's debug window. See
         /// NoCashDebugController::send_to_debug_window() for more details.
     }

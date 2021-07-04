@@ -16,7 +16,7 @@ endif()
 
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
-    find_program(GRIT grit ${DEVKITPRO}/tools)
+    find_program(GRIT grit $ENV{DEVKITPRO}/tools)
     if(GRIT)
         message(STATUS "grit: ${GRIT} - found")
     else()

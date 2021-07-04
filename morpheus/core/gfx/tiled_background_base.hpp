@@ -364,17 +364,54 @@ namespace morpheus {
                 /// \param tiled_position
                 int get_tile_index_at_position(const Vector2 position, const bool with_scrolling = true,
                                                const bool tiled_position = false) const;
+
+                /// \return The screen position corresponding for a given
+                /// tilemap position in either 8x8 tiles or pixels.
+                /// \param position The tilemap position for getting the
+                /// screen position
+                /// \param with_scrolling Whether or not to include this
+                /// TiledBackgroundBase's scrolling in computing the tilemap position
+                /// \param tiled_position Whether the tilemap position given is
+                /// tiled in 8x8 tiles or not
                 Vector2 get_tile_position_at_screen_position(const Vector2 position, const bool with_scrolling = true,
                                                              const bool tiled_position = false) const;
+
+                /// Sets a specific tile id at a specific tilemap index (in
+                /// terms of the CBB's 8x8 tile graphics).
+                /// \param tile_index The tilemap index to set the tile id at
+                /// \param tile_id The new tile id to be set
+                /// \return Whether the tilemap id was successfully set or not
                 bool set_tile_id_at_index(const unsigned int tile_index, const unsigned int tile_id);
+
+                /// Sets a specific tile id at a specific tilemap position in
+                /// either 8x8 tiles or pixels.
+                /// \param position The tilemap position to set the tile id at
+                /// \param tile_id The new tile id to be set
+                /// \param with_scrolling Whether or not to include this
+                /// TiledBackgroundBase's scrolling in computing the tilemap index
+                /// \param tiled_position Whether the tilemap position given is
+                /// tiled in 8x8 tiles or not
+                /// \return Whether the tilemap id was successfully set or not
                 bool set_tile_id_at_position(const Vector2 position, const unsigned int tile_id,
                                              const bool with_scrolling = true, const bool tiled_position = false);
 
+                /// \return This TiledBackgroundBase's global priority [0-3].
                 virtual unsigned int get_priority() const = 0;
                 /*virtual bool load_into_palette(const unsigned short *palette, const unsigned int pal_len,
                                                const unsigned int pal_offset = 256) = 0;*/
+
+                /// Sets this TiledBackgroundBase's global priority, which can
+                /// be inclusively between 0 and 3 and will place it behind
+                /// SpriteBases and TiledBackgroundBases that have lower
+                /// priorities, and ahead of ones that have higher priorities.
+                /// \param priority The [0-3] new priority to set on this
+                /// TiledBackgroundBase
                 virtual void set_priority(unsigned int priority) = 0;
             protected:
+                /// \return The corresponding size Vector2 for the given
+                /// TiledBackgroundSize enum size in this TiledBackgroundBase.
+                /// If it is an unrecoginzed value within the enum,
+                /// Vector2(0, 0) is returned.
                 Vector2 get_tile_map_size_vector() const {
                     switch (m_tile_map_size) {
                         case TiledBackgroundSize::BG_32x32:
@@ -390,25 +427,91 @@ namespace morpheus {
                     }
                 }
 
+                /// Sets a given tile map with a given tile map size when
+                /// creating a read/write copy to update instead of
+                /// individual TileOverrides.
+                /// \param tile_map The tile map to set
+                /// \param tile_map_size The tile map size of the tile map being set.
                 void set_tile_map(const unsigned short *tile_map, TiledBackgroundSize tile_map_size) {
                     m_tile_map = tile_map;
                     m_tile_map_size = tile_map_size;
                 }
 
+                /// Pure virtual function called upon a change in this
+                /// TiledBackgroundBase's affine state (whether it is affine or
+                /// not)
                 virtual void affine_state_updated() = 0;
+
+                /// Pure virtual function called to load grit-generated
+                /// graphical tile and palette data as well as tilemap data in
+                /// a platform-specific way. Optionally can unpack a lower bpp
+                /// tile graphics into a 4bpp or 8bpp background. Usually
+                /// called by a public load_from_array function.
+                /// \param tiles The buffer of the grit-generated graphical tile
+                /// data to load
+                /// \param tiles_len The length of the graphical tile data
+                /// buffer to load in bytes
+                /// \param palette The buffer of the grit-generated palette data
+                /// to load
+                /// \param pal_len The length of the palette data buffer to load
+                /// in bytes
+                /// \param tile_map The buffer of the tilemap to load
+                /// \param tile_map_len The length of the tilemap buffer to load
+                /// \param size The size of the background being loaded
+                /// \param unpacking_needed Whether bit unpacking is needed on
+                /// graphical tile data and if so what kind
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *palette, const unsigned int pal_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
                                         const TiledBackgroundSize size,
                                         const BitUnpacking unpacking_needed = BitUnpacking::NONE) = 0;
+
+                /// Pure virtual function called to load grit-generated
+                /// graphical tile data as well as tilemap data in
+                /// a platform-specific way. Optionally can unpack a lower bpp
+                /// tile graphics into a 4bpp or 8bpp background. Usually
+                /// called by a public load_from_array function.
+                /// \param tiles The buffer of the grit-generated graphical tile
+                /// data to load
+                /// \param tiles_len The length of the graphical tile data
+                /// buffer to load in bytes
+                /// \param tile_map The buffer of the tilemap to load
+                /// \param tile_map_len The length of the tilemap buffer to load
+                /// \param size The size of the background being loaded
+                /// \param unpacking_needed Whether bit unpacking is needed on
+                /// graphical tile data and if so what kind
                 virtual void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
                                         const TiledBackgroundSize size,
                                         const BitUnpacking unpacking_needed = BitUnpacking::NONE) = 0;
+
+
+                /// Pure virtual function called to load tilemap data in
+                /// a platform-specific way. Usually called by a public
+                /// load_from_array function.
+                /// \param tile_map The buffer of the tilemap to load
+                /// \param tile_map_len The length of the tilemap buffer to load
+                /// \param size The size of the background being loaded
                 virtual void array_load(const unsigned short *tile_map, const unsigned int tile_map_len,
                                         const TiledBackgroundSize size) = 0;
+
+                /// Pure virtual function called upon a change in this
+                /// TiledBackgroundBase's mosaic state (whether it has the
+                /// graphical mosaic effect activated or not)
                 virtual void mosaic_state_updated() = 0;
+
+                /// Pure virtual function that overrides a given tilemap index's
+                /// current tile id value with an updated one after a
+                /// set_tile_id function was called for
+                /// the specific tilemap index in a platform specific way.
+                /// \param tile_index The tilemap index to override the tile id
+                /// \param tile_id The new tile id to be put in the given
+                /// tilemap index
                 virtual void override_map_tile(const unsigned int tile_index, const unsigned short tile_id) = 0;
+
+                /// Pure virtual function which updates the scroll for this
+                /// TiledBackgroundBase in a platform specific way after
+                /// TiledBackgroundBase::set_scroll was called.
                 virtual void update_scroll() = 0;
             private:
                 struct TileOverride {
@@ -462,19 +565,51 @@ namespace morpheus {
                 TiledBackgroundSize m_tile_map_size;
                 bool m_use_tile_overrides;
             };
+
+
+            /// \class morpheus::core::gfx::TiledBackgroundBase
+            /// A tiled background class that can either be in regular
+            /// (or "text") mode or (currently WIP) affine (or "rotscale") mode.
+            /// Also supports several hardware graphical effects like mosaic
+            /// (making the background look more "blocky"), blending (making the
+            /// background either fade to white or black, or making it look more
+            /// transparent), and windowing (constraining the displayed
+            /// background in a specific "window" rectangle). For an example of
+            /// this class being used, see the Graphical Effects Test
+            /// (tests/gfx_effects_test/gfx_effects_test.cpp) and the Tileset
+            /// Test (tests/tileset_test/tileset_test.cpp).
         }
     }
 }
 
 extern "C" {
     struct asm_BitUnPackOptions {
-        unsigned short source_len;
-        unsigned char source_bit_width;
-        unsigned char dest_bit_width;
-        unsigned int offset_plus_zero_data_flag;
+        unsigned short source_len; ///< The length of the tile graphics buffer
+                                   ///< being unpacked
+        unsigned char source_bit_width; ///< The original BPP depth/width of
+                                        ///< the tile graphics buffer being
+                                        ///< unpacked
+        unsigned char dest_bit_width; ///< The BPP depth/width of the tile
+                                      ///< graphics buffer to be unpacked to
+        unsigned int offset_plus_zero_data_flag; ///< The offset of the non-zero
+                                                 ///< data to be loaded in as
+                                                 ///< well as the "zero data"
+                                                 ///< flag (on the 31st bit)
+                                                 ///< which applies the offset
+                                                 ///< to zeroed data as well
     };
 
+
+    /// \struct asm_BitUnPackOptions
+    /// A struct that serves to provide the arguments for the BitUnPack BIOS
+    /// call.
+
     // defined in asm/tiled_background_base.s
+    /// Calls the BitUnpack BIOS call to unpack a lower bpp
+    /// tile graphics into a 4bpp or 8bpp background
+    /// \param src The tile graphics buffer to unpack
+    /// \param dest Where to unpack the tile graphics
+    /// \param unpack_options The asm_BitUnpackOptions to use
     extern void asm_BitUnPack(const void *src, void *dest, asm_BitUnPackOptions *unpack_options);
 }
 

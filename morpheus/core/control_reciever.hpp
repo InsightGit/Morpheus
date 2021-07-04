@@ -33,7 +33,7 @@ namespace morpheus {
 
 
         /// \class morpheus::core::ControlReciever
-        /// A simple abstract class on which Sprites and other objects requiring
+        /// A abstract class on which Sprites and other objects requiring
         /// user input or VBlank updating should use. Needs to be added to the
         /// MainLoop using MainLoop::add_control_reciever before input() and
         /// update() are called on a regular basis.

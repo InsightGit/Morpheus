@@ -243,7 +243,7 @@ namespace morpheus {
                     m_position = position;
                 }
 
-                /// Simple overloader for the previous set_position() function
+                /// An overloader for the previous set_position() function
                 /// taking a Vector2.
                 void set_position(const int x, const int y) {
                     set_position(core::gfx::Vector2(x, y));
@@ -517,7 +517,7 @@ namespace morpheus {
             /// For an example of Sprites being used, see Input Test (tests/input_test/input_test.cpp),
             /// Graphical Effect Test (tests/gfx_effects_test/gfx_effect_test.cpp),
             /// Animation Test (tests/animation_test/animation_test.cpp) and
-            /// Affine Test (tesys/affine_test/affine_test.cpp),
+            /// Affine Test (tests/affine_test/affine_test.cpp),
         }
     }
 }

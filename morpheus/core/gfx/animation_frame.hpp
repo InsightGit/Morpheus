@@ -15,16 +15,15 @@ namespace morpheus {
     namespace core {
         namespace gfx {
             enum class AnimationFrameCopyOption {
-                BLENDING,
-                SPRITE_SIZE,
-                MOSAIC,
-                PALETTE,
-                POSITION,
-                ROTATION,
-                SCALE,
-                VISIBLE,
-                // for psuedo-inheritance purposes
-                LAST
+                BLENDING, ///< SpriteBase blending levels/BlendingSetting
+                SPRITE_SIZE, ///< SpriteBase SpriteSize
+                MOSAIC, ///< SpriteBase mosaic levels
+                PALETTE, ///< SpriteBase palette number
+                POSITION, ///< SpriteBase position
+                ROTATION, ///< Affine SpriteBase rotation
+                SCALE, ///< Affine SpriteBase scale
+                VISIBLE, ///< SpriteBase Visibility
+                LAST ///< Exclusively used for psuedo-inheritance purposes
             };
 
 
@@ -38,8 +37,8 @@ namespace morpheus {
             /// nds::gfx::NdsAnimationFrameCopyOption.
 
             enum class AnimationSmoothingMode {
-                NONE,
-                LINEAR
+                NONE, ///< No animation smoothing applied
+                LINEAR ///< Linear animation smoothin applied
             };
 
 

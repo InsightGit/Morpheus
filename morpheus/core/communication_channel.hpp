@@ -10,11 +10,27 @@ namespace morpheus {
         const int CLIENT_ID_GAP = 1;
 
         enum class ClientId {
-            MASTER,
-            CLIENT0 = static_cast<int>(ClientId::MASTER) + CLIENT_ID_GAP,
-            CLIENT1 = static_cast<int>(ClientId::CLIENT0) + CLIENT_ID_GAP,
-            CLIENT2 = static_cast<int>(ClientId::CLIENT1) + CLIENT_ID_GAP,
-            INVALID
+            MASTER, ///< The master or "server" client ID
+            CLIENT0 = static_cast<int>(ClientId::MASTER) + CLIENT_ID_GAP, ///< The
+                                                                          ///< client
+                                                                          ///< ID of
+                                                                          ///< the
+                                                                          ///< first
+                                                                          ///< client.
+            CLIENT1 = static_cast<int>(ClientId::CLIENT0) + CLIENT_ID_GAP, ///< The
+                                                                           ///< client
+                                                                           ///< ID of
+                                                                           ///< the
+                                                                           ///< second
+                                                                           ///< client.
+            CLIENT2 = static_cast<int>(ClientId::CLIENT1) + CLIENT_ID_GAP, ///< The
+                                                                           ///< client
+                                                                           ///< ID of
+                                                                           ///< the
+                                                                           ///< third
+                                                                           ///< client.
+            INVALID ///< Invalid client ID returned during function errors
+                    ///< and/or inconclusive results.
         };
 
         const int CLIENT_ID_START = static_cast<int>(ClientId::MASTER);
@@ -26,14 +42,18 @@ namespace morpheus {
         /// as the master client, or clients 0-2.
 
         struct RecievePacket {
-            unsigned int data;
-            ClientId from;
-            bool valid = true;
+            unsigned short data; ///< The data that was received from the
+                                 ///< CommunicationChannel
+            ClientId from; ///< The ID of the client that sent this
+                           ///< RecievePacket
+            bool valid = true; ///< Whether this RecievePacket is valid or not.
+                               ///< Set to false during function errors and/or
+                               ///< inconclusive results.
         };
 
 
         /// \struct morpheus::core::RecievePacket
-        /// Simple struct containing communication channel data information
+        /// A struct containing communication channel data information
         /// including the origin's ClientId, the data, and packet validity.
 
         class CommunicationChannel {
@@ -87,7 +107,7 @@ namespace morpheus {
 
         /// \class morpheus::core::CommunicationChannel
         ///
-        /// A simple base class for handling bi-directional communication
+        /// A base class for handling bi-directional communication
         /// between devices. Right now this is only implemented on the GBA side
         /// with multiplayer serial communication implemented in
         /// morpheus::gba::SerialCommunication, but in the future Wifi support
