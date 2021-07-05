@@ -160,7 +160,7 @@ input-test-gba:
 input-test-nds:
   stage: test
   script:
-    - cd build(m_font.get_char_size().get_x() * 8)
+    - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-input-test.nds
   dependencies:
     - nds-library
