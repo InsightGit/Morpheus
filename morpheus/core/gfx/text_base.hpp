@@ -135,6 +135,8 @@ namespace morpheus {
                         set_print_position(print_pos);
                     }
 
+                    print(string);
+
                     if(m_use_native_text_api) {
                         change_print_position(m_print_position);
                     } else {
@@ -209,6 +211,7 @@ namespace morpheus {
                 Vector2 m_bounding_box = Vector2(0, 0);
                 unsigned int m_cbb;
                 Vector2 m_cursor_position;
+                std::vector<unsigned int> m_current_new_line_indices;
                 std::shared_ptr<core::gfx::TiledBackgroundBase> m_expression_background;
                 Font m_font; //= get_default_font();
                 bool m_inited;

@@ -1,5 +1,4 @@
 import os
-import tkinter
 import subprocess
 import sys
 
@@ -56,6 +55,8 @@ def split_bin_file(single_bin_file_path: str, height: int, width: int, asset_dir
                 tilemaps_64x64.append(_convert_tile_map_to_sbbs(64, 64, palette_bank, unconverted_tilemap_64x64))
 
         for i in range(len(tilemaps_64x64)):
+            os.makedirs(asset_dir, exist_ok=True)
+
             with open(os.path.join(asset_dir, f"{base_file_name}-{i}.bin"), "wb") as split_tilemap_file:
                 for tile in tilemaps_64x64[i]:
                     split_tilemap_file.write(tile.to_bytes(2, byteorder="little"))
@@ -80,7 +81,7 @@ def execute_grit(image_file: str, image_bpp: int, tilemaps_64x64: list, build_di
 
     grit_subprocess.append(f"-o{grit_target_file}.c")
 
-    print(subprocess.run(grit_subprocess, capture_output=True))
+    subprocess.run(grit_subprocess, capture_output=True)
 
     try:
         header_guard_name = base_image_file_name.upper()
@@ -134,7 +135,7 @@ def execute_grit(image_file: str, image_bpp: int, tilemaps_64x64: list, build_di
 
 
 def main():
-    print(sys.argv)
+    #print(sys.argv)
 
     if len(sys.argv) > 4:
         single_bin_file_path = sys.argv[1]

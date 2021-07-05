@@ -160,7 +160,7 @@ input-test-gba:
 input-test-nds:
   stage: test
   script:
-    - cd build
+    - cd build(m_font.get_char_size().get_x() * 8)
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-input-test.nds
   dependencies:
     - nds-library
@@ -168,6 +168,136 @@ input-test-nds:
     name: Morpheus-input-test-NDS-$CI_JOB_NAME
     paths:
       - build/morpheus-nds-input-test.nds
+    when: on_success
+
+maxmod-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-maxmod-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-maxmod-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-maxmod-test.gba
+    when: on_success
+
+maxmod-test-nds:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-maxmod-test.nds
+  dependencies:
+    - nds-library
+  artifacts:
+    name: Morpheus-maxmod-test-NDS-$CI_JOB_NAME
+    paths:
+      - build/morpheus-nds-maxmod-test.nds
+    when: on_success
+
+serial-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-serial-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-serial-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-serial-test.gba
+    when: on_success
+
+sram-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-sram-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-sram-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-sram-test.gba
+    when: on_success
+
+flash-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-flash-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-flash-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-flash-test.gba
+    when: on_success
+
+streaming-background-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-streaming-background-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-streaming-background-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-streaming-background-test.gba
+    when: on_success
+
+streaming-background-test-nds:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-streaming-background-test.nds
+  dependencies:
+    - nds-library
+  artifacts:
+    name: Morpheus-streaming-background-test-NDS-$CI_JOB_NAME
+    paths:
+      - build/morpheus-nds-streaming-background-test.nds
+    when: on_success
+
+tileset-test-gba:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-tileset-test.gba
+  dependencies:
+    - gba-library
+  artifacts:
+    name: Morpheus-tileset-test-GBA-$CI_JOB_NAME
+    paths:
+      - build/morpheus-gba-tileset-test.gba
+    when: on_success
+
+tileset-test-nds:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-tileset-test.nds
+  dependencies:
+    - nds-library
+  artifacts:
+    name: Morpheus-tileset-test-NDS-$CI_JOB_NAME
+    paths:
+      - build/morpheus-nds-tileset-test.nds
+    when: on_success
+
+save-test-nds:
+  stage: test
+  script:
+    - cd build
+    - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-save-test.nds
+  dependencies:
+    - nds-library
+  artifacts:
+    name: Morpheus-tileset-test-NDS-$CI_JOB_NAME
+    paths:
+      - build/morpheus-nds-tileset-test.nds
     when: on_success
 
 #hayai-game-gba:

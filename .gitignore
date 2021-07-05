@@ -1,6 +1,7 @@
 # CLion config
 .idea/
 games/puzzler/.idea
+games/hayai/.idea
 
 # CMake builds
 cmake*build*/

@@ -13,7 +13,7 @@
 
 #pragma GCC diagnostic warning "-Wswitch"
 
-class SfxControls : public morpheus::core::Node {
+class SfxControls : public morpheus::core::ControlReciever{
 public:
     SfxControls(std::shared_ptr<morpheus::core::audio::MaxModSfx> sfx) {
         m_sfx = sfx;
@@ -30,14 +30,13 @@ protected:
                 case morpheus::core::InputButton::B:
                     m_sfx->stop_effect();
                     break;
+                default:
+                    break;
             }
         }
     }
 
-    void on_visible_state_changed(bool new_visible_state)override {}
     virtual void update(unsigned char cycle_time)override {}
-
-    void draw_node(std::vector<void *> &obj_attr_buffer, int obj_attr_num, int priority) override {}
 private:
     std::shared_ptr<morpheus::core::audio::MaxModSfx> m_sfx;
 };
@@ -49,13 +48,13 @@ int main() {
                      MOD_EXAMPLE, const_cast<void *>(static_cast<const void*>(&soundbank_bin)), 4));
     std::shared_ptr<morpheus::core::audio::MaxModSfx> max_mod_sfx(
                                                     morpheus::utils::construct_appropriate_max_mod_sfx(SFX_EXAMPLESFX));
-    std::shared_ptr<morpheus::core::Node> sfx_controls(new SfxControls(max_mod_sfx));
+    std::shared_ptr<morpheus::core::ControlReciever> sfx_controls(new SfxControls(max_mod_sfx));
 
     max_mod_music->play_music(true);
 
-    main_loop->set_root(sfx_controls);
+    main_loop->add_control_reciever(sfx_controls);
 
-    std::cout << "sfx controls\n";
+    main_loop->get_no_cash_debug_controller()->send_to_debug_window("sfx controls");
 
     main_loop->game_loop();
 }

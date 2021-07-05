@@ -311,13 +311,12 @@ if("$ENV{BUILD_TESTS}")
         convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
                                        "tests/tileset_test/region_map.png" 8 false)
 
-        add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp
+        add_executable(morpheus-gba-tileset-test.elf tests/tileset_test/tileset_test.cpp tests/tileset_test/brin.c
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
-                #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
         add_gba_executable(morpheus-gba-tileset-test.elf)
 
-        target_link_libraries(morpheus-gba-tileset-test.elf morpheus tonc)
+        target_link_libraries(morpheus-gba-tileset-test.elf morpheus mm tonc)
 
         project(morpheus-gba-maxmod-test)
 
@@ -495,7 +494,7 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-nds-animation-test.elf tests/animation_test/animation_test.cpp
                 ${GFX_EFFECT_PNG8_OUTPUT_FILES} tests/animation_test/test_animation.hpp)
-        add_nds_executable(morpheus-nds-animation-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Animation Test"
+        add_nds_executable(morpheus-nds-animation-test.elf "tests/nds/ds_icon.bmp" "Morpheus Animation Test"
                            "Morpheus' Ani animation engine" "")
 
         target_link_libraries(morpheus-nds-animation-test.elf morpheus filesystem fat nds9 mm9)
@@ -506,7 +505,7 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-nds-input-test.elf tests/input_test/input_test.cpp
                        ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
-        add_nds_executable(morpheus-nds-input-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Input Test"
+        add_nds_executable(morpheus-nds-input-test.elf "tests/nds/ds_icon.bmp" "Morpheus Input Test"
                            "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-input-test.elf morpheus filesystem fat nds9)
@@ -518,15 +517,15 @@ if("$ENV{BUILD_TESTS}")
         convert_tilemap_bin_image_file("tests/tileset_test/region_map.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
                 "tests/tileset_test/region_map.png" 8 false)
 
-        add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp
+        add_executable(morpheus-nds-tileset-test.elf tests/tileset_test/tileset_test.cpp tests/tileset_test/brin.c
                 "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
                 #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
-        add_nds_executable(morpheus-nds-tileset-test.elf "tests/nds/input_test/ds_icon.bmp" "Morpheus Tileset Test"
+        add_nds_executable(morpheus-nds-tileset-test.elf "tests/nds/ds_icon.bmp" "Morpheus Tileset Test"
                            "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-tileset-test.elf morpheus nds9)
+        target_link_libraries(morpheus-nds-tileset-test.elf morpheus filesystem fat nds9)
 
 
         project(morpheus-nds-extended-palette-test)
@@ -542,7 +541,7 @@ if("$ENV{BUILD_TESTS}")
                 "${CMAKE_CURRENT_BINARY_DIR}/custom1map.c" "${CMAKE_CURRENT_BINARY_DIR}/custom1map.h"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map2.o")
                 #"${CMAKE_CURRENT_BINARY_DIR}/brin.c" "${CMAKE_CURRENT_BINARY_DIR}/brin.h")
-        add_nds_executable(morpheus-nds-extended-palette-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable(morpheus-nds-extended-palette-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus ExtPalette Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-extended-palette-test.elf morpheus filesystem fat nds9)
@@ -552,7 +551,7 @@ if("$ENV{BUILD_TESTS}")
         link_directories(morpheus-nds-save-test PRIVATE . $ENV{DEVKITPRO}/libnds/lib)
 
         add_executable(morpheus-nds-save-test.elf tests/save_test/save_test.cpp)
-        add_nds_executable_with_nitrofs_dir(morpheus-nds-save-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable_with_nitrofs_dir(morpheus-nds-save-test.elf "tests/nds/ds_icon.bmp"
                                             "Morpheus DS Save Test" "Morpheus engine" ""
                                             "${CMAKE_CURRENT_SOURCE_DIR}/tests/save_test/nitrofs/")
 
@@ -567,10 +566,10 @@ if("$ENV{BUILD_TESTS}")
 
         add_executable(morpheus-nds-maxmod-test.elf
                 tests/maxmod_test/maxmod_test.cpp ${CMAKE_CURRENT_BINARY_DIR}/soundbank.bin.o)
-        add_nds_executable(morpheus-nds-maxmod-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable(morpheus-nds-maxmod-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus MaxMod Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus nds9 mm9)
+        target_link_libraries(morpheus-nds-maxmod-test.elf morpheus filesystem fat nds9 mm9)
 
         project(morpheus-nds-gfx-effects-test)
 
@@ -594,7 +593,7 @@ if("$ENV{BUILD_TESTS}")
                 tests/gfx_effects_test/gfx_effects_test.cpp ${GFX_EFFECT_PNG8_OUTPUT_FILES}
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.c"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map.h" "${CMAKE_CURRENT_BINARY_DIR}/region_map_window.h")
-        add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable(morpheus-nds-gfx-effects-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus GFX Effect Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-gfx-effects-test.elf morpheus filesystem fat nds9 mm9)
@@ -612,7 +611,7 @@ if("$ENV{BUILD_TESTS}")
         add_executable(morpheus-nds-affine-test.elf tests/affine_test/affine_test.cpp ${PNG4_OUTPUT_FILES}
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine.c" "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine_128.c"
                 "${CMAKE_CURRENT_BINARY_DIR}/region_map_affine2.o")
-        add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable(morpheus-nds-affine-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus Affine Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-affine-test.elf morpheus filesystem fat nds9 mm9 )
@@ -629,7 +628,7 @@ if("$ENV{BUILD_TESTS}")
         add_executable(morpheus-nds-custom-font-test.elf tests/custom_font_test/custom_font_test.cpp
                 ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-jp.c
                 ${CMAKE_CURRENT_BINARY_DIR}/Stick-Regular-en.c)
-        add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/input_test/ds_icon.bmp"
+        add_nds_executable(morpheus-nds-custom-font-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus Custom Font Test" "Morpheus engine" "")
 
         target_link_libraries(morpheus-nds-custom-font-test.elf morpheus filesystem fat nds9 mm9)
@@ -646,14 +645,19 @@ if("$ENV{BUILD_TESTS}")
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 256 256 0
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_256.png
                 false false false)
+        generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_512.bin
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/asset_dir 512 512 0
+                ${CMAKE_CURRENT_SOURCE_DIR}/tests/streaming_background_test/kakariko_tiled_512.png
+                false false false)
 
         add_executable(morpheus-nds-streaming-background-test.elf
                 tests/streaming_background_test/streaming_background_test.cpp
-                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c)
-        add_nds_executable(morpheus-nds-streaming-background-test.elf "tests/nds/input_test/ds_icon.bmp"
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled.c ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_256.c
+                ${CMAKE_CURRENT_BINARY_DIR}/kakariko_tiled_512.c)
+        add_nds_executable(morpheus-nds-streaming-background-test.elf "tests/nds/ds_icon.bmp"
                 "Morpheus Streaming Background Test" "Morpheus engine" "")
 
-        target_link_libraries(morpheus-nds-streaming-background-test.elf morpheus fat filesystem nds9 mm9)
+        target_link_libraries(morpheus-nds-streaming-background-test.elf morpheus filesystem fat mm9 nds9)
     endif()
 endif()
 

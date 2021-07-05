@@ -6,14 +6,14 @@
 
 class InputNode : public morpheus::core::ControlReciever {
 public:
-    InputNode(morpheus::gba::MultiplayerSerialCommunication *multiplayer_serial_communication) {
+    InputNode(morpheus::gba::MultiplayerSerialCommunication *multiplayer_serial_communication,
+              const std::shared_ptr<morpheus::gba::gfx::Text> &text) {
         m_multiplayer_serial_communication = multiplayer_serial_communication;
+        m_text = text;
     }
 
     void input(const morpheus::core::InputEvent input_event) override {}
     void update(const unsigned char cycle_time) override {
-        tte_set_pos(16, 16);
-
         if(m_multiplayer_serial_communication->is_connected()) {
             std::string connection_name;
 
@@ -37,41 +37,45 @@ public:
                     break;
             }
 
-            tte_write(std::string("Connected as " + connection_name).c_str());
 
-            tte_set_pos(16, 32);
-            tte_write(std::string("<--|" + std::to_string(cycle_time) + "|").c_str());
+            m_text->print_at_pos("Connected as " + connection_name, morpheus::core::gfx::Vector2(16, 16));
+            m_text->print_at_pos("<--|" + std::to_string(cycle_time) + "|", morpheus::core::gfx::Vector2(16, 32));
 
             if(m_multiplayer_serial_communication->get_available_packets() > 0) {
                 morpheus::core::RecievePacket packet = m_multiplayer_serial_communication->get_next_recieved_packet();
 
                 if(packet.valid) {
-                    tte_set_pos(16, 48);
-                    tte_write(std::string("-->|FROM:" + std::to_string(static_cast<int>(packet.from)) + "|" +
-                                          std::to_string(packet.data) + "|").c_str());
+                    m_text->print_at_pos("-->|FROM:" + std::to_string(static_cast<int>(packet.from)) + "|" +
+                                          std::to_string(packet.data) + "|", morpheus::core::gfx::Vector2(16, 48));
                 }
             }
         } else {
-            tte_write("Not connected");
+            m_text->print_at_pos("Not connected", morpheus::core::gfx::Vector2(16, 16));
         }
     }
 private:
     morpheus::gba::MultiplayerSerialCommunication *m_multiplayer_serial_communication;
+    std::shared_ptr<morpheus::gba::gfx::Text> m_text;
 };
 
 int main() {
-    std::shared_ptr<morpheus::gba::GbaMainLoop> main_loop(
-            new morpheus::gba::GbaMainLoop(morpheus::gba::DebugConsoleMode::ON));
+    std::shared_ptr<morpheus::gba::GbaMainLoop> main_loop(new morpheus::gba::GbaMainLoop(
+            morpheus::gba::DebugConsoleMode::OFF,
+            morpheus::core::GbaSaveType::SRAM_32KB));
+    std::shared_ptr<morpheus::gba::gfx::Text> text(new morpheus::gba::gfx::Text(false, 0, 2,
+                                                                                2, main_loop.get()));
     std::shared_ptr<InputNode> input_node(new InputNode(static_cast<morpheus::gba::MultiplayerSerialCommunication*>(
-                                                                      main_loop->get_default_communication_channel())));
+                                                                      main_loop->get_default_communication_channel()),
+                                                        text));
 
-    tte_init_se(0, BG_CBB(2) | BG_SBB(2), 0, CLR_YELLOW, 14, nullptr, nullptr);
+    //tte_init_se(0, BG_CBB(2) | BG_SBB(2), 0, CLR_YELLOW, 14, nullptr, nullptr);
 
     //main_loop->get_default_communication_channel()
 
-    tte_write("Morpheus GBA Serial Coms test");
+    text->print_at_pos("Morpheus GBA Serial Coms test", morpheus::core::gfx::Vector2(0, 0));
 
     main_loop->add_control_reciever(input_node);
+    main_loop->enable_background(0);
 
     main_loop->game_loop();
 }

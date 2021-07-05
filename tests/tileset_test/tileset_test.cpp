@@ -19,55 +19,40 @@
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
 
-    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background0;
-    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background1;
-    // only for NDS' sub GPU
-    std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background2;
+    // Background 2 is only for the DS's sub GPU
+    std::array<std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase>, 3> backgrounds;
 
-    #ifdef _GBA
-        background0.reset(new morpheus::gba::gfx::TiledBackground(false, 1, nullptr, nullptr,
-                                                                    std::static_pointer_cast<
-                                                                        morpheus::gba::GbaMainLoop>(main_loop),
-                                                                 true, 1, 0));
-        background1.reset(new morpheus::gba::gfx::TiledBackground(false, 2,
-                                                              std::static_pointer_cast<
-                                                                      morpheus::gba::GbaMainLoop>(main_loop),
-                                                              false, 2, 1));
-    #elif _NDS
+    backgrounds[0].reset(morpheus::utils::construct_appropriate_tiled_background_8bpp(false, 1, nullptr, nullptr,
+                                                                                      main_loop.get(), 1, 1));
+    backgrounds[1].reset(morpheus::utils::construct_appropriate_tiled_background_4bpp(false, 2, nullptr, nullptr,
+                                                                                      main_loop.get(), 2, 1));
+
+    #ifdef _NDS
         std::cout << "Initing TiledBackground class\n";
 
-        defaultExceptionHandler();
+        backgrounds[2].reset(new morpheus::nds::gfx::TiledBackground4Bpp(false, true, 2u, nullptr, nullptr,
+                                                                         std::static_pointer_cast<
+                                                                         morpheus::nds::NdsMainLoop>(main_loop).get(),
+                                                                         2u, 2u));
 
-        background0.reset(new morpheus::nds::gfx::TiledBackground8Bpp(false, 1,
-                                                                 std::static_pointer_cast<
-                                                                    morpheus::nds::NdsMainLoop>(main_loop),
-                                                                    1, 1));
-        background1.reset(new morpheus::nds::gfx::TiledBackground8Bpp(false, 2,
-                                                                  std::static_pointer_cast<
-                                                                          morpheus::nds::NdsMainLoop>(main_loop),
-                                                                  2, 2));
-        background2.reset(new morpheus::nds::gfx::TiledBackground4Bpp(true, 2,
-                                                                  std::static_pointer_cast<
-                                                                          morpheus::nds::NdsMainLoop>(main_loop),
-                                                                  2, 2));
-
-        background2->load_from_array(reinterpret_cast<const unsigned int*>(brinTiles), brinTilesLen, brinPal, brinPalLen,
-                                 brinMap, brinMapLen, morpheus::core::gfx::TiledBackgroundSize::BG_64x32);
+        backgrounds[2]->load_from_array(reinterpret_cast<const unsigned int*>(brinTiles), brinTilesLen, brinPal,
+                                        brinPalLen, brinMap, brinMapLen,
+                                        morpheus::core::gfx::TiledBackgroundSize::BG_64x32);
     #endif
 
     std::shared_ptr<morpheus::utils::BackgroundTestControls> controls(
-                                                           new morpheus::utils::BackgroundTestControls(background1));
+                                                       new morpheus::utils::BackgroundTestControls(backgrounds[0]));
 
     std::cout << "Loading TiledBackground class\n";
 
-    background0->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
-                           region_mapMap, region_mapMapLen * 4,
-                           morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
+    backgrounds[0]->load_from_array(region_mapTiles, region_mapTilesLen, region_mapPal, region_mapPalLen,
+                                    region_mapMap, region_mapMapLen * 4,
+                                    morpheus::core::gfx::TiledBackgroundSize::BG_32x32);
 
 
     std::cout << "All ready!\n";
 
-    main_loop->set_root(controls);
+    main_loop->add_control_reciever(controls);
 
     main_loop->game_loop();
 }

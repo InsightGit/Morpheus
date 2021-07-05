@@ -23,13 +23,6 @@ int main() {
     std::shared_ptr<morpheus::core::gfx::TextBase> text_base(
             morpheus::utils::construct_appropriate_text(false, 0, 3, 3, main_loop.get(), false));
 
-    /*#ifdef _GBA
-        tte_init_se(1, BG_CBB(5) | BG_SBB(5) | BG_PRIO(0), 0, CLR_WHITE, 14, nullptr, nullptr);
-    #elif _NDS
-        consoleInit(nullptr, 0, BgType_Text4bpp, BgSize_T_256x256,2, 2,
-                true, true);
-    #endif*/
-
     if(main_loop->get_save_manager()->is_successfully_mounted()) {
         unsigned char save_string[8] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', '\0'};
         unsigned char string[8];
@@ -50,10 +43,10 @@ int main() {
         #endif
 
         if(bytes_read > 0) {
-            text_base->print("read " + std::to_string(bytes_read) + " bytes from non volatile " +
-                             "mem\n" + platform_detail_string + "\ninit byte is " +
+            text_base->print("read " + std::to_string(bytes_read) + " bytes from non volatile\n" +
+                             "mem " + platform_detail_string + "\ninit byte is " +
                              std::to_string(static_cast<uint8_t>(string[0])) +
-                             std::string("\nbytes are ") + reinterpret_cast<char*>(string) +
+                             std::string(" bytes are\n") + reinterpret_cast<char*>(string) +
                              " strlen is " + std::to_string(strlen(reinterpret_cast<char*>(string))) + "\n");
         }
 
