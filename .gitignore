@@ -3,6 +3,8 @@
 games/puzzler/.idea
 games/hayai/.idea
 
+3rdpartytools/
+
 # CMake builds
 cmake*build*/
 games/puzzler/cmake*build*/
