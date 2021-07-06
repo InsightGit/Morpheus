@@ -6,6 +6,16 @@
 Welcome to Morpheus's documentation!
 ====================================
 
+.. README
+
+.. include:: ../README.rst
+
+.. toctree::
+   :caption: Tutorials
+   :maxdepth: 1
+
+   tutorials/getting_started.rst
+
 .. toctree::
    :caption: API Documentation
    :maxdepth: 1

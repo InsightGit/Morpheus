@@ -8,9 +8,9 @@
 #include <vector>
 
 #ifdef _GBA
-#include <gba/gba.hpp>
+#include <morpheus/gba/gba.hpp>
 #elif _NDS
-#include <nds/nds.hpp>
+#include <morpheus/nds/nds.hpp>
 #endif
 
 #pragma GCC diagnostic ignored "-Wswitch"

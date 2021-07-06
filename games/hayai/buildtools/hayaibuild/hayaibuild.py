@@ -70,10 +70,10 @@ def get_coin_indices(map_variable_name: str, tile_map: list, number_of_sub_tile_
     header_coin_indices_string = ""
     source_coin_indices_string = ""
 
-    if number_of_sub_tile_maps > 0:
+    if number_of_sub_tile_maps > 1:
         coin_tile_positions = []
 
-        for i in number_of_sub_tile_maps:
+        for i in range(number_of_sub_tile_maps):
             coin_tile_positions.append(_get_coin_indicies_str_for_one_map(tile_map[i]))
 
         header_coin_indices_string += f"#include <vector>\n\n"
@@ -81,9 +81,12 @@ def get_coin_indices(map_variable_name: str, tile_map: list, number_of_sub_tile_
         header_coin_indices_string += f"extern const std::vector<unsigned short> " \
                                       f"{map_variable_name}CoinsTileIndex[{len(coin_tile_positions)}];\n"
     else:
-        coin_tile_positions_len, source_coin_indices_string  = _get_coin_indicies_str_for_one_map(tile_map)
+        coin_tile_positions_len, source_coin_indices_string = _get_coin_indicies_str_for_one_map(tile_map)
 
         header_coin_indices_string += f"\n#define {map_variable_name}CoinsTileIndexLen {coin_tile_positions_len}\n"
-        header_coin_indices_string += f"extern const unsigned short " \
+        header_coin_indices_string += f"extern const unsigned short {map_variable_name}CoinsTileIndex[" \
+                                      f"{coin_tile_positions_len}];\n"
 
-    return header_coin_indices_string, source_coin_indices_string
+    return header_coin_indices_string, f"\nconst unsigned short {map_variable_name}CoinsTileIndex[" \
+                                       f"{coin_tile_positions_len}] = {{" \
+                                       f"   {source_coin_indices_string}\n"

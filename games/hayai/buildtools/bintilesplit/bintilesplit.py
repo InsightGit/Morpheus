@@ -2,9 +2,9 @@ import os
 import subprocess
 import sys
 
-sys.path.insert(0, "../hayaibuild")
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../.."))
 
-from buildtools import hayaibuild
+from buildtools.hayaibuild import hayaibuild
 
 def _convert_tile_map_to_sbbs(width: int, height: int, palette_bank: int, hex_data: list) -> list:
     converted_map = []

@@ -1,7 +1,7 @@
 #ifdef _GBA
-#include <gba/gba.hpp>
+#include <morpheus/gba/gba.hpp>
 #elif _NDS
-#include <nds/nds.hpp>
+#include <morpheus/nds/nds.hpp>
 #else
 #error unsupported platform!
 #endif
@@ -10,7 +10,7 @@
 #include "puzzler/main_game_scene.hpp"
 
 int main() {
-    std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop(false, false));
+    std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
     std::shared_ptr<puzzler::SceneManager> current_scene(new puzzler::SceneManager(main_loop.get()));
     //std::shared_ptr<puzzler::Scene> current_scene(new puzzler::MainGameScene(main_loop.get(), 0));
 

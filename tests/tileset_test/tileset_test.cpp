@@ -2,7 +2,7 @@
 // Created by bobby on 08/01/2021.
 //
 
-#include <core/core.hpp>
+#include <morpheus/core/core.hpp>
 
 #include "region_map2.h"
 #include "region_map.h"
@@ -11,7 +11,7 @@
 #ifdef _NDS
     #include <nds/nds.hpp>
 #elif _GBA
-    #include <gba/gba.hpp>
+    #include <morpheus/gba/gba.hpp>
 #else
     #error Unknown platform!
 #endif

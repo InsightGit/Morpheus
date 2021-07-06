@@ -44,45 +44,44 @@ execute_grit_1bpp_font(${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.png)
 
 set(MORPHEUS_PROJECT_NAME "morpheus-${platform_lower}")
 set(MORPHEUS_SOURCE_FILES
-        morpheus/core/controllers.hpp
-        morpheus/core/controllers.cpp
-        morpheus/core/main_loop.hpp
-        morpheus/core/main_loop.cpp
-        morpheus/core/control_reciever.hpp
-        morpheus/core/save_manager.hpp
-        morpheus/core/uncopyable.hpp
-        morpheus/core/audio/max_mod_music.hpp
-        morpheus/core/audio/max_mod_music.cpp
-        morpheus/core/audio/max_mod_sfx.hpp
-        morpheus/core/audio/max_mod_sfx.cpp
-        morpheus/core/gfx/asm/tiled_background_base.s
-        morpheus/core/gfx/sprite_base.cpp
-        morpheus/core/gfx/sprite_base.hpp
-        morpheus/core/gfx/text_base.cpp
-        morpheus/core/gfx/text_base.hpp
-        morpheus/core/gfx/streaming_background_base.hpp
-        morpheus/core/gfx/streaming_background_base.cpp
-        morpheus/core/gfx/tiled_background_base.hpp
-        morpheus/core/gfx/tiled_background_base.cpp
-        morpheus/core/gfx/vector_2.hpp
-        morpheus/core/gfx/window.hpp
-        morpheus/core/gfx/window.cpp
-        morpheus/utils.hpp
-        morpheus/core/communication_channel.cpp
-        morpheus/core/communication_channel.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/assets/sys8.c
-        morpheus/core/gfx/animation_frame.cpp
-        morpheus/core/gfx/animation_frame.hpp
-        morpheus/core/gfx/animation_smoothing_attributes.cpp
-        morpheus/core/gfx/animation_smoothing_attributes.hpp
-        morpheus/core/gfx/font.hpp)
+        include/morpheus/core/controllers.hpp
+        src/morpheus/core/controllers.cpp
+        include/morpheus/core/main_loop.hpp
+        src/morpheus/core/main_loop.cpp
+        include/morpheus/core/control_reciever.hpp
+        include/morpheus/core/save_manager.hpp
+        include/morpheus/core/uncopyable.hpp
+        include/morpheus/core/audio/max_mod_music.hpp
+        src/morpheus/core/audio/max_mod_music.cpp
+        include/morpheus/core/audio/max_mod_sfx.hpp
+        src/morpheus/core/audio/max_mod_sfx.cpp
+        src/morpheus/core/gfx/asm/tiled_background_base.s
+        src/morpheus/core/gfx/sprite_base.cpp
+        include/morpheus/core/gfx/sprite_base.hpp
+        src/morpheus/core/gfx/text_base.cpp
+        include/morpheus/core/gfx/text_base.hpp
+        include/morpheus/core/gfx/streaming_background_base.hpp
+        src/morpheus/core/gfx/streaming_background_base.cpp
+        include/morpheus/core/gfx/tiled_background_base.hpp
+        src/morpheus/core/gfx/tiled_background_base.cpp
+        include/morpheus/core/gfx/vector_2.hpp
+        include/morpheus/core/gfx/window.hpp
+        src/morpheus/core/gfx/window.cpp
+        include/morpheus/utils.hpp
+        include/morpheus/core/communication_channel.hpp
+        include/morpheus/core/gfx/assets/sys8.h
+        src/morpheus/core/gfx/assets/sys8.c
+        src/morpheus/core/gfx/animation_frame.cpp
+        include/morpheus/core/gfx/animation_frame.hpp
+        src/morpheus/core/gfx/animation_smoothing_attributes.cpp
+        include/morpheus/core/gfx/animation_smoothing_attributes.hpp
+        include/morpheus/core/gfx/font.hpp)
 
 project(morpheus)
 
 #set( CMAKE_VERBOSE_MAKEFILE on )
 
-set(BASE_INCLUDE_DIRS . ${CMAKE_CURRENT_BINARY_DIR})
+set(BASE_INCLUDE_DIRS include/ ${CMAKE_CURRENT_BINARY_DIR})
 
 if($ENV{BUILD_DOCS})
     if(WIN32)
@@ -102,7 +101,7 @@ if($ENV{BUILD_DOCS})
             COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs && ${DOXYGEN}
             COMMAND ${PYTHON3}
             ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_breathe_rst/generate_breathe_rst.py
-            ${CMAKE_CURRENT_SOURCE_DIR}/morpheus morpheus ${CMAKE_CURRENT_SOURCE_DIR}/docs
+            ${CMAKE_CURRENT_SOURCE_DIR}/include/morpheus morpheus ${CMAKE_CURRENT_SOURCE_DIR}/docs
             COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
             DEPENDS morpheus)
 endif()
@@ -118,34 +117,34 @@ if(platform_lower STREQUAL "gba")
     add_compile_definitions(_GBA)
 
     list(APPEND MORPHEUS_SOURCE_FILES
-            morpheus/gba/gba_controllers.hpp
-            morpheus/gba/gba_controllers.cpp
-            morpheus/gba/gba_main_loop.hpp
-            morpheus/gba/gba_main_loop.cpp
-            morpheus/gba/audio/gba_max_mod_music.hpp
-            morpheus/gba/audio/gba_max_mod_sfx.hpp
-            morpheus/gba/gfx/sprite.hpp
-            morpheus/gba/gfx/sprite.cpp
-            morpheus/gba/gfx/sprite_4_bpp.hpp
-            morpheus/gba/gfx/sprite_4_bpp.cpp
-            morpheus/gba/gfx/sprite_8_bpp.hpp
-            morpheus/gba/gfx/sprite_8_bpp.cpp
-            morpheus/gba/gfx/text.cpp
-            morpheus/gba/gfx/text.hpp
-            morpheus/gba/gfx/tiled_background.hpp
-            morpheus/gba/gfx/tiled_background.cpp
-            morpheus/gba/gba_eeprom_save_manager.hpp
-            morpheus/gba/gba_eeprom_save_manager.cpp
-            morpheus/gba/gba_flash_save_manager.hpp
-            morpheus/gba/gba_flash_save_manager.cpp
-            morpheus/gba/gfx/gba_window.hpp
-            morpheus/gba/gfx/gba_window.cpp
-            morpheus/gba/serial_communication.cpp
-            morpheus/gba/serial_communication.hpp
-            morpheus/gba/gba_sram_save_manager.hpp
-            morpheus/gba/gba_sram_save_manager.cpp
-            morpheus/gba/gfx/gba_animation_frame.hpp
-            morpheus/gba/gfx/gba_animation_frame.cpp)
+            include/morpheus/gba/gba_controllers.hpp
+            src/morpheus/gba/gba_controllers.cpp
+            include/morpheus/gba/gba_main_loop.hpp
+            src/morpheus/gba/gba_main_loop.cpp
+            include/morpheus/gba/audio/gba_max_mod_music.hpp
+            include/morpheus/gba/audio/gba_max_mod_sfx.hpp
+            include/morpheus/gba/gfx/sprite.hpp
+            src/morpheus/gba/gfx/sprite.cpp
+            include/morpheus/gba/gfx/sprite_4_bpp.hpp
+            src/morpheus/gba/gfx/sprite_4_bpp.cpp
+            include/morpheus/gba/gfx/sprite_8_bpp.hpp
+            src/morpheus/gba/gfx/sprite_8_bpp.cpp
+            src/morpheus/gba/gfx/text.cpp
+            include/morpheus/gba/gfx/text.hpp
+            include/morpheus/gba/gfx/tiled_background.hpp
+            src/morpheus/gba/gfx/tiled_background.cpp
+            include/morpheus/gba/gba_eeprom_save_manager.hpp
+            src/morpheus/gba/gba_eeprom_save_manager.cpp
+            include/morpheus/gba/gba_flash_save_manager.hpp
+            src/morpheus/gba/gba_flash_save_manager.cpp
+            include/morpheus/gba/gfx/gba_window.hpp
+            src/morpheus/gba/gfx/gba_window.cpp
+            src/morpheus/gba/serial_communication.cpp
+            include/morpheus/gba/serial_communication.hpp
+            include/morpheus/gba/gba_sram_save_manager.hpp
+            src/morpheus/gba/gba_sram_save_manager.cpp
+            include/morpheus/gba/gfx/gba_animation_frame.hpp
+            src/morpheus/gba/gfx/gba_animation_frame.cpp)
 
     message(STATUS "Configuring for the Game Boy Advance...")
 
@@ -164,32 +163,32 @@ elseif(platform_lower STREQUAL "nds")
     add_compile_definitions(_NDS)
 
     list(APPEND MORPHEUS_SOURCE_FILES
-            morpheus/nds/nds_controllers.cpp
-            morpheus/nds/nds_controllers.hpp
-            morpheus/nds/nds_main_loop.hpp
-            morpheus/nds/nds_main_loop.cpp
-            morpheus/nds/audio/nds_max_mod_music.hpp
-            morpheus/nds/audio/nds_max_mod_sfx.hpp
-            morpheus/nds/gfx/nds_animation_frame.hpp
-            morpheus/nds/gfx/nds_animation_frame.cpp
-            morpheus/nds/gfx/sprite.hpp
-            morpheus/nds/gfx/sprite.cpp
-            morpheus/nds/gfx/sprite_4_bpp.hpp
-            morpheus/nds/gfx/sprite_4_bpp.cpp
-            morpheus/nds/gfx/sprite_8_bpp.hpp
-            morpheus/nds/gfx/sprite_8_bpp.cpp
-            morpheus/nds/gfx/text.hpp
-            morpheus/nds/gfx/text.cpp
-            morpheus/nds/gfx/tiled_background.hpp
-            morpheus/nds/gfx/tiled_background.cpp
-            morpheus/nds/gfx/tiled_background_4_bpp.hpp
-            morpheus/nds/gfx/tiled_background_4_bpp.cpp
-            morpheus/nds/gfx/tiled_background_8_bpp.hpp
-            morpheus/nds/gfx/tiled_background_8_bpp.cpp
-            morpheus/nds/gfx/nds_window.cpp
-            morpheus/nds/gfx/nds_window.hpp
-            morpheus/nds/ds_flashcard_save_manager.hpp
-            morpheus/nds/ds_flashcard_save_manager.cpp)
+            src/morpheus/nds/nds_controllers.cpp
+            include/morpheus/nds/nds_controllers.hpp
+            include/morpheus/nds/nds_main_loop.hpp
+            src/morpheus/nds/nds_main_loop.cpp
+            include/morpheus/nds/audio/nds_max_mod_music.hpp
+            include/morpheus/nds/audio/nds_max_mod_sfx.hpp
+            include/morpheus/nds/gfx/nds_animation_frame.hpp
+            src/morpheus/nds/gfx/nds_animation_frame.cpp
+            include/morpheus/nds/gfx/sprite.hpp
+            src/morpheus/nds/gfx/sprite.cpp
+            include/morpheus/nds/gfx/sprite_4_bpp.hpp
+            src/morpheus/nds/gfx/sprite_4_bpp.cpp
+            include/morpheus/nds/gfx/sprite_8_bpp.hpp
+            src/morpheus/nds/gfx/sprite_8_bpp.cpp
+            include/morpheus/nds/gfx/text.hpp
+            src/morpheus/nds/gfx/text.cpp
+            include/morpheus/nds/gfx/tiled_background.hpp
+            src/morpheus/nds/gfx/tiled_background.cpp
+            include/morpheus/nds/gfx/tiled_background_4_bpp.hpp
+            src/morpheus/nds/gfx/tiled_background_4_bpp.cpp
+            include/morpheus/nds/gfx/tiled_background_8_bpp.hpp
+            src/morpheus/nds/gfx/tiled_background_8_bpp.cpp
+            src/morpheus/nds/gfx/nds_window.cpp
+            include/morpheus/nds/gfx/nds_window.hpp
+            include/morpheus/nds/ds_flashcard_save_manager.hpp
+            src/morpheus/nds/ds_flashcard_save_manager.cpp)
 
     message(STATUS "Configuring for the Nintendo DS...")
 

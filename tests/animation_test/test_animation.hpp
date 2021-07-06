@@ -5,7 +5,7 @@
 #ifndef MORPHEUS_GBA_TEST_TEST_ANIMATION_HPP
 #define MORPHEUS_GBA_TEST_TEST_ANIMATION_HPP
 
-#include <utils.hpp>
+#include <morpheus/utils.hpp>
 
 std::vector<std::shared_ptr<morpheus::core::gfx::AnimationFrame>> get_animations(
                                                                         morpheus::core::gfx::SpriteBase *sprite_base) {

@@ -2,7 +2,9 @@ import os.path
 import subprocess
 import sys
 
-from buildtools import hayaibuild
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../.."))
+
+from buildtools.hayaibuild import hayaibuild
 
 from typing import Union
 
@@ -210,8 +212,6 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         #if width > 32 or height > 32:
         #    grit_subprocess.append("-mLs")
 
-        print()
-
         subprocess.run(["which", "grit"], capture_output=True)
         subprocess.run(grit_subprocess, capture_output=True)
 
@@ -234,7 +234,13 @@ def _open_and_convert(file_path: str, build_dir: str, width: int, height: int,
         file_obj.close()
 
         if return_value[0]:
-            hayaibuild.write_coins(base_path, variable_name, return_value[1])
+            header_file_content, source_file_content = hayaibuild.get_coin_indices(variable_name, return_value[1], 1)
+
+            with open(f"{os.path.join(build_dir, file_name)}.h", 'a') as header_file:
+                header_file.write(header_file_content)
+
+            with open(f"{os.path.join(build_dir, file_name)}.c", 'a') as header_file:
+                header_file.write(source_file_content)
 
             print("Successfully converted Tilemap Studio BIN file to C header and source files in " + build_dir + "!")
 

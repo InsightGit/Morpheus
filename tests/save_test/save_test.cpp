@@ -3,7 +3,7 @@
 //
 
 #ifdef _GBA
-#include <gba/gba.hpp>
+#include <morpheus/gba/gba.hpp>
 #elif _NDS
 #include <nds/nds.hpp>
 #endif
@@ -11,12 +11,10 @@
 int main() {
     #ifdef GBA_EEPROM_SAVE
         std::shared_ptr<morpheus::core::MainLoop> main_loop(
-                morpheus::utils::construct_appropriate_main_loop(false, false,
-                                                                 morpheus::core::GbaSaveType::EEPROM_8KB));
+                morpheus::utils::construct_appropriate_main_loop(morpheus::core::GbaSaveType::EEPROM_8KB));
     #elif GBA_FLASH_SAVE
         std::shared_ptr<morpheus::core::MainLoop> main_loop(
-                morpheus::utils::construct_appropriate_main_loop(false, false,
-                                                                 morpheus::core::GbaSaveType::FLASH_128KB));
+                morpheus::utils::construct_appropriate_main_loop(morpheus::core::GbaSaveType::FLASH_128KB));
     #else
         std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
     #endif

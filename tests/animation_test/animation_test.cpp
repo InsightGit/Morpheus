@@ -3,9 +3,9 @@
 //
 
 #ifdef _GBA
-    #include <gba/gba.hpp>
+    #include <morpheus/gba/gba.hpp>
 #elif _NDS
-    #include <nds/nds.hpp>
+    #include <morpheus/nds/nds.hpp>
 #endif
 
 #include "test_animation.hpp"

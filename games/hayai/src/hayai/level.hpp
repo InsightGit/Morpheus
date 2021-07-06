@@ -9,7 +9,7 @@
 #include "scene.hpp"
 
 #include "test_map_1.h"
-#include "test_map_1_128.h"
+//#include "test_map_1_256.h"
 
 namespace hayai {
     class Player;

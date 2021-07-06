@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 include("cmake/morpheus_build_utils.cmake")
 
-if(WIN32)
-    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
-else()
-    set(ASSEMBLER_TO_USE "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
-endif()
-
 string(TOLOWER $ENV{PLATFORM} platform_lower)
 
 if(platform_lower STREQUAL "gba")
@@ -24,6 +18,27 @@ elseif(platform_lower STREQUAL "nds")
     set(CMAKE_EXE_LINKER_FLAGS "-specs=ds_arm9.specs -g")
 endif()
 
+set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
+
+if(WIN32)
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
+else()
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
+endif()
+
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
     find_program(GRIT grit ${DEVKITPRO}/tools)
@@ -34,7 +49,6 @@ if(NOT GRIT)
     endif()
 endif()
 
-#set(CMAKE_VERBOSE_MAKEFILE TRUE)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
@@ -56,8 +70,6 @@ set(MAXMOD_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/coin_pickup.wav"
 
 set(PNG4_IMAGE_SIZES "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32" "32X32")
 
-execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
-
 foreach(png4_file ${PNG4_FILES})
     get_filename_component(png4_file ${png4_file} NAME_WLE)
 
@@ -66,15 +78,18 @@ endforeach()
 
 project(hayai)
 
-include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../morpheus .. $ENV{DEVKITPRO}/libnds/include ../../assets)
-
+include_directories(hayai PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ../../include .. $ENV{DEVKITPRO}/libnds/include)
 convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
                                FALSE)
-generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_map_1_256.bin ${CMAKE_CURRENT_BINARY_DIR} 256 256
-                              0 ${CMAKE_CURRENT_SOURCE_DIR}/assets/tiles1.png TRUE FALSE)
+convert_tilemap_bin_image_file(assets/player/player_hud.bin ${CMAKE_CURRENT_BINARY_DIR} 32 32 0 "assets/tiles1.png"
+                               TRUE FALSE)
+
+execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
+#generate_streaming_background(${CMAKE_CURRENT_SOURCE_DIR}/assets/test_map_1_256.bin ${CMAKE_CURRENT_BINARY_DIR} 256 256
+#                              0 ${CMAKE_CURRENT_SOURCE_DIR}/assets/tiles1.png TRUE FALSE)
 
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
-list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_256.c)
+#list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1_256.c)
 list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/player_hud.c ${CMAKE_CURRENT_BINARY_DIR}/player_hud.h)
 
 if(platform_lower STREQUAL "gba")
@@ -147,23 +162,5 @@ elseif(platform_lower STREQUAL "nds")
 
     target_link_libraries(hayai.elf nds_morpheus filesystem fat nds9 mm9)
 endif()
-
-if(WIN32)
-    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
-    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
-    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
-    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
-    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
-    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
-else()
-    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
-    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
-    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
-    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
-    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
-    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
-endif()
-
-set(CMAKE_AS ASSEMBLER_TO_USE)
 
 enable_language(ASM)

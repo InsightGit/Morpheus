@@ -2,7 +2,7 @@
 // Created by bobby on 02/04/2021.
 //
 
-#include <gba/gba.hpp>
+#include <morpheus/gba/gba.hpp>
 
 class InputNode : public morpheus::core::ControlReciever {
 public:

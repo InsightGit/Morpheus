@@ -2,7 +2,7 @@
 // Created by bobby on 29/01/2021.
 //
 
-#include <nds/nds.hpp>
+#include <morpheus/nds/nds.hpp>
 
 #include "custom1map.h"
 #include "region_map2.h"
