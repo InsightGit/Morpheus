@@ -70,16 +70,14 @@ int main() {
     #ifdef _GBA
         static_cast<morpheus::gba::gfx::Sprite8Bpp*>(sprite_8bpp.get_sprite_base().get())->
             load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
-                            reinterpret_cast<const unsigned short *>(test8Pal), test8PalLen,
-                       morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
+                            test8Pal, test8PalLen,morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
         static_cast<morpheus::gba::gfx::Sprite8Bpp*>(sprite_8bpp_2.get_sprite_base().get())->
             load_from_array(reinterpret_cast<const unsigned short *>(test8Tiles), test8TilesLen,
                             morpheus::core::gfx::SpriteSize::SIZE_32X32, 0);
 
         static_cast<morpheus::gba::gfx::Sprite4Bpp*>(sprite_4bpp.get_sprite_base().get())->
             load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles), test4TilesLen,
-                            reinterpret_cast<const unsigned short *>(test4Pal), 32,
-                            15, morpheus::core::gfx::SpriteSize::SIZE_32X32, 33);
+                            test4Pal, 32,15, morpheus::core::gfx::SpriteSize::SIZE_32X32, 33);
         static_cast<morpheus::gba::gfx::Sprite4Bpp*>(sprite_4bpp_2.get_sprite_base().get())->
             load_from_array(reinterpret_cast<const unsigned short *>(test4Tiles), test4TilesLen,
                             15, morpheus::core::gfx::SpriteSize::SIZE_32X32, 33);

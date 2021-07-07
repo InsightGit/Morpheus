@@ -26,6 +26,10 @@ You can install Python from `The Python Software Foundation's website
 <https://www.python.org/downloads/>`_ or through your preferred package
 manager.
 
+----------------
+Installing CMake
+----------------
+
 
 -------------------
 Installing Morpheus

@@ -12,6 +12,7 @@ gba-library:
       name: Morpheus-GBA-$CI_JOB_NAME
       paths:
         - build/*
+        - libs/libgba_morpheus.a
       when: on_success
 
 nds-library:
@@ -22,9 +23,10 @@ nds-library:
     - PLATFORM=nds BUILD_TESTS=1 cmake .. -DCMAKE_BUILD_TYPE=Debug
     - cmake --build . --target morpheus
   artifacts:
-    name: Morpheus-GBA-$CI_JOB_NAME
+    name: Morpheus-NDS-$CI_JOB_NAME
     paths:
       - build/*
+      - libs/libnds_morpheus.a
     when: on_success
 
 affine-test-gba:

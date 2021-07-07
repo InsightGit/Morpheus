@@ -12,8 +12,11 @@ set(PROJECT_NAME "Project Template Name")
 
 set(MAIN_SRC_FILES src/main.cpp)
 
-set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/sprite.png")
+set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/sprite_4bpp.png")
 set(PNG4_IMAGE_SIZES "32X32")
+
+set(PNG8_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/sprite_8bpp.png")
+set(PNG8_IMAGE_SIZES "32X32")
 
 set(MAXMOD_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/test_sound.wav")
 set(MAXMOD_SOUND_BANK_NAME "soundbank")
@@ -22,10 +25,10 @@ set(MAXMOD_SOUND_BANK_NAME "soundbank")
 ## Nintendo DS game metadata variables
 ## -----------------------------------
 
-set(NDS_GAME_ICON  "tests/nds/ds_icon.bmp" CACHE STRING "Nintendo DS game icon location relative to project location")
-set(NDS_TITLE "${PROJECT_NAME}" CACHE STRING "Nintendo DS game title")
-set(NDS_SUBTITLE1 "Powered by Morpheus" CACHE STRING "Nintendo DS game subtitle #1")
-set(NDS_SUBTITLE2 "" CACHE STRING "Nintendo DS game subtitle #2")
+set(NDS_GAME_ICON  "assets/ds_icon.bmp")
+set(NDS_TITLE "${PROJECT_NAME}")
+set(NDS_SUBTITLE1 "Powered by Morpheus")
+set(NDS_SUBTITLE2 "")
 
 ## ---------------------------------
 ## Library setup-dependent variables
@@ -125,6 +128,8 @@ else()
     set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
 endif()
 
+enable_language(ASM)
+
 if(NOT GRIT)
     # message(STATUS "Looking for bin2s...")
     find_program(GRIT grit ${DEVKITPRO}/tools)
@@ -135,13 +140,19 @@ if(NOT GRIT)
     endif()
 endif()
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 foreach(png4_file ${PNG4_FILES})
     get_filename_component(png4_file ${png4_file} NAME_WLE)
 
     list(APPEND PNG4_OUTPUT_FILES ${png4_file}.o)
+endforeach()
+
+foreach(png8_file ${PNG8_FILES})
+    get_filename_component(png8_file ${png8_file} NAME_WLE)
+
+    list(APPEND PNG8_OUTPUT_FILES ${png8_file}.o)
 endforeach()
 
 ## ----------------------
@@ -154,13 +165,14 @@ project(${PROJECT_NAME})
 ## Background/Sprite generation
 ## ----------------------------
 
-convert_tilemap_bin_image_file("assets/test_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0 "assets/tiles1.png" TRUE
-        FALSE)
+#convert_tilemap_bin_image_file("assets/backgroundstest_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0
+#                               "assets/backgrounds/tiles1.png" TRUE FALSE)
 
-list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
+#list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
 
 
 execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
+execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES TRUE)
 
 ## -----------------------------
 ## Platform-specific build setup
@@ -169,6 +181,8 @@ execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
 list(LENGTH MAXMOD_FILES MAXMOD_FILES_len)
 
 if(platform_lower STREQUAL "gba")
+    libgba_fat_patch()
+
     message(STATUS "building ${PROJECT_NAME} for the Game Boy Advance")
 
     if(MAXMOD_FILES_len GREATER 0)
@@ -177,13 +191,15 @@ if(platform_lower STREQUAL "gba")
         list(APPEND MAIN_SRC ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
     endif()
 
-    target_include_directories(${PROJECT_NAME} PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${GBA_INCLUDE_DIRECTORIES})
-    target_link_directories(${PROJECT_NAME} PRIVATE ${COMMON_LINK_DIRECTORIES} ${GBA_LINK_DIRECTORIES})
-
     add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES})
-    add_gba_executable(${PROJECT_NAME}.elf)
 
+    target_include_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${GBA_INCLUDE_DIRECTORIES})
+    target_link_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_LINK_DIRECTORIES} ${GBA_LINK_DIRECTORIES})
     target_link_libraries(${PROJECT_NAME}.elf gba_morpheus mm tonc)
+
+    add_dependencies(${PROJECT_NAME}.elf libgba_fat_patch_target)
+
+    add_gba_executable(${PROJECT_NAME}.elf)
 elseif(platform_lower STREQUAL "nds")
     add_compile_definitions(_NDS)
 
@@ -195,13 +211,11 @@ elseif(platform_lower STREQUAL "nds")
         list(APPEND MAIN_SRC ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
     endif()
 
-    target_include_directories(${PROJECT_NAME} PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${NDS_INCLUDE_DIRECTORIES})
-    target_link_directories(${PROJECT_NAME} PRIVATE ${COMMON_LINK_DIRECTORIES} ${NDS_LINK_DIRECTORIES})
-
     add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES})
-    add_nds_executable(${PROJECT_NAME}.elf ${NDS_GAME_ICON} ${NDS_TITLE} ${NDS_SUBTITLE1} ${NDS_SUBTITLE2})
 
+    target_include_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${NDS_INCLUDE_DIRECTORIES})
+    target_link_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_LINK_DIRECTORIES} ${NDS_LINK_DIRECTORIES})
     target_link_libraries(${PROJECT_NAME}.elf nds_morpheus filesystem fat nds9 mm9)
-endif()
 
-enable_language(ASM)
+    add_nds_executable(${PROJECT_NAME}.elf ${NDS_GAME_ICON} ${NDS_TITLE} ${NDS_SUBTITLE1} ${NDS_SUBTITLE2})
+endif()

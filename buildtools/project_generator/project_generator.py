@@ -6,6 +6,8 @@ import sys
 
 from distutils import dir_util
 
+BUILDTOOLS_TO_COPY = ["bintileconvert", "bintilesplit", "gba_fat_patch", "generate_fonts"]
+
 
 def _print_usage():
     print(f"Usage: {__file__} morpheus_dir_path new_project_name [new_project_dir_path]")
@@ -30,15 +32,21 @@ def main():
 
         try:
             os.makedirs(project_dir, exist_ok=False)
+
+            os.makedirs(os.path.join(project_dir, "buildtools"), exist_ok=False)
             os.makedirs(os.path.join(project_dir, "cmake"), exist_ok=False)
             os.makedirs(os.path.join(project_dir, "src"), exist_ok=False)
         except OSError:
-            print(f"Found existing Morpheus directory structure under {project_dir}!"
+            print(f"Found existing Morpheus directory structure under {project_dir}!\n"
                   f"Not overwriting files and aborting...", file=sys.stderr)
 
             sys.exit(1)
 
         try:
+            for buildtool in BUILDTOOLS_TO_COPY:
+                dir_util.copy_tree(os.path.join(morpheus_dir, "buildtools", buildtool),
+                                   os.path.join(project_dir, "buildtools", buildtool))
+
             build_utils_path = os.path.join("cmake", "morpheus_build_utils.cmake")
 
             dir_util.copy_tree(os.path.join(morpheus_dir, "buildtools", "project_generator", "project_template"),
@@ -46,7 +54,7 @@ def main():
 
             shutil.copy(os.path.join(morpheus_dir, build_utils_path), os.path.join(project_dir, build_utils_path))
         except OSError:
-            print(f"Couldn't copy project template files over to {project_dir}! "
+            print(f"Couldn't copy project template files over to {project_dir}! \n"
                   f"Reverting to original state and aborting...", file=sys.stderr)
 
             try:
@@ -57,18 +65,15 @@ def main():
 
             sys.exit(1)
 
-        with open(os.path.join(project_dir, "CMakeLists.txt"), 'r+') as cmake_file:
+        with open(os.path.join(project_dir, "CMakeLists.txt"), 'r') as cmake_file:
             cmake_file_contents = cmake_file.read()
 
-            cmake_file_contents = cmake_file_contents.\
+        with open(os.path.join(project_dir, "CMakeLists.txt"), 'w') as cmake_file:
+            cmake_file.write(cmake_file_contents.\
                 replace("set(PROJECT_NAME \"Project Template Name\")",
                         f"set(PROJECT_NAME \"{new_project_name}\")").\
                 replace("set(MORPHEUS_DIR \"\")",
-                        f"set(MORPHEUS_DIR \"{morpheus_dir}\")")
-
-            cmake_file.seek(0)
-
-            cmake_file.write(cmake_file_contents)
+                        f"set(MORPHEUS_DIR \"{morpheus_dir}\")"))
 
         print(f"Morpheus project {new_project_name} successfully created at {project_dir}!")
     else:

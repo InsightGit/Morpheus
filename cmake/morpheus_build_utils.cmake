@@ -101,7 +101,7 @@ function(execute_grit_sprites png_files png_image_sizes is_4bpp)
         add_custom_command(OUTPUT ${png_file_name_path}.o
                 COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -Mw ${png_image_width_tiles}
                 -Mh ${png_image_length_tiles}
-                COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+                COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${png_file_name_path}.o
                 VERBATIM)
     endforeach()
 endfunction()
@@ -127,7 +127,7 @@ function(execute_grit_4bpp_font png_file)
 
     add_custom_command(OUTPUT ${png_file_name_path}.o ${png_file_name_path}.h
             COMMAND ${GRIT} ${png_file} -gB4
-            COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+            COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${png_file_name_path}.o
             VERBATIM)
 endfunction()
 
@@ -148,7 +148,7 @@ function(execute_grit_tilemap png_file is_4bpp palette_bank_num is_affine)
 
     add_custom_command(OUTPUT ${png_file_name_path}.o
             COMMAND ${GRIT} ${png_file} -gB${bpp_flag} -mR${tile_map_flag} -mp${palette_bank_num}
-            COMMAND ${ASSEMBLER_TO_USE} ${png_file_name_path}.s -o${png_file_name_path}.o
+            COMMAND ${CMAKE_AS} ${png_file_name_path}.s -o${png_file_name_path}.o
             VERBATIM)
 endfunction()
 
@@ -188,8 +188,8 @@ function(convert_tilemap_bin_image_file bin_file build_dir width height palette_
     get_filename_component(bin_file_path_name ${bin_file} NAME)
     string(REPLACE ".bin" "" bin_file_path_name ${bin_file_path_name})
 
-    message(STATUS ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py)
-    message(STATUS ${bin_file_path_name})
+    #message(STATUS ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/bintileconvert/bintileconvert.py)
+    #message(STATUS ${bin_file_path_name})
     #message(STATUS "Palette bank = " ${palette_bank_num})
 
     if(is_8bpp)
@@ -257,23 +257,23 @@ function(generate_maxmod_soundbank is_gba soundbank_name sound_files)
 
     # TODO(Bobby): Fix this... mess
     if(is_gba)
-        message(STATUS "using maxmod for gba")
+        #message(STATUS "using maxmod for gba")
         add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 COMMAND ${MMUTIL} -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
                     -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
                 COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
                                  ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
-                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                COMMAND ${CMAKE_AS} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
                                             ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 VERBATIM)
     else()
-        message(STATUS "using maxmod for nds")
+        #message(STATUS "using maxmod for nds")
         add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 COMMAND ${MMUTIL} -d -o${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin
                 -h${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.h ${${sound_files}}
                 COMMAND ${BIN2S} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin >
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s
-                COMMAND ${ASSEMBLER_TO_USE} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
+                COMMAND ${CMAKE_AS} ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.s -o
                 ${CMAKE_CURRENT_BINARY_DIR}/${soundbank_name}.bin.o
                 VERBATIM)
     endif()
