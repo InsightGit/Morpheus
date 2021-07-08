@@ -1,6 +1,5 @@
 stages:
-  - build-gba
-  - build-nds
+  - build-library
   - test-GBA
   - test-NDS
   - deploy-docs
@@ -9,7 +8,7 @@ stages:
 image: insightgit/morpheus
 
 gba-library:
-    stage: build-gba
+    stage: build-library
     script:
       - mkdir build
       - cd build
@@ -24,7 +23,8 @@ gba-library:
       when: on_success
 
 nds-library:
-  stage: build-nds
+  stage: build-library
+  needs: []
   script:
     - mkdir build
     - cd build
