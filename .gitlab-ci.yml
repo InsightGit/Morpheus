@@ -1,7 +1,15 @@
+stages:
+  - build-gba
+  - build-nds
+  - test-GBA
+  - test-NDS
+  - deploy-docs
+  - deploy-development
+
 image: insightgit/morpheus
 
 gba-library:
-    stage: build
+    stage: build-gba
     script:
       - mkdir build
       - cd build
@@ -16,7 +24,7 @@ gba-library:
       when: on_success
 
 nds-library:
-  stage: build
+  stage: build-nds
   script:
     - mkdir build
     - cd build
@@ -30,12 +38,11 @@ nds-library:
     when: on_success
 
 affine-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-affine-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-affine-test-GBA-$CI_JOB_NAME
     paths:
@@ -43,12 +50,11 @@ affine-test-gba:
     when: on_success
 
 affine-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-affine-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-affine-test-NDS-$CI_JOB_NAME
     paths:
@@ -56,12 +62,11 @@ affine-test-nds:
     when: on_success
 
 animation-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-animation-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-animation-test-GBA-$CI_JOB_NAME
     paths:
@@ -69,12 +74,11 @@ animation-test-gba:
     when: on_success
 
 animation-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-animation-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-animation-test-NDS-$CI_JOB_NAME
     paths:
@@ -82,12 +86,11 @@ animation-test-nds:
     when: on_success
 
 custom-font-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-custom-font-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-custom-font-test-GBA-$CI_JOB_NAME
     paths:
@@ -95,12 +98,11 @@ custom-font-gba:
     when: on_success
 
 custom-font-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-custom-font-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-custom-font-test-NDS-$CI_JOB_NAME
     paths:
@@ -108,12 +110,11 @@ custom-font-nds:
     when: on_success
 
 extended-palette-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-extended-palette-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-extended-palette-test-NDS-$CI_JOB_NAME
     paths:
@@ -121,12 +122,11 @@ extended-palette-test-nds:
     when: on_success
 
 gfx-effects-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-gfx-effects-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-gfx-effects-test-GBA-$CI_JOB_NAME
     paths:
@@ -134,12 +134,11 @@ gfx-effects-test-gba:
     when: on_success
 
 gfx-effects-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-gfx-effects-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-gfx-effects-test-NDS-$CI_JOB_NAME
     paths:
@@ -147,12 +146,11 @@ gfx-effects-test-nds:
     when: on_success
 
 input-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-input-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-input-test-GBA-$CI_JOB_NAME
     paths:
@@ -160,12 +158,11 @@ input-test-gba:
     when: on_success
 
 input-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-input-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-input-test-NDS-$CI_JOB_NAME
     paths:
@@ -173,12 +170,11 @@ input-test-nds:
     when: on_success
 
 maxmod-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-maxmod-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-maxmod-test-GBA-$CI_JOB_NAME
     paths:
@@ -186,12 +182,11 @@ maxmod-test-gba:
     when: on_success
 
 maxmod-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-maxmod-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-maxmod-test-NDS-$CI_JOB_NAME
     paths:
@@ -199,12 +194,11 @@ maxmod-test-nds:
     when: on_success
 
 serial-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-serial-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-serial-test-GBA-$CI_JOB_NAME
     paths:
@@ -212,12 +206,11 @@ serial-test-gba:
     when: on_success
 
 sram-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-sram-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-sram-test-GBA-$CI_JOB_NAME
     paths:
@@ -225,12 +218,11 @@ sram-test-gba:
     when: on_success
 
 flash-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-flash-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-flash-test-GBA-$CI_JOB_NAME
     paths:
@@ -238,12 +230,11 @@ flash-test-gba:
     when: on_success
 
 streaming-background-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-streaming-background-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-streaming-background-test-GBA-$CI_JOB_NAME
     paths:
@@ -251,12 +242,11 @@ streaming-background-test-gba:
     when: on_success
 
 streaming-background-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-streaming-background-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-streaming-background-test-NDS-$CI_JOB_NAME
     paths:
@@ -264,12 +254,11 @@ streaming-background-test-nds:
     when: on_success
 
 tileset-test-gba:
-  stage: test
+  stage: test-GBA
+  needs: [gba-library]
   script:
     - cd build
     - PLATFORM=gba BUILD_TESTS=1 cmake --build . --target morpheus-gba-tileset-test.gba
-  dependencies:
-    - gba-library
   artifacts:
     name: Morpheus-tileset-test-GBA-$CI_JOB_NAME
     paths:
@@ -277,12 +266,11 @@ tileset-test-gba:
     when: on_success
 
 tileset-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-tileset-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-tileset-test-NDS-$CI_JOB_NAME
     paths:
@@ -290,12 +278,11 @@ tileset-test-nds:
     when: on_success
 
 save-test-nds:
-  stage: test
+  stage: test-NDS
+  needs: [nds-library]
   script:
     - cd build
     - PLATFORM=nds BUILD_TESTS=1 cmake --build . --target morpheus-nds-save-test.nds
-  dependencies:
-    - nds-library
   artifacts:
     name: Morpheus-tileset-test-NDS-$CI_JOB_NAME
     paths:
@@ -339,7 +326,8 @@ workflow:
     - if: '$CI_COMMIT_BRANCH'
 
 pages:
-  stage: deploy
+  stage: deploy-docs
+  needs: [gba-library, nds-library]
   script:
     - rm -rf build
     - mkdir build
@@ -355,18 +343,11 @@ pages:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
 deploy_dev:
-  stage: deploy
+  stage: deploy-development
+  needs: [pages]
   script:
-    - echo "We are go for launch :D"
-    - curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
-    - unzip butler.zip
-    - chmod +x butler
-    - ls build/
-    - ls lib/
-    - ls .
-    - ./butler -V
-    - ./butler login
-    - echo "Launch Successful!"
+    - chmod +x buildtools/generate_cd_release/generate_cd_release.sh
+    - buildtools/generate_cd_release/generate_cd_release.sh
   environment:
     name: dev
     url: https://insighted.itch.io/morpheus

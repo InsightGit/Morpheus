@@ -102,8 +102,7 @@ if($ENV{BUILD_DOCS})
             COMMAND ${PYTHON3}
             ${CMAKE_CURRENT_SOURCE_DIR}/buildtools/generate_breathe_rst/generate_breathe_rst.py
             ${CMAKE_CURRENT_SOURCE_DIR}/include/morpheus morpheus ${CMAKE_CURRENT_SOURCE_DIR}/docs
-            COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html
-            DEPENDS morpheus)
+            COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/docs/ && make html)
 endif()
 
 if(platform_lower STREQUAL "gba")
