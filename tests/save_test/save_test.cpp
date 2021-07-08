@@ -5,7 +5,7 @@
 #ifdef _GBA
 #include <morpheus/gba/gba.hpp>
 #elif _NDS
-#include <nds/nds.hpp>
+#include <morpheus/nds/nds.hpp>
 #endif
 
 int main() {

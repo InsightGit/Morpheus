@@ -9,7 +9,7 @@
 #include "brin.h"
 
 #ifdef _NDS
-    #include <nds/nds.hpp>
+    #include <morpheus/nds/nds.hpp>
 #elif _GBA
     #include <morpheus/gba/gba.hpp>
 #else

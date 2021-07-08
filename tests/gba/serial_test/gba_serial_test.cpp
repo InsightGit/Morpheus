@@ -60,7 +60,6 @@ private:
 
 int main() {
     std::shared_ptr<morpheus::gba::GbaMainLoop> main_loop(new morpheus::gba::GbaMainLoop(
-            morpheus::gba::DebugConsoleMode::OFF,
             morpheus::core::GbaSaveType::SRAM_32KB));
     std::shared_ptr<morpheus::gba::gfx::Text> text(new morpheus::gba::gfx::Text(false, 0, 2,
                                                                                 2, main_loop.get()));
