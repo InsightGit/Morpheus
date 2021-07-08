@@ -79,8 +79,6 @@ namespace morpheus {
             bool m_platform_inited = false;
             bool m_using_tte = false;
             unsigned int m_windows_to_enable = 0x0;
-
-            void setup_debug_console(bool use_tte);
         };
     }
 }

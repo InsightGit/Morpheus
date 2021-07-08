@@ -200,7 +200,8 @@ else()
     message(FATAL_ERROR "Unrecognized platform (" $ENV{PLATFORM} ") specified in PLATFORM environment variable!")
 endif()
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "../libs/")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "../lib/")
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 

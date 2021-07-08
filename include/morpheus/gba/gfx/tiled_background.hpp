@@ -41,7 +41,8 @@ namespace morpheus {
                                 const unsigned short *palette, const unsigned int pal_len,
                                 const unsigned short *tile_map, const unsigned int tile_map_len,
                                 const core::gfx::TiledBackgroundSize size,
-                                const core::gfx::BitUnpacking unpacking_needed = core::gfx::BitUnpacking::NONE)override;
+                                const core::gfx::BitUnpacking unpacking_needed = core::gfx::BitUnpacking::NONE,
+                                const unsigned int palette_offset = 0)override;
                 void array_load(const unsigned int *tiles, const unsigned int tiles_len,
                                 const unsigned short *tile_map, const unsigned int tile_map_len,
                                 const core::gfx::TiledBackgroundSize size,
@@ -52,8 +53,6 @@ namespace morpheus {
                 void override_map_tile(const unsigned int tile_index, const unsigned short tile_id)override {
                     se_mem[get_sbb_num()][tile_index] = tile_id;
                 }
-
-                void large_background_swap(morpheus::core::gfx::Vector2 &current_scroll_position);
 
                 void affine_state_updated()override {}
                 void mosaic_state_updated()override;

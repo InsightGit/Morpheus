@@ -29,10 +29,11 @@ void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, 
                                                      const unsigned short *palette, const unsigned int pal_len,
                                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                                      const core::gfx::TiledBackgroundSize size,
-                                                     const core::gfx::BitUnpacking unpacking_needed) {
+                                                     const core::gfx::BitUnpacking unpacking_needed,
+                                                     const unsigned int palette_offset) {
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size, unpacking_needed);
 
-    memcpy16(pal_bg_mem, palette, pal_len / 2);
+    memcpy16(pal_bg_mem + (2 * palette_offset), palette, pal_len / 2);
 }
 
 void morpheus::gba::gfx::TiledBackground::array_load(const unsigned int *tiles, const unsigned int tiles_len,
@@ -223,4 +224,8 @@ bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core:
     }
 
     return true;
+}
+
+void morpheus::gba::gfx::TiledBackground::palette_id_updated() {
+
 }

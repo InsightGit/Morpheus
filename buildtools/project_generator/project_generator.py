@@ -73,7 +73,7 @@ def main():
                 replace("set(PROJECT_NAME \"Project Template Name\")",
                         f"set(PROJECT_NAME \"{new_project_name}\")").\
                 replace("set(MORPHEUS_DIR \"\")",
-                        f"set(MORPHEUS_DIR \"{morpheus_dir}\")"))
+                        f"set(MORPHEUS_DIR \"{os.path.abspath(morpheus_dir)}\")"))
 
         print(f"Morpheus project {new_project_name} successfully created at {project_dir}!")
     else:

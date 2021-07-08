@@ -128,7 +128,8 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
                 if(m_sprites[i] == nullptr) {
                     static_cast<OBJ_ATTR *>(m_obj_buffer[i])->attr0 = ATTR0_HIDE;
 
-                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]),
+                             2);
 
                     nocash_puts("clearing old sprite");
 
@@ -136,7 +137,8 @@ void morpheus::gba::GbaMainLoop::enable_window(morpheus::core::gfx::WindowType w
                 } else {
                     m_sprites[i]->draw(m_obj_buffer, i);
 
-                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]), 2);
+                    memcpy32(oam_mem + (OBJ_ATTR_SIZE * i), static_cast<OBJ_ATTR *>(m_obj_buffer[i]),
+                             2);
                 }
             }
         }
@@ -259,22 +261,6 @@ void morpheus::gba::GbaMainLoop::DebugStream::refresh_and_print() {
         str("");
         clear();
     }
-}
-
-void morpheus::gba::GbaMainLoop::setup_debug_console(bool use_tte) {
-    //tte_init_se_default(0, BG_CBB(0) | BG_SBB(31));
-
-    if(use_tte) {
-        tte_init_se(0, BG_CBB(2) | BG_SBB(31), 0, CLR_WHITE, 14, nullptr, nullptr);
-
-        enable_background(0);
-    }
-
-    m_debug_stream = std::unique_ptr<DebugStream>(new DebugStream(this));
-
-    std::cout.rdbuf(m_debug_stream.get()->rdbuf_string_stream());
-
-    std::cout << "morpheus debug\n";
 }
 
 void morpheus::gba::GbaMainLoop::clear_obj_vram() {

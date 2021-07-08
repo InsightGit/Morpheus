@@ -15,6 +15,11 @@ set(MAIN_SRC_FILES src/main.cpp)
 set(PNG4_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/sprite_4bpp.png")
 set(PNG4_IMAGE_SIZES "32X32")
 
+set(PNG4_BACKGROUND_TILEMAP_FILES "assets/backgrounds/cloud_tilemap.bin")
+set(PNG4_BACKGROUND_TILE_FILES "assets/backgrounds/cloud_tiles.png")
+set(PNG4_BACKGROUND_TILEMAP_SIZES "32X32")
+set(PNG4_BACKGROUND_PALETTE_IDS 1)
+
 set(PNG8_FILES "${CMAKE_CURRENT_SOURCE_DIR}/assets/player/sprite_8bpp.png")
 set(PNG8_IMAGE_SIZES "32X32")
 
@@ -28,7 +33,7 @@ set(MAXMOD_SOUND_BANK_NAME "soundbank")
 set(NDS_GAME_ICON  "assets/ds_icon.bmp")
 set(NDS_TITLE "${PROJECT_NAME}")
 set(NDS_SUBTITLE1 "Powered by Morpheus")
-set(NDS_SUBTITLE2 "")
+set(NDS_SUBTITLE2 " ")
 
 ## ---------------------------------
 ## Library setup-dependent variables
@@ -165,14 +170,28 @@ project(${PROJECT_NAME})
 ## Background/Sprite generation
 ## ----------------------------
 
-#convert_tilemap_bin_image_file("assets/backgroundstest_map_1.bin" ${CMAKE_CURRENT_BINARY_DIR} 64 64 0
-#                               "assets/backgrounds/tiles1.png" TRUE FALSE)
+list(LENGTH PNG4_TILEMAP_FILES png4_tilemap_files_length)
 
-#list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.c ${CMAKE_CURRENT_BINARY_DIR}/test_map_1.h)
+foreach(i RANGE ${png4_tilemap_files_length})
+    list(GET PNG4_BACKGROUND_TILEMAP_FILES ${i} tilemap_file)
+    list(GET PNG4_BACKGROUND_TILE_FILES ${i} tile_file)
+    list(GET PNG4_BACKGROUND_TILEMAP_SIZES ${i} tilemap_size)
+    list(GET PNG4_BACKGROUND_PALETTE_IDS ${i} palette_id)
 
+    get_filename_component(tilemap_name ${tilemap_file} NAME_WLE)
+
+    string(REPLACE "X" ";" tilemap_size_list ${tilemap_size})
+    list(GET tilemap_size_list 0 tilemap_width)
+    list(GET tilemap_size_list 1 tilemap_height)
+
+    convert_tilemap_bin_image_file(${tilemap_file} ${CMAKE_CURRENT_BINARY_DIR} ${tilemap_width}
+                                   ${tilemap_height} ${palette_id} ${tile_file} FALSE FALSE)
+
+    list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/${tilemap_name}.c)
+endforeach()
 
 execute_grit_sprites(PNG4_FILES PNG4_IMAGE_SIZES TRUE)
-execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES TRUE)
+execute_grit_sprites(PNG8_FILES PNG8_IMAGE_SIZES FALSE)
 
 ## -----------------------------
 ## Platform-specific build setup
@@ -188,10 +207,10 @@ if(platform_lower STREQUAL "gba")
     if(MAXMOD_FILES_len GREATER 0)
         generate_maxmod_soundbank(true ${MAXMOD_SOUND_BANK_NAME} MAXMOD_FILES)
 
-        list(APPEND MAIN_SRC ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
+        list(APPEND MAIN_SRC_FILES ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
     endif()
 
-    add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES})
+    add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
 
     target_include_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${GBA_INCLUDE_DIRECTORIES})
     target_link_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_LINK_DIRECTORIES} ${GBA_LINK_DIRECTORIES})
@@ -208,10 +227,10 @@ elseif(platform_lower STREQUAL "nds")
     if(MAXMOD_FILES_len GREATER 0)
         generate_maxmod_soundbank(false ${MAXMOD_SOUND_BANK_NAME} MAXMOD_FILES)
 
-        list(APPEND MAIN_SRC ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
+        list(APPEND MAIN_SRC_FILES ${CMAKE_CURRENT_BINARY_DIR}/${MAXMOD_SOUND_BANK_NAME}.bin.o)
     endif()
 
-    add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES})
+    add_executable(${PROJECT_NAME}.elf ${MAIN_SRC_FILES} ${PNG4_OUTPUT_FILES} ${PNG8_OUTPUT_FILES})
 
     target_include_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_INCLUDE_DIRECTORIES} ${NDS_INCLUDE_DIRECTORIES})
     target_link_directories(${PROJECT_NAME}.elf PRIVATE ${COMMON_LINK_DIRECTORIES} ${NDS_LINK_DIRECTORIES})

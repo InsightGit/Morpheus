@@ -113,10 +113,17 @@ namespace morpheus {
                                      const unsigned short *palette, const unsigned int pal_len,
                                      const unsigned short *tile_map, const unsigned int tile_map_len,
                                      const TiledBackgroundSize size,
-                                     const BitUnpacking unpacking_needed = BitUnpacking::NONE) {
+                                     const BitUnpacking unpacking_needed = BitUnpacking::NONE,
+                                     const unsigned int palette_offset = 0) {
                     update_tilemap_vars(tile_map, tile_map_len, size);
 
-                    array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size, unpacking_needed);
+                    if(palette_offset > 255) {
+                        array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size, unpacking_needed,
+                                   0);
+                    } else {
+                        array_load(tiles, tiles_len, palette, pal_len, tile_map, tile_map_len, size, unpacking_needed,
+                                   palette_offset);
+                    }
                 }
 
                 /// Similar to previous load_from_array function
@@ -464,7 +471,8 @@ namespace morpheus {
                                         const unsigned short *palette, const unsigned int pal_len,
                                         const unsigned short *tile_map, const unsigned int tile_map_len,
                                         const TiledBackgroundSize size,
-                                        const BitUnpacking unpacking_needed = BitUnpacking::NONE) = 0;
+                                        const BitUnpacking unpacking_needed = BitUnpacking::NONE,
+                                        unsigned int palette_offset = 0) = 0;
 
                 /// Pure virtual function called to load grit-generated
                 /// graphical tile data as well as tilemap data in

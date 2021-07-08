@@ -9,11 +9,12 @@ void morpheus::nds::gfx::TiledBackground4Bpp::array_load(const unsigned int *til
                                                          const unsigned short *tile_map,
                                                          const unsigned int tile_map_len,
                                                          const morpheus::core::gfx::TiledBackgroundSize size,
-                                                         const core::gfx::BitUnpacking unpacking_needed) {
+                                                         const core::gfx::BitUnpacking unpacking_needed,
+                                                         const unsigned int palette_offset) {
     if(is_using_sub_display()) {
-        dmaCopy(palette, BG_PALETTE_SUB, pal_len);
+        dmaCopy(palette, BG_PALETTE_SUB + (2 * palette_offset), pal_len);
     } else {
-        dmaCopy(palette, BG_PALETTE, pal_len);
+        dmaCopy(palette, BG_PALETTE + (2 * palette_offset), pal_len);
     }
 
     load_from_array(tiles, tiles_len, tile_map, tile_map_len, size, unpacking_needed);
