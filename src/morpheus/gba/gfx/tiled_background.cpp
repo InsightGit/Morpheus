@@ -225,7 +225,3 @@ bool morpheus::gba::gfx::TiledBackground::unpack_if_needed(const morpheus::core:
 
     return true;
 }
-
-void morpheus::gba::gfx::TiledBackground::palette_id_updated() {
-
-}
