@@ -12,7 +12,7 @@ gba-library:
       name: Morpheus-GBA-$CI_JOB_NAME
       paths:
         - build/*
-        - libs/libgba_morpheus.a
+        - lib/libgba_morpheus.a
       when: on_success
 
 nds-library:
@@ -26,7 +26,7 @@ nds-library:
     name: Morpheus-NDS-$CI_JOB_NAME
     paths:
       - build/*
-      - libs/libnds_morpheus.a
+      - lib/libnds_morpheus.a
     when: on_success
 
 affine-test-gba:
