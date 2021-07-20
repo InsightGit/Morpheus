@@ -3,8 +3,7 @@ stages:
   - test-GBA
   - test-NDS
   - deploy-docs
-  - deploy-development
-  - deploy-release
+  - deploy
 
 image: insightgit/morpheus
 
@@ -344,7 +343,7 @@ pages:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
 deploy_dev:
-  stage: deploy-development
+  stage: deploy
   needs: [pages, save-test-nds, tileset-test-nds, tileset-test-gba,
           streaming-background-test-nds, streaming-background-test-gba,
           flash-test-gba, sram-test-gba, serial-test-gba, maxmod-test-nds,
@@ -362,7 +361,7 @@ deploy_dev:
     - if: '$CI_COMMIT_BRANCH != "master"'
 
 deploy_release:
-  stage: deploy-release
+  stage: deploy
   needs: [ pages, save-test-nds, tileset-test-nds, tileset-test-gba,
            streaming-background-test-nds, streaming-background-test-gba,
            flash-test-gba, sram-test-gba, serial-test-gba, maxmod-test-nds,
