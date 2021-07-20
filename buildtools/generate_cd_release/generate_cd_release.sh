@@ -37,6 +37,6 @@ rm -rf morpheus-release/buildtools/generate_cd_release
 rm -rf morpheus-release/buildtools/Dockerfile
 
 # Push release package to itch.io
-./butler push morpheus-release insighted/project-ceres:universal-dev
+./butler push morpheus-release insighted/Morpheus:universal-dev
 
 echo "Launch Successful!"
