@@ -325,10 +325,17 @@ namespace morpheus {
                 /// shouldn't be called be manually.
                 void activate_on_target_sprite_base();
             protected:
+                /// \return The target SpriteBase to use when applying this
+                /// AnimationFrame's copyable attributes.
                 core::gfx::SpriteBase *get_target_sprite() const {
                     return m_target_sprite;
                 }
 
+                /// Activates a certain copyable AnimationFrame attribute on the
+                /// target SpriteBase in a platform-specific way upon this
+                /// AnimationFrame becoming fully active.
+                /// \param copy_option The AnimationFrameCopyOption for a
+                /// specific AnimationFrame attribute.
                 virtual void activate_on_target_sprite(AnimationFrameCopyOption copy_option) = 0;
             private:
                 std::unordered_set<AnimationFrameCopyOption> m_animation_frame_copy_options;

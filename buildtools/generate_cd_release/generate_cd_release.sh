@@ -11,20 +11,23 @@ chmod +x butler
 
 # Creating release package directory structure
 mkdir morpheus-release/
+mkdir morpheus-release/cmake
 mkdir morpheus-release/docs
 mkdir morpheus-release/buildtools
 mkdir morpheus-release/include
 mkdir morpheus-release/lib
 mkdir morpheus-release/tests
+mkdir morpheus-release/tests/src
 mkdir morpheus-release/tests/gba-bin
 mkdir morpheus-release/tests/nds-bin
 
 
 # Copy files and directories to release package
+cp -R cmake/* morpheus-release/cmake
 cp -R include/* morpheus-release/include
 cp -R buildtools/* morpheus-release/buildtools
 cp -R public/* morpheus-release/docs
-cp -R tests/* morpheus-release/tests
+cp -R tests/* morpheus-release/tests/src
 cp -R lib/* morpheus-release/lib
 cp build/*.nds morpheus-release/tests/nds-bin
 cp build/*.gba morpheus-release/tests/gba-bin
@@ -37,6 +40,6 @@ rm -rf morpheus-release/buildtools/generate_cd_release
 rm -rf morpheus-release/buildtools/Dockerfile
 
 # Push release package to itch.io
-./butler push morpheus-release insighted/Morpheus:universal-dev
+./butler push morpheus-release insighted/Morpheus:universal-"$1"
 
 echo "Launch Successful!"

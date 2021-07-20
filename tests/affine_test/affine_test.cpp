@@ -186,6 +186,8 @@ private:
 int main() {
     std::shared_ptr<morpheus::core::MainLoop> main_loop(morpheus::utils::construct_appropriate_main_loop());
 
+    // Initializes an Affine Background and Sprite (however the Background is currently unused as working
+    // affine background support is not present)
     std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> base_background(morpheus::utils::
                             construct_appropriate_tiled_background_8bpp(true, 2, nullptr, nullptr, main_loop.get(),
                                                                         1, 1));
@@ -211,21 +213,6 @@ int main() {
                 morpheus::core::gfx::SpriteSize::SIZE_32X32);
     #endif
 
-    /*base_background->load_from_array(region_map_affine_128Tiles, region_map_affine_128TilesLen,
-                                     region_map_affine_128Pal, region_map_affine_128PalLen,
-                                     region_map_affine_128Map, region_map_affine_128MapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_128x128);*/
-
-    /*base_background->load_from_array(region_map_affineTiles, region_map_affineTilesLen,
-                                 region_map_affinePal, region_map_affinePalLen,
-                                 region_map_affineMap, region_map_affineMapLen,
-                                 morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);*/
-
-    /*base_background->load_from_array(region_map_affine2Tiles, region_map_affine2TilesLen,
-                                     region_map_affine2Pal, region_map_affine2PalLen,
-                                     region_map_affine2Map, region_map_affine2MapLen,
-                                     morpheus::core::gfx::TiledBackgroundSize::BG_AFFINE_32x32);*/
-
     base_sprite->set_position(64, 64);
     base_sprite->set_affine_index(1);
 
@@ -237,8 +224,6 @@ int main() {
     main_loop->add_control_reciever(input_node);
 
     main_loop->add_sprite(base_sprite);
-
-    //info_text->print_at_pos("hello", morpheus::core::gfx::Vector2(32, 32));
 
     main_loop->game_loop();
 }
