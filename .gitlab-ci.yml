@@ -333,7 +333,7 @@ pages:
     - mkdir build
     - cd build
     - BUILD_DOCS=1 cmake ..
-    - cmake --2 - 23, 8 AM build . --target Documentation
+    - cmake --build . --target Documentation
     - mkdir ../public
     - mv ../docs/_build/html/* ../public
   artifacts:
