@@ -21,11 +21,11 @@ mkdir morpheus-release/tests/nds-bin
 
 
 # Copy files and directories to release package
-cp -R include morpheus-release/include
-cp -R buildtools morpheus-release/buildtools
-cp -R public morpheus-release/docs
-cp -R tests morpheus-release/tests
-cp -R lib morpheus-release/lib
+cp -R include/* morpheus-release/include
+cp -R buildtools/* morpheus-release/buildtools
+cp -R public/* morpheus-release/docs
+cp -R tests/* morpheus-release/tests
+cp -R lib/* morpheus-release/lib
 cp build/*.nds morpheus-release/tests/nds-bin
 cp build/*.gba morpheus-release/tests/gba-bin
 cp build/*.nds morpheus-release/tests/nds-bin
