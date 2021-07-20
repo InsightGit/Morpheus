@@ -333,7 +333,7 @@ pages:
     - mkdir build
     - cd build
     - BUILD_DOCS=1 cmake ..
-    - cmake --build . --target Documentation
+    - cmake --2 - 23, 8 AM build . --target Documentation
     - mkdir ../public
     - mv ../docs/_build/html/* ../public
   artifacts:
@@ -344,7 +344,13 @@ pages:
 
 deploy_dev:
   stage: deploy-development
-  needs: [pages]
+  needs: [pages, save-test-nds, tileset-test-nds, tileset-test-gba,
+          streaming-background-test-nds, streaming-background-test-gba,
+          flash-test-gba, sram-test-gba, serial-test-gba, maxmod-test-nds,
+          maxmod-test-gba, input-test-nds, input-test-gba, gfx-effects-test-nds,
+          gfx-effects-test-gba, extended-palette-test-nds, custom-font-nds,
+          custom-font-gba, animation-test-nds, animation-test-gba, affine-test-nds,
+          affine-test-gba, gba-library, nds-library]
   script:
     - chmod +x buildtools/generate_cd_release/generate_cd_release.sh
     - buildtools/generate_cd_release/generate_cd_release.sh
