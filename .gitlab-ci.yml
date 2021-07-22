@@ -352,7 +352,7 @@ deploy_dev:
           affine-test-gba, gba-library, nds-library]
   script:
     - chmod +x buildtools/generate_cd_release/generate_cd_release.sh
-    - buildtools/generate_cd_release/generate_cd_release.sh dev
+    - bash -x buildtools/generate_cd_release/generate_cd_release.sh dev
   environment:
     name: dev
     url: https://insighted.itch.io/morpheus
@@ -370,7 +370,7 @@ deploy_release:
            affine-test-gba, gba-library, nds-library ]
   script:
     - chmod +x buildtools/generate_cd_release/generate_cd_release.sh
-    - buildtools/generate_cd_release/generate_cd_release.sh release
+    - bash -x buildtools/generate_cd_release/generate_cd_release.sh release
   environment:
     name: dev
     url: https://insighted.itch.io/morpheus
