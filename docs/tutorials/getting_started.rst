@@ -41,9 +41,47 @@ Installing Morpheus
 -------------------
 
 Now that the toolchain, CMake, and Python 3 has been installed, we can now
-install Morpheus! Go
+install Morpheus! Download the library package from the itch page
+`here <https://insighted.itch.io/morpheus>`_
+
+.. warning::
+    Builds ending with -dev are unstable developer builds created upon every
+    commit to the dev branch. Use builds ending with -release if you want to
+    download the latest stable release.
 
 ---------------------------
 Creating your first project
 ---------------------------
+
+After you download the Morpheus library package and extract the zip file, you can
+use the Project Generator buildtool located in the buildtools/project_generator
+folder of the Morpheus release package to generate the project.
+You can do this by using your respective python interpreter
+(python on Windows, python3 otherwise) to run the buildtool like so:
+
+.. code bash
+    python3 <morpheus dir>/buildtools/project_generator/project_generator.py <morpheus dir> <new project name> <project directory>
+
+where <morpheus dir> is the directory you extracted the Morpheus release package to,
+<new project name> is the new Morpheus project name, and <project directory> is the
+(optional) directory to place the new project in. If a <project directory> is not given,
+the project will be created in the current working directory. Afterwards, you can generate
+builds by invoking cmake on the build directory with the PLATFORM environment variable either
+set to gba for the Game Boy Advance or nds for the Nintendo DS. For example, if you build
+for the Game Boy Advance, This would look like
+
+.. code bash
+    PLATFORM=gba cmake <src dir>
+
+in Linux/macOS and
+
+.. code bash
+    $env:PLATFORM=gba cmake <src dir>
+
+in Windows Powershell, assuming <src dir> is the path to the source dir.
+Afterwards you should be able to build the project, and run the generated roms
+on an emulator. If all goes well, you should see something like this:
+
+.. image:: desired_build.png
+
 
