@@ -5,7 +5,7 @@
 #ifndef MORPHEUS_GBA_TEST_CONTROLLERS_HPP
 #define MORPHEUS_GBA_TEST_CONTROLLERS_HPP
 
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/array"
+#include <array>
 
 #include "uncopyable.hpp"
 #include "gfx/vector_2.hpp"

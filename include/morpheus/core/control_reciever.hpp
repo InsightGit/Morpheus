@@ -5,9 +5,9 @@
 #ifndef MORPHEUS_NODE_HPP
 #define MORPHEUS_NODE_HPP
 
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/iostream"
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/list"
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/memory"
+#include <iostream>
+#include <list>
+#include <memory>
 
 #include "input_event.hpp"
 

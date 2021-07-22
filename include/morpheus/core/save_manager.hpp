@@ -5,8 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_SAVE_MANAGER_HPP
 #define MORPHEUS_GBA_TEST_SAVE_MANAGER_HPP
 
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/string"
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/vector"
+#include <string>
+#include <vector>
 
 namespace morpheus {
     namespace core {

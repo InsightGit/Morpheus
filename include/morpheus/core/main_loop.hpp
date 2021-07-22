@@ -5,9 +5,9 @@
 #ifndef MORPHEUS_MAIN_LOOP_HPP
 #define MORPHEUS_MAIN_LOOP_HPP
 
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/algorithm"
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/random"
-#include "../../../../../../opt/devkitpro/devkitARM/arm-none-eabi/include/c++/11.1.0/vector"
+#include <algorithm>
+#include <random>
+#include <vector>
 
 #ifdef GBA_FAT_SUPPORT_ENABLED
     #include <fat.h>
