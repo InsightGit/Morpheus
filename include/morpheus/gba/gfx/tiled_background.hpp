@@ -20,11 +20,30 @@ namespace morpheus {
         namespace gfx {
             class TiledBackground : public core::gfx::TiledBackgroundBase {
             public:
+                /// Constructs a TiledBackground object.
+                /// \param affine Whether this background is affine
+                /// (affine backgrounds currently unsupported).
+                /// \param background_num The background number of the
+                /// TiledBackground object
+                /// \param blending_controller The optional
+                /// GbaBlendingController to be set on this
+                /// TiledBackground object
+                /// \param mosaic_controller The optional
+                /// GbaMosaicController to be set on this
+                /// TiledBackground object
+                /// \param main_loop A pointer to the GbaMainLoop
+                /// \param is_8bpp Whether this TiledBackground is
+                /// 8bpp (256 color) (true) or 4bpp (16 color) (false)
+                /// \param cbb The [0-3] tile offset to load this
+                /// TiledBackground object's tile graphics data onto.
+                /// \param sbb The [0-31] tilemap offset to load this
+                /// TiledBackground object's tilemap onto.
                 explicit TiledBackground(bool affine, unsigned int background_num,
                                          GbaBlendingController *blending_controller,
                                          GbaMosaicController *mosaic_controller, GbaMainLoop *main_loop,
                                          bool is_8bpp, unsigned int cbb_num, unsigned int sbb_num);
 
+                /// Destroys a TiledBackground object.
                 virtual ~TiledBackground() = default;
 
                 unsigned int get_priority() const override {
@@ -70,6 +89,18 @@ namespace morpheus {
                 GbaMainLoop *m_main_loop;
                 bool m_main_loop_notified = false;
             };
+
+            /// \class morpheus::gba::gfx::TiledBackground
+            /// The GBA implementation of the
+            /// morpheus::core::gfx::TiledBackgroundBase class.
+            /// Represents tiled backgrounds from 32x32 tiles
+            /// (or 256 px x 256 px) in size to 64x64 tiles
+            /// (or 512 px x 512 px), as well as backgrounds with
+            /// 8bpp (256 color) tiles or 4bpp (16 color) tiles.
+            /// For larger backgrounds, pass a new TiledBackground
+            /// object into morpheus::core::gfx::StreamingBackgroundBase.
+            /// For more details about this class, consult the documentation
+            /// of the aforementioned parent class.
         }
     }
 }

@@ -20,6 +20,12 @@ namespace morpheus {
             protected:
                 void toggle_window(bool on)override;
             };
+
+
+            /// \class morpheus::gba::gfx::GbaWindow
+            /// The Game Boy Advance implementation of
+            /// morpheus::core::gfx::Window. For more about this class's
+            /// behavior, see the aforementioned parent class.
         }
     }
 }

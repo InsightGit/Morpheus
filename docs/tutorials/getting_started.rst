@@ -59,8 +59,7 @@ folder of the Morpheus release package to generate the project.
 You can do this by using your respective python interpreter
 (python on Windows, python3 otherwise) to run the buildtool like so:
 
-.. code bash
-    python3 <morpheus dir>/buildtools/project_generator/project_generator.py <morpheus dir> <new project name> <project directory>
+``python3 <morpheus dir>/buildtools/project_generator/project_generator.py <morpheus dir> <new project name> <project directory>``
 
 where <morpheus dir> is the directory you extracted the Morpheus release package to,
 <new project name> is the new Morpheus project name, and <project directory> is the
@@ -68,15 +67,13 @@ where <morpheus dir> is the directory you extracted the Morpheus release package
 the project will be created in the current working directory. Afterwards, you can generate
 builds by invoking cmake on the build directory with the PLATFORM environment variable either
 set to gba for the Game Boy Advance or nds for the Nintendo DS. For example, if you build
-for the Game Boy Advance, This would look like
+for the Game Boy Advance, the command would look like
 
-.. code bash
-    PLATFORM=gba cmake <src dir>
+``PLATFORM=gba cmake <src dir>``
 
 in Linux/macOS and
 
-.. code bash
-    $env:PLATFORM=gba cmake <src dir>
+``$env:PLATFORM=gba cmake <src dir>``
 
 in Windows Powershell, assuming <src dir> is the path to the source dir.
 Afterwards you should be able to build the project, and run the generated roms
