@@ -79,7 +79,8 @@ namespace morpheus {
                     return m_background_size;
                 }
 
-                /// \return Whether this
+                /// \return Whether this TiledBackground is displaying on the
+                /// bottom sub display (true) or the top main display (false).
                 bool is_using_sub_display() const {
                     return m_use_sub_display;
                 }
@@ -93,12 +94,14 @@ namespace morpheus {
                 void affine_state_updated()override;
                 void mosaic_state_updated()override;
 
-                ///
-                /// \param background_type
+                /// Initializes the current libnds background reference number
+                /// with a specific libnds-defined background type.
+                /// \param background_type The background type to initialize
+                /// the libnds background reference number with.
                 void init_background_reference_num(BgType background_type);
 
-                ///
-                /// \param size
+                /// Sets the background size of this TiledBackground.
+                /// \param size The new background size to set
                 void set_background_size(core::gfx::TiledBackgroundSize size);
                 void update_scroll()override;
             private:
@@ -112,13 +115,18 @@ namespace morpheus {
             };
 
             /// \class morpheus::nds::gfx::TiledBackground
-            /// The DS implementation of the
+            /// The abstract DS implementation of the
             /// morpheus::core::gfx::TiledBackgroundBase class.
+            /// Note that because this class is abstract,
+            /// you shouldn't directly construct it and instead
+            /// should directly construct either a TiledBackground4Bpp or
+            /// TiledBackground8Bpp, both of which inherit and implement this
+            /// class in a BPP specific way.
             /// Represents tiled backgrounds from 32x32 tiles
             /// (or 256 px x 256 px) in size to 64x64 tiles
-            /// (or 512 px x 512 px), as well as backgrounds with
-            /// 8bpp (256 color) tiles or 4bpp (16 color) tiles.
-            /// For larger backgrounds, pass a new TiledBackground
+            /// (or 512 px x 512 px).
+            /// For larger backgrounds, pass a new TiledBackground4Bpp or
+            /// TiledBackground8Bpp
             /// object into morpheus::core::gfx::StreamingBackgroundBase.
             /// For more details about this class, consult the documentation
             /// of the aforementioned parent class.
@@ -126,4 +134,4 @@ namespace morpheus {
     }
 }
 
-#endif //MORPHEUS_GBA_TEST_TILED_BACKGROUND_BASE_HPP
+#endif //MORPHEUS_GBA_TEST_TILED_BACKGROUND_HPP

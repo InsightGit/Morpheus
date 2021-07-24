@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_NDS_HPP
 #define MORPHEUS_NDS_HPP
 
+/// Common NDS header file: Includes all needed headers for NDS Morpheus games
+
 #include <morpheus/nds/nds_main_loop.hpp>
 #include <morpheus/nds/ds_flashcard_save_manager.hpp>
 

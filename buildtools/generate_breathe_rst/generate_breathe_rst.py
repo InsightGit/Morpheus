@@ -10,6 +10,10 @@ PROJECT_NAME = "morpheus"
 
 def generate_rst_file_for_object(breathe_command: str, object_name: str, namespace_name: str, namespace_dir: str,
                                  file_path: str):
+    if object_name == "NdsMosaicController" or object_name == "NdsBlendingController" or \
+       object_name == "GbaMosaicController" or object_name == "GbaBlendingController":
+        namespace_name += "::gfx"
+
     with open(os.path.join(namespace_dir, f"{object_name}.rst"), 'w') as header_rst_file:
         header_rst_file.write(f"{object_name}\n")
 
@@ -100,8 +104,31 @@ def identify_cpp_file_content(file_name: str) -> dict:
     return return_value
 
 
+def generate_utils_rst_file(header_path: str, breathe_path: str, utils_object_name: str = "utils"):
+    breathe_utils_path = os.path.join(breathe_path, "classes", "morpheus", "utils")
+
+    os.makedirs(breathe_utils_path, exist_ok=True)
+
+    with open(os.path.join(breathe_utils_path, f"{utils_object_name}.rst"), 'w') as header_rst_file:
+        file_path = os.path.join(header_path, f"{utils_object_name}.hpp")
+
+        header_rst_file.write(f"{utils_object_name}\n")
+
+        for i in range(len(utils_object_name)):
+            header_rst_file.write("=")
+
+        header_rst_file.write(f"\n*Located within {file_path}*\n")
+
+        header_rst_file.write(f"\n.. doxygenfile:: {file_path}\n"
+                              f"    :project: {PROJECT_NAME}\n")
+
+    generate_namespace_toctree(breathe_utils_path, "morpheus::utils")
+
+
 def generate_header_rst_files(header_path: str, breathe_path: str, root_namespace: str = "") -> list:
     print(f"header path: {header_path}")
+
+    generate_utils_rst_file(header_path, breathe_path)
 
     for root, dirs, files in os.walk(header_path):
         for file in files:

@@ -5,6 +5,8 @@
 #ifndef MORPHEUS_GBA_TEST_GBA_HPP
 #define MORPHEUS_GBA_TEST_GBA_HPP
 
+/// Common GBA header file: Includes all needed headers for GBA Morpheus games
+
 #include <morpheus/core/core.hpp>
 
 #include <morpheus/gba/gba_main_loop.hpp>

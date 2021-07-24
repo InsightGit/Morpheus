@@ -17,17 +17,31 @@ namespace morpheus {
         namespace gfx {
             class GbaBlendingController : public morpheus::core::gfx::BlendingController {
             public:
-                virtual ~GbaBlendingController() {}
+                /// Destructs the GbaBlendingController object.
+                ~GbaBlendingController() override = default;
             protected:
                void update_blending_registers()override;
             };
 
+            /// \class morpheus::gba::gfx::GbaBlendingController
+            /// The Game Boy Advance (GBA) implementation of
+            /// morpheus::core::gfx::BlendingController. For more details about
+            /// this class, consult the documentation of the aforementioned
+            /// parent class.
+
             class GbaMosaicController : public morpheus::core::gfx::MosaicController {
             public:
-                virtual ~GbaMosaicController() {}
+                /// Destructs the GbaMosaicController object.
+                ~GbaMosaicController() override = default;
             protected:
                 void update_mosaic_register()override;
             };
+
+            /// \class morpheus::gba::gfx::GbaMosaicController
+            /// The Game Boy Advance (GBA) implementation of
+            /// morpheus::core::gfx::MosaicController. For more details about
+            /// this class, consult the documentation of the aforementioned
+            /// parent class.
         }
 
         class GbaNoCashDebugController : public core::NoCashDebugController {
@@ -36,6 +50,12 @@ namespace morpheus {
                 nocash_puts(message.c_str());
             }
         };
+
+        /// \class morpheus::gba::GbaNocashDebugController
+        /// Game Boy Advance (GBA) implementation of
+        /// morpheus::core::NocashDebugController. For more details about
+        /// this class, consult the documentation of the aforementioned parent
+        /// class.
     }
 }
 

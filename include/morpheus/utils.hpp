@@ -19,6 +19,10 @@ namespace morpheus {
     namespace utils {
         class BackgroundTestControls : public morpheus::core::ControlReciever {
         public:
+            /// Constructs a BackgroundTestControls object with a given smart
+            /// pointer to a TiledBackgroundBase.
+            /// \param background A smart pointer to the TiledBackgroundBase
+            /// this class will control
             BackgroundTestControls(std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> background) {
                 m_background = background;
             }
@@ -29,10 +33,17 @@ namespace morpheus {
 
             void update(unsigned char cycle_time) override {}
 
+            /// Changes the current smart pointer to the TiledBackgroundBase
+            /// that this class will control.
+            /// \param new_background The smart pointer that this class will
+            /// control
             void change_background(const std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> new_background) {
                 m_background = new_background;
             }
         protected:
+            /// Scrolls the background according to InputEvents feeded by
+            /// input()
+            /// \param input_event The InputEvent from input() to react to
             void scroll_background(morpheus::core::InputEvent input_event) {
                 if(input_event.state == morpheus::core::InputState::DOWN ||
                    input_event.state == morpheus::core::InputState::HELD) {
@@ -62,6 +73,17 @@ namespace morpheus {
             std::shared_ptr<morpheus::core::gfx::TiledBackgroundBase> m_background;
         };
 
+        /// \class morpheus::utils::BackgroundTestControls
+        /// A helper class for testing background scrolling with the directional
+        /// pad.
+
+
+        /// Constructs the appropriate morpheus::core::gfx::AnimationFrame for
+        /// the current platform.
+        /// \param sprite_base The sprite for the AnimationFrame
+        /// \param from_animation_frame The optional from_animation_frame
+        /// argument for the AnimationFrame
+        /// \return The appropriate AnimationFrame
         static morpheus::core::gfx::AnimationFrame *construct_appropriate_animation_frame(
                 core::gfx::SpriteBase *sprite_base, core::gfx::AnimationFrame *from_animation_frame = nullptr) {
             #ifdef _GBA
@@ -77,6 +99,11 @@ namespace morpheus {
             return nullptr;
         }
 
+        /// Constructs the appropriate morpheus::core::MainLoop for
+        /// the current platform.
+        /// \param gba_save_type The appropriate GbaSaveType used if
+        /// this function constructs a GbaMainLoop
+        /// \return The appropriate MainLoop
         static morpheus::core::MainLoop *construct_appropriate_main_loop(
                                 morpheus::core::GbaSaveType gba_save_type = morpheus::core::GbaSaveType::SRAM_32KB) {
             #ifdef _GBA
@@ -88,6 +115,14 @@ namespace morpheus {
             return nullptr;
         }
 
+        /// Constructs the appropriate morpheus::core::audio::MaxModMusic for
+        /// the current platform.
+        /// \param sound_bank_ref_num The sound bank reference number
+        /// argument of MaxModMusic
+        /// \param sound_bank The sound bank pointer argument of MaxModMusic
+        /// \param num_of_channels The number of audio channels to use if
+        /// constructing a GbaMaxModMusic
+        /// \return The appropriate MaxModMusic object
         static morpheus::core::audio::MaxModMusic *construct_appropriate_max_mod_music(
                                                                                    int sound_bank_ref_num,
                                                                                    void *sound_bank = nullptr,
@@ -101,6 +136,14 @@ namespace morpheus {
             return nullptr;
         }
 
+        /// Constructs the appropriate morpheus::core::audio::MaxModSfx for
+        /// the current platform.
+        /// \param sound_bank_ref_num The sound bank reference number
+        /// argument of MaxModSfx
+        /// \param sound_bank The sound bank pointer argument of MaxModSfx
+        /// \param num_of_channels The number of audio channels to use if
+        /// constructing a GbaMaxModSfx
+        /// \return The appropriate MaxModSfx object
         static morpheus::core::audio::MaxModSfx *construct_appropriate_max_mod_sfx(
                 int sound_bank_ref_num,
                 void *sound_bank = nullptr,
@@ -114,7 +157,17 @@ namespace morpheus {
             return nullptr;
         }
 
-        // BlendingController should be platform specific blending controller
+        /// Constructs the appropriate 4bpp morpheus::core::gfx::SpriteBase
+        /// for the current platform.
+        /// \param affine The affine argument of SpriteBase
+        /// \param blending_controller The blending controller argument of
+        /// SpriteBase
+        /// \param mosaic_controller The mosaic controller argument of
+        /// SpriteBase
+        /// \param nds_use_sub_display If constructing a 4bpp sprite for the DS,
+        /// should this sprite be displayed on the bottom sub display (true) or
+        /// the top main display (false)
+        /// \return The appropriate 4bpp SpriteBase object
         static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_4bpp(
                 bool affine,
                 morpheus::core::gfx::BlendingController *blending_controller,
@@ -132,6 +185,19 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs the appropriate 8bpp morpheus::core::gfx::SpriteBase for
+        /// the current platform.
+        /// \param affine The affine argument of SpriteBase
+        /// \param blending_controller The blending controller argument of
+        /// SpriteBase
+        /// \param mosaic_controller The mosaic controller argument of
+        /// SpriteBase
+        /// \param nds_use_sub_display If constructing an 8bpp sprite for the
+        /// DS, should this sprite be displayed on the bottom sub display (true)
+        /// or the top main display (false)
+        /// \param nds_use_sub_display If constructing an 8bpp sprite for the
+        /// DS, should extended palette mode be enabled or disabled
+        /// \return The appropriate 4bpp SpriteBase object
         static morpheus::core::gfx::SpriteBase *construct_appropriate_sprite_8bpp(
                 bool affine,
                 morpheus::core::gfx::BlendingController *blending_controller,
@@ -151,6 +217,17 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs the appropriate morpheus::core::gfx::TextBase for
+        /// the current platform.
+        /// \param affine The affine argument of TextBase
+        /// \param background_num The background number argument of TextBase
+        /// \param cbb The tile offset number argument of TextBase
+        /// \param sbb The tilemap offset number argument of TextBase
+        /// \param main_loop The main loop pointer argument of TextBase
+        /// \param nds_use_sub_display If constructing a TextBase for the
+        /// DS, should the text be displayed on the bottom sub display (true)
+        /// or the top main display (false)
+        /// \return The appropriate TextBase object
         static morpheus::core::gfx::TextBase *construct_appropriate_text(bool affine, unsigned int background_num,
                                                                          unsigned int cbb, unsigned int sbb,
                                                                          morpheus::core::MainLoop *main_loop,
@@ -165,6 +242,26 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs the appropriate 4bpp
+        /// morpheus::core::gfx::TiledBackgroundBase for the current
+        /// platform.
+        /// \param affine The affine argument of TiledBackgroundBase
+        /// \param background_num The background number argument of
+        /// TiledBackgroundBase
+        /// \param blending_controller The blending controller argument of
+        /// TiledBackgroundBase
+        /// \param mosaic_controller The mosaic controller argument of
+        /// TiledBackgroundBase
+        /// \param main_loop The main loop pointer argument of
+        /// TiledBackgroundBase
+        /// \param cbb_num The tile offset number argument of
+        /// TiledBackgroundBase
+        /// \param sbb_num The tilemap offset number argument of
+        /// TiledBackgroundBase
+        /// \param nds_use_sub_display If constructing a TiledBackgroundBase for
+        /// the DS, should the background be displayed on the bottom sub display
+        /// (true) or the top main display (false)
+        /// \return The appropriate 4bpp TiledBackgroundBase
         static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background_4bpp(
                                     bool affine, unsigned int background_num,
                                     morpheus::core::gfx::BlendingController *blending_controller,
@@ -185,6 +282,26 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs the appropriate 8bpp
+        /// morpheus::core::gfx::TiledBackgroundBase for the current
+        /// platform.
+        /// \param affine The affine argument of TiledBackgroundBase
+        /// \param background_num The background number argument of
+        /// TiledBackgroundBase
+        /// \param blending_controller The blending controller argument of
+        /// TiledBackgroundBase
+        /// \param mosaic_controller The mosaic controller argument of
+        /// TiledBackgroundBase
+        /// \param main_loop The main loop pointer argument of
+        /// TiledBackgroundBase
+        /// \param cbb_num The tile offset number argument of
+        /// TiledBackgroundBase
+        /// \param sbb_num The tilemap offset number argument of
+        /// TiledBackgroundBase
+        /// \param nds_use_sub_display If constructing a TiledBackgroundBase for
+        /// the DS, should the background be displayed on the bottom sub display
+        /// (true) or the top main display (false)
+        /// \return The appropriate 8bpp TiledBackgroundBase
         static morpheus::core::gfx::TiledBackgroundBase *construct_appropriate_tiled_background_8bpp(
                 bool affine, unsigned int background_num,
                 morpheus::core::gfx::BlendingController *blending_controller,
@@ -205,6 +322,14 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs the appropriate morpheus::core::gfx::Window for the
+        /// current platform.
+        /// \param window_type The window type argument of Window
+        /// \param main_loop The main loop pointer argument of Window
+        /// \param nds_use_sub_display If constructing a Window for
+        /// the DS, should the window be on the bottom sub display
+        /// (true) or the top main display (false)
+        /// \return The appropriate Window object
         static morpheus::core::gfx::Window *construct_appropriate_window(const core::gfx::WindowType window_type,
                                                                          const std::shared_ptr<core::MainLoop> main_loop,
                                                                          const bool nds_use_sub_display = false) {
@@ -215,6 +340,17 @@ namespace morpheus {
             #endif
         }
 
+        /// Constructs a morpheus::core::gfx::StreamingBackgroundBase with
+        /// sensible defaults for the current platform.
+        /// \param background_to_use The TiledBackgroundBase argument of
+        /// StreamingBackgroundBase
+        /// \param map_tile_update_threshold The tilemap update threshold
+        /// argument of StreamingBackgroundBase
+        /// \param player_position The player position argument of
+        /// StreamingBackgroundBase
+        /// \param enable_wrapping The enable wrapping argument of
+        /// StreamingBackgroundBase
+        /// \return The StreamingBackgroundBase with sensible platform defaults
         static morpheus::core::gfx::StreamingBackgroundBase *construct_appropriate_streaming_background_base(
                 morpheus::core::gfx::TiledBackgroundBase *background_to_use,
                 morpheus::core::gfx::Vector2 map_tile_update_threshold = morpheus::core::gfx::Vector2(0, 0),
@@ -242,6 +378,11 @@ namespace morpheus {
                                                                     player_position, enable_wrapping);
         }
     }
+
+    /// \file utils.hpp
+    /// A file consisting mostly of helper functions constructing the
+    /// appropriate implementations of Morpheus classes for code portability
+    /// across the DS and the GBA.
 }
 
 

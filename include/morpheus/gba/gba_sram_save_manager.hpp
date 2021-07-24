@@ -18,8 +18,10 @@ namespace morpheus {
     namespace gba {
         class GbaSramSaveManager : public morpheus::core::SaveManager {
         public:
+            /// Constructs a GbaSramSaveManager object.
             GbaSramSaveManager() = default;
 
+            /// Destructs the GbaSramSaveManager object.
             virtual ~GbaSramSaveManager() = default;
 
             bool is_successfully_mounted() const override {
@@ -29,6 +31,11 @@ namespace morpheus {
             unsigned int load(unsigned char *data, unsigned int len)override;
             unsigned int save(const unsigned char *data, unsigned int len)override;
         };
+
+        /// \class morpheus::gba::GbaSramSaveManager
+        /// GBA FRAM/SRAM implementation of morpheus::core::SaveManager.
+        /// Saves non-volatile save data to non-volatile 32 kilobyte
+        /// SRAM or FRAM.
     }
 }
 

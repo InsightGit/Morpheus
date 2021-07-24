@@ -33,10 +33,21 @@ namespace morpheus {
 
         class GbaMainLoop : public core::MainLoop {
         public:
-            const static int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8;
+            const static int OBJ_ATTR_SIZE = sizeof(OBJ_ATTR) / 8; ///< Internally
+                                                                   ///< used libgba
+                                                                   ///< size of OAM
+                                                                   ///< OBJ
+                                                                   ///< (or sprite)
+                                                                   ///< attributes.
 
+            /// Constructs the (single) GbaMainLoop object, initializing the
+            /// save type and (optionally) enabling libfat support.
+            /// \param save_type The current save type this MainLoop
+            /// (and this Morpheus game) will use.
+            /// \param enable_fat Whether to enable libfat support or not
             explicit GbaMainLoop(core::GbaSaveType save_type, bool enable_fat = false);
 
+            /// Destructs the GbaMainLoop object.
             virtual ~GbaMainLoop();
 
             void clear_obj_vram()override;
@@ -48,9 +59,9 @@ namespace morpheus {
             void enable_background(unsigned int background_num)override;
             void enable_window(core::gfx::WindowType window_type)override;
 
-            [[noreturn]] core::Error game_loop() override;
+            [[noreturn]] core::Error game_loop()override;
         protected:
-            core::Error platform_init() override;
+            core::Error platform_init()override;
 
             core::InputEvent to_input_event(uint32_t inputs, uint16_t keypad_bit,
                                             morpheus::core::InputState input_state)override;
@@ -80,6 +91,13 @@ namespace morpheus {
             bool m_using_tte = false;
             unsigned int m_windows_to_enable = 0x0;
         };
+
+        /// \class morpheus::gba::GbaMainLoop
+        /// The GBA implementation of morpheus::core::MainLoop, representing
+        /// a GBA Morpheus game's main loop. There should only be a single
+        /// GbaMainLoop over the GBA game's lifecycle, otherwise undefined
+        /// behavior will occur. For more information about this class,
+        /// consult the aforementioned parent class.
     }
 }
 
