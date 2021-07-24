@@ -119,7 +119,7 @@ extended-palette-test-nds:
   artifacts:
     name: Morpheus-extended-palette-test-NDS-$CI_JOB_NAME
     paths:
-      - build/morpheus-nds-custom-font-test.nds
+      - build/morpheus-nds-extended-palette-test.nds
     when: on_success
 
 gfx-effects-test-gba:
@@ -287,7 +287,7 @@ save-test-nds:
   artifacts:
     name: Morpheus-tileset-test-NDS-$CI_JOB_NAME
     paths:
-      - build/morpheus-nds-tileset-test.nds
+      - build/morpheus-nds-save-test.nds
     when: on_success
 
 #hayai-game-gba:
