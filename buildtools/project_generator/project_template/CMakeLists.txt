@@ -8,7 +8,7 @@ include("cmake/morpheus_build_utils.cmake")
 ## Project-dependent variables
 ## ---------------------------
 
-set(PROJECT_NAME "TestProject")
+set(PROJECT_NAME "Project Template Name")
 
 set(MAIN_SRC_FILES src/main.cpp)
 

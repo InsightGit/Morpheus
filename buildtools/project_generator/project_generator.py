@@ -37,8 +37,6 @@ def main():
             os.makedirs(os.path.join(project_dir, "cmake"), exist_ok=False)
             os.makedirs(os.path.join(project_dir, "src"), exist_ok=False)
         except OSError as e:
-            raise e
-
             print(f"Found existing Morpheus directory structure under {project_dir}!\n"
                   f"Not overwriting files and aborting...", file=sys.stderr)
 
@@ -71,11 +69,13 @@ def main():
             cmake_file_contents = cmake_file.read()
 
         with open(os.path.join(project_dir, "CMakeLists.txt"), 'w') as cmake_file:
-            cmake_file.write(cmake_file_contents.\
-                replace("set(PROJECT_NAME \"Project Template Name\")",
-                        f"set(PROJECT_NAME \"{new_project_name}\")").\
-                replace("set(MORPHEUS_DIR \"\")",
-                        f"set(MORPHEUS_DIR \"{os.path.abspath(morpheus_dir).replace("\", "\/")})"))
+            morpheus_dir = os.path.abspath(morpheus_dir).replace(os.sep, "/")
+
+            cmake_file.write(cmake_file_contents. \
+                             replace("set(PROJECT_NAME \"Project Template Name\")",
+                                     f"set(PROJECT_NAME \"{new_project_name}\")"). \
+                             replace("set(MORPHEUS_DIR \"\")",
+                                     f"set(MORPHEUS_DIR \"{morpheus_dir}\")"))
 
         print(f"Morpheus project {new_project_name} successfully created at {project_dir}!")
     else:
