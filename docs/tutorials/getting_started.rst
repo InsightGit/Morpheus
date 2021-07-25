@@ -77,11 +77,12 @@ in Linux/macOS and
 
 in Windows Powershell, assuming <src dir> is the path to the source dir, and you are building for the GBA.
 
-If you are building on Windows, I suggest you use the "NMake MakeFiles" as I've had the most
+If you are building on Windows, I suggest you use the "NMake Makefiles" as I've had the most
 success compiling Morpheus with that generator. In addition, you might need to specify the
 python3 executable if it not found by CMake. Doing both of these suggestion would result in the
 following recommended command for building on Windows:
 ``$env:PLATFORM="gba"; cmake .. -G"NMake Makefiles" -DPYTHON3="C:\Program Files\Python39\python.exe"``
+From there, you should be able to build Morpheus by invoking nmake within the build folder.
 
 assuming that you have the 64-bit version of Python 3.9 installed in the standard location on the C drive
 and that you are compiling for the GBA.
