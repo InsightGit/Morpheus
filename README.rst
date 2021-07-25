@@ -24,7 +24,7 @@ Looking for the documentation? `Here it is! <https://insightgit.gitlab.io/Morphe
 * Cross-platform "Ani" sprite animation engine
 * CMake integration
 * Basic libtonc/libnds Text API implemented in addition to an experimental
-  cross-platform "Expression" text API supporting ASCII or UTF8 custom 
+  cross-platform "Expression" text API supporting ASCII or UTF8 custom
   fonts manually created or generated from the generate_font.py buildtools
 * GBA multiplayer-mode serial communication
 * MaxMod sfx and module support
@@ -32,13 +32,13 @@ Looking for the documentation? `Here it is! <https://insightgit.gitlab.io/Morphe
 * Save manager supporting DS DLDI, GBA SRAM, and GBA 64kb/128kb FLASH saves
 * External Palette support on the DS for Sprites and Backgrounds
 * Several Python 3 scripts to assist with asset management and the build process
+* Doxygen and sphinx documentation
 
 -------------------------
 🏗️ Work in Progress (WIP)
 -------------------------
 
 * Reworking puzzler test game to support newer API, and creating the Hayai test game (in progress)
-* Doxygen and Sphinx documentation (in progress)
 * Affine Background and TextBase support (in progress)
 * Background animation support (in progress)
 * DS wifi support (not yet started)
