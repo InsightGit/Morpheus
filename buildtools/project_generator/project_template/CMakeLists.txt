@@ -8,7 +8,7 @@ include("cmake/morpheus_build_utils.cmake")
 ## Project-dependent variables
 ## ---------------------------
 
-set(PROJECT_NAME "Project Template Name")
+set(PROJECT_NAME "TestProject")
 
 set(MAIN_SRC_FILES src/main.cpp)
 
@@ -39,16 +39,24 @@ set(NDS_SUBTITLE2 " ")
 ## Library setup-dependent variables
 ## ---------------------------------
 
+if(WIN32)
+    string(REPLACE "\\" "/" DEVKITPRO $ENV{DEVKITPRO})
+    string(REPLACE "\\" "/" DEVKITARM $ENV{DEVKITARM})
+else()
+    set(DEVKITPRO $ENV{DEVKITPRO})
+    set(DEVKITARM $ENV{DEVKITARM})
+endif()
+
 set(MORPHEUS_DIR "")
 
 # ${CMAKE_CURRENT_BINARY_DIR} is included here for including generated files
 set(COMMON_INCLUDE_DIRECTORIES ${MORPHEUS_DIR}/include ${CMAKE_CURRENT_BINARY_DIR})
-set(GBA_INCLUDE_DIRECTORIES $ENV{DEVKITPRO}/libtonc/include $ENV{DEVKITPRO}/libgba/include)
-set(NDS_INCLUDE_DIRECTORIES $ENV{DEVKITPRO}/libnds/include)
+set(GBA_INCLUDE_DIRECTORIES ${DEVKITPRO}/libtonc/include ${DEVKITPRO}/libgba/include)
+set(NDS_INCLUDE_DIRECTORIES ${DEVKITPRO}/libnds/include)
 
 set(COMMON_LINK_DIRECTORIES ${MORPHEUS_DIR}/lib)
-set(GBA_LINK_DIRECTORIES $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
-set(NDS_LINK_DIRECTORIES $ENV{DEVKITPRO}/libnds/lib)
+set(GBA_LINK_DIRECTORIES ${DEVKITPRO}/libtonc/lib ${DEVKITPRO}/libgba/lib)
+set(NDS_LINK_DIRECTORIES ${DEVKITPRO}/libnds/lib)
 
 ## ----------------------------
 ## Cross-compiler configuration
@@ -66,7 +74,7 @@ if(platform_lower STREQUAL "gba")
     add_compile_definitions(_GBA)
 
     if(NOT GBAFIX)
-        find_program(GBAFIX gbafix $ENV{DEVKITPRO}/tools/bin/)
+        find_program(GBAFIX gbafix ${DEVKITPRO}/tools/bin/)
         if(GBAFIX)
             message(STATUS "gbafix: ${GBAFIX} - found")
         else()
@@ -75,7 +83,7 @@ if(platform_lower STREQUAL "gba")
     endif()
 
     if(NOT OBJCOPY)
-        find_program(OBJCOPY arm-none-eabi-objcopy $ENV{DEVKITARM}/bin)
+        find_program(OBJCOPY arm-none-eabi-objcopy ${DEVKITARM}/bin)
         if(OBJCOPY)
             message(STATUS "objcopy: ${OBJCOPY} - found")
         else()
@@ -93,7 +101,7 @@ elseif(platform_lower STREQUAL "nds")
     add_compile_definitions(_NDS)
 
     if(NOT NDSTOOL)
-        find_program(NDSTOOL ndstool $ENV{DEVKITPRO}/tools/bin)
+        find_program(NDSTOOL ndstool ${DEVKITPRO}/tools/bin)
         if(NDSTOOL)
             message(STATUS "ndstool: ${NDSTOOL} - found")
         else()
@@ -116,21 +124,23 @@ set(CMAKE_C_COMPILER_WORKS 1)
 set(CMAKE_CXX_COMPILER_WORKS 1)
 
 if(WIN32)
-    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
-    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
-    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
-    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
-    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
-    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
-    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
+    message(STATUS "Running on Windows")
+
+    set(CMAKE_C_COMPILER "${DEVKITARM}/bin/arm-none-eabi-gcc.exe")
+    set(CMAKE_CXX_COMPILER "${DEVKITARM}/bin/arm-none-eabi-g++.exe")
+    set(CMAKE_LINKER "${DEVKITARM}/bin/arm-none-eabi-ld.exe")
+    set(CMAKE_AR "${DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe")
+    set(CMAKE_AS "${DEVKITARM}/bin/arm-none-eabi-as.exe")
+    set(CMAKE_NM "${DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe")
+    set(CMAKE_RANLIB "${DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe")
 else()
-    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
-    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
-    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
-    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
-    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
-    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
-    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
+    set(CMAKE_C_COMPILER "${DEVKITARM}/bin/arm-none-eabi-gcc")
+    set(CMAKE_CXX_COMPILER "${DEVKITARM}/bin/arm-none-eabi-g++")
+    set(CMAKE_LINKER "${DEVKITARM}/bin/arm-none-eabi-ld")
+    set(CMAKE_AR "${DEVKITARM}/bin/arm-none-eabi-gcc-ar")
+    set(CMAKE_AS "${DEVKITARM}/bin/arm-none-eabi-as")
+    set(CMAKE_NM "${DEVKITARM}/bin/arm-none-eabi-gcc-nm")
+    set(CMAKE_RANLIB "${DEVKITARM}/bin/arm-none-eabi-gcc-ranlib")
 endif()
 
 enable_language(ASM)
@@ -185,7 +195,7 @@ foreach(i RANGE ${png4_tilemap_files_length})
     list(GET tilemap_size_list 1 tilemap_height)
 
     convert_tilemap_bin_image_file(${tilemap_file} ${CMAKE_CURRENT_BINARY_DIR} ${tilemap_width}
-                                   ${tilemap_height} ${palette_id} ${tile_file} FALSE FALSE)
+            ${tilemap_height} ${palette_id} ${tile_file} FALSE FALSE)
 
     list(APPEND PNG4_OUTPUT_FILES ${CMAKE_CURRENT_BINARY_DIR}/${tilemap_name}.c)
 endforeach()

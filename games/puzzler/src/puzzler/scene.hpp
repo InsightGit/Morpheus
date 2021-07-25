@@ -5,7 +5,7 @@
 #ifndef PUZZLER_SCENE_HPP
 #define PUZZLER_SCENE_HPP
 
-#include <core/control_reciever.hpp>
+#include <morpheus/core/control_reciever.hpp>
 
 namespace puzzler {
     class Scene : public morpheus::core::ControlReciever {

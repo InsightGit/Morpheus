@@ -90,7 +90,7 @@ def main() -> None:
         else:
             image_mode = "RGB"
 
-            if len(sys.argv) > 7:
+            if len(sys.argv) > 9:
                 background_color = (int(sys.argv[7]), int(sys.argv[8]), int(sys.argv[9]))
             else:
                 background_color = (0, 0, 0)

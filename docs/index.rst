@@ -21,3 +21,4 @@ Welcome to Morpheus's documentation!
    :maxdepth: 1
 
    classes/class_index.rst
+   misc/cmake_morpheus_build_utils_docs.rst

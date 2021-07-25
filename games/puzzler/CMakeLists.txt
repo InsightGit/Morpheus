@@ -6,8 +6,31 @@ cmake_minimum_required(VERSION 3.16)
 include(cmake/morpheus_build_utils.cmake)
 string(TOLOWER "$ENV{PLATFORM}" platform_lower)
 
-set(BASE_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../morpheus
+set(BASE_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../../include
         ${CMAKE_CURRENT_SOURCE_DIR}/../../assets)
+
+#set( CMAKE_VERBOSE_MAKEFILE on )
+
+set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
+
+if(WIN32)
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc.exe")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++.exe")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld.exe")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar.exe" CACHE STRING "")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm.exe" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib.exe" CACHE STRING "")
+else()
+    set(CMAKE_C_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc")
+    set(CMAKE_CXX_COMPILER "$ENV{DEVKITARM}/bin/arm-none-eabi-g++")
+    set(CMAKE_LINKER "$ENV{DEVKITARM}/bin/arm-none-eabi-ld")
+    set(CMAKE_AR "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ar" CACHE STRING "")
+    set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as")
+    set(CMAKE_NM "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-nm" CACHE STRING "")
+    set(CMAKE_RANLIB "$ENV{DEVKITARM}/bin/arm-none-eabi-gcc-ranlib" CACHE STRING "")
+endif()
 
 if(WIN32)
     set(CMAKE_AS "$ENV{DEVKITARM}/bin/arm-none-eabi-as.exe")
@@ -53,7 +76,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-g -Wall -Werror -O2 ${ARCH_FLAGS} -ffast-math -fno-strict-aliasing -fno-rtti -fno-exceptions")
 
 project(puzzler)
-
 
 set(MAXMOD_SOUNDBANK_LIST "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/gemcompleted.wav"
                           "${CMAKE_CURRENT_SOURCE_DIR}/assets/sfx/gemplaced.wav"
@@ -144,7 +166,7 @@ if(platform_lower STREQUAL "gba")
 
     generate_maxmod_soundbank(true ${MAXMOD_SOUNDBANK_NAME} MAXMOD_SOUNDBANK_LIST)
 
-    link_directories(puzzler PRIVATE ../../cmake-build-debug-gba $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
+    link_directories(puzzler PRIVATE ../../lib $ENV{DEVKITPRO}/libtonc/lib $ENV{DEVKITPRO}/libgba/lib)
 
     add_executable(puzzler.elf ${SOURCE_FILES})
     add_gba_executable(puzzler.elf)
@@ -170,7 +192,7 @@ elseif(platform_lower STREQUAL "nds")
         endif()
     endif()
 
-    link_directories(puzzler PRIVATE ../../cmake-build-debug-nds $ENV{DEVKITPRO}/libnds/lib)
+    link_directories(puzzler PRIVATE ../../lib $ENV{DEVKITPRO}/libnds/lib)
 
     convert_tilemap_bin_image_file("assets/backgrounds/subscorescreen.bin" ${CMAKE_CURRENT_BINARY_DIR} 32 32 0
                                    "assets/backgrounds/subscorescreen.png" false "")

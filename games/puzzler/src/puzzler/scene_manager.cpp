@@ -11,11 +11,11 @@ puzzler::SceneManager::SceneManager(morpheus::core::MainLoop *main_loop) {
 
     m_main_loop->add_control_reciever(m_current_scene);
 
-    nocashMessage("setting up");
+    //nocashMessage("setting up");
 
     m_current_scene->setup();
 
-    nocashMessage("set up!");
+    //nocashMessage("set up!");
 }
 
 void puzzler::SceneManager::update(unsigned char cycle_time) {

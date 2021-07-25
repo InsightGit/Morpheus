@@ -36,7 +36,9 @@ def main():
             os.makedirs(os.path.join(project_dir, "buildtools"), exist_ok=False)
             os.makedirs(os.path.join(project_dir, "cmake"), exist_ok=False)
             os.makedirs(os.path.join(project_dir, "src"), exist_ok=False)
-        except OSError:
+        except OSError as e:
+            raise e
+
             print(f"Found existing Morpheus directory structure under {project_dir}!\n"
                   f"Not overwriting files and aborting...", file=sys.stderr)
 

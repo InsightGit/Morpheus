@@ -152,28 +152,6 @@ function(execute_grit_tilemap png_file is_4bpp palette_bank_num is_affine)
             VERBATIM)
 endfunction()
 
-# TODO(Bobby): Update this function to match the working function below this function (convert_tilemap_bin_png_file)
-function(convert_tilemap_bin_files build_dir palette_bank_num bin_files target_name_var)
-    if(WIN32)
-        find_program(PYTHON3 python)
-    else()
-        find_program(PYTHON3 python3)
-    endif()
-
-    if(NOT PYTHON3)
-        message(FATAL_ERROR "python3 - not found")
-    endif()
-
-    foreach(bin_file IN ${${bin_files}})
-        add_custom_command(OUTPUT ${bin_file}.c
-                COMMAND ${PYTHON3} buildtools/bintileconvert/bintileconvert.py ${bin_file} ${build_dir}
-                        ${palette_bank_num}
-                VERBATIM)
-    endforeach()
-
-    execute_grit_tilemaps(palette_bank_num)
-endfunction()
-
 function(convert_tilemap_bin_image_file bin_file build_dir width height palette_bank_num image_file is_8bpp is_affine)
     if(WIN32)
         find_program(PYTHON3 python)
