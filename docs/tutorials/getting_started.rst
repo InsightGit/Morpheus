@@ -82,8 +82,7 @@ success compiling Morpheus with that generator. In addition, you might need to s
 python3 executable if it not found by CMake. Doing both of these suggestion would result in the
 following recommended command for building on Windows:
 ``$env:PLATFORM="gba"; cmake .. -G"NMake Makefiles" -DPYTHON3="C:\Program Files\Python39\python.exe"``
-From there, you should be able to build Morpheus by invoking nmake within the build folder.
-
+From there, you should be able to build Morpheus by invoking nmake within the build folder,
 assuming that you have the 64-bit version of Python 3.9 installed in the standard location on the C drive
 and that you are compiling for the GBA.
 
